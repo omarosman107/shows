@@ -1,0 +1,124 @@
+== EXPERIMENTAL ==
+
+
+ADULTSWIM: Some episodes don't have images 
+ABC:Extreme Slowness and bugginess
+PLAYER:New design 
+
+
+== CHANGELOG ==
+all episodes are unlocked from fox!
+--
+new loader for videos
+--
+removed ads fully from fox videos!
+--
+fox shows have a faster loading time
+--
+new show layout in shows section
+--
+cw player 3x better quality and 2x faster
+--
+captions added for cw shows
+--
+cw player using way better servers and better quality
+--
+added show logos in player
+--
+new image format
+--
+new continue watching layout for mobile
+--
+fonts have been shrinked
+--
+image previews are blurred for a nice look
+--
+removed some small animations
+--
+changed to solid background for performance improvements while scrolling
+--
+image previews have been added to all episodes
+--
+show images have been resized for better speed
+--
+removed the delay after bar reaches 100%
+--
+bug fixes and speed improvements
+--
+faster loading times
+--
+preview images for some episodes
+--
+top progress is now much smoother
+--
+progress on the top
+--
+show images are in landscape
+--
+images now look better on any screen
+--
+fox episodes get added faster
+--
+scroll performance is better
+--
+cards go up more on hover
+--
+loader has a different background
+--
+significantly faster load times
+--
+scrollbar transparent
+--
+new theme
+--
+preview video on hover
+--
+fixed bugs
+--
+tvshow icons have way smooth animations
+--
+new launcher
+--
+performance improvements
+--
+search saves your query if you go back
+--
+images load more efficently
+--
+show images are bigger on mobile
+--
+screen scrolls down when you click on a show
+--
+made search faster
+--
+fixed more bugs
+--
+more animations!!
+--
+if you click on the show name in the player it takes you to the show page.
+--
+made player buffer go away a little
+--
+fixed some bugs!
+--
+changed show name  font
+--
+added an go back up button
+--
+made cards less smaller when active
+--
+cards shrink if holding on them
+--
+the image quality changes if your on pc or phones 
+--
+cards are bigger
+--
+Progress Animation :)
+--
+Just made the loading way faster.
+--
+Added loading spinners which are dynamic
+--
+Added Nick
+--
+

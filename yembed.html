@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<iframe style="    border: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;" src="https://www.youtube.com/embed/?autohide=1&html5=1&ps=picasaweb&use_native_controls=0&enablecastapi=0&color=white&enablejsapi=1&origin=http%3A%2F%2F127.0.0.1&widgetid=1" allowfullscreen></iframe>
+    <div id="ytplayer"></div>
+    <script type="text/javascript">
+    	// Load the IFrame Player API code asynchronously.
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/player_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  // Replace the 'ytplayer' element with an <iframe> and
+  // YouTube player after the API code downloads.
+  var player;
+  function onYouTubePlayerAPIReady(e) {
+  	console.log(e)
+    player = new YT.Player('ytplayer', {
+      height: '360',
+      color:'white',
+      width: '640',
+      videoId: 'M7lc1UVf-VE'
+    });
+  }
+    </script>
+</body>
+</html>

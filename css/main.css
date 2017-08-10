@@ -1,0 +1,27 @@
+.embed-responsive-16by9 {
+    padding-bottom: 28.25%;
+    width: 50%;
+    margin: auto;
+    padding-top: 6%;
+
+}
+
+body {
+
+
+}
+
+@media (max-width: 800px){
+
+    .embed-responsive-16by9 {
+    padding-bottom: 59.25%;
+    width: 100%;
+    margin: auto;
+    padding-left: 0%;
+}
+}
+
+img {
+    vertical-align: middle;
+    border-radius: 6%;
+}

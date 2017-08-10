@@ -1,0 +1,126 @@
+
+<!DOCTYPE html><html class=''>
+<head>
+
+   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+            <link async href="css/feed.css" rel="stylesheet">
+                  <link async href="css/font-awesome.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+<div class="contain">
+<h1>FOX EPISODES</h1>
+<p>Made By <a href="https://twitter.com/itsMangoPlays">@itsMangoPlays </a></p>
+  <h1 style="text-align:center;font-size:xx-large">FOX  Episodes</h1>
+   <ul id="carasoul" class="fanarts-list list-unstyled list-inline">
+</ul>
+   </div>
+
+   <script type="text/javascript" src="js/fetch.min.js"></script> 
+
+<script>
+
+if (!window.fetch) {
+	alert('fetch isnt working')
+}
+// url (required), options (optional)
+function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
+function rating(rate){
+console.log(rate)
+if (rate.includes('tv-14')) {
+	return "TV-14"
+}
+	if (rate.includes('tv-pg')) {
+		return "TV-PG"
+	}
+
+	if (rate.includes('tv-y7')) {
+		return "TV-Y7"
+	}
+
+
+	if(rate.incldues('tv-y')){
+		return "TV-Y"
+	}
+
+	if(rate.includes('tv-g')){
+		return "TV-G"
+	}
+
+}
+function epiformat(s,e){
+
+	if (s < 10) {
+s = 0 + s
+	}
+		if (e < 10) {
+e = 0 + e
+	}
+
+	return 'S' + s + 'E' + e
+}
+function toTitleCase(str)
+{
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+} 
+var template = "";
+function fox(range){
+fetch('https://feed.theplatform.com/f/fox.com/metadata?count=true&byCustomValue={fullEpisode}{true}&range=' + range, {
+	method: 'get'
+}).then(function(response) {
+	return response.json();
+}).then(function(data){
+ for(i in data.results){
+ 	if (Date.now() > data.results[i].authEndDate) {
+
+
+
+    template = template + '<li class=initialized id=episode-item-5749090><div class="piece fanart-container"><div class=image-crop><a href="'+data.results[i].videoURL+'"><img alt="'+toTitleCase(data.results[i].name)+'" src="'+data.results[i].videoStillURL+'"></a><div class="overlay"><a href="player.html?'+data.results[i].videoURL+'" class="overlay-btn zoom-btn " title="Watch"><i class="fa fa-play"></i></a></div></div><div class="episode-details fanart-details"><h2><a href="player.html?'+data.results[i].videoURL+'">'+(data.results[i].name)+'</a></h2><a href="player.html?'+data.results[i].videoURL+'" class=secondary-link>'+data.results[i].series.split('/')[data.results[i].series.split('/').length - 1] +'</a><div class=more-infos></div><p>'+data.results[i].airdate+' | ' + rating(data.results[i].rating) + ' | '+fmtMSS(data.results[i].length) +' | '+epiformat(data.results[i].season,data.results[i].episode)+'</div></div>'
+      document.getElementById('carasoul').innerHTML = template;
+
+
+
+   document.getElementById('carasoul').innerHTML =   document.getElementById('carasoul').innerHTML +  template
+}
+   }
+   template = ''
+}).catch(function(err) {
+console.log('and error occured')
+});
+}
+fox('0-25')
+function find(){
+
+
+}
+function getDocHeight() {
+    var D = document;
+    return Math.max(
+        D.body.scrollHeight, D.documentElement.scrollHeight,
+        D.body.offsetHeight, D.documentElement.offsetHeight,
+        D.body.clientHeight, D.documentElement.clientHeight
+    )
+}
+function amountscrolled(){
+	var winheight= window.innerHeight || (document.documentElement || document.body).clientHeight
+	var docheight = getDocHeight()
+	var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
+	var trackLength = docheight - winheight
+	var pctScrolled = Math.floor(scrollTop/trackLength * 100)
+	 // gets percentage scrolled (ie: 80 or NaN if tracklength == 0)
+	if (Math.floor(scrollTop/trackLength * 100) > 70) {
+find()
+	console.log( 'You have scrolled the page by: ' + pctScrolled +'%')
+
+	}
+}
+
+window.addEventListener("scroll", function(){
+	amountscrolled()
+}, false)
+
+
+
+</script>
+</body></html>

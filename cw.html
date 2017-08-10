@@ -1,0 +1,87 @@
+
+<!DOCTYPE html><html class=''>
+<head>
+   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+      <link async href="css/font-awesome.min.css" rel="stylesheet">
+            <link async href="css/feed.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+<div class="contain">
+<h1>CWTV THE FLASH</h1>
+<p>Made By <a href="https://twitter.com/itsMangoPlays">@itsMangoPlays </a></p>
+  <h1 style="text-align:center;font-size:xx-large">The Flash Episodes</h1>
+
+<ul id="carasoul" class="fanarts-list list-unstyled list-inline">
+</ul>
+
+       
+
+   <script type="text/javascript" src="js/fetch.min.js"></script> 
+
+<script>
+
+
+if (!window.fetch) {
+	alert('fetch isnt working')
+}
+
+var theflash = 'http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash'
+var show_hub = 'http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub'
+var shows = 'http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100'
+var proxy = 'https://cors-anywhere.herokuapp.com/'
+var template = "";
+fetch(proxy + show_hub, {
+    method: 'get'
+}).then(function(response) {
+    return response.json();
+}).then(function(data){
+var start = new Date()
+
+ for(i in data.videos){
+   if(data.videos[i].fullep == 1){
+     function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000 * 60);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes;
+}
+
+var epinum = data.videos[i].episode
+try{
+epinum = data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1]
+
+}catch(e){
+console.log(e)
+}
+
+
+     
+     var medialink ='player.html?'+data.videos[i].share_url
+    template = template + '<li class=initialized id=episode-item-5749090><div class="piece fanart-container"><div class=image-crop><a href="'+medialink+'"><img alt="'+data.videos[i].series_name+'" src="'+data.videos[i].large_thumbnail+'"></a><div class="overlay"><a href="'+medialink+'" class="overlay-btn zoom-btn " title="Watch"><i class="fa fa-play"></i></a></div></div><div class="episode-details fanart-details"><h2><a href="'+medialink+'">'+data.videos[i].title+'</a></h2><a href="'+medialink+'" class=secondary-link>'+data.videos[i].series_name +'</a><div class=more-infos></div><p>'+data.videos[i].airdate+' | ' + data.videos[i].rating + ' | '+data.videos[i].duration +' | '+epinum+'</div></div>'
+      document.getElementById('carasoul').innerHTML = template;
+     
+
+   }
+   }
+   template = ''
+   var end = new Date()
+
+   console.log(end.getTime() - start.getTime())
+}).catch(function(err) {
+console.log(err.message)
+});
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body></html>

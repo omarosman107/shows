@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<title>FOX NEW API</title>
+	<style type="text/css">
+	@charset "UTF-8";
+/*!
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */@font-face{font-family:'FontAwesome';src:url('fonts/fontawesome-webfont.eot?v=4.7.0');src:url('fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),url('fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),url('fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),url('fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),url('fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fa-search:before{content:"\f002"}.fa-check:before{content:"\f00c"}.fa-play-circle-o:before{content:"\f01d"}.fa-play:before{content:"\f04b"}.fa-level-up:before{content:"\f148"}
+
+
+
+		.show {
+    max-width: 300px;
+        margin: 5px;
+    display: inline-block;
+        -webkit-transition: all 0.3s cubic-bezier(.03,.98,.52,.99);
+    transition: all 0.3s cubic-bezier(.03,.98,.52,.99);
+    will-change: opacity,transform;
+    opacity: .4;
+
+}
+
+.scroller {
+
+white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+}
+body{
+	    background-color: #1b1b1b;
+margin: 0px;
+padding: 0px;
+color: white;
+
+}
+.showData li{
+
+
+width: 100%;
+max-width: 300px;
+display: inline-block;
+margin: 10px;
+}
+
+	body {
+		margin: 0;
+		padding: 0;
+		            font-family: sans-serif;
+
+
+	}
+
+
+		.container .card{
+background-color: #252525;	
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1), 0 1px 8px rgba(0,0,0,.1);
+    max-width: 600px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto 40px;
+    padding-bottom: 20px;
+		}
+.container {
+
+    padding: 1px 20px;
+    position: relative;
+	color: #dcdcdc;
+    font-size: 14px;
+    line-height: 2em;
+    padding-top: 40px;
+
+}
+.container .content{
+text-align: center;
+padding: 20px;
+word-wrap: break-word;
+
+}
+.header {
+	padding: 40px;
+	text-align: center;
+	background: white;
+	    box-shadow: 0 1px 1px rgba(0,0,0,.1), 0 1px 8px rgba(0,0,0,.1);
+    z-index: 1;
+margin: auto;
+
+}
+
+
+.overlay {
+	z-index: 2;
+    position: absolute;
+    top: 0px;
+    bottom: -1px;
+    left: 0px;
+    right: 0px;
+    letter-spacing: 0px;
+    overflow: hidden;
+    transition: all 0.23s ease-out;
+}
+
+.sixteen-nine {
+  position: relative;
+}
+.sixteen-nine:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: 56.25%;
+}
+.sixteen-nine > .mediacontent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+}
+
+.card .top .overlay:hover {
+opacity: 1;
+}
+
+.overlay .overlay-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 40px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.scroller .show:hover{
+transform: scale(1.01);
+opacity: 1;
+}
+
+
+.spinner {
+  animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+  0% {
+    stroke: #4285F4;
+  }
+  25% {
+    stroke: #DE3E35;
+  }
+  50% {
+    stroke: #F7C223;
+  }
+  75% {
+    stroke: #1B9A59;
+  }
+  100% {
+    stroke: #4285F4;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}
+
+.spin{
+margin: auto;
+
+   width: 100%;
+     display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.cardBorder {
+    width: 193px;
+    margin: 20px auto 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.19);
+}
+.content h1 {
+    font-size: 40px;
+	font-family: ProximaNovaB;
+	line-height: 1em;
+}
+.content .details {
+    width: 75%;
+    margin: 5px auto 0;
+    color: #dad6d6;
+    font-size: 17px;
+    font-family: ProximaNova;
+    padding: 5px 0;
+}
+.content p {
+
+    font-size: 13px;
+        font-family: ProximaNova;
+
+
+}
+* {
+    -webkit-user-select: text;
+    -moz-user-select: moz-text;
+    -ms-user-select: text;
+    user-select: text
+}
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 16px
+}
+
+::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    border-radius: 8px;
+    background-clip: content-box;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #666!important
+}
+
+@font-face {
+    font-family:ProximaNova;src:url(../fonts/ProximaNova-Reg.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaSB;src:url(../fonts/ProximaNova-Sbold.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaB;src:url(fonts/ProximaNova-Bold.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaXB;src:url(fonts/ProximaNova-Xbold.otf)
+}
+
+@font-face {
+    font-family:DinotCB;src:url(fonts/DINOT-CondBold.otf)
+}
+
+@font-face {
+    font-family:DinotCL;src:url(fonts/DINOT-CondLight.otf)
+}
+
+@font-face {
+    font-family:ProximaNova;src:url(fonts/ProximaNova-Reg.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaSB;src:url(fonts/ProximaNova-Sbold.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaB;src:url(fonts/ProximaNova-Bold.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaXB;src:url(fonts/ProximaNova-Xbold.otf)
+}
+
+@font-face {
+    font-family:DinotCB;src:url(fonts/DINOT-CondBold.otf)
+}
+
+@font-face {
+    font-family:DinotCL;src:url(fonts/DINOT-CondLight.otf)
+}
+
+@font-face {
+    font-family:DinotL;src:url(fonts/DINOT-Light.otf)
+}
+
+@font-face {
+    font-family:Dinot;src:url(fonts/DINOT-Regular.otf)
+}
+
+@font-face {
+    font-family:DinotM;src:url(fonts/DINOT-Medium.otf)
+}
+
+@font-face {
+    font-family:"Helvetica Neue Thin";src:url(fonts/HelveticaNeueThin/HelveticaNeue-Thin.otf)
+}
+
+@font-face {
+    font-family:ProximaNova;src:url(fonts/ProximaNova-Reg.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaSB;src:url(fonts/ProximaNova-Sbold.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaB;src:url(fonts/ProximaNova-Bold.otf)
+}
+
+@font-face {
+    font-family:ProximaNovaXB;src:url(fonts/ProximaNova-Xbold.otf)
+}
+.play{
+	fill-opacity:0.8;
+}
+.play:hover{
+
+fill-opacity:1;
+}
+	</style>
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div class="scroller " id="scroll"></div>
+<div class="spin"><svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">\
+   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>\
+</svg></div>
+<div class="container showData" id="showdata"></div>
+
+<script   src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script type="text/javascript">
+  var hovering;
+
+function playHover(element){
+  hovering = setTimeout(function(){
+
+
+    element.setAttribute("src",element.getAttribute('alternative-src'))
+    var url = element.getAttribute('url')
+
+
+
+
+
+  },2000)
+
+
+}
+function stopHover(element){
+clearTimeout(hovering);
+    element.src = (element.getAttribute('org'))
+
+
+  }
+
+
+
+
+
+
+
+	function loadPlayer(element){
+		try{
+		element.setAttribute('onclick','')
+ var video = element.querySelector('video')
+    var url = element.getAttribute('url')
+
+ var loadMedia = new XMLHttpRequest();
+loadMedia.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+element.querySelector('.overlay').style.display = 'none';
+element.querySelector('.mediacontent').style.display = 'none';
+if (video.canPlayType('application/vnd.apple.mpegURL')) {
+video.src = JSON.parse(this.responseText).playURL
+      video.play();
+
+}else{
+	if(Hls.isSupported()) {
+    console.log(url)
+    var hls = new Hls();
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+
+
+  });
+    hls.loadSource(JSON.parse(this.responseText).playURL)
+
+}
+
+  }
+}
+});
+loadMedia.open("GET", url);
+loadMedia.send(data)
+
+
+
+
+
+
+ 
+
+element.querySelector('.overlay-btn').outerHTML = '<svg class="spinner overlay-btn zoom-btn" style="margin:auto;display: block;" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">\
+   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>\
+</svg>'
+}catch(e){
+	console.log('error detected')
+	console.error(e)
+}
+	}
+	var externalToApi = 'https://api.fox.com/fbc-content/v3/video?externalId=853172291669'
+var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
+var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001a9fb82/items' 
+var data = null;
+function formatDate(date) {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  return [year, month, day].join('-');
+}
+function loadInfo(thing){
+document.getElementById('showdata').innerHTML = ''
+document.getElementsByClassName('spin')[0].style.display = 'flex'
+	console.log('https://api.fox.com/fbc-content/v3/screens/series-detail/'+thing.id)
+var loadShow = new XMLHttpRequest();
+loadShow.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    var showinfo = (JSON.parse(this.responseText));
+console.log(showinfo)
+var season = showinfo.panels.member[1].items.member["0"].episodes["@id"]
+console.log(season)
+var seasoninfo = new XMLHttpRequest();
+seasoninfo.addEventListener("readystatechange",function () {
+  if (this.readyState === 4) {
+var json = (JSON.parse(this.responseText))
+document.getElementById('showdata').innerHTML += '<img style="    margin: 0px auto 30px;max-width: 400px;    width: 100%;display: block;" width="100%" src="'+json.member[0].images.logoCenter.FHD+'">'
+for(i in json.member){
+if(!json.member[i].requiresAuth && json.member[i].isFullEpisode ){
+
+document.getElementById('showdata').innerHTML += '<div class="card">\
+		<div class="sixteen-nine top" url="'+json.member[i].videoRelease.url+'" onclick="loadPlayer(this)">\
+		<video class="sixteen-nine" style="top:0px;position: absolute;"   inline  controls width="100%" height="100%"></video>\
+			<img class="mediacontent" width="100%" src="'+json.member[i].images.still.HD+'">\
+			<div class="overlay"><a   href="javascript:" class="overlay-btn zoom-btn"><svg class="play" style="width:70px;" viewBox="0 0 24 24">\
+    <path fill="#ffffff" d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg></a></div>\
+		</div>\
+		<div class="content">\
+			<h1>'+json.member[i].headline+'</h1>\
+			<p>'+json.member[i].description+'</p>\
+			<div class="cardBorder"></div>\
+			<p class="details">'+formatDate(json.member[i].originalAirDate  )+' | '+json.member[i].contentRating+' | '+Math.round(json.member[i].durationInSeconds / 60) + 'm'+' | S'+json.member[i].seasonNumber+'E'+json.member[i].episodeNumber+'</p>\
+</div>\
+\</div>'
+
+
+var old = '<li><a href="'+json.member[i].videoRelease.url+'"><img  width="100%" src="'+json.member[i].images.still.HD+'"><span>'+json.member[i].headline+'</span></a></li>'
+console.log(json.member[i].images)
+console.log(json.member[i].videoRelease.url)
+console.log(json.member[i].headline)
+console.log(json.member[i].description)
+console.log(json.member[i].episodeNumber)
+console.log(json.member[i].seasonNumber)
+
+console.log(json.member[i].description)
+
+console.log(formatDate(json.member[i].originalAirDate  ))
+console.log(Math.round(json.member[i].durationInSeconds / 60) + 'm')
+}
+
+
+
+}
+    document.getElementsByClassName('spin')[0].style.display = 'none'
+
+}
+
+}) 
+seasoninfo.open("GET",season);
+seasoninfo.setRequestHeader("apikey", "rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR");
+
+seasoninfo.send(null)
+
+
+
+
+  }
+});
+loadShow.open("GET", 'https://api.fox.com/fbc-content/v3/screens/series-detail/'+thing.id);
+
+loadShow.setRequestHeader("apikey", "rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR");
+loadShow.send(data)
+
+}
+
+var xhr = new XMLHttpRequest();
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    var foxshows = (JSON.parse(this.responseText).panels.member[3].items.member);
+    for (var i = foxshows.length - 1; i >= 0; i--) {
+    	document.getElementById('scroll').innerHTML += '\
+<div onclick="loadInfo(this)" id="'+foxshows[i].id+'" class="show"><img onmouseover="playHover(this)" onmouseout="stopHover(this)" width="100%" org="'+foxshows[i].images.seriesList.FHD+'" alternative-src="'+foxshows[i].autoPlayStill.default.url+'" src="'+foxshows[i].images.seriesList.FHD+'"></div>   	'
+    	console.log(foxshows[i])
+    	console.log(foxshows[i].images.seriesList.HD)
+    }
+    document.getElementsByClassName('spin')[0].style.display = 'none'
+
+  }
+});
+
+
+xhr.open("GET", "https://api.fox.com/fbc-content/v3/screens/find");
+
+xhr.setRequestHeader("apikey", "rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR");
+
+
+xhr.send(data);
+
+
+
+/*
+var newestReq = new XMLHttpRequest();
+
+newestReq.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    var json = (JSON.parse(this.responseText));
+    console.log(json)
+    for (var i = json.member.length - 1; i >= 0; i--) {
+    	if (json.member[i].network == 'fox') {
+document.getElementById('showdata').innerHTML += '<div class="card">\
+		<div class="sixteen-nine top" url="'+'" onclick="loadPlayer(this)">\
+		<video class="sixteen-nine" style="top:0px;position: absolute;"   inline  controls width="100%" height="100%"></video>\
+			<img class="mediacontent" width="100%" src="'+json.member[i].autoPlayStill.default.url+'">\
+			<div class="overlay"><a   href="javascript:" class="overlay-btn zoom-btn"><svg class="play" style="width:70px;" viewBox="0 0 24 24">\
+    <path fill="#ffffff" d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg></a></div>\
+		</div>\
+		<div class="content">\
+			<h1>'+json.member[i].name+'</h1>\
+			<p>'+json.member[i].description+'</p>\
+			<div class="cardBorder"></div>\
+			<p class="details">'+formatDate(json.member[i].originalAirDate  )+' | '+json.member[i].contentRating+' | '+Math.round(json.member[i].durationInSeconds / 60) + 'm'+' | S'+json.member[i].seasonNumber+'E'+json.member[i].episodeNumber+'</p>\
+</div>\
+\</div>'
+    	}
+    	
+    }
+    document.getElementsByClassName('spin')[0].style.display = 'none'
+
+  }
+});
+
+
+newestReq.open("GET", newest);
+
+newestReq.setRequestHeader("apikey", "rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR");
+
+
+newestReq.send(data);
+*/
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video-js.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/3.6.13/videojs-contrib-hls.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+
+
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<input id="input" type="text" class="form-control" name="input">
+
+
+
+<a id="buttonsearch" style="margin: auto;display: block;" onclick="fetchabc();" class="btn btn-primary">Load..</a>
+
+
+<div class="embed-responsive embed-responsive-16by9">
+<video  id=LS x-webkit-airplay="allow" preload="auto" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls>
+
+
+</video>
+</div>
+
+
+
+
+  <a download="proposed_file_name" type="button" id="downloadbutton" href="#" class="btn btn-default"></a>
+  <br>
+    <img height="20%" id="img">
+
+
+<h1 id="div"></h1>
+
+
+<div id="seriesDesc"></div>
+
+<script>
+
+
+var QueryString = function () {
+  // This function is anonymous, is executed immediately and 
+  // the return value is assigned to QueryString!
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+        // If first entry with this name
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+        // If second entry with this name
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+        // If third or later entry with this name
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  } 
+  return query_string;
+}();
+
+
+
+
+var player=videojs('LS');
+var desc = document.getElementById('seriesDesc')
+
+var buttondown = document.getElementById('downloadbutton')
+
+var cid = document.getElementById('input')
+var div = document.getElementById('div')
+
+var url = "http://abc.go.com/shows/marvels-agents-of-shield/episode-guide/season-04/5-lockup"
+
+
+
+var yql1 = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D"'
+var yql2 = '"%20and%20compat%3D"html5"%20and%20xpath%3D%27*%27%0A&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback='
+
+
+var videourl
+
+
+var format
+
+
+var finalurl
+var sessionKey
+
+
+
+function parseHTML(html) {
+    var t = document.createElement('template');
+    t.innerHTML = html;
+    return t.content.cloneNode(true);
+}
+
+var documentFragment = parseHTML('<td>Test</td>'); 
+
+
+
+function fetchabc() {
+    
+
+if (cid.value == ""){
+
+console.log(url)
+
+finalurl = QueryString.url
+
+}else{
+
+    finalurl = cid.value
+
+}
+fetchabcjson(finalurl)
+
+}
+var html = "";
+	function fetchabcjson(value) {
+
+
+var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+
+ html = this.responseText;
+
+var jsonResponse = JSON.parse(this.responseText);
+
+
+ var showidjson = jsonResponse.query.results.html.body.div.main.div.section[1].div[0].div.div[1].div["data-video-id"]
+   console.log(showidjson)
+
+
+ // console.log(parseHTML(html).getElementById('playerContainer').getAttribute('data-video-id'))
+
+  //  var showid = parseHTML(html).getElementById('playerContainer').getAttribute('data-video-id')
+
+
+
+   $.post("https://api.entitlement.watchabc.go.com/vp2/ws-secure/entitlement/2020/authorize.json",
+        {
+
+     video_type:"lf",
+    token: '<signatureInfo>VCHGjI/bofuiWcleZxKfMgpZOv36XHIsqIGVOO+J+9IWg2wswtnFx5JM6MpXe3va8jFg0YQ3peyAOQwYiMFg0RJODGJ8GuTO9c/QNGaLDyzplaxo9uz/Q9Y3UbXI+rZC0IFM+TQjCr/kbK194sX3qJMRhU5fiH10rToF6YPWyLg=<signatureInfo><authToken><sessionGUID>2f46ce79d4a4dfbfca97d685680fee0e</sessionGUID><requestorID>ABC</requestorID><resourceID><![CDATA[<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>ABC</title><item><title>DATG</title><guid>VDKA3549999</guid><media:rating scheme="urn:v-chip">TV-14</media:rating></item></channel></rss>]]></resourceID><ttl>420000</ttl><issueTime>2016-11-30 14:34:00 -0800</issueTime><mvpdId>Comcast_SSO</mvpdId></authToken>',
+brand:"001",
+mvpd:"Comcast_SSO",
+token_type:"ap",
+device:"001",
+auth_flag:"1",
+adobe_resource_id:'<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title>ABC</title><item><title>DATG</title><guid>VDKA3549999</guid><media:rating scheme="urn:v-chip">TV-14</media:rating></item></channel></rss>',
+adobe_requestor_id:"ABC",
+video_id:showidjson
+
+        },
+        function(sessionkey,status){
+          sessionKey = sessionkey.uplynkData.sessionKey
+          console.log(sessionkey.uplynkData.sessionKey)
+        });
+    
+
+
+
+$.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fapi.contents.watchabc.go.com%2Fvp2%2Fws%2Fs%2Fcontents%2F3000%2Fvideos%2F001%2F001%2F-1%2F-1%2F-1%2F" + showidjson
+ + "%2F-1%2F-1.json%22%20&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", function(data) {
+
+
+       document.title = data.query.results.json.video.show.title + "- " + data.query.results.json.video.title ;
+
+        buttondown.innerHTML = "Download"
+
+
+
+
+
+
+
+console.log(data.query.results.json.video.assets.asset.value)
+
+
+
+   videourl = data.query.results.json.video.assets.asset.value + "?" + sessionKey;
+
+   console.log(data.query.results.json.video.assets.asset.format)
+
+if(data.query.results.json.video.assets.asset.format == "ULNK") {
+  format = "application/x-mpegURL";
+  videourl = data.query.results.json.video.assets.asset.value + "?" + sessionKey;
+
+
+
+}else{
+
+
+if(data.query.results.json.video.assets.asset[1].format == "MP4") {
+  format = "video/mp4";
+  videourl = data.query.results.json.video.assets.asset[1].value ;
+}
+
+}
+
+
+
+
+
+console.log("got the session key")
+        buttondown.setAttribute("href", videourl);
+
+        div.innerHTML = data.query.results.json.video.show.title + " - " +data.query.results.json.video.title
+  desc.innerHTML = data.query.results.json.video.longdescription
+
+
+
+
+
+
+
+
+
+
+player.src({"type":format, "src":videourl});
+   player.play();
+
+
+                            });
+
+
+
+
+
+    }
+  };
+
+  xhttp.open("GET", yql1 + value + yql2 , true);
+  xhttp.send();
+
+
+
+
+}
+
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66082501-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

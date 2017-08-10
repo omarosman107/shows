@@ -1,0 +1,53 @@
+
+<!DOCTYPE html><html class=''>
+<head></head><body>
+<input type="text" id="text"></input>
+<a id="click" class="waves-effect waves-light btn-large"> Search</a>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="css/materialize.min.css">
+
+<div id="name">
+  
+</div>
+<div id="poster">
+  
+</div>
+<div >
+  <table class="responsive-table" id="episodes">
+
+</table>
+  
+</div>   
+    <script type="text/javascript" src="js/fetch.min.js"></script>
+
+<script>
+var textbox = document.getElementById('text');
+function search() {
+    var query = textbox.value;
+    var bin = '';
+    fetch('http://www.omdbapi.com/?type=series&t=' + query + '&y=&plot=short&r=json').then(function (response) {
+        return response.json();
+    }).then(function (returnedValue) {
+        returnedValue.totalSeasons;
+        console.log(returnedValue);
+        document.getElementById('name').innerHTML = returnedValue.Title;
+        document.getElementById('poster').innerHTML = '<img src=\'' + returnedValue.Poster + '\'>';
+        for (var i = 0; i < returnedValue.totalSeasons; i++) {
+            console.log(i + 1);
+            fetch('http://www.omdbapi.com/?i=' + returnedValue.imdbID + '&Season=' + (i + 1)).then(function (response) {
+                return response.json();
+            }).then(function (value) {
+                for (var i = 0, il = value.Episodes.length; i < il; i++) {
+                
+                    bin = bin + ('<tr><td>S' + value.Season + 'E' + value.Episodes[i].Episode + '</td> <td> ' + value.Episodes[i].Title + '</td><td><a href="player.html?' + returnedValue.Title + ', ' + value.Episodes[i].Title + '"><button class="waves-effect waves-light btn-large">Play</button></a></td></tr>');
+                }
+                document.getElementById('episodes').innerHTML = bin;
+            });
+        }
+    });
+}
+document.getElementById("click").addEventListener("click", search);
+
+</script>
+</body></html>

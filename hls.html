@@ -1,0 +1,72 @@
+<html>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video-js.min.css" /></head>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/3.6.13/videojs-contrib-hls.min.js"></script>
+<meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style type="text/css">
+  body {
+    margin:0;
+  }
+  .w3-progress-container {
+    width: 100%;
+    height: 0.3em;
+    opacity: .90;
+
+}
+.w3-progressbar {
+    background-color: #29d;
+        height: 100%;
+    line-height: inherit;
+        -moz-transition: width 500ms ease-out,opacity 500ms linear;
+    -webkit-transition: width 500ms ease-out,opacity 500ms linear;
+    transition: width 500ms ease-out,opacity 500ms linear;
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: width,opacity;
+     transition-duration: 400ms;
+}
+
+</style>
+
+ 
+<body>
+<video width="100%" height="100%" id=LS x-webkit-airplay="allow" preload="auto" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls>
+</video>
+<div class="w3-progress-container" style="height: 0.3em;"><div id="progressplayer" class="w3-progressbar" style="width: 1.56578%; background-color: rgb(127, 218, 99);"></div></div>
+
+
+
+
+ 
+<script>
+
+
+
+
+var player=videojs('LS');
+function on_progress( event ) {
+    console.log( 'buffered',(player.bufferedEnd() / player.duration() *100) + "%" );
+    document.getElementById('progressplayer').style.width = (player.bufferedEnd() / player.duration() *100) + "%" 
+    // it will log always 0
+}
+
+player.on( 'progress', on_progress );
+
+
+
+player.src({"type":"application/x-mpegURL", "src":'https://www.cwtv.com/ioshlskeys/videos/2017/04/25/Arrow-519-DangerousLiaisons-T2713219-CW-Stereo_b37c9a58d.m3u8'});
+   player.play();
+
+</script>
+
+
+
+
+</html>

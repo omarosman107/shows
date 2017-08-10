@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta content="black" name="apple-mobile-web-app-status-bar-style">
+   <meta content="yes" name="apple-mobile-web-app-capable">
+   <meta content="TVShow Time++" name="apple-mobile-web-app-title">
+   <link href="/apploader.png" rel="apple-touch-startup-image"><!-- Required meta tags always come first -->
+   <meta charset="utf-8">
+   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+   <meta content="ie=edge" http-equiv="x-ua-compatible">
+
+      <link async href="css/showtime.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <title>TVShow Time++</title>
+</head>
+<body>
+   <div class="header">
+      EPISODES TO WATCH
+      <a onclick="tempel='';fetchshows();" href="#">
+      <div class="refresh" style="
+    float: right;
+    width: 24px;">
+      <i class="material-icons">refresh</i>
+      </div>
+      </a>
+   </div>
+   <div class="spacer">
+      &nbsp;
+   </div>
+   <div class="tableborder">
+      <div id="spinner" class="loader top rotating  dark" style="display: block;"></div>
+      <table class="table" id="tablediv">
+          
+          
+      </table>
+   </div>
+   <script type="text/javascript">
+   var accesstoken = "82fb423156c817655962b583129a696d";
+   </script>
+   <script type="text/javascript" src="js/fetch.min.js"></script> 
+   <script type='application/javascript' src='js/fastclick.js'></script>
+
+   <script src="js/showtime.js" type="text/javascript">
+   </script>
+</body>
+</html>  

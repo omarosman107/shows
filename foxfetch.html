@@ -1,0 +1,267 @@
+
+<html>
+
+
+<script id="hidden" type="text/javascript">
+  
+
+</script>
+
+<script type="text/javascript" src="https://cdn.rawgit.com/abdmob/x2js/master/xml2json.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video-js.min.css" /></head>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.6.10/hls.min.js
+"></script>
+
+<script type="text/javascript" src="https://cdn.rawgit.com/benjipott/videojs-hlsjs/master/lib/videojs-hlsjs.js"></script>
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+
+
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<input id="input" type="text" class="form-control" name="input">
+<title>FOX NO-ADS</title>
+
+
+
+
+
+
+ <a id="buttonsearch" style="margin: auto;display: block;" onclick="fetchfox();" class="btn btn-primary">Load..</a>
+
+
+<div class="embed-responsive embed-responsive-16by9">
+<body>
+<video  id=LS x-webkit-airplay="allow" preload="auto" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls>
+
+
+</video>
+</div>
+
+
+
+
+  <a download="proposed_file_name" type="button" id="downloadbutton" href="#" class="btn btn-default"></a>
+  <br>
+    <img height="20%" id="img">
+
+
+<h1 id="div"></h1>
+
+
+<div id="seriesDesc"></div>
+
+<script>
+
+var x2js = new X2JS();
+
+var cachescript = document.getElementById('hidden')
+var json
+var player=videojs('LS');
+var desc = document.getElementById('seriesDesc')
+var img = document.getElementById('img')
+
+var buttondown = document.getElementById('downloadbutton')
+
+var cid = document.getElementById('input')
+var div = document.getElementById('div')
+
+var url = window.location.href
+
+var url1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27"
+var url2 = '%27%20and%20compat%3D"html5"%20and%20xpath%3D%27*%27&format=json&callback='
+
+
+var yql1 = "https://link.theplatform.com/s/fox.com/"
+var yql2 = "?mbr=true&policy=63641552&assetType=SSL&auth=%3CsignatureInfo%3EFdzOLElGoj%2FovYkqQxszkpiSup%2FXWpQXX8nwUVVoR5lYT8EqLUdmT%2BSQC7W%2FKRsYeNn3S8orQwvpn8HEHNBaoNmAYccglh%2F5FhhfAD3cnSIP1u7aVVvE23%2FKRpuVHh3V9BXNHGlvc517SYmmerNEPHeLbJxw6hgs50pSHOQyvE8%3D%3CsignatureInfo%3E%3CauthToken%3E%3CsessionGUID%3E1c45906bedc6fb115227d1df47e832ee%3C%2FsessionGUID%3E%3CrequestorID%3Efbc-fox%3C%2FrequestorID%3E%3CresourceID%3E%3C!%5BCDATA%5B%3Crss%20version%3D%222.0%22%20xmlns%3Amedia%3D%22http%3A%2F%2Fsearch.yahoo.com%2Fmrss%2F%22%3E%3Cchannel%3E%3Ctitle%3Efbc-fox%3C%2Ftitle%3E%3Citem%3E%3Cguid%3EL-210%3C%2Fguid%3E%3Cmedia%3Arating%20scheme%3D%22urn%3Av-chip%22%3ETV-14%3C%2Fmedia%3Arating%3E%3C%2Fitem%3E%3C%2Fchannel%3E%3C%2Frss%3E%5D%5D%3E%3C%2FresourceID%3E%3Cttl%3E420000%3C%2Fttl%3E%3CissueTime%3E2016-12-01%2017%3A49%3A58%20-0800%3C%2FissueTime%3E%3CmvpdId%3EComcast_SSO%3C%2FmvpdId%3E%3C%2FauthToken%3E&format=SMIL&Tracking=true&manifest=m3u"
+
+var tvmazedata
+
+
+
+var lastSegment 
+
+var stripped 
+
+var finalurl
+
+var jsoncode
+function fetchfox() {
+
+if (cid.value != "") {
+
+ $.getJSON(url1 + cid.value + url2, function(data) {
+console.log(data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[0].a.content , data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[1].content)
+
+
+$.getJSON("https://feed.theplatform.com/f/fox-mobile/fullepisodes?validFeed=false&types=none&byCustomValue=%7Bseries%7D%7B" + data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[0].a.content + "%7D&count=true&range=1-50&adapterParams=mvpd%253D&byContent=byFormat=m3u%7Cmpeg4&form=json", function(episodecode) {
+
+   for (var i = 0; i < episodecode.entries.length; i++){
+if(episodecode.entries[i].title == data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[1].content){
+console.log(episodecode.entries[i].media$content[8]["plfile$url"])
+
+
+fetchfoxjson(episodecode.entries[i].media$content[8]["plfile$url"])
+
+div.innerHTML = data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[0].a.content + "- " + data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[1].content ;
+
+    seriesDesc.innerHTML  = episodecode.entries["0"].description
+
+
+}
+
+            
+            }
+
+
+
+
+});
+
+
+});
+
+
+}
+ 
+
+
+if (cid.value == ""){
+
+var strippedurl = url.split("=")[1]
+console.log(strippedurl)
+
+  $.getJSON(url1 + strippedurl + url2, function(data) {
+console.log(data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[1].content);
+
+
+$.getJSON("https://feed.theplatform.com/f/fox-mobile/fullepisodes?validFeed=false&types=none&byCustomValue=%7Bseries%7D%7B" + data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[0].a.content + "%7D&count=true&range=1-50&adapterParams=mvpd%253D&byContent=byFormat=m3u%7Cmpeg4&form=json", function(episodecode) {
+
+for (i in episodecode.entries)
+{
+  var cuttitle = data.query.results.html.body.div[1].main.div.div[0].div.div.div.div.div[1].div.div[0].div[1].div[1].h3[1].content.slice(0, -1)
+console.log( cuttitle)
+
+
+if(episodecode.entries[i].title == cuttitle)
+{
+console.log(episodecode.entries[i].media$content[8]["plfile$url"])
+
+fetchfoxjson(yql1 + episodecode.entries[i].media$content[8]["plfile$url"].split('/')[5].split('?')[0] + yql2)
+
+console.log(episodecode.entries[i].media$content[8]["plfile$url"].split('/')[5].split('?')[0])
+
+div.innerHTML = episodecode.entries[i]["fox$series"] + "- " + episodecode.entries[i].title ;
+
+    seriesDesc.innerHTML  = episodecode.entries[i].description
+
+
+}else{
+
+  console.error("not found")
+}
+
+
+
+}
+
+
+
+
+
+});
+
+
+});
+
+
+
+}
+
+
+}
+
+
+
+
+	function fetchfoxjson(value) {
+console.log(value)
+
+var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      xml = this.responseText;
+ var  jsonfirst = JSON.stringify(x2js.xml_str2json(this.response)) 
+
+
+ json =  JSON.parse(jsonfirst);
+
+
+
+ console.log(json);
+
+
+
+        buttondown.innerHTML = "Download"
+        buttondown.setAttribute("href", json.smil.body.seq.par["0"].video._src);
+
+        http://api.tvmaze.com/singlesearch/shows?q=arrow
+
+
+
+
+
+
+
+player.src({"type":"application/x-mpegURL", "src":json.smil.body.seq.par["0"].video._src});
+   player.play();
+   
+
+
+
+
+
+
+}
+  };
+  xhttp.open("GET",  value , true);
+  xhttp.send();
+
+
+
+
+
+
+   
+
+                                
+                         
+
+}
+
+
+</script>
+
+<script type="text/javascript" defer="defer">
+  var _gaq = _gaq || [];
+    _gaq.push(
+      ['_setAccount', 'UA-66082501-6'],
+      ['_trackPageview']
+    );
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https://www.google-analytics.com/analytics.js');
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</html>

@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta content="black" name="apple-mobile-web-app-status-bar-style">
+   <meta content="yes" name="apple-mobile-web-app-capable">
+   <meta content="TVShow Time++" name="apple-mobile-web-app-title">
+   <meta charset="utf-8">
+   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+   <meta content="ie=edge" http-equiv="x-ua-compatible">
+   <link async href="css/font-awesome.min.css" rel="stylesheet">
+   <title>TVShow Time++</title>
+   <style type="text/css">
+   @-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+
+   .turn {
+
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 900ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 900ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 900ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    -o-transition: rotate(3600deg);}
+
+
+   .spacer {
+      width: 100%;
+      padding: 2%;
+   }
+   @charset "UTF-8";
+   .fa {
+      -moz-osx-font-smoothing: grayscale
+   }
+   html {
+      -webkit-tap-highlight-color: transparent
+   }
+   html {
+      font-family: sans-serif;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%
+   }
+   a {
+      background-color: transparent
+   }
+   a:active, a:hover {
+      outline: 0
+   }
+   img {
+      border: 0;
+      vertical-align: middle
+   }
+   @media print {
+      img {
+         page-break-inside: avoid
+      }
+      *, :after, :before {
+         color: #000!important;
+         text-shadow: none!important;
+         background: 0 0!important;
+         -webkit-box-shadow: none!important;
+         box-shadow: none!important
+      }
+      a, a:visited {
+         text-decoration: underline
+      }
+      a[href]:after {
+         content: " (" attr(href) ")"
+      }
+      a[href^="#"]:after {
+         content: ""
+      }
+      img {
+         max-width: 100%!important
+      }
+      h2 {
+         orphans: 3;
+         widows: 3
+      }
+      h2 {
+         page-break-after: avoid
+      }
+   }
+   body {
+      background-color: #fff
+   }
+   @font-face {
+      font-family: 'Glyphicons Halflings';
+      src: url(../fonts/glyphicons-halflings-regular.eot);
+      src: url(../fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(../fonts/glyphicons-halflings-regular.woff2) format('woff2'), url(../fonts/glyphicons-halflings-regular.woff) format('woff'), url(../fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')
+   }
+   *, :after, :before {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box
+   }
+   html {
+      font-size: 10px
+   }
+   body {
+      color: #333
+   }
+   a {
+      text-decoration: none
+   }
+   a:focus, a:hover {
+      color: #23527c;
+      text-decoration: underline
+   }
+   a:focus {
+      outline: dotted thin;
+      outline: -webkit-focus-ring-color auto 5px;
+      outline-offset: -2px
+   }
+   h2 {
+      font-weight: 500;
+      line-height: 1.1;
+      color: inherit
+   }
+   h2 {
+      margin-top: 20px;
+      margin-bottom: 10px
+   }
+   ul {
+      margin-top: 0
+   }
+   h2 {
+      font-size: 30px
+   }
+   ul ul {
+      margin-bottom: 0
+   }
+   .list-inline, .list-unstyled {
+      padding-left: 0;
+      list-style: none
+   }
+   ul {
+      margin-bottom: 10px
+   }
+   .list-inline {
+      margin-left: -5px
+   }
+   .list-inline>li {
+      display: inline-block;
+      padding-right: 5px;
+      padding-left: 5px
+   }
+   .nav {
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none
+   }
+   .progress {
+      overflow: hidden
+   }
+   .close {
+      font-weight: 700
+   }
+   .progress {
+      height: 20px;
+      margin-bottom: 20px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
+   }
+   .progress-bar {
+      float: left;
+      width: 0;
+      height: 100%;
+      font-size: 12px;
+      line-height: 20px;
+      color: #fff;
+      text-align: center;
+      background-color: #337ab7;
+      -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+      box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+      -webkit-transition: width .6s ease;
+      -o-transition: width .6s ease;
+      transition: width .6s ease
+   }
+   .progress-bar-success {
+      background-color: #5cb85c
+   }
+   .close {
+      float: right;
+      font-size: 21px;
+      line-height: 1;
+      color: #000;
+      text-shadow: 0 1px 0 #fff;
+      filter: alpha(opacity=20);
+      opacity: .2
+   }
+   .close:focus, .close:hover {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+      filter: alpha(opacity=50);
+      opacity: .5
+   }
+   .nav:after, .nav:before {
+      display: table;
+      content: " "
+   }
+   .nav:after {
+      clear: both
+   }
+   @-ms-viewport {
+      width: device-width
+   }
+   .fa {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased
+   }
+   .fa-play:before {
+      content: "\f04b"
+   }
+   .dropzone .dz-preview .dz-details .dz-filename:not(:hover) {
+      overflow: hidden;
+      text-overflow: ellipsis
+   }
+   .dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {
+      border: 1px solid transparent
+   }
+   @font-face {
+      font-family: VideoJS;
+      src: url(/fonts/font-video-js/vjs.eot);
+      src: url(/fonts/font-video-js/vjs.eot?#iefix) format('embedded-opentype'), url(/fonts/font-video-js/vjs.woff) format('woff'), url(/fonts/font-video-js/vjs.ttf) format('truetype'), url(/fonts/font-video-js/vjs.svg#icomoon) format('svg');
+      font-weight: 400;
+      font-style: normal
+   }
+   @font-face {
+      font-family: chromeCast;
+      src: url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAQ4AA4AAAAABdQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAABRAAAABsAAAAcanr4mkdERUYAAAFgAAAAHAAAACAAMgAET1MvMgAAAXwAAABBAAAAVmJdk4JjbWFwAAABwAAAAE8AAAFaS8reomdhc3AAAAIQAAAACAAAAAj//wADZ2x5ZgAAAhgAAACoAAAAqJj06XxoZWFkAAACwAAAACsAAAA2BSui6WhoZWEAAALsAAAAGwAAACQQiQgGaG10eAAAAwgAAAATAAAAFBvoACBsb2NhAAADHAAAAAwAAAAMAFgAbG1heHAAAAMoAAAAHgAAACAASwAkbmFtZQAAA0gAAAC6AAABYBgyNH5wb3N0AAAEBAAAACwAAABDyG/48HdlYmYAAAQwAAAABgAAAAb6d1L4eNpjYGBgZACCM7aLzoPo83KrrkLprwBMzQd0AHjaY2BkYGDgA2IJBhBgYmAEQhYwBvEYAAR2ADd42mNgZFvEOIGBlYGF1Yh1BgMDoxyEZr7GkMYkxMDAxMDKyQADjAxIICDNNYXBgYFX9Q9b2r80hh0cSGoAnfsJzQAAAHjaY2BgYGaAYBkGRgYQCAHyGMF8FgYLIM3FwMHABIQMDLwMiap//v8Hq4Kz/3/9v+gWB1QvFDCyMcAFGEE6mRhQASMD5YCZYVADACELDI0AAAAAAf//AAIAAQAAAAAH0AgAAAMAADEhESEH0PgwCAAABAAgARgHrAbcAAsAEwAbACAAABMRFhcRIREhFhchEQEVFgAXMwIAARUeARczJgADFTMuAZJMTAXq/HwcEAPw+HTuAVYgqCL+SP7OeK4cph7+8rzAGGQG3P3WEBwBwPvaSkwFUv1IpiL+qu4BNAG2/v6mHK54vAEM/vjARGYAAAABAAAAAAAAAAAAAwAAOQN42mNgZGBgAOJd/7iZ4/ltvjJwczCAwHm5Vd+QafYLYHEOBiYQBQAcGQl+AHjaY2BkYOBgAIIdYJKB/QIDIwMqYAUAJZEBpwB42uNggAAOCFZgfsHAAAAEuAEkAAAAAAwADAAMAEwAVHjaY2BkYGBgZVBkYGEAASYgZmQAiTmA+QwABlUAcAAAeNptjjEOAWEUhL+1S2hEIeqNaIlFgQMIhUZBlAhChGRxDadwBIfAqcz+HoUo3u68mXn/DJBlhY8X5PAoguEUeW1v7NOnbDigwtZwmhIXwxkKXA3fxd8MP6jzZMqBMzEhAxbCe46MWLIWu2MmpefYk/vH4pfyNqjpOqSrWZnepKNpGhtJr8qXTF1b629S+JM11haL3zg9eSXJ+U2YyDX/sh/X0G56Tn03SL6R+kRq0dVl23V3fV5HLSzRAAB42mNgYsAPWBkYGJkYmRlcGFnY0nMqCzIM2UvzMg0MDFxAtJGpmzMAXa0HHQABUvj6dgAA) format('woff');
+      font-weight: 400;
+      font-style: normal
+   }
+   [class*=" icon-tvst-"] {
+      font-style: normal;
+      font-weight: 400;
+      text-transform: none;
+      line-height: 1;
+      speak: none;
+      font-variant: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale
+   }
+   @font-face {
+      font-family: tvst-emotions;
+      src: url(fonts/emotions/tvst-emotions.eot);
+      src: url(fonts/emotions/tvst-emotions.eot?#iefix) format('embedded-opentype'), url(fonts/emotions/tvst-emotions.ttf) format('truetype'), url(fonts/emotions/tvst-emotions.woff) format('woff'), url(fonts/emotions/tvst-emotions.svg#tvst-emotions) format('svg');
+      font-weight: 400;
+      font-style: normal
+   }
+   @font-face {
+      font-family: tvst-icons;
+      src: url(fonts/tvst-icons.eot?-d0mbwu);
+      src: url(fonts/tvst-icons.eot?#iefix-d0mbwu) format("embedded-opentype"), url(fonts/tvst-icons.woff?-d0mbwu) format("woff"), url(fonts/tvst-icons.ttf?-d0mbwu) format("truetype"), url(fonts/tvst-icons.svg?-d0mbwu#tvst-icons) format("svg");
+      font-weight: 400;
+      font-style: normal
+   }
+   [class*=" icon-tvst-"] {
+      font-family: tvst-icons
+   }
+   .icon-tvst-watch:before {
+      content: "\e60d"
+   }
+   .icon-tvst-check:before {
+      content: "\e618"
+   }
+   @font-face {
+      font-family: RedactorFont;
+      src: url(redactor-font.eot)
+   }
+   @font-face {
+      font-family: RedactorFont;
+      src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype'), url(data:application/font-woff;charset=utf-8;base64,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) format('woff');
+      font-weight: 400;
+      font-style: normal
+   }
+   body {
+      overflow-x: hidden
+   }
+   @font-face {
+      font-family: ProximaNova;
+      src: url(fonts/ProximaNova-Reg.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaSB;
+      src: url(fonts/ProximaNova-Sbold.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaB;
+      src: url(fonts/ProximaNova-Bold.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaXB;
+      src: url(fonts/ProximaNova-Xbold.otf)
+   }
+   @font-face {
+      font-family: DinotCB;
+      src: url(fonts/DINOT-CondBold.otf)
+   }
+   @font-face {
+      font-family: DinotCL;
+      src: url(fonts/DINOT-CondLight.otf)
+   }
+   @font-face {
+      font-family: DinotL;
+      src: url(fonts/DINOT-Light.otf)
+   }
+   @font-face {
+      font-family: Dinot;
+      src: url(../fonts/DINOT-Regular.otf)
+   }
+   @font-face {
+      font-family: DinotM;
+      src: url(/fonts/DINOT-Medium.otf)
+   }
+   @font-face {
+      font-family: "Helvetica Neue Thin";
+      src: url(../fonts/HelveticaNeueThin/HelveticaNeue-Thin.otf)
+   }
+   body {
+      font-size: 16px;
+      line-height: 1.428571429;
+      margin: 0;
+      padding: 0 0 1px
+   }
+   a {
+      color: #cbb123
+   }
+   @font-face {
+      font-family: ProximaNova;
+      src: url(fonts/ProximaNova-Reg.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaSB;
+      src: url(fonts/ProximaNova-Sbold.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaB;
+      src: url(fonts/ProximaNova-Bold.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaXB;
+      src: url(fonts/ProximaNova-Xbold.otf)
+   }
+   @font-face {
+      font-family: DinotCB;
+      src: url(fonts/DINOT-CondBold.otf)
+   }
+   @font-face {
+      font-family: DinotCL;
+      src: url(fonts/DINOT-CondLight.otf)
+   }
+   @font-face {
+      font-family: DinotL;
+      src: url(fonts/DINOT-Light.otf)
+   }
+   @font-face {
+      font-family: Dinot;
+      src: url(fonts/DINOT-Regular.otf)
+   }
+   @font-face {
+      font-family: DinotM;
+      src: url(fonts/DINOT-Medium.otf)
+   }
+   @font-face {
+      font-family: "Helvetica Neue Thin";
+      src: url(fonts/HelveticaNeueThin/HelveticaNeue-Thin.otf)
+   }
+   @font-face {
+      font-family: ProximaNova;
+      src: url(fonts/ProximaNova-Reg.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaSB;
+      src: url(fonts/ProximaNova-Sbold.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaB;
+      src: url(fonts/ProximaNova-Bold.otf)
+   }
+   @font-face {
+      font-family: ProximaNovaXB;
+      src: url(fonts/ProximaNova-Xbold.otf)
+   }
+   @font-face {
+      font-family: DinotCB;
+      src: url(fonts/DINOT-CondBold.otf)
+   }
+   @font-face {
+      font-family: DinotCL;
+      src: url(/fonts/DINOT-CondLight.otf)
+   }
+   @font-face {
+      font-family: DinotL;
+      src: url(/fonts/DINOT-Light.otf)
+   }
+   @font-face {
+      font-family: Dinot;
+      src: url(/fonts/DINOT-Regular.otf)
+   }
+   @font-face {
+      font-family: DinotM;
+      src: url(/fonts/DINOT-Medium.otf)
+   }
+   @font-face {
+      font-family: "Helvetica Neue Thin";
+      src: url(/fonts/HelveticaNeueThin/HelveticaNeue-Thin.otf)
+   }
+   @-moz-document url-prefix() {}
+   .review-mode .progress::progress-bar {
+      background: #eee;
+      border-radius: 50px;
+      padding: 2px;
+      box-shadow: 0 1px 0 0 rgba(255, 255, 255, .2)
+   }
+   .review-mode .progress::progress-value {
+      background-color: #fdd700;
+      border-radius: 50px
+   }
+   div:focus {
+      outline: 0
+   }
+   .article-mode .progress::progress-bar {
+      background: #eee;
+      border-radius: 50px;
+      padding: 2px;
+      box-shadow: 0 1px 0 0 rgba(255, 255, 255, .2)
+   }
+   .article-mode .progress::progress-value {
+      background-color: #fdd700;
+      border-radius: 50px
+   }
+   a:focus {
+      text-decoration: none
+   }
+   .watched-btn i {
+      margin-right: 5px
+   }
+   .watched-btn {
+      background: #f9f9f9;
+      color: #777
+   }
+   .watched-btn:hover {
+      background-color: #57ad68;
+      color: #fff
+   }
+   h2 {
+      font-family: ProximaNovaSB, "Helvetica Neue", Helvetica, Arial, sans-serif
+   }
+   body {
+      background: #f9f9f9;
+      font-family: ProximaNova, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale
+   }
+   body a {
+      color: #3282b6
+   } 
+   body a:hover {
+      color: #373737
+   }
+   .posters-list {
+      font-size: 0;
+      letter-spacing: -1px;
+      margin-top: 10px;
+           -webkit-transition: all .2s ease-in-out;
+      -moz-transition: all .2s ease-in-out;
+      transition: all .2s ease-in-out;
+   }
+   .posters-list>li {
+      padding: 12px 17px;
+      width: 187px;
+      overflow: hidden;
+      vertical-align: top
+   }
+   .posters-list>li.new .new-label {
+      position: absolute;
+      top: 24px;
+      left: -24px;
+      width: 68px;
+      height: 34px;
+      -webkit-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      background-color: gold;
+      color: rgba(39, 39, 39, .8);
+      font-family: ProximaNovaSB;
+      font-size: 12px;
+      text-transform: uppercase;
+      z-index: 0;
+      -webkit-transform-origin: 0 0;
+      -moz-transform-origin: 0 0;
+      -ms-transform-origin: 0 0;
+      -o-transform-origin: 0 0;
+      padding-top: 16px;
+      text-align: center
+   }
+   .posters-list>li .image-crop {
+      width: 155px;
+      height: 229px;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 0 2px #777;
+      position: relative
+   }
+   .posters-list>li .image-crop img {
+      width: 100%
+   }
+   .posters-list>li .image-crop .progress {
+      position: absolute;
+      bottom: 0;
+      height: 4px;
+      background-color: rgba(0, 0, 0, .5);
+      border-radius: 0;
+      z-index: 0;
+      margin-bottom: 0;
+      width: 100%
+   }
+   .posters-list>li .image-crop .progress .progress-bar {
+      background-color: #7cdb62;
+      box-shadow: none
+   }
+   .posters-list>li .image-crop .overlay {
+      /* display: none; */
+      position: absolute;
+      border-radius: 3px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, .6);
+      letter-spacing: 0;
+      opacity: 0;
+      -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+   }
+   .posters-list>li .image-crop .overlay a:focus, .posters-list>li .image-crop .overlay a:hover {
+      text-decoration: none
+   }
+   .posters-list>li .nav {
+      text-align: right;
+      margin-bottom: 2px
+   }
+   .posters-list>li .nav a {
+      color: #666;
+      font-size: 16px;
+      padding: 0;
+      background-color: transparent
+   }
+   .posters-list>li .nav .watched-btn:not(.watched) .watched-icon {
+      display: none
+   }
+   .posters-list>li .nav a:hover {
+      color: #333;
+      text-decoration: none
+   }
+   .posters-list>li .nav a i {
+      margin-left: 8px
+   }
+   .posters-list>li .image-crop .overlay .overlay-btn {
+      display: block;
+      height: 222px;
+      line-height: 222px;
+      font-size: 26px;
+      color: #fff;
+      text-align: center
+   }
+   .posters-list>li .image-crop .overlay .overlay-btn:hover {
+      text-decoration: none
+   }
+   .posters-list>li .poster-details {
+      letter-spacing: 0;
+      text-align: left
+   }
+   .posters-list>li .poster-details h2 {
+      margin: 7px 0 2px;
+      font-size: 14px;
+      color: #444;
+      font-family: ProximaNovaSB;
+      height: 15px;
+      overflow: hidden;
+      word-break: break-all
+   }
+   .posters-list>li .poster-details a {
+      -webkit-transition: all .4s ease-in-out;
+      -moz-transition: all .4s ease-in-out;
+      transition: all .4s ease-in-out
+   }
+   .posters-list>li .poster-details h2 a {
+      color: #444;
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top
+   }
+   .posters-list>li .poster-details h2 span {
+      font-family: ProximaNova;
+      font-size: 12px;
+      color: #999
+   }
+   .posters-list>li .poster-details .secondary-link {
+      white-space:normal;
+      color: #666;
+      font-family: ProximaNova;
+      font-size: 12px;
+      display: inline;
+          text-decoration: none;
+   }
+   .posters-list>li .side {
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      font-size: 13px;
+      letter-spacing: 0;
+      text-align: center;
+
+   }
+   .posters-list>li .side .heading {
+      position: relative;
+      background-color: #444;
+      height: 30px;
+      line-height: 30px;
+      border-bottom: 1px solid #ddd;
+      border-radius: 3px 3px 0 0;
+      color: #fff
+   }
+   .posters-list>li .side .heading .close {
+      position: absolute;
+      top: 0;
+      right: 2px;
+      opacity: .75;
+      text-shadow: none;
+      font-size: 18px
+   }
+   .posters-list>li .side .heading .close a {
+      color: #999
+   }
+   .posters-list>li .side .heading .close a:hover {
+      color: #777;
+      text-decoration: none
+   }
+   .posters-list>li .side ul {
+      overflow-y: auto;
+      height: 154px
+   }
+   #current-shows #recommendations .show:not(:hover) .zoom-btn {
+      display: none
+   }
+   .signup.started .shows-list a:not(.active):not(:hover) .image-crop img {
+      opacity: .4
+   }
+   .signup.started .shows-list a:not(.active):not(:hover) .image-crop {
+      background-color: rgba(0, 0, 0, .6)
+   }
+   #ambassador-settings .option a:not(:hover) .image-crop .disable-label {
+      opacity: .5
+   }
+   #ambassador-settings .option a:not(.active):not(:hover) img {
+      -webkit-filter: saturate(15%);
+      -moz-filter: saturate(15%);
+      -o-filter: saturate(15%);
+      -ms-filter: saturate(15%);
+      filter: saturate(15%);
+      opacity: .4
+   }
+   @media (max-width:768px) {
+      .posters-list {
+         text-align: center
+      }
+      .posters-list>li .image-crop {
+         width: 132px;
+         height: 195px
+      }
+      .posters-list>li {
+         padding: 12px 7px;
+         width: 148px
+      }
+   }
+   .header {
+    padding: 30px;
+    text-align: center;
+    font-size: medium;
+    font-family: ProximaNovaSB;
+    width: 100%;
+    /* padding-bottom: 2%; */
+}
+
+
+   .piece {
+           -webkit-transition: all .4s ease-in-out;
+      -moz-transition: all .4s ease-in-out;
+      transition: all .4s ease-in-out
+   }
+.tableborder {
+
+text-align: center;
+
+}
+#howmuch {
+
+color: #ccc;
+    font-family: ProximaNova;
+
+}
+.separator{
+   color:#cbb123;
+   margin:0 5px;
+   border-bottom:none;
+   padding:12px 0;
+
+}
+
+
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: 100px;
+}
+.loader:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path { 
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@keyframes color {
+  100%,
+  0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #0057e7;
+  }
+  66% {
+    stroke: #008744;
+  }
+  80%,
+  90% {
+    stroke: #ffa700;
+  }
+}
+.showbox {
+   display: none;
+}
+.w3-progress-container {
+    width: 100%;
+    height: 0.3em;
+    opacity: .90;
+
+}
+.w3-progressbar {
+    background-color: #29d;
+        height: 100%;
+    line-height: inherit;
+        -moz-transition: width 200ms cubic-bezier(0,1,.98,0),opacity 200ms cubic-bezier(0,1,.98,0);
+    -webkit-transition: width 200ms cubic-bezier(0,1,.98,0)t,opacity 200ms cubic-bezier(0,1,.98,0);
+    transition: width 200ms cubic-bezier(0,1,.98,0),opacity 200ms cubic-bezier(0,1,.98,0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: width,opacity;
+     transition-duration: 400ms ;
+
+}
+
+.stat {
+    height: 10px;
+    width: 10px;
+    background: #3feb3f;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 9px;
+    display: none;
+}
+
+.wrapper .tooltip {
+  background: #1496bb;
+  bottom: 100%;
+  color: #fff;
+  display: block;
+  left: -25px;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 20px;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.wrapper .tooltip:before {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}  
+
+/* CSS Triangles - see Trevor's post */
+.wrapper .tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid #1496bb 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+  
+.wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+
+/* IE can just show/hide with no transition */
+.lte8 .wrapper .tooltip {
+  display: none;
+}
+
+.lte8 .wrapper:hover .tooltip {
+  display: block;
+}
+.checkmark{
+color: #08c908;
+}
+
+ 
+.calendar-stack {
+    position: relative;
+    display: inline-block;
+    height: 1em;
+    padding-right: 5px;
+}
+.calendar-stack .icon-calendar-empty,
+.calendar-stack .calendar-day {
+  position: absolute;
+}
+.calendar-stack .calendar-day {
+  top: 1.175em;
+  left: 0.125em;
+  width: 1.375em;
+  height: 0.75em;
+  font-family: sans-serif;
+  font-size: 0.57142857em;
+  font-weight: 700;
+  line-height: 0.57142857em;
+  text-align: center;
+}
+
+.airing {
+background-color: #50a2fb !important;
+}
+
+dl, ol, ul {
+  margin-top: 0px;
+}
+blockquote ol:last-child, blockquote p:last-child, blockquote ul:last-child, ol ol, ol ul, ul ol, ul ul {
+  margin-bottom: 0px;
+}
+.list-inline, .list-unstyled {
+  padding-left: 0px;
+  list-style-type: none;
+  list-style-position: initial;
+  list-style-image: initial;
+}
+ol, ul {
+  margin-bottom: 10px;
+}
+.list-inline {
+  margin-left: -5px;
+}
+#error-page h2, #error-page h3, #loading-text, .center {
+  text-align: center;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.posters-list > li .upcoming-time-left {
+  position: absolute;
+  top: 50%;
+  height: 60px;
+  margin-top: -20px;
+  left: 0px;
+  right: 0px;
+}
+.list-inline > li {
+  display: inline-block;
+
+}
+.posters-list > li .upcoming-time-left li {
+  color: rgb(255, 255, 255);
+  font-family: ProximaNovaSB;
+  padding-top: 0px;
+  padding-right: 6px;
+  padding-bottom: 0px;
+  padding-left: 6px;
+}
+.posters-list > li .upcoming-time-left li .time-number {
+  font-size: 18px;
+  line-height: 1.2;
+  font-family: ProximaNovaB;
+}
+.posters-list > li .upcoming-time-left li .time-label {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.posters-list>li .image-crop .overlay:hover {
+
+ opacity: 1;
+   }
+   </style>
+
+
+
+
+
+</head>
+<body>
+<div id="projpar" class="w3-progress-container" style="/* display: none; */"><div id="progress" class="w3-progressbar" style="width: 0%;"></div></div>
+   <div class="header">
+
+      EPISODES TO WATCH <span id="howmuch"></span><span style="color: #ccc;
+    font-family: ProximaNova;" id="howmuchtime"></span><a href="#" onclick="tempel='';fetchshows();">
+      <div id="loadertop" class="refresh" style=" float: right; width: 24px;">
+         <i class="fa fa-refresh"></i>
+      </div></a>
+
+
+   <div class="tableborder">
+      <ul class="to-watch-list posters-list list-unstyled list-inline" id="tablediv"></ul>
+   </div>
+           <div id="loader" class="showbox">
+  <div class="loader">
+    <svg class="circular" viewBox="25 25 50 50"> 
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
+  </div>
+</div>
+   </div>
+   </script> 
+
+   <script src="js/fetch.min.js" type="text/javascript">
+
+   </script> 
+   <script type="text/javascript" src="js/fastclick.js"></script>
+
+   <script type="text/javascript">
+   function toColor(num) {
+    num >>>= 0;
+    var b = num & 0xFF,
+        g = (num & 0xFF00) >>> 8,
+        r = (num & 0xFF0000) >>> 16,
+        a = ( (num & 0xFF000000) >>> 24 ) / 255 ;
+        a = 0.69
+    return "rgba(" + [r, g, b, a].join(",") + ")";
+}
+
+function returntowatch(){   
+var total = 0;
+var watched = 0;
+var to_watch = 0;
+var allepisodes =  document.getElementsByClassName('piece')
+for (index = 0; index < allepisodes.length; ++index) {
+    watched += (allepisodes[index].getAttribute('data-new') *1);
+    total += (allepisodes[index].getAttribute('data-total') *1)
+    to_watch += (allepisodes[index].getAttribute('data-towatch') *1)
+}
+return to_watch
+}
+
+function prog(){
+   
+   var total = 0;
+var watched = 0;
+var to_watch = 0;
+var allepisodes =  document.getElementsByClassName('piece')
+for (index = 0; index < allepisodes.length; ++index) {
+    watched += (allepisodes[index].getAttribute('data-new') *1);
+    total += (allepisodes[index].getAttribute('data-total') *1)
+    to_watch += (allepisodes[index].getAttribute('data-towatch') *1)
+}
+
+document.getElementById('howmuch').innerHTML = "(" +to_watch + ")"
+         document.title =  "(" + to_watch +") " + "TVShow  Time++";
+
+return  watched / total * 100 + '%';
+
+document.getElementById('progress').style.width = watched / total * 100 + '%';
+total = 0
+watched = 0
+}
+
+function preLoad(url){
+   console.log(url.href);
+   history.pushState({"url": url.href},"URL Rewrite Example",url.href)
+   fetch(url.href).then(function(response) {
+   return response.text();
+}).then(function(returnedValue) {
+   document.head.innerHTML = ('')
+document.body.innerHTML = (returnedValue);
+
+}).catch(function(err) {
+   console.log(err)
+alert('Something Went Wrong :(')});
+}
+/*
+window.addEventListener('popstate', function(e) {
+preLoad({ "href": window.location.href})
+console.log(window.location.pathname)
+
+});
+*/
+if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}
+
+   function addJS(url) {
+     var s = document.createElement('script'); // Create a script element
+     s.type = "text/javascript"; // optional in html5
+     s.async = true; // asynchronous? true/false
+     s.src = url;
+     var fs = document.getElementsByTagName('script')[0]; // Get the first script
+     fs.parentNode.insertBefore(s, fs);
+  };
+  var accesstoken = "82fb423156c817655962b583129a696d";
+  var userid = "1810847";
+
+  function pad(n) {
+     return (n < 10) ? ("0" + n) : n;
+  }
+  var finalurl
+  var clickablelink
+  var div = document.getElementById('tablediv')
+  var googlejson
+  var i
+  var progress
+  var finishjson
+  fetchshows() 
+
+  function mark(id,obj) {
+         document.title =  "(" + (returntowatch() - 1) +") " + "TVShow  Time++";
+   document.getElementById('howmuch').innerHTML = "(" +(returntowatch() - 1) + ")"
+
+      document.getElementById('loadertop').classList.add("turn");
+
+   (obj.parentNode.parentNode.getElementsByClassName('image-crop')[0].getElementsByClassName('progress-bar progress-bar-success uncomplete')[0].style.width =( obj.parentNode.parentNode.getAttribute('data-new') / obj.parentNode.parentNode.getAttribute('data-total') * 100) + '%')
+var showname = (obj.parentNode.parentNode.getAttribute('name'))
+var showelem = (document.getElementsByName(showname)[0])
+showelem.getElementsByClassName('checkmark')[0].style.display = 'inline-block'
+showelem.getElementsByClassName('watched')[0].style.display = 'none'
+
+
+console.log(id)
+
+     
+
+
+      console.log(obj.parentNode.parentNode.getAttribute('data-total'))
+      console.log(obj.parentNode.parentNode.getAttribute('data-new') / obj.parentNode.parentNode.getAttribute('data-total') )
+ obj.parentNode.parentNode.setAttribute('data-new',obj.parentNode.parentNode.getAttribute('data-new')*1+ 1) ;
+   prog()
+     var details = {
+        episode_id: id,
+        access_token: accesstoken
+     };
+     var formBody = [];
+     for (var property in details) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(details[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+     }
+     formBody = formBody.join("&");
+     var request = {
+        method: 'POST',
+        headers: {
+           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        },
+        body: formBody
+     };
+     fetch("https://api.tvshowtime.com/v1/checkin", request).then(function(res) {
+fetchshows()
+     })
+  }
+function spdpg(url){
+
+return ''
+
+}
+function secondsToString(seconds)
+{
+var numdays = Math.floor(seconds / 86400);
+var numhours = Math.floor((seconds % 86400) / 3600);
+var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
+var numseconds = ((seconds % 86400) % 3600) % 60;
+return numdays + " days " + numhours + " hours " + numminutes + " minutes";
+}
+function dateDiff(timestamp){
+    var d = Math.abs(timestamp - new Date().getTime()) / 1000;                 // delta
+    var r = {};                                                                // result
+    var s = {                                                                  // structure
+        year: 31536000,
+        month: 2592000,
+        week: 604800, // uncomment row to ignore
+        day: 86400,   // feel free to add your own row
+        hour: 3600,
+        minute: 60,
+        second: 1
+    };
+
+    Object.keys(s).forEach(function(key){
+        r[key] = Math.floor(d / s[key]);
+        d -= r[key] * s[key];
+    });
+    
+    return r;
+};
+
+/*function progress(){
+   fetch('https://api.tvshowtime.com/v1/library?access_token=' + accesstoken, {
+   method: 'get'
+}).then(function(response) {
+  return response.json() 
+}).then(function(library){
+
+   var perc = 0
+   var ep = 0
+   var wtc = 0
+   var mnts = 0
+           for (var i = 0; i < library.shows.length; i++) {
+
+            if(!library.shows[i].seen_episodes == 0 ){
+
+                           perc = perc + (library.shows[i].aired_episodes - library.shows[i].seen_episodes )
+                           ep += library.shows[i].aired_episodes
+                           wtc += library.shows[i].seen_episodes
+                                       mnts = mnts +  ((library.shows[i].aired_episodes - library.shows[i].seen_episodes) * library.shows[i].runtime);
+                                          console.log(library.shows[i].runtime , (library.shows[i].aired_episodes - library.shows[i].seen_episodes), library.shows[i].name)
+
+
+            }
+}
+console.log(mnts)
+var minutes = mnts
+  var h = Math.floor(minutes / 60);
+  var m = minutes % 60;
+  h = h < 10 ? '0' + h : h;
+  m = m < 10 ? '0' + m : m;
+  console.log( h,  m);
+
+// document.getElementById('howmuchtime').innerHTML = " | " + secondsToString(minutes * 60)
+
+perc = (wtc / ep *100)
+            document.getElementById('progress').style.width = (perc + '%')
+
+}).catch(function(err) {
+console.log(err)
+});
+}
+*/
+function plus0(num){
+num = parseInt(num)
+if (num < 10) {
+return '0' + num
+}
+   return num
+}
+function getTimeRemaining(endtime){
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor( (t/1000) % 60 );
+  var minutes = Math.floor( (t/1000/60) % 60 );
+  var hours = Math.floor( (t/(1000*60*60)) % 24 );
+  var days = Math.floor( t/(1000*60*60*24) );
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+ function agenda(){
+fetch('https://api.tvshowtime.com/v1/agenda?access_token=' + accesstoken).then(function(response) {
+return response.json()
+}).then(function(json) {
+console.log(json)
+        for (var i = 0; i < json.episodes.length; i++) {
+         console.log(document.querySelector('li[name*="'+json.episodes[i].show.id+'"]') == null)
+         if (document.querySelector('li[name*="'+json.episodes[i].show.id+'"]') == null || true) {
+            var medialink = 'https://www.tvtime.com/en/show/'+json.episodes[i].show.id+'/episode/' + json.episodes[i].id;
+
+                       var mathleft = ''
+                                  var showprog = (json.episodes[i].show.seen_episodes * 1 / json.episodes[i].show.aired_episodes * 1)
+
+
+var airing = ' airing'
+           
+var air = (json.episodes[i].air_date + ' ' + json.episodes[i].air_time)
+
+
+var jsnair   = (getTimeRemaining(air))
+
+var dys = plus0(jsnair.days)
+var hrs = plus0(jsnair.hours)
+var mins = plus0(jsnair.minutes)
+
+
+var finishjson = json
+var htmlCode = '<li data-total="'+finishjson.episodes[i].show.aired_episodes+'" data-towatch="'+(finishjson.episodes[i].show.aired_episodes * 1 - finishjson.episodes[i].show.seen_episodes * 1 )+'" data-new="'+(finishjson.episodes[i].show.seen_episodes + 1)+'" id=episode-item-' + finishjson.episodes[i].id + ' class="new ajaxpop " ><div class=nav><a href=#  onclick="mark(' + finishjson.episodes[i].id + ',this)" class="watched-btn popover-link tooltipped" tooltipped data-tooltip="Mark as watched"><i  class="watched to-watch-icon icon-tvst-watch"><\/i> <i class="watched-icon icon-tvst-check checkmark"><\/i><\/a><\/div><div class=image-crop><a onclick(preLoad(this);) href="' + medialink + '" onclick="spdpg('+medialink+')"><img alt="' + finishjson.episodes[i].show.name + '" src="' + finishjson.episodes[i].show.images.poster['4'] + '"><\/a><div class=progress><div class="progress-bar progress-bar-success uncomplete '+airing+'" aria-valuemax=100 aria-valuemin=0 aria-valuenow=40 role=progressbar style=width:' + showprog * 100 + '%;><\/div><\/div><div class="overlay" style="display:block;opacity: 1;"><a href="'+medialink+'" class="" title="Watch episode"><ul class="upcoming-time-left list-unstyled list-inline center"><li><div class="time-number">'+dys+'</div><div class="time-label">days</div></li><li><div class="time-number">'+hrs+'</div><div class="time-label">hours</div></li><li><div class="time-number">'+mins+'</div> <div class="time-label">min.</div></li></ul>            </a></div><div class="side subs"><div class=heading>Select language<div class=close><a href=#>×<\/a><\/div><\/div><ul class="list-unstyled subs-list"><\/ul><\/div><\/div><div class="episode-details poster-details">15<h2><a href="'+medialink+'">' + "S" + pad(finishjson.episodes[i].season_number) + "E" + pad(finishjson.episodes[i].number) + '<\/a><\/h2><a href="'+medialink+'" onclick="spdpg('+medialink+')" class="nb-reviews-link secondary-link">' + finishjson.episodes[i].show.name + '<span class="separator">•</span>'+ finishjson.episodes[i].name + '<\/a><\/div>'
+            div.innerHTML +=  htmlCode;
+
+
+
+         }
+}
+
+});
+
+
+ }
+  function fetchshows() {
+     var tempel = ""
+ 
+   document.getElementById('loadertop').classList.add("turn");
+ //  document.getElementById('loader').style.display = "block"
+
+     fetch('https://api.tvshowtime.com/v1/to_watch?access_token=' + accesstoken).then(function(response) {
+        return response.json();
+     }).then(function(json) {
+        finishjson = json
+        for (var i = 0; i < json.episodes.length; i++) {
+           function newBanner() {
+              if (finishjson.episodes[i].is_new == true) {
+                 return '<div class="new-label"> New<\/div>'
+              } else {
+                 return '';
+              }
+           }
+           var showprog = (finishjson.episodes[i].show.seen_episodes * 1 / finishjson.episodes[i].show.aired_episodes * 1)
+           var mathleft = (finishjson.episodes[i].show.aired_episodes * 1 - finishjson.episodes[i].show.seen_episodes * 1 - 1)
+           var airing = ''
+            if (mathleft == -1) {
+airing = ' airing'
+           }
+           
+  //         if (mathleft == 0 || mathleft == -1) {
+    //          mathleft = "last!"
+      //     }
+           if (mathleft >= 1) {
+              mathleft = "+ " + mathleft + ' episodes'
+           } 
+           if (mathleft == 0 | mathleft == -1) {
+            mathleft = 'last!'
+           }
+
+           var medialink = "newplayer.html?" + finishjson.episodes[i].show.name.replace("(2015)", "") + " , " + finishjson.episodes[i].name;
+var playerurl = medialink
+   console.log(finishjson.episodes[i].show.images.poster)
+
+for (var x = finishjson.episodes[i].show.images.poster.length - 1; x >= 0; x--) {
+   console.log(finishjson.episodes[i].show.images.poster[x])
+}
+var imgs = finishjson.episodes[i].show.images.poster['0'] + " 680w ," +
+ finishjson.episodes[i].show.images.poster['1'] + " 54w," +
+  finishjson.episodes[i].show.images.poster['2'] + " 108w," +
+   finishjson.episodes[i].show.images.poster['3'] + " 160w," +
+    finishjson.episodes[i].show.images.poster['4'] + " 204w,"  +
+     finishjson.episodes[i].show.images.poster['1,3'] + " 66w," +
+       finishjson.episodes[i].show.images.poster['1,5'] + " 81w," +
+        finishjson.episodes[i].show.images.poster['2,6'] + " 132w" 
+
+var htmlCode = '<li data-total="'+finishjson.episodes[i].show.aired_episodes+'" data-towatch="'+(finishjson.episodes[i].show.aired_episodes * 1 - finishjson.episodes[i].show.seen_episodes * 1 )+'" data-new="'+(finishjson.episodes[i].show.seen_episodes + 1)+'" id=episode-item-' + finishjson.episodes[i].id + ' class="new ajaxpop piece" name="' + finishjson.episodes[i].show.id + '"><div class=nav><span style="width: 100%;    text-align: left;font-family: ProximaNova;font-size: 15px;color: #999;    position: relative;display: table-cell;top: 20px;    left: 5px;"><div class="calendar-stack"><i class="fa fa-calendar-o"></i></div>'+finishjson.episodes[i].air_date+'<div class="stat" style="background:'+"#" + (finishjson.episodes[i].show.id).toString(16) + 'f'+'"></div></span><a href=#  onclick="mark(' + finishjson.episodes[i].id + ',this)" class="watched-btn popover-link tooltipped" tooltipped data-tooltip="Mark as watched"><i  class="watched to-watch-icon icon-tvst-watch"><\/i> <i class="watched-icon icon-tvst-check checkmark"><\/i><\/a><\/div><div class=image-crop>' + newBanner() + '<a onclick(preLoad(this);) href="' + medialink + '" onclick="spdpg('+medialink+')"><img alt="' + finishjson.episodes[i].show.name + '" src="' + finishjson.episodes[i].show.images.poster['4'] + '"><\/a><div class=progress><div class="progress-bar progress-bar-success uncomplete '+airing+'" aria-valuemax=100 aria-valuemin=0 aria-valuenow=40 role=progressbar style=width:' + showprog * 100 + '%;><\/div><\/div><div class=overlay><a href="' + medialink + '" class="overlay-btn zoom-btn"title=Watch><i class="fa fa-play"><\/i><\/a><\/div><div class="side subs"><div class=heading>Select language<div class=close><a href=#>×<\/a><\/div><\/div><ul class="list-unstyled subs-list"><\/ul><\/div><\/div><div class="episode-details poster-details">15<h2><a href="'+medialink+'">' + "S" + pad(finishjson.episodes[i].season_number) + "E" + pad(finishjson.episodes[i].number) + '<\/a> <span class=nb-remainging-episodes>' + mathleft + ' <\/span><\/h2><a href="'+medialink+'" onclick="spdpg('+medialink+')" class="nb-reviews-link secondary-link">' + finishjson.episodes[i].show.name + '<span class="separator">•</span>'+ finishjson.episodes[i].name + '<\/a><\/div>'
+            tempel +=  htmlCode;
+
+        }
+             console.log(div.innerHTML == tempel)
+
+                div.innerHTML = tempel
+
+        document.getElementById('tablediv').style.opacity = "1"
+
+           document.getElementById('loader').style.display = "none"
+           document.getElementById('loadertop').classList.remove('turn')
+       document.getElementById('progress').style.width = prog()
+
+          
+agenda()
+     }).catch(function(e){
+      console.log(e)
+     });
+
+  }
+setInterval(fetchshows,60000)
+   </script>
+</body>
+</html>

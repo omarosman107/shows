@@ -1,0 +1,198 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>The Flash Season 3- </title>
+ 	   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <link  async rel="stylesheet" href="css/materialize.min.css">
+<style type="text/css">
+	
+	.videoContainer {
+		width: 100%;
+	}
+	@media (min-width: 950px){
+.videoContainer {
+    width: 60%;
+}
+}
+#myElement1{
+	position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+.jw-aspect {
+	padding-top: 0% !important;
+}
+</style>
+ </head>
+ <body>
+ <h1>The Flash Season 3</h1>
+ <div class="videoContainer">
+           <div id="myElement1"></div>
+           </div>
+  <table class="" id="episodes">
+
+
+
+<script src="https://content.jwplatform.com/libraries/oH2wJDod.js"></script>
+<script type="text/javascript">
+jwplayer.defaults.autostart = "true"
+
+function form2Json(str)
+{
+    "use strict";
+    var obj,i,pt,keys,j,ev;
+    if (typeof form2Json.br !== 'function')
+    {
+        form2Json.br = function(repl)
+        {
+            if (repl.indexOf(']') !== -1)
+            {
+                return repl.replace(/\](.+?)(,|$)/g,function($1,$2,$3)
+                {
+                    return form2Json.br($2+'}'+$3);
+                });
+            }
+            return repl;
+        };
+    }
+    str = '{"'+(str.indexOf('%') !== -1 ? decodeURI(str) : str)+'"}';
+    obj = str.replace(/\=/g,'":"').replace(/&/g,'","').replace(/\[/g,'":{"');
+    obj = JSON.parse(obj.replace(/\](.+?)(,|$)/g,function($1,$2,$3){ return form2Json.br($2+'}'+$3);}));
+    pt = ('&'+str).replace(/(\[|\]|\=)/g,'"$1"').replace(/\]"+/g,']').replace(/&([^\[\=]+?)(\[|\=)/g,'"&["$1]$2');
+    pt = (pt + '"').replace(/^"&/,'').split('&');
+    for (i=0;i<pt.length;i++)
+    {
+        ev = obj;
+        keys = pt[i].match(/(?!:(\["))([^"]+?)(?=("\]))/g);
+        for (j=0;j<keys.length;j++)
+        {
+            if (!ev.hasOwnProperty(keys[j]))
+            {
+                if (keys.length > (j + 1))
+                {
+                    ev[keys[j]] = {};
+                }
+                else
+                {
+                    ev[keys[j]] = pt[i].split('=')[1].replace(/"/g,'');
+                    break;
+                }
+            }
+            ev = ev[keys[j]];
+        }
+    }
+    return obj;
+}
+
+
+function drivePLay(id){
+
+
+
+document.getElementById('myElement1').innerHTML = '<iframe frameborder="0" id="player" allowfullscreen="1" style="    position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="https://youtube.googleapis.com/embed/?hl=en&modestbranding=1&ps=docs&partnerid=30&autoplay=1&docid='+id+'">'
+
+}
+
+function play(a){
+
+	video = a.getAttribute("playurl")
+	      if (video == '') {
+  drivePLay(a.getAttribute("alt"));
+      }else{
+      jwplayer("myElement1").setup({
+  file: video,
+  aspectratio: "16:9",
+ atuostart: true
+});
+}
+}
+	var list = [
+
+{title:"Flashpoint",
+file:"",
+alt:"0B7HG9TwTlPJKZ2lSVHlZQW1KeWs"
+
+},
+{title:"Paradox",
+file:"",
+alt:"0B7HG9TwTlPJKM3JVTzFYaDQtbUU"
+
+},
+{title:"Magenta",
+file:"",
+alt:"0B7HG9TwTlPJKQ182dmIyQm9NaWc"
+
+},
+{title:"The New Rougues",
+file:"",
+alt:"0B7HG9TwTlPJKZFAyYXZ6VC1QRTQ"
+},
+{title:"Monster",
+file:"",
+alt:"0B7HG9TwTlPJKYTRUWW4wUC1Vc1U"
+},
+{title:"Shade",
+file:"",
+alt:"0B7HG9TwTlPJKRHJwX0lBNl9OMzg"
+},
+{title:"Killer Frost",
+file:"",
+alt:"0B7HG9TwTlPJKOHI1V0VsZUNWTWM"
+},
+{title:"Invasion!",
+file:"",
+alt:"0B7HG9TwTlPJKVm1hWDRxNHVXUHM"
+},
+{title:"The Present",
+file:"",
+alt:"0B7HG9TwTlPJKYUc5QTExbXI5MFU"
+},
+{title:"Borrowing Problems from the Future",
+file:"",
+alt:"0B7HG9TwTlPJKMWgwa2otbW5XVTA"
+},
+{title:"Dead Or Alive",
+file:"",
+alt:"0B7HG9TwTlPJKdHFhbVVTT085eVk"
+},
+{title:"Untouchable",
+file:"",
+alt:"0B7HG9TwTlPJKZGVVUDRlalFmRjA"
+},
+{title:"Attack on Gorilla City",
+file:"",
+alt:"0B7HG9TwTlPJKTWlaVFNDRHRoZjQ"
+},
+{title:"Attach on Central City",
+file:"https://www.cwtv.com/ioshlskeys/videos/2017/02/27/TheFlash-314-AttackOnCentralCity-T2713114-CW-Stereo_b5a5d54e4.m3u8",
+alt:""
+},
+{title:"The Wrath of Savitar",
+file:"https://www.cwtv.com/ioshlskeys/videos/2017/03/06/TheFlash-315-TheWrathOfSavitar-T2713115-CW-Stereo_a1e59464e.m3u8",
+alt:""
+},
+{title:"Into the Speed Force",
+file:"https://www.cwtv.com/ioshlskeys/videos/2017/03/13/TheFlash-316-IntoTheSpeedForce-CW-Stereo_a6934436b.m3u8",
+alt:""
+},
+{title:"Duet",
+file:"https://www.cwtv.com/ioshlskeys/videos/2017/03/18/TheFlash-317-Duet-T2713117-CW-Stereo_a1541125c.m3u8",
+alt:""
+},
+{title:"Abra Kadabra",
+file:"https://www.cwtv.com/ioshlskeys/videos/2017/03/27/TheFlash-318-AbraKadabra-T2713118-v2-CW-Stereo_a7b2fcc9d.m3u8",
+alt:""
+}, 
+
+
+	]
+	for (c in list){
+		console.log(c , list[c])
+		                document.getElementById('episodes').innerHTML  += ('<tr><td>S' + '03' + 'E' + (c*1 + 1) + '</td> <td> ' + list[c].title + '</td><td><a onclick="play(this)" playurl="'+list[c].file+'" alt="'+list[c].alt+'" href="#"><button class="waves-effect waves-light btn-large">Play</button></a></td></tr>');
+                }
+	
+
+</script>
+</body> 
+ </html> 

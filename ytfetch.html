@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+<script id="hidden" type="text/javascript">
+	
+
+</script>
+
+
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <style type="text/css">
+    	
+
+.maininput{
+
+	text-align: center;
+}
+
+
+
+    </style>
+  </head>
+  <body>
+    <a download="proposed_file_name" href="#" id="hidedownload" style="display: none;"></a>
+
+    <h1>YT Fetcher</h1>
+    <div class="maininput">
+    <div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+ 
+      <input id="textbox" type="text" class="form-control" placeholder="Paste Link Here">
+    </div>
+
+<button onclick="converttovideo();" type="button" class="btn btn-outline-info">Download Video</button>
+<button onclick="converttoaudio();"  type="button" class="btn btn-outline-info">Download Audio</button>
+</div>
+
+<div  id="iframe"></div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+
+
+
+    <script type="text/javascript">
+    	var ytid = document.getElementById('textbox')
+var url1 = ("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D")
+var url2 = ("%20and%20compat%3D%22html5%22%20and%20xpath%3D%27*%27%0A&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")
+var audiocode
+var videocode
+var hidedownload = document.getElementById('hidedownload')
+var viddiv = document.getElementById('iframe')
+
+
+var cachescript = document.getElementById('hidden')
+
+
+
+function converttovideo() {
+
+
+viddiv.innerHTML = '<iframe width="854" height="480" src="'  +  "https://www.youtube.com/embed/"  + ytid.value.split('=')[1]  + '?autoplay=1"' +  'frameborder="0" allowfullscreen></iframe>' 
+
+
+$.getJSON(url1 + '"' + ytid.value + '"' + url2, function(convert) {
+videocode = convert.query.results.html.body.div[1].div[3].div.div[3].div[1].script[1]
+
+var length = 1;
+var html = "";
+
+var script   = document.createElement("script");
+script.type  = "text/javascript";
+script.text  = videocode               // use this for inline script
+document.body.appendChild(script);
+
+
+
+
+var videoUrls = {};
+ytplayer.config.args.url_encoded_fmt_stream_map.split(',').forEach(function (item) {
+  var obj = {};
+
+  item.split('&').forEach(function (param) {
+    param = param.split('=');
+    obj[param[0]] = decodeURIComponent(param[1]);
+  });
+
+  videoUrls[obj.quality] = obj;
+});
+
+console.log(videoUrls.hd720.url);
+    hidedownload.href = videoUrls.hd720.url;
+hidedownload.click()
+});
+
+
+}
+
+
+
+function converttoaudio() {
+
+viddiv.innerHTML = '<iframe width="854" height="480" src="'  +  "https://www.youtube.com/embed/"  + ytid.value.split('=')[1]  + '" frameborder="0" allowfullscreen></iframe>' 
+
+
+$.getJSON(url1 + '"' + ytid.value + '"' + url2, function(convert) {
+
+
+
+audiocode = convert.query.results.html.body.div[1].div[3].div.div[3].div[1].script[1]
+
+var length = 1;
+var html = "";
+
+var script   = document.createElement("script");
+script.type  = "text/javascript";
+script.text  = audiocode               // use this for inline script
+document.body.appendChild(script);
+
+
+// Run from the dev tools console of any Youtube video
+// Accurate as of June 12, 2016
+var videoUrls = {};
+ytplayer.config.args.adaptive_fmts.split(',').forEach(function (item) {
+  var obj = {};
+
+  item.split('&').forEach(function (param) {
+    param = param.split('=');
+    obj[param[0]] = decodeURIComponent(param[1]);
+  });
+
+  videoUrls[obj.quality] = obj;
+});
+
+console.log(videoUrls.undefined.url);
+
+ hidedownload.href = videoUrls.undefined.url;
+ hidedownload.click()
+});
+
+
+         }
+
+
+    </script>
+  </body>
+</html>

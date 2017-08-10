@@ -1,0 +1,172 @@
+
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video-js.min.css" /></head>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.6.10/hls.min.js
+"></script>
+
+<script type="text/javascript" src="https://cdn.rawgit.com/benjipott/videojs-hlsjs/master/lib/videojs-hlsjs.js"></script>
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+
+
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<input id="input" type="text" class="form-control" name="input">
+<title>CW NO-ADS</title>
+
+
+
+
+
+
+ <a id="buttonsearch" style="margin: auto;display: block;" onclick="fetchcw();" class="btn btn-primary">Load..</a>
+
+
+<div class="embed-responsive embed-responsive-16by9">
+<body>
+<video  id=LS x-webkit-airplay="allow" preload="auto" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls>
+
+
+</video>
+</div>
+
+
+
+
+  <a download="proposed_file_name" type="button" id="downloadbutton" href="#" class="btn btn-default"></a>
+  <br>
+    <img height="20%" id="img">
+
+
+<h1 id="div"></h1>
+
+
+<div id="seriesDesc"></div>
+
+<script>
+var player=videojs('LS');
+var desc = document.getElementById('seriesDesc')
+var img = document.getElementById('img')
+
+var buttondown = document.getElementById('downloadbutton')
+
+var cid = document.getElementById('input')
+var div = document.getElementById('div')
+
+var url = window.location.href
+
+
+
+var yql1 = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fmetaframe.digitalsmiths.tv%2Fv2%2FCWtv%2Fassets%2F"
+var yql2 = "%2Fpartner%2F154%3Fformat%3Djson%22%20&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
+var link1 = "https://metaframe.digitalsmiths.tv/v2/CWtv/assets/"
+
+var ids = "154 213"
+var link2 = "/partner/154?format=json"
+var tvmazedata
+
+var cwmp4 = "data.query.results.json.videos.hls5128.uri"
+
+var cwhls= "data.query.results.json.videos.variantplaylist.uri"
+
+
+var lastSegment = cid.value.split('/').pop();
+
+var stripped = lastSegment.substring(6);
+
+var finalurl
+
+function fetchcw() {
+    
+var lastSegment = cid.value.split('/').pop();
+
+var stripped = lastSegment.substring(6);
+
+if (cid.value == ""){
+
+var spliturl = url.split('/').pop();
+var strippedurl = spliturl.substring(6);
+console.log(strippedurl)
+
+finalurl = strippedurl
+
+}else{
+    finalurl = stripped
+
+}
+
+fetchcwjson(finalurl)
+}
+
+
+
+
+	function fetchcwjson(value) {
+
+$.getJSON(yql1 + value + yql2, function(data) {
+
+
+
+    
+    console.log(data.query.results.json.videos.variantplaylist.uri)
+
+    if (data.query.results.json.videos.variantplaylist.uri) {
+
+        document.title = data.query.results.json.assetFields.seriesName + "- " + data.query.results.json.assetFields.title ;
+
+        buttondown.innerHTML = "Download"
+        buttondown.setAttribute("href", data.query.results.json.videos.variantplaylist.uri);
+
+        http://api.tvmaze.com/singlesearch/shows?q=arrow
+
+
+
+
+
+
+
+
+
+
+ div.innerHTML = data.query.results.json.assetFields.seriesName + " - " +data.query.results.json.assetFields.title
+  desc.innerHTML = data.query.results.json.assetFields.description
+
+player.src({"type":"application/x-mpegURL", "src":data.query.results.json.videos.variantplaylist.uri});
+   player.play();
+    }else{
+    	alert("error")
+    }
+
+   
+
+                                
+                         
+
+                            });
+}
+
+
+</script>
+
+<script type="text/javascript" defer="defer">
+  var _gaq = _gaq || [];
+    _gaq.push(
+      ['_setAccount', 'UA-66082501-6'],
+      ['_trackPageview']
+    );
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https://www.google-analytics.com/analytics.js');
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</html>
