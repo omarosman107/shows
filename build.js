@@ -1100,7 +1100,7 @@ var foxheaders = new Headers({
 loaders()
 // https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
-fetch("https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
+fetch("https://api.fox.com/fbc-content/v1_4/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
   var allshows = []
 allshows.unshift.apply( allshows, shows.member );
     var json = []
@@ -1108,7 +1108,7 @@ allshows.unshift.apply( allshows, shows.member );
       json.push({name:allshows[i].name,image:allshows[i].images.seriesList.HD})
 if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
   loaders()
-            fetch('https://api.fox.com/fbc-content/v3_blue/screens/series-detail/'+allshows[i].id,{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
+            fetch('https://api.fox.com/fbc-content/v1_4/screens/series-detail/'+allshows[i].id,{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
               loaders()
               if (showdata.panels.member.length != 1) {
 

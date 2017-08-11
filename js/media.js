@@ -26,6 +26,7 @@ var secondsToTimeCode = function secondsToTimeCode(timeInSeconds) {
 //jwplayer.defaults.autostart = "true"
 function bg(url) {
    document.getElementById('blockLoader').style.background = 'linear-gradient(rgba(0, 0, 0, 0.34),  rgba(0, 0, 0, 0.7)),url(' + url + ")";
+   document.getElementById('blockLoader').src = url
 }
 function meta(s, e, a) {
    document.getElementById('season').innerHTML = s;
@@ -59,9 +60,7 @@ function resumePlayback(state) {
 
    if (played == false) {
 
-      document.getElementsByClassName('resume')[0].style.display = 'none';
 
-      document.getElementsByClassName('resume')[0].style.opacity = 0;
       if (state == false) {
          return;
       }
@@ -112,6 +111,8 @@ function resume() {
       document.getElementById('blockLoader').style.opacity = "0";
       document.getElementById('blockLoader').style.display = 'absolute';
       document.getElementById('blockLoader').style.zIndex = '-99999';
+            document.getElementById('LS').style.zIndex = '7';
+
 
       var played = true;
       resumePlayback();
