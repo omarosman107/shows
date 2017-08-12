@@ -1086,16 +1086,21 @@ var externalToApi = 'https://api.fox.com/fbc-content/v3/video?externalId=8531722
 var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
 var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001a9fb82/items' 
 var data = null;
-var foxheaders = new Headers({
-  'ApiKey':"abdcbed02c124d393b39e818a4312055",
+var apiver = 'v1_4'
+var apikey = ''
+fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+	apikey = (config.apis.content.apiKey)
+	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
+	var foxheaders = new Headers({
+  'ApiKey':apikey,
   "Accept":"application/json, text/plain, */*",
   "Connection":"keep-alive"
 
 })
-loaders()
+
 // https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
-fetch("https://api.fox.com/fbc-content/v1_4/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100&dma=999",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
+fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100&dma=999",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
   var allshows = []
 allshows.unshift.apply( allshows, shows.member );
     var json = []
@@ -1104,12 +1109,13 @@ allshows.unshift.apply( allshows, shows.member );
 if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
 	if (allshows[i].network != 'fox' && allshows[i].network != 'fx') {continue;}
   loaders()
-            fetch('https://api.fox.com/fbc-content/v1_4/screens/series-detail/'+allshows[i].id + '?itemsPerPage=2&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
+  console.log(allshows[i])
+            fetch(allshows[i].screenUrl + '?itemsPerPage=2&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
               loaders()
               if (showdata.panels.member.length != 1) {
 
      if ('episodes' in showdata.panels.member[1].items.member["0"]) {
-fetch(showdata.panels.member[1].items.member["0"].episodes["@id"] + '?itemsPerPage=30&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
+fetch(showdata.panels.member[1].items.member["0"].episodes["@id"],{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
 var json =  episodes
 console.log(json.member)
 for(i in json.member){
@@ -1127,7 +1133,6 @@ var sizes = [
 '720:*',
 '768:*',
 '896:*',
-'1024:*',
 '1280:*',
 '1920:*'
 ]
@@ -1189,6 +1194,12 @@ loaders('remove')
   console.log(e)
   loaders('remove')
 })
+
+
+
+})
+
+loaders()
 
 }
 

@@ -98,7 +98,7 @@ img.grayscale {
   -webkit-backface-visibility: hidden;
   /* Fix for transition flickering */
 }
-.image-crop:hover .grayscale{
+li:hover .image-crop .grayscale{
       filter: none;
   -webkit-filter: grayscale(0%);
 }
