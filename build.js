@@ -1094,26 +1094,29 @@ var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
 var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001a9fb82/items' 
 var data = null;
 var foxheaders = new Headers({
-  'ApiKey':"rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR",
-  'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhVzl6UVVJMFEwUkdNVVF0TVRFMU9TMDBNRE0xTFRrek5UQXROamczTURORE5UY3dRMEZCIiwiYWNjb3VudFR5cGUiOiJhbm9ueW1vdXMiLCJ1c2VyVHlwZSI6ImRldmljZUlkIiwiZGV2aWNlSWQiOiJBQjRDREYxRC0xMTU5LTQwMzUtOTM1MC02ODcwM0M1NzBDQUEiLCJkZXZpY2UiOiJpb3MiLCJ2ZXJzaW9uIjowLCJpYXQiOjE1MDIxNDY5NjMsImV4cCI6MTUwOTkyMjk2M30.IH4rdAQz4nsB-CWxWpg_YHIOimd_-_Lu3hoMXEaYgog"
+  'ApiKey':"abdcbed02c124d393b39e818a4312055",
+  "Accept":"application/json, text/plain, */*",
+  "Connection":"keep-alive"
+
 })
 loaders()
 // https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
-fetch("https://api.fox.com/fbc-content/v1_4/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
+fetch("https://api.fox.com/fbc-content/v1_4/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100&dma=999",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
   var allshows = []
 allshows.unshift.apply( allshows, shows.member );
     var json = []
     for (var i = allshows.length - 1; i >= 0; i--) {
       json.push({name:allshows[i].name,image:allshows[i].images.seriesList.HD})
 if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
+	if (allshows[i].network != 'fox' && allshows[i].network != 'fx') {continue;}
   loaders()
-            fetch('https://api.fox.com/fbc-content/v1_4/screens/series-detail/'+allshows[i].id,{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
+            fetch('https://api.fox.com/fbc-content/v1_4/screens/series-detail/'+allshows[i].id + '?itemsPerPage=2&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
               loaders()
               if (showdata.panels.member.length != 1) {
 
      if ('episodes' in showdata.panels.member[1].items.member["0"]) {
-fetch(showdata.panels.member[1].items.member["0"].episodes["@id"],{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
+fetch(showdata.panels.member[1].items.member["0"].episodes["@id"] + '?itemsPerPage=30&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
 var json =  episodes
 console.log(json.member)
 for(i in json.member){
@@ -1161,7 +1164,7 @@ var temp = moment(json.member[i].originalAirDate).subtract(4, 'hours')
                   tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' )
 
 }
-}
+} 
 loaders('remove')
 }).catch(function(e){
   console.log(e)

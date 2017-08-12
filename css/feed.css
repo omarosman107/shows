@@ -615,9 +615,9 @@ background-color: #bb2828;
 .fanarts-list>li .image-crop {
     width: 100%;
     position: relative;
-    overflow: visible
-    background: rgba(0, 0, 0, 0.28);
-    
+    overflow: visible;
+    background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+}    
     
     
     /*  background: url(https://d36rlb2fgh8cjd.cloudfront.net/default-images/landscape-default-q80.jpg);
