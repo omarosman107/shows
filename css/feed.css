@@ -40,13 +40,15 @@ input {
 
 .w3-progressbar {
     background-color: #e50914;
-    height: 100%;
     line-height: inherit;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     will-change: width,opacity;
+    height: .35rem;
+    position: absolute;
+    z-index: 8;
+    bottom: 0;
 }
-@import url('https://fonts.googleapis.com/css?family=Roboto:100');
 
 body {
     

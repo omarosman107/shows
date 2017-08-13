@@ -742,9 +742,7 @@ if (!time > 0) {
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 80vw, 460px" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
          </a>
          <span class="episode-gradient"></span>
-         <div id="projpar" class="w3-progress-container">
             <div id="progress" class="w3-progressbar" style="width: ${perc}%;"></div>
-         </div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       <div class="fanart-details">
@@ -776,9 +774,7 @@ if (!time > 0) {
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 70vw, 25vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
          </a>
          <span class="episode-gradient"></span>
-         <div class="w3-progress-container">
             <div class="w3-progressbar" style="width: ${perc}%;"></div>
-         </div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
       </div>
       <div class="fanart-details">
@@ -1088,6 +1084,7 @@ var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001
 var data = null;
 var apiver = 'v1_4'
 var apikey = ''
+loaders()
 fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
@@ -1115,7 +1112,7 @@ if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
               if (showdata.panels.member.length != 1) {
 
      if ('episodes' in showdata.panels.member[1].items.member["0"]) {
-fetch(showdata.panels.member[1].items.member["0"].episodes["@id"],{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
+fetch(showdata.panels.member[1].items.member[0].episodes["@id"],{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
 var json =  episodes
 console.log(json.member)
 for(i in json.member){
@@ -1196,6 +1193,7 @@ loaders('remove')
 })
 
 
+loaders('remove')
 
 })
 
