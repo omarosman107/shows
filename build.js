@@ -747,7 +747,7 @@ if (!time > 0) {
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
-         <a onclick="showQuery(null,this)" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a><a href="javascript:"></a>
+         <a onclick="showQuery(null,this)" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
       </div>
       <div class="bottom"></div>
 </li>`
@@ -879,7 +879,7 @@ fetch(show_hub + '?bust=' + Date.now()  , {
         epiformat: epiformat(s, e),
         length: data.videos[i].duration_secs,
         type: "cw",
-        bg:      'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?url='+data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_141x79.jpg'+'&container=focus&resize_w=8&refresh=31536000',
+        bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_141x79.jpg'+'w=8',
         time:Date.parse(airdate)
 
       }
@@ -1104,7 +1104,7 @@ allshows.unshift.apply( allshows, shows.member );
     for (var i = allshows.length - 1; i >= 0; i--) {
       json.push({name:allshows[i].name,image:allshows[i].images.seriesList.HD})
 if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
-	if (allshows[i].network != 'fox' && allshows[i].network != 'fx') {continue;}
+	if (allshows[i].network != 'fox' && allshows[i].network != 'fx') continue;
   loaders()
   console.log(allshows[i])
             fetch(allshows[i].screenUrl + '?itemsPerPage=2&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
@@ -1112,7 +1112,8 @@ if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
               if (showdata.panels.member.length != 1) {
 
      if ('episodes' in showdata.panels.member[1].items.member["0"]) {
-fetch(showdata.panels.member[1].items.member[0].episodes["@id"],{headers:foxheaders}).then(function(res){return res.json()}).then(function(episodes){
+     	console.log(showdata.panels.member[1].items.member[0].dateModified)
+fetch(showdata.panels.member[1].items.member[0].episodes["@id"],{headers:foxheaders,cache: "force-cache"}).then(function(res){return res.json()}).then(function(episodes){
 var json =  episodes
 console.log(json.member)
 for(i in json.member){
@@ -1126,9 +1127,9 @@ var sizes = [
 '304:*',
 '384:*',
 '400:*',
+'480:*',
 '576:*',
-'720:*',
-'768:*',
+'740:*',
 '896:*',
 '1280:*',
 '1920:*'
@@ -1138,7 +1139,10 @@ for (var z = sizes.length - 1; z >= 0; z--) {
   srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])  + ' '+ sizes[z].split(':')[0] +'w ,')
 }
 srcset = srcset.substr(0, srcset.length - 1);
-var temp = moment(json.member[i].originalAirDate).subtract(4, 'hours')
+var temp = new Date((json.member[i].originalAirDate))
+temp.setHours(temp.getHours() - 2 + (temp.getTimezoneOffset() / 60));
+console.log(temp)
+
 
       finalObj.push({
         img: json.member[i].images.still.SD,

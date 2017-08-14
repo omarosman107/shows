@@ -756,7 +756,7 @@ text-shadow:0 0 .1em #000
 }
 
 .circular {
-  animation: rotate 1.0s linear infinite;
+  animation: rotate 2.0s linear infinite;
   height: 100%;
   transform-origin: center center;
   width: 100%;

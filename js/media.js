@@ -113,7 +113,7 @@ function resume() {
       document.getElementById('blockLoader').style.zIndex = '-99999';
             document.getElementById('LS').style.zIndex = '7';
 
-
+  
       var played = true;
       resumePlayback();
       player.play();
@@ -974,14 +974,15 @@ parser = new DOMParser();
 xmlDoc = parser.parseFromString(play,"text/xml");
 */
 // param[name="testPlayerUrl"]
+if ('uplynk$testPlayerUrl' in play) {
 fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res){return res.text();
 }).then(function(m3u8){
   console.log(parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1].replace('.m3u8','.mp4') )
   player.src({ "type": "application/x-mpegURL", "src": parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] });
          resume();
 })
-return;
-
+}else{
+   fetch(url.split('?')[0] + '?format=redirect&formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn%2Flive').then(function(res){return res.json();}).then(function(play){
 fetch(play.interstitialURL).then(function(res){return res.text()
 }).then(function(ads){
   parser = new DOMParser();
@@ -1011,6 +1012,12 @@ player.on('timeupdate', function () {
          player.src({ "type": "application/x-mpegURL", "src": play.playURL });
          resume();
       });
+
+   })
+}
+
+return;
+
 
   })
 
