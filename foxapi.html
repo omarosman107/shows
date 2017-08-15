@@ -403,14 +403,19 @@ clearTimeout(hovering);
  var loadMedia = new XMLHttpRequest();
 loadMedia.addEventListener("readystatechange", function () {
   if (this.readyState === 4) {
+    var uplynk = new XMLHttpRequest();
+    uplynk.addEventListener('readystatechange',function(){
+      if (this.readyState === 4) {
+        var parser = new DOMParser();
+          console.log(parser.parseFromString(this.responseText,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] )
 element.querySelector('.overlay').style.display = 'none';
 element.querySelector('.mediacontent').style.display = 'none';
 if (video.canPlayType('application/vnd.apple.mpegURL')) {
-video.src = JSON.parse(this.responseText).playURL
+video.src = parser.parseFromString(this.responseText,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] 
       video.play();
 
 }else{
-	if(Hls.isSupported()) {
+  if(Hls.isSupported()) {
     console.log(url)
     var hls = new Hls();
     hls.attachMedia(video);
@@ -419,14 +424,21 @@ video.src = JSON.parse(this.responseText).playURL
 
 
   });
-    hls.loadSource(JSON.parse(this.responseText).playURL)
+    hls.loadSource(parser.parseFromString(this.responseText,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] )
 
 }
 
   }
+
+  
+      }
+    })
+    uplynk.open("get",JSON.parse(this.responseText).uplynk$testPlayerUrl)
+    uplynk.send()
+
 }
 });
-loadMedia.open("GET", url);
+loadMedia.open("GET", url.split('?')[0] + '?format=script');
 loadMedia.send(data)
 
 
@@ -444,9 +456,9 @@ element.querySelector('.overlay-btn').outerHTML = '<svg class="spinner overlay-b
 	console.error(e)
 }
 	}
-	var externalToApi = 'https://api.fox.com/fbc-content/v3/video?externalId=853172291669'
-var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
-var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001a9fb82/items' 
+	var externalToApi = 'https://api.fox.com/fbc-content/v1_4/video?externalId=853172291669'
+var shows = 'https://api.fox.com/fbc-content/v1_4/screens/find'
+var newest = 'https://api.fox.com/fbc-content/v1_4/screenpanels/58d57fd0880f910001a9fb82/items' 
 var data = null;
 function formatDate(date) {
   var d = new Date(date),
@@ -460,7 +472,7 @@ function formatDate(date) {
 function loadInfo(thing){
 document.getElementById('showdata').innerHTML = ''
 document.getElementsByClassName('spin')[0].style.display = 'flex'
-	console.log('https://api.fox.com/fbc-content/v3/screens/series-detail/'+thing.id)
+	console.log('https://api.fox.com/fbc-content/v1_4/screens/series-detail/'+thing.id)
 var loadShow = new XMLHttpRequest();
 loadShow.addEventListener("readystatechange", function () {
   if (this.readyState === 4) {
@@ -474,7 +486,7 @@ seasoninfo.addEventListener("readystatechange",function () {
 var json = (JSON.parse(this.responseText))
 document.getElementById('showdata').innerHTML += '<img style="    margin: 0px auto 30px;max-width: 400px;    width: 100%;display: block;" width="100%" src="'+json.member[0].images.logoCenter.FHD+'">'
 for(i in json.member){
-if(!json.member[i].requiresAuth && json.member[i].isFullEpisode ){
+if(json.member[i].isFullEpisode ){
 
 document.getElementById('showdata').innerHTML += '<div class="card">\
 		<div class="sixteen-nine top" url="'+json.member[i].videoRelease.url+'" onclick="loadPlayer(this)">\

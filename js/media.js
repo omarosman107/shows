@@ -9,6 +9,7 @@ player.ready(function () {
    console.log(player.hls)
 });
 
+
 var secondsToTimeCode = function secondsToTimeCode(timeInSeconds) {
 
    var zeropad = function zeropad(number) {
@@ -290,7 +291,7 @@ function fetchcwjson(value) {
       
       document.title = data.assetFields.seriesName + " - " + data.assetFields.title;
       document.getElementById('progress').style.width = "60%";
-      document.getElementById('downloader').href = 'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_5128kbps.mp4';
+      document.getElementById('downloader').href = 'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_8628kbps.mp4';
 
       /*  player.src({
            "type": "application/x-mpegURL",

@@ -379,10 +379,8 @@ loadMedia(l)
 
 
 
-     console.time('organize');
 
 myLazyLoad.update()
-     console.timeEnd('organize')
 
 window.onscroll = function() {
 // myLazyLoad.update()
@@ -673,14 +671,15 @@ function loadPlayer(url) {
 var formatter = new Intl.DateTimeFormat({
   month: "short"
 })
-var date1 = Date.now()
+var date1 = new Date()
 
 function loadMedia(episodes) {
 
   var template = ''
   var watching = ''
+  var tempLS = localStorage
 try{
-  console.time()
+  console.time('ProcessShows')
   for (i in episodes) {
     var json = episodes[i]
     var con = (json.show +''+ json.episode).toLowerCase().split(' ').join('').replace(/[^a-zA-Z ]/g, "")
@@ -698,29 +697,27 @@ if (!time > 0) {
     var date2 = new Date(time);
 
     function newBanner() {
-      var diff = (date2 - date1) / 1000;
-      var diff = Math.abs(Math.floor(diff));
-      var days = Math.floor(diff / (24 * 60 * 60));
-    var infuture = (date2 > date1)
-      if (days == 0 ) {
+      var diff = Math.abs(Math.floor(date2 - date1));
+	  var days = Math.ceil(Math.abs(date2.getTime() - date1) / (1000 * 3600 * 24) - 1); 
+      if (days <= 1 ) {
         return '<div class="new-label">New</div>';
       } 
-      if (infuture) {
+      if (date2 > date1) {
                 return '<div class="new-label">Unaired</div>';
 
       }
       return '';
     }
     var perc = 0;
-    if (localStorage["?" + json.href]) {
-      perc = localStorage["?" + json.href] / json.length * 100;
+    if (tempLS["?" + json.href]) {
+      perc = tempLS["?" + json.href] / json.length * 100;
       if (perc == "NaN") {
         perc = 0
       }
       if (perc == undefined) {
         perc = 0
       }
-    }
+    } 
 
     function showCheck() {
 
@@ -789,12 +786,10 @@ if (!time > 0) {
      
 
   }
-  console.timeEnd()
-
+  console.timeEnd('ProcessShows')
 
   document.getElementById('watching').innerHTML += watching;
   document.getElementById('carasoul').innerHTML += template;
-
   }catch(e){
 console.log(e)
 }
