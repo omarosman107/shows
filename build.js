@@ -694,15 +694,15 @@ try{
 if (!time > 0) {
   time = 140000000
 }
-    var date2 = new Date(time);
+   
 
     function newBanner() {
-      var diff = Math.abs(Math.floor(date2 - date1));
-	  var days = Math.ceil(Math.abs(date2.getTime() - date1) / (1000 * 3600 * 24) - 1); 
-      if (days <= 1 ) {
+      var diff = Math.abs(Math.floor(json.time - date1));
+	  var days = Math.ceil(Math.abs(json.time - date1) / (1000 * 3600 * 24) - 1); 
+      if (days <= 0 ) {
         return '<div class="new-label">New</div>';
       } 
-      if (date2 > date1) {
+      if (json.time > date1) {
                 return '<div class="new-label">Unaired</div>';
 
       }
@@ -756,8 +756,7 @@ if (!time > 0) {
     var query = (json.metadata + " " + json.episode).toLowerCase();
     timeofPlayback = Math.floor(json.length / 60) + 'm'
     
-
-    date2.setDate(date2.getDate() );
+var date2 = new Date(json.time)
     var month2 = formatter.format(date2);
     var FDate = month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2

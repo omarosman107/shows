@@ -536,7 +536,7 @@ seasoninfo.send(null)
 
   }
 });
-loadShow.open("GET", 'https://api.fox.com/fbc-content/v3/screens/series-detail/'+thing.id);
+loadShow.open("GET", 'https://api.fox.com/fbc-content/v1_4/screens/series-detail/'+thing.id);
 
 loadShow.setRequestHeader("apikey", "rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR");
 loadShow.send(data)
@@ -560,7 +560,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-xhr.open("GET", "https://api.fox.com/fbc-content/v3/screens/find");
+xhr.open("GET", "https://api.fox.com/fbc-content/v1_4/screens/find");
 
 xhr.setRequestHeader("apikey", "rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR");
 
