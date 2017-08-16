@@ -629,7 +629,7 @@ a:hover {
     position: absolute;
     transition: opacity 500ms ease, z-index 500ms ease;
     z-index: 99999999;
-    background-size: contain !important;
+    background-size: cover !important;
     background-color: #1b1b1b;
 }
 .w3-progress-container {
