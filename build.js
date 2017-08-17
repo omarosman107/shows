@@ -873,7 +873,7 @@ fetch(show_hub + '?bust=' + Date.now()  , {
         epiformat: epiformat(s, e),
         length: data.videos[i].duration_secs,
         type: "cw",
-        bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_141x79.jpg'+'w=8',
+        bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
         time:Date.parse(airdate)
 
       }
@@ -1150,7 +1150,7 @@ console.log(temp)
         type: json.member[i].network,
         imgdyn: srcset,
         autoplay:json.member[i].autoPlayVideo.default.url,
-        bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0] + '?fit=inside%7C' + encodeURIComponent('8:*'),
+        bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(temp)
 
               });

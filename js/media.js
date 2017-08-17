@@ -983,7 +983,7 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
          resume();
 })
 }else{
-   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fweb%2Ffxn').then(function(res){return res.json();}).then(function(play){
+   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fweb%2Ffxn&auth='+auth).then(function(res){return res.json();}).then(function(play){
 fetch(play.interstitialURL).then(function(res){return res.text()
 }).then(function(ads){
   parser = new DOMParser();
@@ -1108,8 +1108,15 @@ function foxapi(url) {
    };
    fetch(url, request).then(function (res) {
       return res.json();
-   }).then(function (data) {
-player.duration(data.durationInSeconds)
+   }).then(function (item) {
+      if ('member' in item) {
+         console.log('not single video');
+         handle(item.member[0])
+         return;
+      }
+
+function handle(data){
+   player.duration(data.durationInSeconds)
       console.log(data.images.logo.FHD);
 
       bg(data.images.still.HD);
@@ -1122,43 +1129,10 @@ player.duration(data.durationInSeconds)
       document.getElementById('epname').innerHTML = data.name;
 
 play(data.videoRelease.url)
-return;
-      fetch("https://feed.theplatform.com/f/fox.com/fullepisodes?form=json&range=1-1&byCustomValue={fox:freewheelId}{" + data.externalId[0] + "}", {
-         method: 'get'
-      }).then(function (response) {
-         return response.json();
-      }).then(function (data) {
-        if (!data.entries.length == 0) {
 
-              fetch(data.entries[0].media$content[0].plfile$url + '&format=script').then(function(res){return res.json();}).then(function(captions){
-                for (var i = captions.captions.length - 1; i >= 0; i--) {
-                  if(captions.captions[i].type == "text/vtt"){
-var track = player.addRemoteTextTrack({src:captions.captions[i].src,kind:"captions",label:"English",srclang: "en"})
-break;
-
-                  }
-                }
- })
-         var a = data.entries[0].media$content[0].plfile$url + '&format=redirect&manifest=m3u';
-         fetch(data.entries[0].media$content[0].plfile$url.split('?')[0] + '?&switch=http&mbr=true').then(function(res){return res.text();}).then(function(download){
-          parser = new DOMParser();
-xmlDoc = parser.parseFromString(download,"text/xml");
-console.log( xmlDoc.querySelector('video').getAttribute('src'))
-                document.getElementById('downloader').href =  xmlDoc.querySelector('video').getAttribute('src');
-         })
-
-         player.src({ "type": "application/x-mpegURL", "src": a });
-         
-         resume();
-       }else{
-play()
-       }
-      });
-
-
-
-   
-   });
+}
+handle(item)
+ });
 }
 function funimation(url){
   console.log(url)
