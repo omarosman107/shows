@@ -1134,7 +1134,8 @@ for (var z = sizes.length - 1; z >= 0; z--) {
 }
 srcset = srcset.substr(0, srcset.length - 1);
 var temp = new Date((json.member[i].originalAirDate))
-temp.setHours(temp.getHours() - 2 + (temp.getTimezoneOffset() / 60));
+// + (temp.getTimezoneOffset() / 60)
+temp.setHours(temp.getHours() - 12 );
 console.log(temp)
 
 

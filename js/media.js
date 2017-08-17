@@ -6,7 +6,6 @@ player.ready(function () {
       seekStep: 5,
       enableModifiersForNumbers: false
    });
-   console.log(player.hls)
 });
 
 
@@ -983,6 +982,7 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
          resume();
 })
 }else{
+   // &sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive
    fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fweb%2Ffxn&auth='+auth).then(function(res){return res.json();}).then(function(play){
 fetch(play.interstitialURL).then(function(res){return res.text()
 }).then(function(ads){
@@ -1131,7 +1131,13 @@ function handle(data){
 play(data.videoRelease.url)
 
 }
+
+if ('videoRelease' in item == 0) {
+   console.log('episode is not done airing yet')
+}else{
+}
 handle(item)
+
  });
 }
 function funimation(url){
