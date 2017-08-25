@@ -753,7 +753,7 @@ if (!time > 0) {
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
-         <a onclick="showQuery(null,this)" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
+         <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
       </div>
       <div class="bottom"></div>
 </li>`
@@ -784,7 +784,7 @@ var date2 = new Date(json.time)
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
-         <a onclick="showQuery(null,this)" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
+         <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
          <div class="cardBorder"></div>
             <p>${FDate} | ${json.rating} | ${timeofPlayback} | ${json.epiformat}</p>
         </div>
@@ -1107,7 +1107,8 @@ allshows.unshift.apply( allshows, shows.member );
     for (var i = allshows.length - 1; i >= 0; i--) {
       json.push({name:allshows[i].name,image:allshows[i].images.seriesList.HD})
 if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
-	if (allshows[i].network != 'fox' && allshows[i].network != 'fx') continue;
+	if (allshows[i].network != 'fox' && allshows[i].name != 'Snowfall' ) continue;
+	// allshows[i].network != 'fx' 
 console.log(show)
 	if (show != 'undefined' && show != undefined && allshows[i].name.toLowerCase().includes(show.toLowerCase()) == false) continue;
 
