@@ -472,7 +472,7 @@ function scrollShows() {
   }
 }
 
-function showQuery(q, o) {
+function showQuery(q, o,type) {
   if (q == null) {
     q = o.getAttribute('show')
       //   document.body.style.background = 'url(' + obj.getAttribute('bg') + ") no-repeat center center fixed";
@@ -492,6 +492,15 @@ function showQuery(q, o) {
     scrollShows()
     myLazyLoad.update()
     results(num)
+    var Showtype = ''
+if (window.location.search.split(':')[0] == '') {
+Showtype = o.getAttribute('data-type')
+}else{
+	   Showtype = type
+}
+
+    window.history.replaceState('', '', '?' + Showtype + ':' + q);
+
 }
 var tvobj = {}
 
@@ -530,14 +539,14 @@ var tvdbimg = 'https://thetvdb.com/banners/posters/279121-50.jpg'
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
-function tvlist(showName,img) {
+function tvlist(showName,img,type) {
   if (showName in tvobj) {
     return 'Already In.';
   }
 
   tvobj[(showName)] = ''
 if (img != undefined) {
-  document.getElementById('tvShows').innerHTML += `<div show="${showName}" onclick="showQuery(null,this)"  class="show">
+  document.getElementById('tvShows').innerHTML += `<div show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
   <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
 </div>
 `;
@@ -732,7 +741,7 @@ if (!time > 0) {
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'
        
-        watching += `<li style="margin: 11px;" class=" card  ${json.href}">
+        watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card  ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="newplayer.html?${json.href}">
             <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
@@ -744,7 +753,7 @@ if (!time > 0) {
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
-         <a onclick="showQuery(null,this)" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
+         <a onclick="showQuery(null,this)" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
       </div>
       <div class="bottom"></div>
 </li>`
@@ -761,7 +770,7 @@ var date2 = new Date(json.time)
     var FDate = month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2
     var out = "'out'"
-    template +=  `<li aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id}   data-query="${query}">
+    template +=  `<li   aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id}   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="newplayer.html?${json.href}">
          ${newBanner()}
@@ -775,7 +784,7 @@ var date2 = new Date(json.time)
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
-         <a onclick="showQuery(null,this)" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
+         <a onclick="showQuery(null,this)" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
          <div class="cardBorder"></div>
             <p>${FDate} | ${json.rating} | ${timeofPlayback} | ${json.epiformat}</p>
         </div>
@@ -861,7 +870,7 @@ fetch(show_hub + '?bust=' + Date.now()  , {
         airdate = (data.videos[i].start_time)
       }
       var dyn =  data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_1920x1080.jpg 1920w, ' +data.videos[i].large_thumbnail + " 720w  ,"+ data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_640x360.jpg 640w, '+data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_609x335.jpg 609w, ' +  data.videos[i].medium_thumbnail + ' 210w, ' + data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_141x79.jpg 144w '
-      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg')
+      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
       var episode_data = {
         img: data.videos[i].medium_thumbnail,
         rating: (data.videos[i].rating),
@@ -1070,7 +1079,7 @@ console.log(err)
 
 
 
-function newfox(){
+function newfox(show){
 
 var externalToApi = 'https://api.fox.com/fbc-content/v3/video?externalId=853172291669'
 var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
@@ -1099,6 +1108,9 @@ allshows.unshift.apply( allshows, shows.member );
       json.push({name:allshows[i].name,image:allshows[i].images.seriesList.HD})
 if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
 	if (allshows[i].network != 'fox' && allshows[i].network != 'fx') continue;
+console.log(show)
+	if (show != 'undefined' && show != undefined && allshows[i].name.toLowerCase().includes(show.toLowerCase()) == false) continue;
+
   loaders()
   console.log(allshows[i])
             fetch(allshows[i].screenUrl + '?itemsPerPage=2&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
@@ -1152,10 +1164,11 @@ console.log(temp)
         imgdyn: srcset,
         autoplay:json.member[i].autoPlayVideo.default.url,
         bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
-        time:Date.parse(temp)
+        time:Date.parse(temp),
+        type:'newfox'
 
               });
-                  tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' )
+                  tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*','newfox' )
 
 }
 } 
@@ -1202,7 +1215,7 @@ loaders()
 
     if (!window.location.search == '' || window.location.search == '?') {
       for (var i = window.location.search.split('?')[1].split(',').length - 1; i >= 0; i--) {
-        eval(window.location.search.split('?')[1].split(',')[i] + '()')
+        eval(window.location.search.split('?')[1].split(',')[i].split(':')[0] + '("'+decodeURIComponent(window.location.search.split('?')[1].split(',')[i].split(':')[1])+'")')
       }
     window.location.search.split('?')[1]
     }else{
