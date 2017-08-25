@@ -833,109 +833,33 @@ function fetchdiziayjson(value) {
       }
    });
 }
-var _cnglobal;
-var cnvideoid;
-function fetchcartoonnjson(value) {
-
-   fetch('https://cors-anywhere.herokuapp.com/' + value).then(function (response) {
-
-      document.getElementById('progress').style.width = "40%";
-
-      return response.text();
-   }).then(function (data) {
-      data = tohtml(data);
-      for (var i = data.getElementsByTagName('script').length - 1; i >= 0; i--) {
-         if (data.getElementsByTagName('script')[i].innerHTML.includes('_cnglobal.cvpVideoId = ')) {
-
-            cnvideoid = data.getElementsByTagName('script')[i].innerHTML.split(';')[0].split("'")[1];
-            console.log(_cnglobal);
-            fetch('https://cors-anywhere.herokuapp.com/http://www.cartoonnetwork.com/cntv/mvpd/services/cvpXML.do?id=' + data.getElementsByTagName('script')[i].innerHTML.split(';')[0].split("'")[1]).then(function (response) {
-
-               document.getElementById('progress').style.width = "40%";
-
-               return response.text();
-            }).then(function (apidat) {
-
-               $.ajax("https://cors-anywhere.herokuapp.com/http://www.cartoonnetwork.com/cntv/mvpd/processors/services/token_ipadAdobe.do?path=" + tohtml(apidat, 'xml').querySelector('file[bitrate="androidphone"]').innerHTML + "&videoId=" + cnvideoid, {
-                  'type': 'GET',
-                  success: function success(result) {
-                     console.log(result.querySelector('token').innerHTML);
-
-                     player.src({ "type": "application/x-mpegURL", "src": 'http://androidhls-secure.cdn.turner.com/toon/big' + tohtml(apidat, 'xml').querySelector('file[bitrate="androidphone"]').innerHTML + '?hdnea=' + result.querySelector('token').innerHTML });
-                     resume();
-                  }
-               });
-
-               document.getElementById('progress').style.width = "100%";
-               $('#projpar').hide();
-            });
-         }
-      }
-
-      for (var i = data.getElementsByTagName('script').length - 1; i >= 0; i--) {
-         if (data.getElementsByTagName('script')[i].getAttribute("type") == 'application/ld+json') {
-            var metadata = JSON.parse(data.getElementsByTagName('script')[i].innerHTML);
-            console.log(metadata);
-            showname.innerHTML = metadata.partOfSeries.name + " - " + metadata.name;
-            document.title = metadata.partOfSeries.name + " - " + metadata.name;
-            showdesc.innerHTML = metadata.description;
-         }
-      }
-   });
-}
-
 // fxfetch
 function fetchfxjson(value) {
-   if (value.includes('link.theplatform.com/s/fng-fx/')) {
 
-      fetch(value.split('?')[0] + "?format=preview", {
-         method: 'get'
-      }).then(function (response) {
-         return response.json();
-      }).then(function (data) {
-         document.getElementById('progress').style.width = "100%";
-
-         showname.innerHTML = toTitleCase(data['fx$showcode'].replace('-', ' ')) + " - " + data.title;
-         document.title = toTitleCase(data['fx$showcode'].replace('-', ' ')) + " - " + data.title;
-
-         showdesc.innerHTML = data.description;
-      });
-
-      document.getElementById('downloader').href = value.split('?')[0] + "?mbr=true&manifest=m3u&metafile=false";
-
-      player.src({ "type": "application/x-mpegURL", "src": value.split('?')[0] + "?mbr=true&manifest=m3u&metafile=false" });
-      resume();
-      document.getElementById('progress').style.width = "90%";
-      $('#projpar').hide();
-   } else {
       var epiname;
       // url (required), options (optional)
       document.getElementById('progress').style.width = "30%";
       // url (required), options (optional)
-      fetch(value, {
-         method: 'get'
-      }).then(function (response) {
-         return response.text();
-      }).then(function (final) {
+        fetch('https://api.fox.com/fbc-content/v3_blue/video?externalId=' + value.split('video/')[1],{
+    headers: new Headers({
+    'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
+  })
+  }).then(function(res){return res.json();}).then(function(json){
+console.log(json)
+  bg(json.member["0"].images.still.HD);
+         getShowinfo(json.member["0"].seriesName);
+         showname.innerHTML = json.member["0"].seriesName;
+         showdesc.innerHTML = json.member["0"].description;
+         document.getElementById('epname').innerHTML = json.member["0"].name;
 
-         final = (tohtml(final));
-         console.log(final.querySelector("[property='video:series']").content)
-         document.getElementById('progress').style.width = "90%";
-         getShowinfo(final.querySelector("[property='video:series']").content)
-         showname.innerHTML = final.querySelector("[property='video:series']").content;
-         document.title = final.querySelector("[property='video:series']").content;
 
-         showdesc.innerHTML = final.querySelector("[property='og:description']").content;
-         document.getElementById('epname').innerHTML = final.querySelector(".episodeTitle").value;
-         document.getElementById('downloader').href = final.querySelector("[property='twitter:player:stream']").content.split('releaseURL=')[1].split('?')[0] + "?mbr=true&manifest=m3u&metafile=false";
+         document.title = json.member["0"].seriesName + " - " + json.member["0"].name;
+          play(json.member["0"].videoRelease.url,url.split('&auth=')[1])
+                  document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 6.0em;display:inline-block;" src="' + json.member["0"].images.logo.FHD + '" width="100%">';
+  bg(json.member["0"].images.still.HD);
+   $('#projpar').hide();
 
-         player.src({ "type": "application/x-mpegURL", "src": final.querySelector("[property='twitter:player:stream']").content.split('releaseURL=')[1].split('?')[0] + "?mbr=true&manifest=m3u&metafile=false" });
-         resume();
-         document.getElementById('progress').style.width = "100%";
-         $('#projpar').hide();
-         isDone = true;
-      });
-   }
+  })
 }
 
 function fetchlplatjson(value) {

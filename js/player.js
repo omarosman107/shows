@@ -44,7 +44,6 @@ var sitefunctions = {
   "amc.com": fetchamcjson,
   "cbs.com": fetchcbsjson,
   "nbc.com": fetchnbcjson,
-  "cartoonnetwork.com": fetchcartoonnjson,
   "fox.com": fetchfoxjson,
   "link.theplatform.com": fetchlplatjson,
   "fxnetworks.com": fetchfxjson,
