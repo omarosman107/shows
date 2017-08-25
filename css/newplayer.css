@@ -756,7 +756,7 @@ text-shadow:0 0 .1em #000
 }
 
 .circular {
-  animation: rotate 2.0s linear infinite;
+  animation: rotate 1.0s linear infinite;
   height: 100%;
   transform-origin: center center;
   width: 100%;
@@ -771,7 +771,7 @@ text-shadow:0 0 .1em #000
 .path {
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
-  animation: dash 1.0s ease-in-out infinite, color 6s ease-in-out infinite;
+  animation: dash .8s ease-in-out infinite, color 6s ease-in-out infinite;
 }
 
 @keyframes rotate {
