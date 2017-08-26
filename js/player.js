@@ -33,6 +33,7 @@ var sitefunctions = {
   "fx_=": fxsite,
   "asdir=": fetchaswimjson,
   "api.fox.com": foxapi,
+  "api-staging.fox.com": foxapi,
   "funimation.com": funimation,
   "cwtv.com": fetchcwjson,
   "diziay.com": fetchdiziayjson,

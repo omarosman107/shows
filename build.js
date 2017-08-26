@@ -1122,7 +1122,7 @@ console.log(show)
 
   loaders()
   console.log(allshows[i])
-            fetch(allshows[i].screenUrl + '?itemsPerPage=2&dma=999',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
+            fetch(allshows[i].screenUrl,{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
               loaders()
               if (showdata.panels.member.length != 1) {
 
