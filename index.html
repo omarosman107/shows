@@ -215,9 +215,11 @@
         position: fixed;
         z-index: 99999;
   background: #2c2d44;
+  /*
   background-image: -moz-linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
   background-image: -webkit-linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
   background-image: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+  */
           transition:opacity 0.6s ease, width 0.6s ease, z-index 0.6s;  
 
 }
@@ -307,6 +309,7 @@ body {
 
 #particles-background {
   background: #2c2d44;
+  /*
   background-image: -moz-linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
   background-image: -webkit-linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
   background-image: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
@@ -315,6 +318,7 @@ background: #27c4f5 -webkit-gradient(linear,left top,right top,from(#27c4f5),col
     background: #27c4f5 -webkit-linear-gradient(left,#27c4f5,#a307ba,#fd8d32,#70c050,#27c4f5);
     background: #27c4f5 linear-gradient(to right,#27c4f5,#a307ba,#fd8d32,#70c050,#27c4f5);
     background-size: 500%;
+    */
 }
 lesshat-selector {
   -lh-property: 0; } 
@@ -370,13 +374,14 @@ body {
 @-webkit-keyframes barprogress{0%{background-position:0% 0}to{background-position:125% 0}}@keyframes barprogress{0%{background-position:0% 0}to{background-position:125% 0}}@-webkit-keyframes fadein{0%{opacity:0}to{opacity:1}}@keyframes fadein{0%{opacity:0}to{opacity:1}}._kvls4{height:4px;background:#27c4f5 -webkit-gradient(linear,left top,right top,from(#27c4f5),color-stop(#a307ba),color-stop(#fd8d32),color-stop(#70c050),to(#27c4f5));background:#27c4f5 -webkit-linear-gradient(left,#27c4f5,#a307ba,#fd8d32,#70c050,#27c4f5);background:#27c4f5 linear-gradient(to right,#27c4f5,#a307ba,#fd8d32,#70c050,#27c4f5);background-size:500%;-webkit-animation:2s linear infinite barprogress,.3s fadein;animation:2s linear infinite barprogress,.3s fadein;width:100%}
 
 #topprogress {
-      height: 4px;
-    background: #bacbe8;
+      height: 100%;
+    background: #ffffff;
     -webkit-transition: all .14s ease;
     transition: all .14s ease;
     will-change:translate,transform,width;
-        transform: translate3d(0px, 0px, 0px);
-
+      margin: auto;
+      border-radius: 5px;
+          transform: scaleX(0);
 }
 #wtcTxt {
   display: block;
@@ -470,12 +475,29 @@ box-sizing:border-box;
 
   }
 }
+ .progCont {
+      height: 4px;
+    background: #717377;
+    -webkit-transition: all .14s ease;
+    transition: all .14s ease;
+    will-change: translate,transform,width;
+    transform: translate3d(0px, 0px, 0px);
+    width: 84vw;
+    margin: auto;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 22vh;
+    z-index: 10;
+ }
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
 <body>
 <div class="lScreen">
-<div style="height: 4px;background: #ffffff;"><div id="topprogress" class="" ></div>
+<div class="progCont" style="height: 4px;    background: rgba(255, 255, 255, 0.07);"><div id="topprogress" class="" ></div>
 </div>
 <div id="particles-background" class="vertical-centered-box"></div>
 

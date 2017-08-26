@@ -352,7 +352,7 @@ function loaders(atr) {
   if (atr == 'remove') {
 
     num--
-  document.getElementById('topprogress').style.transform = 'translateX(' + ((100 - (num/maxnum *100)) - 100) + '%)'
+  document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
     if (num == 0) {
 document.body.setAttribute('class','finished');
 
@@ -406,7 +406,7 @@ window.onscroll = function() {
 maxnum = num
   }
 
-  document.getElementById('topprogress').style.transform = 'translateX(' + ((100 - (num/maxnum *100)) - 100) + '%)'
+  document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
 }
 
 function makeid() {
@@ -698,6 +698,8 @@ try{
       continue;
     }
     */
+    console.log(json.hidden)
+
     var time = json.time
 
 if (!time > 0) {
@@ -769,8 +771,14 @@ var date2 = new Date(json.time)
     var month2 = formatter.format(date2);
     var FDate = month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2
+    function hidden(){
+if (json.hidden) {
+	return 'opacity: .5'
+}
+    }
     var out = "'out'"
-    template +=  `<li   aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id}   data-query="${query}">
+
+    template +=  `<li style="${hidden()}"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id}   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="newplayer.html?${json.href}">
          ${newBanner()}
@@ -1126,7 +1134,7 @@ console.log(json.member)
 for(i in json.member){
 
   // !json.member[i].requiresAuth &&
-if(!json.member[i].hideVideo && json.member[i].isFullEpisode ){
+if(json.member[i].isFullEpisode ){
 var image = json.member[i].images.still.HD.split('?')[0]
 var sizes = [
 '208:*',
@@ -1166,7 +1174,8 @@ console.log(temp)
         autoplay:json.member[i].autoPlayVideo.default.url,
         bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(temp),
-        type:'newfox'
+        type:'newfox',
+        hidden:json.member[i].hideVideo
 
               });
                   tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*','newfox' )

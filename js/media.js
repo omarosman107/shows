@@ -907,7 +907,7 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
 })
 }else{
    // &sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive
-   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&mbr=true&format=redirect&policy=93849329&affiliate=FX&sitesection=app.dcg-foxnow%2Fweb%2Ffxn&auth='+auth).then(function(res){return res.json();}).then(function(play){
+   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fweb%2Ffxn&auth='+auth).then(function(res){return res.json();}).then(function(play){
 fetch(play.interstitialURL).then(function(res){return res.text()
 }).then(function(ads){
   parser = new DOMParser();
