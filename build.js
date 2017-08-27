@@ -878,10 +878,15 @@ fetch(show_hub + '?bust=' + Date.now()  , {
       if (airdate == '') {
         airdate = (data.videos[i].start_time)
       }
-      var dyn =  data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_1920x1080.jpg 1920w, ' +data.videos[i].large_thumbnail + " 720w  ,"+ data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_640x360.jpg 640w, '+data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_609x335.jpg 609w, ' +  data.videos[i].medium_thumbnail + ' 210w, ' + data.videos[i].large_thumbnail.split('tv_')[0] + 'tv_141x79.jpg 144w '
+      function cwdyres(resulution){
+      	return 'http://images.cwtv.com/thecw/img/s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.v_7.w_'+resulution+'.jpg'
+      }
+      console.log(cwdyres('1920'))
+      console.log('http://images.cwtv.com/thecw/img/s_mobile.i_video_thumbnail.guid_23cafabc-760e-40e8-ae7c-b2941242b5a3.v_7.w_1920.jpg')
+      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
       tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
       var episode_data = {
-        img: data.videos[i].medium_thumbnail,
+        img: cwdyres('638'),
         rating: (data.videos[i].rating),
         imgdyn: dyn,
         id: makeid(),
