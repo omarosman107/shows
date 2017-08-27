@@ -494,6 +494,7 @@ function showQuery(q, o,type) {
     results(num)
     var Showtype = ''
 if (window.location.search.split(':')[0] == '') {
+	return;
 Showtype = o.getAttribute('data-type')
 }else{
 	   Showtype = type
