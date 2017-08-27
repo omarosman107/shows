@@ -7,6 +7,10 @@ PLAYER:New design
 
 
 == CHANGELOG ==
+cw episodes images faster and lower file size
+--
+made episodes opacity lower that may not work
+--
 all episodes are unlocked from fox!
 --
 new loader for videos
