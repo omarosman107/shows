@@ -914,9 +914,14 @@ fetch(play.interstitialURL.replace('http://','https://')).then(function(res){ret
 xmlDoc = parser.parseFromString(ads,"text/xml");
 var adTimes = xmlDoc.querySelector('interstitialGroup').children
 var ads = []
+//var adstrack = player.addTextTrack("captions", "ads", "en");
+//adstrack.mode = 'hidden';
 for (var i = adTimes.length - 1; i >= 0; i--) {
   ads.push({start:adTimes[i].querySelector('start').innerHTML,end:adTimes[i].querySelector('end').innerHTML})
+  console.log({start:adTimes[i].querySelector('start').innerHTML,end:adTimes[i].querySelector('end').innerHTML})
+  //         adstrack.addCue(new VTTCue(adTimes[i].querySelector('start').innerHTML,adTimes[i].querySelector('end').innerHTML, ''));
 }
+
 function adsHandle(time){
 for (var i = ads.length - 1; i >= 0; i--) {
   if(time.between(ads[i].start,ads[i].end)){
@@ -925,13 +930,32 @@ return {playing:true,end:ads[i].end};
 }
 return {playing:false};
 }
+/*
+adstrack.addEventListener('cuechange', function() {
+    var cues = this.cues;
+    console.log(cues)
+    if (player.currentTime() >= cues.cues_["0"].originalCue_.endTime){}else{
+    player.currentTime(cues.cues_["0"].originalCue_.endTime);
+
+    }
+    var processCue = function() {
+      console.log('processCue')
+    };
+    var cancelAds = function() {
+            console.log('cancelAds')
+
+    };
+ 
+  });
+*/
+
 player.on('timeupdate', function () {
   if (adsHandle(this.currentTime()).playing) {
           this.currentTime(adsHandle(this.currentTime()).end);
 
   }
     })
-   
+  
 
 
 
@@ -1166,11 +1190,9 @@ fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?format=s
    for (var i = subtitles.captions.length - 1; i >= 0; i--) {
       if(subtitles.captions[i].type == 'text/vtt'){
          var  track = player.addTextTrack("captions", "English", "en");
-         console.log(subtitles.captions[i].src)
 fetch(subtitles.captions[i].src).then(function(res){return res.text()}).then(function(vtt){
    convertVttToJson(vtt).then(function(json){console.log(json)
       for (i = 0, len = json.length; i < len; ++i) {
-         console.log(json[i].start , json[i].end)
          track.addCue(new VTTCue(json[i].start - .5, json[i].end - .5 , json[i].part));
       }
 
