@@ -500,7 +500,7 @@ Showtype = o.getAttribute('data-type')
 	   Showtype = type
 }
 
-    window.history.replaceState('', '', '?' + Showtype + ':' + q);
+ //   window.history.replaceState('', '', '?' + Showtype + ':' + q);
 
 }
 var tvobj = {}
@@ -845,12 +845,17 @@ var obj = []
 
 var cors_show_hub = 'https://crossorigin.me/' + show_hub
 // var show_hub = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from json where url="' + show_hub + '"') + '&format=json&bust='+Date.now();
-function cw(){
+function cw(show){
 	loaders()
 fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
 	if (cwshows.items[i].deeplink.includes('cwseed') || cwshows.items[i].slug == 'more-video') {loaders('remove');continue;}
+			if (show != 'undefined' && show != undefined && cwshows.items[i].title.toLowerCase().includes(show.toLowerCase()) == false){
+ loaders('remove');
+ continue;
+			}
+
 fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
 .then(function(res){
 return res.json()
@@ -1190,6 +1195,8 @@ allshows.unshift.apply( allshows, shows.member );
     for (var i = allshows.length - 1; i >= 0; i--) {
 if(true){
 	if (!foxshowlist.includes(allshows[i].showCode)) continue;
+		if (show != 'undefined' && show != undefined && allshows[i].name.toLowerCase().includes(show.toLowerCase()) == false) continue;
+
 	// allshows[i].network != 'fx' 
 
   loaders()
