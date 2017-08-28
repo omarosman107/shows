@@ -7,6 +7,8 @@ PLAYER:New design
 
 
 == CHANGELOG ==
+fox loads much faster and more efficiently
+--
 cw episodes images faster and lower file size
 --
 made episodes opacity lower that may not work

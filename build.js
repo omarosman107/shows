@@ -699,7 +699,6 @@ try{
       continue;
     }
     */
-    console.log(json.hidden)
 
     var time = json.time
 
@@ -774,7 +773,7 @@ var date2 = new Date(json.time)
     FDate = month2
     function hidden(){
 if (json.hidden) {
-	return 'opacity: .5'
+	return 'opacity: .3'
 }
     }
     var out = "'out'"
@@ -847,6 +846,69 @@ var obj = []
 var cors_show_hub = 'https://crossorigin.me/' + show_hub
 // var show_hub = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from json where url="' + show_hub + '"') + '&format=json&bust='+Date.now();
 function cw(){
+	loaders()
+fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
+for(i in cwshows.items){
+	loaders()
+	if (cwshows.items[i].deeplink.includes('cwseed') || cwshows.items[i].slug == 'more-video') {loaders('remove');continue;}
+fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
+.then(function(res){
+return res.json()
+}).then(function(data){
+  for (i in data.videos) {
+    if (data.videos[i].fullep == 1) {
+
+
+      function millisToMinutesAndSeconds(millis) {
+        var minutes = Math.floor(millis / 60000 * 60);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return minutes;
+      }
+      var epinum = data.videos[i].episode
+      try {
+        epinum = data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1]
+        var s = (data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1].split('E')[0].split('S')[1])
+        var e = (data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1].split('E')[1])
+      } catch (e) {
+        console.log(e)
+      }
+      var airdate =  data.videos[i].airdate
+      if (airdate == '') {
+        airdate = (data.videos[i].start_time)
+      }
+      function cwdyres(resulution){
+      	return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+      }
+      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
+      var episode_data = {
+        img: cwdyres('638'),
+        rating: (data.videos[i].rating),
+        imgdyn: dyn,
+        id: makeid(),
+        href: data.videos[i].share_url,
+        show: data.videos[i].series_name,
+        episode: data.videos[i].title,
+        epiformat: epiformat(s, e),
+        length: data.videos[i].duration_secs,
+        type: "cw",
+        bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
+        time:Date.parse(airdate)
+
+      }
+            finalObj.push(episode_data)
+
+
+    }
+  }
+  loaders('remove')
+})
+}
+loaders('remove')
+})
+
+
+	return;
 loaders()
 fetch(show_hub + '?bust=' + Date.now()  , {
   method: 'get',
@@ -1099,6 +1161,8 @@ var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001
 var data = null;
 var apiver = 'v1_4'
 var apikey = ''
+
+
 loaders()
 fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
@@ -1112,6 +1176,111 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(functi
 
 // https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
+// https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
+var foxshowlist = ['snowfall']
+fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=network,showCode&itemsPerPage=300',{headers:foxheaders}).then(function(res){return res.json()}).then(function(foxshows){
+	for (var i = foxshows.member.length - 1; i >= 0; i--) {
+		if(foxshows.member[i].network == 'fox'){
+			foxshowlist.push(foxshows.member[i].showCode)
+		}
+	}
+fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/screenpanels/5805048e7fdd600001a349c0/items?itemsPerPage=100",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
+  var allshows = []
+allshows.unshift.apply( allshows, shows.member );
+    for (var i = allshows.length - 1; i >= 0; i--) {
+if(true){
+	if (!foxshowlist.includes(allshows[i].showCode)) continue;
+	// allshows[i].network != 'fx' 
+
+  loaders()
+            fetch(allshows[i].episodes['@id'],{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
+
+var json =  showdata
+for(i in json.member){
+
+  // !json.member[i].requiresAuth &&
+if(json.member[i].isFullEpisode ){
+var image = json.member[i].images.still.HD.split('?')[0]
+var sizes = [
+'208:*',
+'240:*',
+'304:*',
+'384:*',
+'400:*',
+'480:*',
+'576:*',
+'740:*',
+'896:*',
+'1280:*',
+'1920:*'
+]
+var srcset = ''
+for (var z = sizes.length - 1; z >= 0; z--) {
+  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])  + ' '+ sizes[z].split(':')[0] +'w ,')
+}
+srcset = srcset.substr(0, srcset.length - 1);
+var temp = new Date((json.member[i].originalAirDate))
+// + (temp.getTimezoneOffset() / 60)
+temp.setHours(temp.getHours() - 12 );
+
+
+      finalObj.push({
+        img: json.member[i].images.still.SD,
+        rating: rating(json.member[i].contentRating),
+        href: json.member[i]['@id'],
+        show: json.member[i].seriesName,
+        episode: json.member[i].name,
+        id: makeid(),
+        epiformat: epiformat(json.member[i].seasonNumber, json.member[i].episodeNumber),
+        length: json.member[i].durationInSeconds,
+        type: json.member[i].network,
+        imgdyn: srcset,
+        autoplay:json.member[i].autoPlayVideo.default.url,
+        bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
+        time:Date.parse(temp),
+        type:'newfox',
+        hidden:json.member[i].hideVideo
+
+              });
+                  tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*','newfox' )
+
+}
+} 
+loaders('remove')
+
+
+
+
+
+
+            }).catch(function(e){
+              loaders('remove')
+              console.log(e)
+            })
+          }
+    }
+loaders('remove')
+}).catch(function(e){
+  console.log(e)
+  loaders('remove')
+})
+
+
+loaders('remove')
+
+
+
+})
+
+})
+loaders()
+
+
+
+
+
+/*
+
 fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100&dma=999",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
   var allshows = []
 allshows.unshift.apply( allshows, shows.member );
@@ -1224,6 +1393,8 @@ loaders('remove')
 })
 
 loaders()
+*/
+
 
 }
 
