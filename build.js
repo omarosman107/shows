@@ -1183,10 +1183,11 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(functi
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
 var foxshowlist = ['snowfall']
 var showEpisodeCount = {}
-fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=network,fullEpisodeCount,showCode&seriesType=series&itemsPerPage=300',{headers:foxheaders}).then(function(res){return res.json()}).then(function(foxshows){
+fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=network,fullEpisodeCount,showCode,name&seriesType=series&itemsPerPage=300',{headers:foxheaders}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
 	for (var i = foxshows.member.length - 1; i >= 0; i--) {
 		if (foxshows.member[i].fullEpisodeCount == 0 || 'fullEpisodeCount' in foxshows.member[i] == false) continue;
+
 		showEpisodeCount[foxshows.member[i].showCode] = foxshows.member[i].fullEpisodeCount
 		if(foxshows.member[i].network == 'fox'){
 			foxshowlist.push(foxshows.member[i].showCode)
@@ -1197,6 +1198,10 @@ var allEpisodeCount = 0
 	console.log(foxshowlist, showEpisodeCount)
 	for (var i = foxshowlist.length - 1; i >= 0; i--) {
 		  loaders()
+	if (show != 'undefined' && show != undefined && foxshowlist[i].toLowerCase().includes(show.toLowerCase()) == false) {
+		loaders('remove');continue;
+	}
+
 
 	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,contentRating,@id,seriesName,seasonNumber,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders}).then(function(res){return res.json()}).then(function(fullEpisodes){
 		console.log(fullEpisodes)
@@ -1264,8 +1269,8 @@ temp.setHours(temp.getHours() - 12 );
 	})
 	}
 
-
-
+loaders('remove')
+return;
 fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/seasons/?seriesType=series&itemsPerPage="+300+"&_fields=@id,fullEpisodeCount,showCode&showCode=" + foxshowlist.join(','),{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
   var allshows = []
 allshows.unshift.apply( allshows, shows.member );
