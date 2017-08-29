@@ -1491,9 +1491,10 @@ loaders()
 
     if (!window.location.search == '' || window.location.search == '?') {
       for (var i = window.location.search.split('?')[1].split(',').length - 1; i >= 0; i--) {
-        eval(window.location.search.split('?')[1].split(',')[i].split(':')[0] + '("'+decodeURIComponent(window.location.search.split('?')[1].split(',')[i].split(':')[1])+'")')
+      	var sConfig = decodeURIComponent(window.location.search)
+        eval(sConfig.split('?')[1].split(',')[i].split(':')[0] + '("'+decodeURIComponent(sConfig.split('?')[1].split(',')[i].split(':')[1])+'")')
       }
-    window.location.search.split('?')[1]
+    sConfig.split('?')[1]
     }else{
       cw()
       newfox()
