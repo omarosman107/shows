@@ -354,7 +354,6 @@ function loaders(atr) {
     num--
   document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
     if (num == 0) {
-document.body.setAttribute('class','finished');
 
 var l = []
 finalObj.sort(function(x, y) {
@@ -378,6 +377,7 @@ loadMedia(l)
 
 
 
+document.body.setAttribute('class','finished');
 
 
 myLazyLoad.update()
@@ -1182,6 +1182,7 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(functi
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
 var foxshowlist = ['snowfall']
+var foxshowNames = {'snowfall':'Snowfall'}
 var showEpisodeCount = {}
 fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=network,fullEpisodeCount,showCode,name&seriesType=series&itemsPerPage=300',{headers:foxheaders}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
@@ -1191,14 +1192,16 @@ var allEpisodeCount = 0
 		showEpisodeCount[foxshows.member[i].showCode] = foxshows.member[i].fullEpisodeCount
 		if(foxshows.member[i].network == 'fox'){
 			foxshowlist.push(foxshows.member[i].showCode)
+			foxshowNames[foxshows.member[i].showCode] = foxshows.member[i].name
 			allEpisodeCount = allEpisodeCount +  foxshows.member[i].fullEpisodeCount
 
 		}
 	}
+	console.log(foxshowNames)
 	console.log(foxshowlist, showEpisodeCount)
 	for (var i = foxshowlist.length - 1; i >= 0; i--) {
 		  loaders()
-	if (show != 'undefined' && show != undefined && foxshowlist[i].toLowerCase().includes(show.toLowerCase()) == false) {
+	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
 		loaders('remove');continue;
 	}
 
