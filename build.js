@@ -155,9 +155,14 @@ function logIn(u, p) {
 
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    document.getElementById("myBtn").style.display = "block";
+    document.getElementById("myBtn").style.visibility = "visible";
+            document.getElementById("myBtn").style.opacity = ".4";
+
   } else {
-    document.getElementById("myBtn").style.display = "none";
+    document.getElementById("myBtn").style.visibility = "hidden";
+        document.getElementById("myBtn").style.opacity = "0";
+
+
   }
 }
 // When the user clicks on the button, scroll to the top of the document
@@ -167,33 +172,6 @@ function topFunction() {
 //  document.body.scrollTop = 0;
   // document.documentElement.scrollTop = 0;
 }
-/*
-function is_touch_device() {
- return 'ontouchstart' in window        // works on most browsers 
-     || navigator.maxTouchPoints;       // works on IE10/11 and Surface
-};
-if(is_touch_device){
-           $('#left-buttontv').hide()
-           $('#right-buttontv').hide()
-
-}
-$('#left-buttontv').show()
-           $('#right-buttontv').show()
-$(function () {
-       var outer = $('#tvShows');
-
-       $('#left-buttontv').click(function () {
-          var leftPos = outer.scrollLeft();
-          outer.animate({ scrollLeft: leftPos - 900 }, 200);
-       });
-
-       $('#right-buttontv').click(function () {
-          var leftPos = outer.scrollLeft();
-          outer.animate({ scrollLeft: leftPos + 900 }, 200);
-       });
-    });
-
-*/
 function results(num) {
   var res = num + " results found"
   if (num == 1) {
@@ -383,9 +361,8 @@ document.body.setAttribute('class','finished');
 myLazyLoad.update()
 
 window.onscroll = function() {
-// myLazyLoad.update()
 
-    scrollFunction();
+setTimeout(scrollFunction,340)
 
 };
 
