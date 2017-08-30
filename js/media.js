@@ -106,12 +106,15 @@ function resume() {
 
    var vid = document.getElementById(player.el().children[0].id);
 vid.addEventListener('loadstart', function(){
+
    if (localStorage['last_bandwidth']) {
-      player.tech_.hls.playlists.setBandwidth(localStorage['last_bandwidth'])
-      console.log('set last bandwidth', localStorage['last_bandwidth'])
+      player.tech_.hls.bandwidth = (localStorage['last_bandwidth'])
+      console.log('set last bandwidth', localStorage['last_bandwidth']  / 1048576 + ' mbps')
+
    }
    setInterval(function(){
       localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
+      console.log(player.tech_.hls.bandwidth / 1048576 + ' mbps')
    },6000)
 })
 
