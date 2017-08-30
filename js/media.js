@@ -105,6 +105,15 @@ function resume() {
    var vid = document.getElementById('LS_html5_api');
 
    var vid = document.getElementById(player.el().children[0].id);
+vid.addEventListener('loadstart', function(){
+   if (localStorage['last_bandwidth']) {
+      player.tech_.hls.playlists.setBandwidth(localStorage['last_bandwidth'])
+      console.log('set last bandwidth', localStorage['last_bandwidth'])
+   }
+   setInterval(function(){
+      localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
+   },6000)
+})
 
    vid.onerror = function (e) {
       error(e);
