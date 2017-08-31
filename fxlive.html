@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width">
+
 	<title>FX</title>
 </head>
 <body>
              <video width="100%"  playsinline id=LS x-webkit-airplay="allow" preload="auto"  autoplay   class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
 </video>
-<h1>Time to play from:<button onclick="window.location.reload()">live</button></h1><input type="text" name=""><button onclick="resume()">resume</button>
+<h1>Time to play from:<span id="time"></span><button onclick="window.location.reload()">live</button></h1><input type="text" name=""><button onclick="resume()">resume</button>
 
 
     <script type="text/javascript" src="js/fetch.min.js"></script></script> 
@@ -21,6 +23,7 @@
 fetch('https://link.theplatform.com/s/fng-fx/rHlh_JpCqlLt?mbr=true&format=redirect&formats=Text&policy=93849329&affiliate=FX&ts=&sitesection=app.dcg-foxnow%2Fweb%2Ffxn%2Flive').then(function(res){return res.json();}).then(function(liveData){
 		var hls = new Hls()
 var video = document.querySelector('video')
+video.src = liveData.playURL
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function() {
       video.play();
@@ -34,9 +37,11 @@ var video = document.querySelector('video')
 function resume(){
 	console.log(document.querySelector('input').value)
 	console.log(moment(document.querySelector('input').value).format('X'))
+	document.getElementById('time').innerHTML = moment(document.querySelector('input').value)
 	fetch('https://link.theplatform.com/s/fng-fx/rHlh_JpCqlLt?mbr=true&format=redirect&formats=Text&policy=93849329&affiliate=FX&ts='+(moment(document.querySelector('input').value).format('X'))+'&sitesection=app.dcg-foxnow%2Fweb%2Ffxn%2Flive').then(function(res){return res.json();}).then(function(liveData){
 		var hls = new Hls()
 var video = document.querySelector('video')
+video.src = liveData.playURL
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function() {
       video.play();
