@@ -529,7 +529,7 @@ if (img != undefined) {
 </div>
 
 
-`;
+`; 
 return;
 }
 
@@ -717,6 +717,15 @@ if (!time > 0) {
       }
       return 0;
     }
+    function almost_expire(){
+    	console.log(date1.getTime(),json.expires)
+    	if (json.expires - date1.getTime() < 604800 * 1000) {
+    		return `<span class="expiring
+             ">EXPIRING SOON</span>`
+    	}
+    	return;
+    	
+    }
     var done = perc > 99
     if (!done && perc > 0.4) {
       //          <span class="episode-gradient"></span>
@@ -732,6 +741,7 @@ if (!time > 0) {
             <div id="progress" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
+      ${almost_expire()}
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
@@ -769,6 +779,7 @@ if (json.hidden) {
             <div class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
       </div>
+      ${almost_expire()}
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
@@ -940,7 +951,8 @@ fetch(show_hub + '?bust=' + Date.now()  , {
         length: data.videos[i].duration_secs,
         type: "cw",
         bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
-        time:Date.parse(airdate)
+        time:Date.parse(airdate),
+        expires:new Date(data.videos[i].expire_time).getTime()
 
       }
             finalObj.push(episode_data)
@@ -1185,7 +1197,7 @@ var allEpisodeCount = 0
 	}
 
 
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,contentRating,@id,seriesName,seasonNumber,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders}).then(function(res){return res.json()}).then(function(fullEpisodes){
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,contentRating,expires,@id,seriesName,seasonNumber,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders}).then(function(res){return res.json()}).then(function(fullEpisodes){
 		console.log(fullEpisodes)
 
 for(i in fullEpisodes.member){
@@ -1230,7 +1242,8 @@ temp.setHours(temp.getHours() - 12 );
         bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(temp),
         type:'newfox',
-        hidden:fullEpisodes.member[i].hideVideo
+        hidden:fullEpisodes.member[i].hideVideo,
+        expires:new Date(fullEpisodes.member[i].expires).getTime()
 
               });
                   tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*','newfox' )

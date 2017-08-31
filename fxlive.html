@@ -2,15 +2,27 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width">
-
+<style type="text/css">
+	body {
+		    margin: 0;
+    background: black;
+    color: white;
+	}
+	.player {
+		max-width: 1100px;
+		margin: auto;
+		padding-top: 20px;
+	}
+</style>
 	<title>FX</title>
 </head>
 <body>
+<div class="player">
              <video width="100%"  playsinline id=LS x-webkit-airplay="allow" preload="auto"  autoplay   class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
 </video>
 <h1>Time to play from:<span id="time"></span><button onclick="window.location.reload()">live</button></h1><input type="text" name=""><button onclick="resume()">resume</button>
 
-
+</div>
     <script type="text/javascript" src="js/fetch.min.js"></script></script> 
 <script type="text/javascript" src="js/moment.js"></script>
 
