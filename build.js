@@ -663,6 +663,7 @@ var formatter = new Intl.DateTimeFormat({
 var date1 = new Date()
 
 function loadMedia(episodes) {
+	var thisTime = date1.getTime()
 
   var template = ''
   var watching = ''
@@ -718,8 +719,8 @@ if (!time > 0) {
       return 0;
     }
     function almost_expire(){
-    	console.log(date1.getTime(),json.expires)
-    	if (json.expires - date1.getTime() < 604800 * 1000) {
+    	console.log(thisTime,json.expires)
+    	if (json.expires - thisTime < 604800 * 1000) {
     		return `<span class="expiring
              ">EXPIRING SOON</span>`
     	}
