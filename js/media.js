@@ -1223,7 +1223,8 @@ function handle(data){
       document.getElementById('epname').innerHTML = data.name;
 
 play(data.videoRelease.url)
-fetch('https://feed.theplatform.com/f/fox-mobile/fullepisodes?count=true&form=json&byCustomValue={freewheelId}{'+data.externalId+'}&range=0-1').then(function(res){return res.json();}).then(function(info){
+// https://feed.theplatform.com/f/fox-mobile/metadata?count=true&form=json&byCustomValue={brightcoveId}{958946371970}&range=0-1
+fetch('https://feed.theplatform.com/f/fox-mobile/metadata?count=true&form=json&byCustomValue={brightcoveId}{'+data.externalId+'}&range=0-1').then(function(res){return res.json();}).then(function(info){
 fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?format=script').then(function(r){
    return r.json()
 }).then(function(subtitles){
@@ -1240,6 +1241,14 @@ fetch(subtitles.captions[i].src).then(function(res){return res.text()}).then(fun
 })
       }
    }
+})
+fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?mbr=true&formats=mpeg4&format=smil&switch=http').then(function(r){
+return r.text()}).then(function(mp4s){
+   parser = new DOMParser();
+mp4s = parser.parseFromString(mp4s,"text/xml");
+   console.log(mp4s.querySelector('video').getAttribute('src'))
+      document.getElementById('downloader').href = mp4s.querySelector('video').getAttribute('src');
+
 })
 })
 
