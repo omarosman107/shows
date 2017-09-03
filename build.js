@@ -726,7 +726,7 @@ if (!time > 0) {
     		return `<span class="expiring
              ">EXPIRING SOON</span>`
     	}
-    	return;
+    	return '';
     	
     }
   

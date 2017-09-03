@@ -100,14 +100,14 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    overflow: hidden;
-        z-index: 25;
+    overflow: auto;
+            z-index: 25;
     letter-spacing: 0;
     background: black;
     transition: opacity .25s;
         background: #141414;
 }
-.player .content {
+.player .cont {
         max-width: 1135px;
     width: 100%;
     margin: auto;
@@ -134,14 +134,18 @@ body {
     position: absolute;
     padding: 13px;
 }
+.related {
+	    margin: 1rem;
+
+}
 </style>
 
 	<title>Movies</title>
 </head>
 <body>
-<div class='player'>   <a href="#" onclick='(this.parentNode).style.display = "none";player.pause();' class="close">✖</a>
-  <div class="content"> <video  width="100%"  playsinline id=LS x-webkit-airplay="allow" preload="auto"  autoplay   class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
-</video><h1 id="title"></h1><p id="description"></p></div></div>
+<div class='player'>   <a href="#" onclick='(this.parentNode).style.display = "none";document.getElementById("cont").style.display ="block";player.pause();' class="close">✖</a>
+  <div class="cont"> <video  width="100%"  playsinline id=LS x-webkit-airplay="allow" preload="auto"  autoplay   class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
+</video><h1 id="title"></h1><p id="description"></p><div class="related"></div></div></div>
 <div class="container" id="cont"></div>
 
 <script type="text/javascript" src="js/video.min.js"></script>
@@ -184,11 +188,35 @@ loadCSS('css/video-js.min.css')
 function play(title){
 console.log(title.getAttribute('screen'))
     document.querySelector('.player').style.display = 'block'
+    document.getElementById('cont').style.display = 'none';
 document.getElementById('description').innerHTML = title.getAttribute('description')
 document.getElementById('title').innerHTML = title.getAttribute('movie')
+if (title.getAttribute('screen').includes('link.theplatform')) {
 
+         fetch(title.getAttribute('screen').split('?')[0] + '?mbr=true&format=script', {
+         method: 'get'
+      }).then(function (response) {
+           return response.json();
+      }).then(function (play) {
+fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res){return res.text();
+}).then(function(m3u8){
+    parser = new DOMParser();
+  player.src({ "type": "application/x-mpegURL", "src": parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] });
+
+})
+})
+return;
+}
 fetch(title.getAttribute('screen'),{headers:foxheaders}).then(function(res){return res.json()}).then(function(video){
-    console.log(video)
+    console.log(video.panels.member[1].items.member)
+    var related = ''
+    for (var i = video.panels.member[1].items.member.length - 1; i >= 0; i--) {
+    	related += `<div class="movie sixteen-nine" onclick="play(this)" movie="${video.panels.member[1].items.member[i].name}" description="${video.panels.member[1].items.member[i].description}" screen="${video.panels.member[1].items.member[i].seriesScreenUrl}" id="${video.panels.member[1].items.member[i]['id']}"><img width="100%" class="movie-img content" src="${video.panels.member[1].items.member[i].images.videoList.HD}"><div class="overlay"></div><span>${video.panels.member[1].items.member[i].name}</span></div>
+    	`
+    }
+console.log(related)
+ document.querySelector('.related').innerHTML = related
+
 
          fetch(video.panels.member["0"].items.member["0"].latestMovie.videoRelease.url.split('?')[0] + '?mbr=true&format=script', {
          method: 'get'
@@ -203,20 +231,24 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
 })
 })
 
-})
+}).catch(function(e){console.log(e)})
 }
 var foxheaders = new Headers({
   'ApiKey':"rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR",
   'Authorization':"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJhVzl6UVVJMFEwUkdNVVF0TVRFMU9TMDBNRE0xTFRrek5UQXROamczTURORE5UY3dRMEZCIiwiYWNjb3VudFR5cGUiOiJhbm9ueW1vdXMiLCJ1c2VyVHlwZSI6ImRldmljZUlkIiwiZGV2aWNlSWQiOiJBQjRDREYxRC0xMTU5LTQwMzUtOTM1MC02ODcwM0M1NzBDQUEiLCJkZXZpY2UiOiJpb3MiLCJ2ZXJzaW9uIjowLCJpYXQiOjE1MDIxNDY5NjMsImV4cCI6MTUwOTkyMjk2M30.IH4rdAQz4nsB-CWxWpg_YHIOimd_-_Lu3hoMXEaYgog"
 })
-	fetch("https://api.fox.com/fbc-content/v1_4/screenpanels/597a82c06a379500241da0e0/items?itemsPerPage=125&dma=999",{headers:foxheaders}).then(function(res){return res.json()}).then(function(movies){
+// https://api.fox.com/fbc-content/v1_4/screenpanels/597a82c06a379500241da0e0/items?itemsPerPage=2000&dma=999
+// https://api.fox.com/fbc-content/v1_4/video/?&itemsPerPage=1000&_fields=name,@id.,autoPlayVideo,images&videoType=movie
+// 
+	fetch("https://api.fox.com/fbc-content/v1_4/video/?&itemsPerPage=1000&_fields=description,screenUrl,seriesScreenUrl,name,@id,autoPlayVideo,images&videoType=movie",{headers:foxheaders}).then(function(res){return res.json()}).then(function(movies){
 console.log(movies.member)
 movies.member = movies.member.reverse() 
 for (var i = movies.member.length - 1; i >= 0; i--) {
-    if (movies.member[i].videoCount >= 1 ) {
+	// //movies.member[i].videoCount >= 1 
+    if ( true) {
     console.log(i)
     document.getElementById('cont').innerHTML += `
-    <div class="movie sixteen-nine" onclick="play(this)" movie="${movies.member[i].name}" description="${movies.member[i].description}" screen="${movies.member[i].screenUrl}" id="${movies.member[i]['id']}"><img width="100%" class="movie-img content" src="${movies.member[i].images.seriesList.SD}"><div class="overlay"></div><span>${movies.member[i].name}</span></div>`
+    <div class="movie sixteen-nine" onclick="play(this)" movie="${movies.member[i].name}" description="${movies.member[i].description}" screen="${movies.member[i].seriesScreenUrl}" id="${movies.member[i]['id']}"><img width="100%" class="movie-img content" src="${movies.member[i].images.videoList.HD}"><div class="overlay"></div><span>${movies.member[i].name}</span></div>`
     }
 
 }
