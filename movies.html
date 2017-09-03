@@ -214,13 +214,13 @@ console.log(movies.member)
 movies.member = movies.member.reverse() 
 for (var i = movies.member.length - 1; i >= 0; i--) {
     if (movies.member[i].videoCount >= 1 ) {
-    console.log(movies.member[i])
+    console.log(i)
     document.getElementById('cont').innerHTML += `
     <div class="movie sixteen-nine" onclick="play(this)" movie="${movies.member[i].name}" description="${movies.member[i].description}" screen="${movies.member[i].screenUrl}" id="${movies.member[i]['id']}"><img width="100%" class="movie-img content" src="${movies.member[i].images.seriesList.SD}"><div class="overlay"></div><span>${movies.member[i].name}</span></div>`
     }
 
 }
-	})
+	}).catch(function(e){console.log(e)})
 
 </script>
 <script type="text/javascript" src="js/videojs-contrib-hls.min.js"></script>
