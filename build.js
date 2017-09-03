@@ -661,7 +661,9 @@ var formatter = new Intl.DateTimeFormat({
   month: "short"
 })
 var date1 = new Date()
-
+  async function  fetchurl(url){
+return await fetch(url).then(function(res){return res.text()})
+    }
 function loadMedia(episodes) {
 	var thisTime = date1.getTime()
 
@@ -727,6 +729,7 @@ if (!time > 0) {
     	return;
     	
     }
+  
     var done = perc > 99
     if (!done && perc > 0.4) {
       //          <span class="episode-gradient"></span>

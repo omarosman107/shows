@@ -4,13 +4,29 @@
 
 
 // var x2js = new X2JS();
-var player = videojs('LS');
+var player = videojs('LS', {html5: {
+  hls: {
+    bandwidth:function(){
+
+   if (localStorage['last_bandwidth']) {
+      return (localStorage['last_bandwidth'])
+
+   }else{
+      return null;
+   }
+
+    }
+  }
+}});
+
+
 player.ready(function () {
    this.hotkeys({
       volumeStep: 0.1,
       seekStep: 5,
       enableModifiersForNumbers: false
    });
+
 });
 
 
@@ -108,7 +124,7 @@ function resume() {
 vid.addEventListener('loadstart', function(){
 
    if (localStorage['last_bandwidth']) {
-      player.tech_.hls.bandwidth = (localStorage['last_bandwidth'])
+      // player.tech_.hls.bandwidth = (localStorage['last_bandwidth'])
       console.log('set last bandwidth', localStorage['last_bandwidth']  / 1048576 + ' mbps')
 
    }
