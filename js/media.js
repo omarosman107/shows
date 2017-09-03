@@ -932,17 +932,23 @@ xmlDoc = parser.parseFromString(play,"text/xml");
 */
 // param[name="testPlayerUrl"]
 if ('uplynk$testPlayerUrl' in play) {
-fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res){return res.text();
+fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res){if(res.status != 200){ backupWay(url)
+}else{
+   return res.text();
+}
 }).then(function(m3u8){
   console.log(parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1].replace('.m3u8','.mp4') )
   player.src({ "type": "application/x-mpegURL", "src": parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] });
          resume();
 })
 }else{
-   // &sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive
+ backupWay(url)
+}
+function backupWay(url){
+     // &sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive
    // app.dcg-foxnow%2Fiphone%2Ffxn%2Flive
    // app.dcg-foxnow%2Fappletv%2Ffox
-   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn%2Flive&auth='+auth).then(function(res){return res.json();}).then(function(play){
+   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn&auth='+auth).then(function(res){return res.json();}).then(function(play){
 fetch(play.interstitialURL.replace('http://','https://')).then(function(res){return res.text()
 }).then(function(ads){
   parser = new DOMParser();
@@ -1000,7 +1006,6 @@ player.on('timeupdate', function () {
 
    })
 }
-
 return;
 
 
