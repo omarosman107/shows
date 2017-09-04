@@ -7,7 +7,9 @@ PLAYER:New design
 
 
 == CHANGELOG ==
-made images much smaller
+images now preload
+--
+made images much smaller filesize
 --
 lets you know if episodes are almost expiring
 --

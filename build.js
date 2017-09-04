@@ -312,7 +312,9 @@ io.observe(Lazyelements[i])
 }
  
 var myLazyLoad
-myLazyLoad = new LazyLoad();
+myLazyLoad = new LazyLoad({
+	threshold:700
+});
 
 
 function addJS(url) {
@@ -1148,19 +1150,24 @@ console.log(err)
 }
 
 // fox('0-200')
- 
-function canUseWebP() {
-    var elem = document.createElement('canvas');
+var webpcompatible = false
 
-    if (!!(elem.getContext && elem.getContext('2d'))) {
-        // was able or not to get WebP representation
-        return elem.toDataURL('image/webp').indexOf('data:image/webp') == 0;
-    }
-    else {
-        // very old browser like IE 8, canvas not supported
-        return false;
-    }
-}
+
+
+	var WebP = new Image();
+	WebP.onload = WebP.onerror = function() {
+		if ( WebP.height != 2 ) {
+			return false;
+		}else{
+			 webpcompatible = true
+			console.log('webp is supported')
+
+		}
+	};
+	WebP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+
+  
+
 
 
 function newfox(show){
@@ -1234,15 +1241,15 @@ var sizes = [
 ]
 var srcset = ''
 function webpImage(){
-if (canUseWebP()) {
-	return 'output-format=webp';
+if (webpcompatible) {
+	return '&output-format=webp';
 }else{
 	return ''
 }
 }
-console.log(canUseWebP())
+console.log(webpcompatible)
 for (var z = sizes.length - 1; z >= 0; z--) {
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+'&'+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
+  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
 }
 srcset = srcset.substr(0, srcset.length - 1);
 var temp = new Date((fullEpisodes.member[i].originalAirDate))
@@ -1269,7 +1276,7 @@ temp.setHours(temp.getHours() - 12 );
         expires:new Date(fullEpisodes.member[i].expires).getTime()
 
               });
-                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*&' + webpImage(),'newfox' )
+                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'newfox' )
 
 
 } 
