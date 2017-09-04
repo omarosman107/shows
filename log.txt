@@ -7,6 +7,8 @@ PLAYER:New design
 
 
 == CHANGELOG ==
+made images much smaller
+--
 lets you know if episodes are almost expiring
 --
 fox loads much faster and more efficiently
