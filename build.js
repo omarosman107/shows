@@ -1514,6 +1514,30 @@ loaders()
 
 }
 
+function setEpisodes(){
+	var offlineSet = [
+{
+img:"https://art-s.nflximg.net/acac8/647db4182c5748a4a2a2aaa70713acd7652acac8.webp",
+rating:"TV-14",
+href:"https://api.fox.com/fbc-content/v1_4/video/534158599a9211ab9b91ec6cf5d52656",
+show:"The Flash",
+episode:"Pilot",
+id:makeid(),
+epiformat:"S01E01",
+length:2640,
+type:"offline",
+time:new Date('10/7/14 8:00 pm').getTime(),
+expires:Date.now() + 10000000000,
+imgdyn:""
+}
+
+
+	]
+	for (var i = offlineSet.length - 1; i >= 0; i--) {
+		finalObj.push(offlineSet[i])
+	}
+}
+
     if (!window.location.search == '' || window.location.search == '?') {
       for (var i = window.location.search.split('?')[1].split(',').length - 1; i >= 0; i--) {
       	var sConfig = decodeURIComponent(window.location.search)
@@ -1523,6 +1547,7 @@ loaders()
     }else{
       cw()
       newfox()
+      // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
 if (hlsSupported) {
   aswim()
