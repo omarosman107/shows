@@ -1280,7 +1280,7 @@ function getTimeRemaining(endtime){
 }
 
  function agenda(){
-fetch('https://api.tvshowtime.com/v1/agenda?access_token=' + accesstoken).then(function(response) {
+fetch('https://api.tvshowtime.com/v1/agenda?limit=1000&access_token=' + accesstoken).then(function(response) {
 return response.json()
 }).then(function(json) {
 console.log(json)
@@ -1324,7 +1324,7 @@ var htmlCode = '<li data-total="'+finishjson.episodes[i].show.aired_episodes+'" 
    document.getElementById('loadertop').classList.add("turn");
  //  document.getElementById('loader').style.display = "block"
 
-     fetch('https://api.tvshowtime.com/v1/to_watch?access_token=' + accesstoken).then(function(response) {
+     fetch('https://api.tvshowtime.com/v1/to_watch?limit=1000&access_token=' + accesstoken).then(function(response) {
         return response.json();
      }).then(function(json) {
         finishjson = json
