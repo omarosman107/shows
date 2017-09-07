@@ -1550,7 +1550,7 @@ imgdyn:""
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
 if (hlsSupported) {
-  aswim()
+ // aswim()
 }
     }
 
