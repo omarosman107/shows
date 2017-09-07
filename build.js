@@ -1197,7 +1197,7 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(functi
 var foxshowlist = ['snowfall']
 var foxshowNames = {'snowfall':'Snowfall'}
 var showEpisodeCount = {}
-fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=network,fullEpisodeCount,showCode,name&seriesType=series&itemsPerPage=300',{headers:foxheaders}).then(function(res){return res.json()}).then(function(foxshows){
+fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&seriesType=series&itemsPerPage=300',{headers:foxheaders}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
 	for (var i = foxshows.member.length - 1; i >= 0; i--) {
 		if (foxshows.member[i].fullEpisodeCount == 0 || 'fullEpisodeCount' in foxshows.member[i] == false) continue;
