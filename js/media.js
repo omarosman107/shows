@@ -169,7 +169,16 @@ vid.addEventListener('loadstart', function(){
          localStorage[window.location.search] = player.currentTime();
       };
    }, false);
-
+   console.log(player.src())
+   if (player.src().includes('.mp4')) {
+   vid.addEventListener('canplay', function () {
+ document.getElementById('LS').style.opacity = 1;
+      //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
+      document.getElementById('blockLoader').style.opacity = "0";
+      document.getElementById('blockLoader').style.display = 'absolute';
+      document.getElementById('blockLoader').style.zIndex = '-99999';
+})
+}
    return;
    vid.oncanplay = function () {
       document.getElementById('LS').style.opacity = 1;
@@ -945,10 +954,26 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
  backupWay(url)
 }
 function backupWay(url){
+   console.log(play.fox$freewheelId)
+
+
      // &sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive
    // app.dcg-foxnow%2Fiphone%2Ffxn%2Flive
    // app.dcg-foxnow%2Fappletv%2Ffox
-   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn&auth='+auth).then(function(res){return res.json();}).then(function(play){
+   fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn&auth='+auth).then(function(res){if(res.status != 200){
+fetch('https://feed.theplatform.com/f/fox-mobile/metadata?count=true&form=json&byCustomValue={brightcoveId}{'+play.fox$freewheelId+'}&range=0-1').then(function(res){return res.json();}).then(function(info){
+fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?mbr=true&formats=mpeg4&format=smil&switch=http').then(function(r){
+return r.text()}).then(function(mp4s){
+   parser = new DOMParser();
+mp4s = parser.parseFromString(mp4s,"text/xml");
+      document.getElementById('downloader').href = mp4s.querySelector('video').getAttribute('src');
+  player.src(mp4s.querySelector('video').getAttribute('src') );
+   console.log(mp4s.querySelector('video').getAttribute('src'))
+resume()
+})
+})
+return;
+}else{return res.json();}}).then(function(play){
 fetch(play.interstitialURL.replace('http://','https://')).then(function(res){return res.text()
 }).then(function(ads){
   parser = new DOMParser();
@@ -1242,6 +1267,7 @@ fetch(subtitles.captions[i].src.replace('http://','https://')).then(function(res
       }
    }
 })
+
 fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?mbr=true&formats=mpeg4&format=smil&switch=http').then(function(r){
 return r.text()}).then(function(mp4s){
    parser = new DOMParser();
