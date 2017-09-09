@@ -1231,7 +1231,7 @@ fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?format=s
    for (var i = subtitles.captions.length - 1; i >= 0; i--) {
       if(subtitles.captions[i].type == 'text/vtt'){
          var  track = player.addTextTrack("captions", "English", "en");
-fetch(subtitles.captions[i].src).then(function(res){return res.text()}).then(function(vtt){
+fetch(subtitles.captions[i].src.replace('http://','https://')).then(function(res){return res.text()}).then(function(vtt){
    convertVttToJson(vtt).then(function(json){console.log(json)
       for (i = 0, len = json.length; i < len; ++i) {
          track.addCue(new VTTCue(json[i].start - .5, json[i].end - .5 , json[i].part));
