@@ -739,17 +739,17 @@ if (!time > 0) {
        
         watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card  ${json.href}">
       <div class="image-crop sixteen-nine">
-         <a onclick="loadPlayer(this)" href="newplayer.html?${json.href}">
+         <a onclick="loadPlayer(this)" href="play.html?${json.href}">
             <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 80vw, 460px" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" class="w3-progressbar" style="width: ${perc}%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       ${almost_expire()}
       <div class="fanart-details">
-         <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
+         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
       </div>
       <div class="bottom"></div>
@@ -775,7 +775,7 @@ if (json.hidden) {
 
     template +=  `<li style="${hidden()}"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id}   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
-         <a onclick="loadPlayer(this)" href="newplayer.html?${json.href}">
+         <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
             <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
             <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
@@ -783,11 +783,11 @@ if (json.hidden) {
          </a>
          <span class="episode-gradient"></span>
             <div class="w3-progressbar" style="width: ${perc}%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
       </div>
       ${almost_expire()}
       <div class="fanart-details">
-         <h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?${json.href}">${json.episode}</a></h2>
+         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
          <div class="cardBorder"></div>
             <p>${FDate} | ${json.rating} | ${timeofPlayback} | ${json.epiformat}</p>
