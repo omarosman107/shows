@@ -15,13 +15,19 @@
   font-style:normal;
    } 
    #blockLoader {
-z-index: 5;
-   }
+    position: absolute;
+    transition: all 100ms ease,opacity 500ms ease, z-index 500ms ease, background 0.5s ease;
+    z-index: 99999;
+    background-size: cover !important;
+    background-color: #1b1b1b;
+        padding-top: 56.25%;
+
+       }
    .VideoContainer_backfade_3GGJt{
 z-index: 6;
    }
    .Loader_container_1uu8D {
-   	    z-index: 6;
+   	    z-index: 75;
    	}
    	.endTime {
         float: right;
@@ -31,9 +37,75 @@ z-index: 6;
     position: absolute;
     right: 0px;
     color: white;
-    top: 2vh;
+    top: 1vh;
 }
 .VideoContainer_backfade_3GGJt{pointer-events:none;position:absolute;bottom:0;height:100%;width:100%;background-image:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.856));opacity:0;visibility:hidden;transition:visibility 1.5s,opacity 1.5s}.VideoContainer_backfade_3GGJt.VideoContainer_backfadeVisible_1lmyd{opacity:1;visibility:visible;transition:visibility .25s,opacity .25s}
+* {
+transition: all 100ms ease;
+}
+.showbox {
+    width: 7vh;
+    height: 7vh;
+    min-width: 5rem;
+    min-height: 5rem;
+}
+
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+}
+.loader:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.circular {
+  animation: rotate 1.0s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash .8s ease-in-out infinite, color 6s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+@keyframes color {
+  100%,
+  0% {
+    stroke: #ffffff;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -53,7 +125,16 @@ z-index: 6;
 										<div class="VideoContainer_container_25vYU VideoContainer_container_106mb">
 											<div></div>
 											<div class="VideoPlayer_container_38kfk VideoPlayer_container_2cZog">
-												<img class="VideoPlayer_playerLoadingImage_2j6sb" id="blockLoader">
+												<div class="VideoPlayer_playerLoadingImage_2j6sb" id="blockLoader">											<div class="Loader_container_1uu8D VideoContainer_loader_3fDJi"><div class="showbox" style="
+    z-index: 100000000;
+">
+  <div class="loader">
+    <svg class="circular" viewBox="25 25 50 50">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"></circle>
+    </svg>
+  </div>
+</div></div>
+</div>
 												<div class="VideoPlayer_videoContainer_YtwNO">
 													<div   id="video-player">
              <video width="100%"  playsinline id=LS x-webkit-airplay="allow" preload="auto"  autoplay   class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
@@ -63,13 +144,12 @@ z-index: 6;
 											</div>
 
 											<div class="VideoContainer_backfade_3GGJt VideoContainer_backfadeVisible_1lmyd"></div>
-											<div class="Loader_container_1uu8D VideoContainer_loader_3fDJi"><img alt="Loading" class="Loader_image_3Pt3K" src="https://beta.fox.com/static/images/loader.png"></div>
 										</div>
 									</div>
 									<div id="progress"></div>
 									<div id="downloader"></div>
 
-									<div class="Watch_watchDetailContainer_1tYlQ">
+									<div  class="Watch_watchDetailContainer_1tYlQ">
 										<div class="WatchDetail_container_38nQu Watch_container_2kpYp WatchDetail_playerLoading_3WTji">
 
 										</div>
@@ -78,7 +158,7 @@ z-index: 6;
 							</div>
 						</div>
 						<div class="Watch_container_2kpYp">
-						<div class="WatchDetail_container_38nQu Watch_container_2kpYp WatchDetail_playerLoading_3WTji">
+						<div style="margin-left: 10px;" class="WatchDetail_container_38nQu Watch_container_2kpYp WatchDetail_playerLoading_3WTji">
 											<div class="WatchDetail_detailContainer_1ZNCn">
 												<div>
 												<img style="display: none" class="showImg" src="">

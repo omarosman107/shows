@@ -169,8 +169,11 @@ vid.addEventListener('loadstart', function(){
          localStorage[window.location.search] = player.currentTime();
       };
    }, false);
+   return;
    console.log(player.src())
-   if (player.src().includes('.mp4')) {
+
+   if (player.src().includes('fox')) {
+
    vid.addEventListener('canplay', function () {
  document.getElementById('LS').style.opacity = 1;
       //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
@@ -327,7 +330,7 @@ function fetchcwjson(value) {
       getShowinfo(data.assetFields.seriesName)
 
       showname.innerHTML = data.assetFields.seriesName;
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 6.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + data.assetFields.showSlug + '.png" width="100%">';
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 11.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + data.assetFields.showSlug + '.png" width="100%">';
       showdesc.innerHTML = data.assetFields.description;
       
       document.title = data.assetFields.seriesName + " - " + data.assetFields.title;
@@ -1241,7 +1244,7 @@ function handle(data){
       bg(data.images.still.HD);
             showname.innerHTML = data.seriesName;
 
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 6.0em;display:inline-block;" src="' + data.images.logo.FHD + '" width="100%">';
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 11.0em;display:inline-block;" src="' + data.images.logo.FHD + '" width="100%">';
       getShowinfo(data.seriesName);
 
       showdesc.innerHTML = data.description;
