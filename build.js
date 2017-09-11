@@ -723,7 +723,6 @@ if (!time > 0) {
       return 0;
     }
     function almost_expire(){
-    	console.log(thisTime,json.expires)
     	if (json.expires - thisTime < 604800 * 1000) {
     		return `<span class="expiring
              ">EXPIRING SOON</span>`
@@ -1219,9 +1218,9 @@ var allEpisodeCount = 0
 	}
 
 
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,contentRating,expires,@id,seriesName,seasonNumber,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders}).then(function(res){return res.json()}).then(function(fullEpisodes){
-		console.log(fullEpisodes)
-
+	
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,contentRating,expires,@id,seriesName,seasonNumber,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
   // !json.member[i].requiresAuth &&
@@ -1247,7 +1246,6 @@ if (webpcompatible) {
 	return ''
 }
 }
-console.log(webpcompatible)
 for (var z = sizes.length - 1; z >= 0; z--) {
   srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
 }
@@ -1281,7 +1279,7 @@ temp.setHours(temp.getHours() - 12 );
 
 } 
 
-
+}
 
 
 
