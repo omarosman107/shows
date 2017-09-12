@@ -345,9 +345,10 @@ function fetchcwjson(value) {
       bg(data.images.cwtv720x400.uri);
 
       document.getElementById('epname').innerHTML = data.assetFields.title;
-      document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
       isDone = true;
+   }).catch(function(e){
+      error()
+      console.log(e)
    });
 }
 // ABC Fetch 
@@ -1032,6 +1033,8 @@ player.on('timeupdate', function () {
          player.src({ "type": "application/x-mpegURL", "src": play.playURL });
          resume();
 
+   }).catch(function(e){
+      error()
    })
 }
 return;

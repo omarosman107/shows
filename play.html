@@ -444,6 +444,21 @@ transition: all 100ms ease;
     color: white;
     padding: .5rem;
 }
+.loadError{
+	position: inherit;
+    top: 29%;
+    font-size: 1.2rem;
+    color: white;
+    width: 100%;
+    text-align: center;
+    display: none;
+}
+.error .loadError {
+	display: block;
+}
+.error .showbox {
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -463,7 +478,11 @@ transition: all 100ms ease;
 										<div class="VideoContainer_container_25vYU VideoContainer_container_106mb">
 											<div></div>
 											<div class="VideoPlayer_container_38kfk VideoPlayer_container_2cZog">
-												<div class="VideoPlayer_playerLoadingImage_2j6sb" id="blockLoader">											<div class="Loader_container_1uu8D VideoContainer_loader_3fDJi"><div class="showbox" style="
+												<div class="VideoPlayer_playerLoadingImage_2j6sb" id="blockLoader" >
+												<div class="loadError"><span>Something went wrong</span><br><span>Please try again later.</span></div>
+
+
+											<div class="Loader_container_1uu8D VideoContainer_loader_3fDJi"><div class="showbox" style="
     z-index: 100000000;
 ">
   <div class="loader">
@@ -538,7 +557,11 @@ transition: all 100ms ease;
 <script  type="text/javascript" src="js/videojs.hotkeys.min.js"></script>
 <script type="text/javascript" src="js/videojs-contrib-hls.min.js"></script>
 <script type="text/javascript">
+function error(){
+document.body.setAttribute('class',' error')
+}
 	// https://github.com/filamentgroup/loadCSS
+
 ! function(e) {
   "use strict";
   var n = function(n, t, o) {
