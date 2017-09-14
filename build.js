@@ -239,7 +239,7 @@ function elementInViewport(el) {
 
 function lazyLoadNew(){
 
-
+/*
 setTimeout(function(){
 var Lazyelements = document.querySelectorAll('.lazy')
 for(i in Lazyelements){
@@ -269,25 +269,33 @@ Lazyelements[i].removeAttribute('data-original')
 },20)
 return ;
 
-
+*/
+var options = {
+  rootMargin: "200px",
+  threshold: 0
+}
 
 
     var io = new IntersectionObserver(
     entries => {
 for (i in entries){
-if(entries[i].isIntersecting){
-if(entries[i].target.hasAttribute('data-original-set')){
 
+// ||  entries[i].boundingClientRect.bottom > -50 
+if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
+if(entries[i].target.hasAttribute('data-original-set')){
+io.unobserve(entries[i].target)
 entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
 entries[i].target.removeAttribute('data-original-set')
 
 
   };
-  if(entries[i].target.hasAttribute('data-original')){
+    if(entries[i].target.hasAttribute('data-original')){
+    	io.unobserve(entries[i].target)
 entries[i].target.src =  entries[i].target.getAttribute('data-original');
 entries[i].target.removeAttribute('data-original')
 
   };
+
 
 
 }
@@ -295,11 +303,10 @@ entries[i].target.removeAttribute('data-original')
     },
     {
     }
-);
+,options);
 // Start observing an element
 var Lazyelements = document.querySelectorAll('.lazy')
-for(i in Lazyelements){
-
+for (var i = Lazyelements.length - 1; i >= 0; i--) {
 Lazyelements[i].onload = function(element) {
 if (!element.target.classList.contains('loaded')) {
 element.target.classList.add('loaded');
@@ -308,8 +315,8 @@ element.target.classList.add('loaded');
 }
 
 io.observe(Lazyelements[i])
-
 }
+
 }
  
 var myLazyLoad
@@ -360,8 +367,14 @@ loadMedia(l)
 
 document.body.setAttribute('class','finished');
 
+if ( 'IntersectionObserver' in window) {
+ lazyLoadNew()
 
+}else{
+	console.log('using backup image loader :(')
 myLazyLoad.update()
+
+}
 
 window.onscroll = function() {
 
@@ -941,7 +954,11 @@ fetch(show_hub + '?bust=' + Date.now()  , {
         airdate = (data.videos[i].start_time)
       }
       function cwdyres(resulution){
-      	return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+
+      	if (webpcompatible == true) {
+// return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+}
+      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
       tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
