@@ -554,7 +554,13 @@ box-sizing:border-box;
       </div><span id="results"></span>
     </div>
     <h1 id="wtcTxt">Continue Watching</h1>
-    <div onscroll="myLazyLoad.update()" class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
+    <div onscroll="if ( 'IntersectionObserver' in window) {
+
+}else{
+  console.log('using backup image loader :(')
+myLazyLoad.update()
+
+}" class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
     <h1>Shows</h1>
     <div class="shows dragscroll" id="tvShows" ></div>
     <div class="nextContainer" style="display: none;">
@@ -577,7 +583,7 @@ box-sizing:border-box;
 
   </script> 
   <script type="text/javascript">
-  /*
+  
 function addJS(url) {
    var s = document.createElement('script'); // Create a script element
    s.type = "text/javascript"; // optional in html5
@@ -586,12 +592,16 @@ function addJS(url) {
    var fs = document.getElementsByTagName('script')[0]; // Get the first script
    fs.parentNode.insertBefore(s, fs);
 };
-
+/*
 if (!'fetch' in window) {
         addJS('js/fetch.min.js')
 }
 */
-    
+if (!'IntersectionObserver' in window) {
+addJS('js/lazyload.min.js')
+}
+    addJS('js/lazyload.min.js')
+
 </script>
 
 
@@ -600,7 +610,6 @@ if (!'fetch' in window) {
   <script  async src="js/dragscroll.js" type="text/javascript">
 
 </script>
- <script   src="js/lazyload.min.js"></script>
 
 
    <!-- <link async rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

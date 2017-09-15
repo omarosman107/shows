@@ -279,6 +279,7 @@ var options = {
 
     var io = new IntersectionObserver(
     entries => {
+    	console.time('handleImg')
 for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
@@ -301,6 +302,7 @@ entries[i].target.removeAttribute('data-original')
 
 }
 }
+console.timeEnd('handleImg')
     },
     {
     }
@@ -322,9 +324,17 @@ console.timeEnd('initImg')
 }
  
 var myLazyLoad
-myLazyLoad = new LazyLoad({
-	threshold:700
-});
+// Listen to the Initialized event
+window.addEventListener('LazyLoad::Initialized', function (e) {
+    // Get the instance and puts it in the lazyLoadInstance variable
+    lazyLoadInstance = e.detail.instance;
+    myLazyLoad = lazyLoadInstance
+}, false);
+
+// Set the lazyload options for async usage
+lazyLoadOptions = {
+    /* your lazyload options */
+};
 
 
 function addJS(url) {
@@ -425,7 +435,14 @@ function query(q) {
 
       }
     }
-    myLazyLoad.update()
+if ( 'IntersectionObserver' in window) {
+ lazyLoadNew()
+
+}else{
+	console.log('using backup image loader :(')
+myLazyLoad.update()
+
+}
     results(num)
   }, 100)
 }
@@ -485,8 +502,14 @@ function showQuery(q, o,type) {
       }
     }
     scrollShows()
-    myLazyLoad.update()
-    results(num)
+if ( 'IntersectionObserver' in window) {
+ lazyLoadNew()
+
+}else{
+	console.log('using backup image loader :(')
+myLazyLoad.update()
+
+}    results(num)
     var Showtype = ''
 if (window.location.search.split(':')[0] == '') {
 	return;
