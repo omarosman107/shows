@@ -238,6 +238,7 @@ function elementInViewport(el) {
 }
 
 function lazyLoadNew(){
+	console.time('initImg')
 
 /*
 setTimeout(function(){
@@ -316,6 +317,7 @@ element.target.classList.add('loaded');
 
 io.observe(Lazyelements[i])
 }
+console.timeEnd('initImg')
 
 }
  
