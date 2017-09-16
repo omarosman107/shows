@@ -1516,7 +1516,7 @@ function googleAPI() {
       i;
     }
   };
-  xhttp.open("GET", "https://www.googleapis.com/customsearch/v1element?key=AIzaSyCVAXiUzRYsML1Pv6RwSG1gunmMikTzQqY&rsz=filtered_cse&hl=en&prettyPrint=false&source=gcsc&gss=.com&sig=0c3990ce7a056ed50667fe0c3873c9b6&cx=009916453314335219988:-0yvqrz4snu&q=" + currenturl, true);
+  xhttp.open("GET",   "https://www.googleapis.com/customsearch/v1?key=AIzaSyC8eHgHgJMD1rEFv97zeEuQXHk878ZLNcc&cx=009916453314335219988:-0yvqrz4snu&q="+currenturl, true);
 }
 
 findName();

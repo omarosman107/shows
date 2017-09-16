@@ -867,7 +867,7 @@ var obj = []
 var cors_show_hub = 'https://crossorigin.me/' + show_hub
 // var show_hub = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from json where url="' + show_hub + '"') + '&format=json&bust='+Date.now();
 function cw(show){
-	/*
+	
 	loaders()
 fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
@@ -882,7 +882,7 @@ fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.
 .then(function(res){
 return res.json()
 }).then(function(data){
-  for (i in data.videos) {
+    for (i in data.videos) {
     if (data.videos[i].fullep == 1) {
 
 
@@ -904,7 +904,11 @@ return res.json()
         airdate = (data.videos[i].start_time)
       }
       function cwdyres(resulution){
-      	return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+
+      	if (webpcompatible == true) {
+// return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+}
+      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
       tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
@@ -920,7 +924,8 @@ return res.json()
         length: data.videos[i].duration_secs,
         type: "cw",
         bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
-        time:Date.parse(airdate)
+        time:Date.parse(airdate),
+        expires:new Date(data.videos[i].expire_time).getTime()
 
       }
             finalObj.push(episode_data)
@@ -933,7 +938,7 @@ return res.json()
 }
 loaders('remove')
 })
-*/
+return;
 loaders()
 fetch(show_hub + '?bust=' + Date.now()  , {
   method: 'get',
