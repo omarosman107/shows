@@ -323,18 +323,6 @@ console.timeEnd('initImg')
 
 }
  
-var myLazyLoad
-// Listen to the Initialized event
-window.addEventListener('LazyLoad::Initialized', function (e) {
-    // Get the instance and puts it in the lazyLoadInstance variable
-    lazyLoadInstance = e.detail.instance;
-    myLazyLoad = lazyLoadInstance
-}, false);
-
-// Set the lazyload options for async usage
-lazyLoadOptions = {
-    /* your lazyload options */
-};
 
 
 function addJS(url) {
@@ -384,6 +372,7 @@ if ( 'IntersectionObserver' in window) {
 
 }else{
 	console.log('using backup image loader :(')
+	var myLazyLoad = new LazyLoad();
 myLazyLoad.update()
 
 }
@@ -436,7 +425,6 @@ function query(q) {
       }
     }
 if ( 'IntersectionObserver' in window) {
- lazyLoadNew()
 
 }else{
 	console.log('using backup image loader :(')
@@ -503,7 +491,6 @@ function showQuery(q, o,type) {
     }
     scrollShows()
 if ( 'IntersectionObserver' in window) {
- lazyLoadNew()
 
 }else{
 	console.log('using backup image loader :(')
