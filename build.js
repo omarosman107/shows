@@ -937,6 +937,8 @@ return res.json()
 })
 }
 loaders('remove')
+}).catch(function(e){
+	loaders('remove')
 })
 return;
 loaders()
