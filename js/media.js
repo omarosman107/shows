@@ -168,6 +168,9 @@ vid.addEventListener('loadstart', function(){
       window.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
       };
+              ga('set', 'playEndTime', localStorage[window.location.search]);
+         ga('set', 'last_bandwidth', player.tech_.hls.bandwidth);
+         ga('send', 'pageview');
    }, false);
    return;
    console.log(player.src())
@@ -206,11 +209,12 @@ vid.addEventListener('loadstart', function(){
 
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
+
+
       };
 
-      window.onunload = function () {
-         localStorage[window.location.search] = player.currentTime();
-      };
+
+
    };
 
    function on_progress(event) {
@@ -1460,17 +1464,17 @@ function googleAPI() {
       googleurl = googlejson.results[0].unescapedUrl;
       foxurl = googlejson.results[0].unescapedUrl;
       console.time();
-      for (var i = 0; i < googlejson.results.length; i++) {
+      for (var i = 0; i < googlejson.items.length; i++) {
 
-        if (JSON.stringify(googlejson.results[i]).includes('ogUrl')) {
+        if (JSON.stringify(googlejson.items[i]).includes('ogUrl')) {
           console.log("worked");
 
-          cwurl = googlejson.results[i].richSnippet.metatags.ogUrl;
+          cwurl = googlejson.items[i].richSnippet.metatags.ogUrl;
         }
 
-        if (JSON.stringify(googlejson.results[i]).includes('ogType')) {
+        if (JSON.stringify(googlejson.items[i]).includes('ogType')) {
           console.log("worked");
-          if (typeof googlejson.results[i].richSnippet.metatags.ogType == "string") {
+          if (typeof googlejson.items[i].richSnippet.metatags.ogType == "string") {
             if (googlejson.results[i].richSnippet.metatags.ogType == "video.episode") {
 
               foxurl = googlejson.results[i].unescapedUrl;
