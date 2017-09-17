@@ -279,30 +279,37 @@ var options = {
 
     var io = new IntersectionObserver(
     entries => {
-    	console.time('handleImg')
 for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
 if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
 if(entries[i].target.hasAttribute('data-original-set')){
-io.unobserve(entries[i].target)
+	try{
+
+io.unobserve(entries[i].target);
 entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
 entries[i].target.removeAttribute('data-original-set')
+}catch(e){
 
+}
 
   };
     if(entries[i].target.hasAttribute('data-original')){
-    	io.unobserve(entries[i].target)
+try{
+	io.unobserve(entries[i].target);
 entries[i].target.src =  entries[i].target.getAttribute('data-original');
 entries[i].target.removeAttribute('data-original')
 
+}catch(e){
+
+}
+    
   };
 
 
 
 }
 }
-console.timeEnd('handleImg')
     },
     {
     }
@@ -1263,17 +1270,13 @@ for(i in fullEpisodes.member){
   // !json.member[i].requiresAuth &&
 var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
 var sizes = [
-'208:*',
-'240:*',
-'304:*',
-'384:*',
-'400:*',
-'480:*',
-'576:*',
-'740:*',
-'896:*',
-'1280:*',
-'1920:*'
+'110:110',
+'320:180',
+'480:270',
+'528:297',
+'740:416',
+'1280:720',
+'1920:1080'
 ]
 var srcset = ''
 function webpImage(){
@@ -1284,7 +1287,12 @@ if (webpcompatible) {
 }
 }
 for (var z = sizes.length - 1; z >= 0; z--) {
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
+	if (sizes[z].split(':')[0] == '1920') {
+		  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
+	}else{
+  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z]) + ' '+ sizes[z].split(':')[0] +'w ,')
+
+	}
 }
 srcset = srcset.substr(0, srcset.length - 1);
 var temp = new Date((fullEpisodes.member[i].originalAirDate))
