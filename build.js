@@ -1263,7 +1263,7 @@ var allEpisodeCount = 0
 
 
 	
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,contentRating,expires,@id,seriesName,seasonNumber,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders,mode: 'cors'}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders,mode: 'cors'}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
@@ -1287,7 +1287,8 @@ if (webpcompatible) {
 }
 }
 for (var z = sizes.length - 1; z >= 0; z--) {
-	if (sizes[z].split(':')[0] == '1920') {
+// sizes[z].split(':')[0] == '1920'
+	if (false) {
 		  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
 	}else{
   srcset += (image + '?downsize=' + encodeURIComponent(sizes[z]) + ' '+ sizes[z].split(':')[0] +'w ,')
@@ -1338,6 +1339,7 @@ temp.setHours(temp.getHours() - 12 );
 	}
 
 loaders('remove')
+
 return;
 fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/seasons/?seriesType=series&itemsPerPage="+300+"&_fields=@id,fullEpisodeCount,showCode&showCode=" + foxshowlist.join(','),{headers:foxheaders,mode: 'cors'}).then(function(res){return res.json();}).then(function(shows){
   var allshows = []
