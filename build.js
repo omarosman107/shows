@@ -238,6 +238,42 @@ function elementInViewport(el) {
 }
 
 function lazyLoadNew(){
+var options = {
+  rootMargin: "700px",
+  threshold: 0,
+  margin:'600px'
+}
+
+
+    var efficientDOM = new IntersectionObserver(
+    entries => {
+for (i in entries){
+
+// ||  entries[i].boundingClientRect.bottom > -50 
+if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
+try{
+console.log(entries[i])
+entries[i].target.style.visibility = 'visible'
+}catch(e){
+
+}
+    }else{
+entries[i].target.style.visibility = 'hidden'
+}
+}
+    },
+    {
+    }
+,options);
+// Start observing an element
+var lazyDOM = document.querySelectorAll('li')
+for (var i = lazyDOM.length - 1; i >= 0; i--) {
+efficientDOM.observe(lazyDOM[i])
+}
+
+
+
+
 	console.time('initImg')
 
 /*
