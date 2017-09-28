@@ -168,8 +168,7 @@ vid.addEventListener('loadstart', function(){
       window.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
       };
-              ga('set', 'playEndTime', localStorage[window.location.search]);
-         ga('set', 'last_bandwidth', player.tech_.hls.bandwidth);
+  
          ga('send', 'pageview');
    }, false);
    return;

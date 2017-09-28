@@ -1332,10 +1332,10 @@ for (var z = sizes.length - 1; z >= 0; z--) {
 	}
 }
 srcset = srcset.substr(0, srcset.length - 1);
-var temp = new Date((fullEpisodes.member[i].originalAirDate))
-// + (temp.getTimezoneOffset() / 60)
-temp.setHours(temp.getHours() - 12 );
-
+var date = new Date(fullEpisodes.member[i].originalAirDate)
+date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
+var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60) < 0 ? "-" : "+") + ((Math.abs(date.getTimezoneOffset() / 60) < 10) ?  ("0" + Math.abs(date.getTimezoneOffset() / 60)) : test) + "00";
+console.log(fullEpisodes.member[i].originalAirDate,output)
 
       finalObj.push({
         img: fullEpisodes.member[i].images.still.SD,
@@ -1350,7 +1350,7 @@ temp.setHours(temp.getHours() - 12 );
         imgdyn: srcset,
         autoplay:fullEpisodes.member[i].autoPlayVideo.default.url,
         bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
-        time:Date.parse(temp),
+        time:Date.parse(date),
         type:'newfox',
         hidden:fullEpisodes.member[i].hideVideo,
         expires:new Date(fullEpisodes.member[i].expires).getTime()
