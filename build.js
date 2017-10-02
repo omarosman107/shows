@@ -1291,16 +1291,20 @@ var allEpisodeCount = 0
 	}
 	console.log(foxshowNames)
 	console.log(foxshowlist, showEpisodeCount)
-	for (var i = foxshowlist.length - 1; i >= 0; i--) {
-		  loaders()
+	/*
+var showSearch = ''
+var Getshows = []
+for (var i = foxshowlist.length - 1; i >= 0; i--) {
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
-		loaders('remove');continue;
+		continue;
 	}
-
-
-	
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders,mode: 'cors'}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
-if ('member' in fullEpisodes) {
+Getshows.push(foxshowlist[i])
+}
+if (Getshows.length == 0) {
+	Getshows = foxshowlist
+}
+fetch("https://api.fox.com/fbc-content/v1_4/video/?seriesType=series&itemsPerPage=1000&_fields=images,name,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&videoType=fullEpisode&showCode="+Getshows.join(','),{headers:foxheaders}).then(function(res){return res.json();}).then(function(fullEpisodes){
+ if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
   // !json.member[i].requiresAuth &&
@@ -1364,12 +1368,99 @@ console.log(fullEpisodes.member[i].originalAirDate,output)
 }
 
 
+loaders('remove')
+}).catch(function(e){
+	console.log(e)
+})
+return;
+*/
+	for (var i = foxshowlist.length - 1; i >= 0; i--) {
+		  loaders()
+	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
+		loaders('remove');continue;
+	}
+
+	
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&itemsPerPage=&_fields=name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders,mode: 'cors'}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+if ('member' in fullEpisodes) {
+for(i in fullEpisodes.member){
+
+  // !json.member[i].requiresAuth &&
+var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
+var sizes = [
+'110:110',
+'320:180',
+'480:270',
+'528:297',
+'740:416',
+'1280:720',
+'1920:1080'
+]
+var srcset = ''
+function webpImage(){
+if (webpcompatible) {
+	return '&output-format=webp';
+}else{
+	return ''
+}
+}
+for (var z = sizes.length - 1; z >= 0; z--) {
+// sizes[z].split(':')[0] == '1920'
+	if (false) {
+		  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
+	}else{
+  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z]) + ' '+ sizes[z].split(':')[0] +'w ,')
+
+	}
+}
+srcset = srcset.substr(0, srcset.length - 1);
+var date = new Date(fullEpisodes.member[i].originalAirDate)
+date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
+var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60) < 0 ? "-" : "+") + ((Math.abs(date.getTimezoneOffset() / 60) < 10) ?  ("0" + Math.abs(date.getTimezoneOffset() / 60)) : test) + "00";
+console.log(fullEpisodes.member[i].originalAirDate,output)
+try{
+
+	if (!('autoPlayVideo' in fullEpisodes.member[i])) {
+
+		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
+
+	}
+      finalObj.push({
+        img: fullEpisodes.member[i].images.still.SD,
+        rating: rating(fullEpisodes.member[i].contentRating),
+        href: fullEpisodes.member[i]['@id'],
+        show: fullEpisodes.member[i].seriesName,
+        episode: fullEpisodes.member[i].name,
+        id: makeid(),
+        epiformat: epiformat(fullEpisodes.member[i].seasonNumber, fullEpisodes.member[i].episodeNumber),
+        length: fullEpisodes.member[i].durationInSeconds,
+        type: fullEpisodes.member[i].network,
+        imgdyn: srcset,
+        autoplay:fullEpisodes.member[i].autoPlayVideo.default.url,
+        bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
+        time:Date.parse(date),
+        type:'newfox',
+        hidden:fullEpisodes.member[i].hideVideo,
+        expires:new Date(fullEpisodes.member[i].expires).getTime()
+
+              });
+  }catch(e){
+  	console.log(e)
+  }
+                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'newfox' )
+
+
+} 
+
+}
+
+
 
 
 		loaders('remove')
 
 	}).catch(function(e){
-
+console.log(e)
 
 		loaders('remove')
 	})

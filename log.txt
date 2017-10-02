@@ -7,6 +7,8 @@ PLAYER:New design
 
 
 == CHANGELOG ==
+new episodes werent showing because of a bug
+--
 cards show when in view for better scrolling
 --
 even new player
