@@ -1432,6 +1432,7 @@ if (window.location.search.split('?').length == 3) {
 
   currenturl = window.location.search.split('?')[1] + "?" + window.location.search.split('?')[2];
 }
+var currenturl = decodeURIComponent(currenturl)
 var xhttp = new XMLHttpRequest();
 
 function findName() {
