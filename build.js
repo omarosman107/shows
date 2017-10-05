@@ -847,7 +847,7 @@ if (json.hidden) {
          ${newBanner()}
             <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
             <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
-            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 70vw, 25vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
+            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 90vw, 35vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
          </a>
          <span class="episode-gradient"></span>
             <div class="w3-progressbar" style="width: ${perc}%;"></div>
