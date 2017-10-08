@@ -480,6 +480,36 @@ box-sizing:border-box;
 li:nth-child(even) {
     background: rgba(255, 255, 255, 0.12);
  }
+ .fanarts-list {
+ 	    padding: 3vh;
+ }
+ .fanarts-list li {
+ 	    width: calc(100%/2.2);
+ }
+ @media (max-width: 600px){
+.fanarts-list>li {
+width: 100%;
+}
+}
+span.expiring {
+    text-transform: uppercase;
+    font-weight: 900;
+    border: 1px solid rgb(255, 255, 255);
+    padding: .1875rem .25rem .125rem;
+    font-size: 1.195rem;
+    color: rgb(0, 0, 0);
+    opacity: 1;
+    /* display: block; */
+    /* width: fit-content; */
+    position: absolute;
+    top: 5px;
+    z-index: 50;
+    left: 10px;
+    opacity: .85;
+    letter-spacing: 0.04rem;
+    background: rgb(255, 255, 255);
+    box-shadow: -1px 0px 13px 7px rgba(0, 0, 0, 0.16);
+}
 	</style>
 	<title>FOX EPG</title>
 	    <meta name="viewport" content="width=device-width">
@@ -489,6 +519,7 @@ li:nth-child(even) {
 <body>
 <ul class="fanarts-list list-unstyled list-inline"></ul>
 <script type="text/javascript">
+	/*
 	setInterval(function(){
 var lis = document.querySelectorAll('.w3-progressbar')
 for (var i = document.querySelectorAll('.w3-progressbar').length - 1; i >= 0; i--) {
@@ -499,6 +530,7 @@ for (var i = document.querySelectorAll('.w3-progressbar').length - 1; i >= 0; i-
 }
 
 	},500)
+	*/
 	// https://api.fox.com/fbc-content/v1_4/screenpanels/58261c820501880001930b2e/items
 	fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
@@ -509,11 +541,13 @@ for (var i = document.querySelectorAll('.w3-progressbar').length - 1; i >= 0; i-
   "Connection":"keep-alive"
 
 })
-
+setInterval(function(){
 fetch('https://api.fox.com/fbc-content/'+apiver+'/screenpanels/58261c820501880001930b2e/items',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
 console.log(data)
 data.member = data.member.reverse(); 
 try{
+	document.querySelector('ul').innerHTML = ''
+	var str = ''
 for (var i = data.member.length - 1; i >= 0; i--) {
 	console.log(data.member[i])
 var date = new Date(data.member[i].startDate);
@@ -521,17 +555,22 @@ date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60));
 date = new Date(output)
 console.log(date)
+var Playable = ''
 if ('playerScreenUrl' in data.member[i]) {
 	console.log('fully Playable','https://api.fox.com/fbc-content/v1_4/video/'+data.member[i].playerScreenUrl.split('?')[0].split('/')[7])
 data.member[i].playerScreenUrl = 'https://api.fox.com/fbc-content/v1_4/video/'+data.member[i].playerScreenUrl.split('?')[0].split('/')[7]
+Playable = `<span class="expiring
+             ">Fully Playable!</span>`
 }
 
 var perc = ((((new Date()  - date) / (new Date(data.member[i].endDate) - new Date(data.member[i].startDate))) * 100) );
 console.log(data.member[i].playerScreenUrl)
-document.querySelector('ul').innerHTML += `<li width="400px" style="margin: 11px;" class=" card">
+
+str +=`<li   class=" card">
       <div class="image-crop sixteen-nine">
+      ${Playable}
          <a onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}">
-            <img class=" cover sixteen-nine loaded "  src="${data.member[i].images.videoList.raw}"">
+            <img class=" cover sixteen-nine loaded "  src="${data.member[i].images.videoList.raw + '?fit=inside%7C1920:1020'}"">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" class="w3-progressbar" starts="${data.member[i].startDate}" ends="${data.member[i].endDate}" style="width: ${perc}%;"></div>
@@ -539,7 +578,7 @@ document.querySelector('ul').innerHTML += `<li width="400px" style="margin: 11px
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}">${data.member[i].name}</a></h2>
-         <a  href="javascript:" class="secondary-link show-name">${data.member[i].seriesName}</a>
+         <a  href="./?newfox:${data.member[i].seriesName}" class="secondary-link show-name">${data.member[i].seriesName}</a>
                <div class="cardBorder"></div>
             <p>${date} | ${data.member[i].durationInSeconds / 60 + 'm'} | ${data.member[i].contentRating} | ${'S'+data.member[i].seasonNumber+'E'+data.member[i].episodeNumber}</p>
         </div>
@@ -549,12 +588,17 @@ document.querySelector('ul').innerHTML += `<li width="400px" style="margin: 11px
 //`<li><img src="${data.member[i].images.videoList.HD}"><span>${data.member[i].name}</span></li>`
 
 }
+console.log(str == document.querySelector('ul').innerHTML)
+document.querySelector('ul').innerHTML = str
+
 }catch(e){
 	console.log(e)
 }
 }).catch(function(e){
 	console.log(e)
 })
+
+},600)
 })
 
 </script>

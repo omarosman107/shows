@@ -1714,7 +1714,7 @@ imgdyn:""
     if (!window.location.search == '' || window.location.search == '?') {
       for (var i = window.location.search.split('?')[1].split(',').length - 1; i >= 0; i--) {
       	var sConfig = decodeURIComponent(window.location.search)
-        eval(sConfig.split('?')[1].split(',')[i].split(':')[0] + '("'+decodeURIComponent(sConfig.split('?')[1].split(',')[i].split(':')[1])+'")')
+        eval(sConfig.split('?')[1].split(',')[i].split(':')[0] + '("'+decodeURIComponent(sConfig.split('?')[1].split(',')[i].split(':')[1]).replace(new RegExp("\\+","g"),' ')+'")')
       }
     sConfig.split('?')[1]
     }else{
