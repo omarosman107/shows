@@ -103,6 +103,8 @@ img.loaded.grayscale {
   /* Fix for transition flickering */
     opacity: 0.8 !important;
     transition-delay: 100ms;
+        -webkit-transition: all 0.25s;
+    transition: all 0.25s;
 }
 li:hover .image-crop .grayscale{
       filter: none;
