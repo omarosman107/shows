@@ -531,7 +531,7 @@ console.log(data.member[i].playerScreenUrl)
 document.querySelector('ul').innerHTML += `<li width="400px" style="margin: 11px;" class=" card">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}">
-            <img class=" cover sixteen-nine loaded "  src="${data.member[i].images.videoList.HD}"">
+            <img class=" cover sixteen-nine loaded "  src="${data.member[i].images.videoList.raw}"">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" class="w3-progressbar" starts="${data.member[i].startDate}" ends="${data.member[i].endDate}" style="width: ${perc}%;"></div>
