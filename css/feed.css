@@ -546,6 +546,8 @@ background-color: rgba(255, 255, 255, 0.21);
     position: relative;
     overflow: visible;
     background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+        background: -webkit-radial-gradient(50% 50% farthest-corner,rgba(50,50,50,.5) 0,#323232 100%);
+    background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
 }    
     
     
