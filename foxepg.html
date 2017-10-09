@@ -557,8 +557,8 @@ date = new Date(output)
 console.log(date)
 var Playable = ''
 if ('playerScreenUrl' in data.member[i]) {
-	console.log('fully Playable','https://api.fox.com/fbc-content/v1_4/video/'+data.member[i].playerScreenUrl.split('?')[0].split('/')[7])
-data.member[i].playerScreenUrl = 'https://api.fox.com/fbc-content/v1_4/video/'+data.member[i].playerScreenUrl.split('?')[0].split('/')[7]
+	console.log('fully Playable','https://api.fox.com/fbc-content/v1_4r/video/'+data.member[i].playerScreenUrl.split('?')[0].split('/')[7])
+data.member[i].playerScreenUrl = 'https://api.fox.com/fbc-content/v1_4r/video/'+data.member[i].playerScreenUrl.split('?')[0].split('/')[7]
 Playable = `<span class="expiring
              ">Fully Playable!</span>`
 }
