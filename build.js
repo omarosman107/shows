@@ -252,13 +252,21 @@ for (i in entries){
 // ||  entries[i].boundingClientRect.bottom > -50 
 if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
 try{
-console.log(entries[i])
+	console.time('change css to visible')
 entries[i].target.style.visibility = 'visible'
+entries[i].target.style.zIndex = '999999'
+
+console.timeEnd('change css to visible')
 }catch(e){
 
 }
     }else{
+    		console.time('change css to hidden')
+
 entries[i].target.style.visibility = 'hidden'
+entries[i].target.style.zIndex = '-999999'
+    		console.timeEnd('change css to hidden')
+
 }
 }
     },

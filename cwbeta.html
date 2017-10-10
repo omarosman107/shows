@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FOX Broadcasting Company | Full Episodes, Shows, Schedule</title>
+	<meta content="width=device-width, initial-scale=1" data-react-helmet="true" name="viewport">
+	<meta content="website" data-react-helmet="true" property="og:type">
+	<meta content="text/html; charset=utf-8" data-react-helmet="true" http-equiv="Content-Type">
+	<link data-react-helmet="true" href="https://www.fox.com/static/images/FoxNow_AppStore.jpg" rel="apple-touch-icon">
+	<link data-react-helmet="true" href="https://www.fox.com/static/images/FoxNow_PlayStore.png" rel="android-touch-icon">
+	<meta content="IE=9;IE=10;IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<link href="https://upload.wikimedia.org/wikipedia/commons/4/4c/The_CW.svg" rel="shortcut icon">
+	<link href="https://www.fox.com/style.css?cb=fc4c0b570fb9b6d663f4bcc7f71ac421" rel="stylesheet" type="text/css">
+	<link href="https://www.fox.com/static/fonts/graphik-400.css" rel="stylesheet" type="text/css">
+</head>
+<body style="">
+	<div class="container">
+		<div class="undefined ft-theme-provider" data-reactroot="">
+			<!-- react-empty: 2 --><!-- react-empty: 3 --><!-- react-empty: 4 --><!-- react-empty: 5 --><!-- react-empty: 6 -->
+			<header class="Header_container_3Mm30 Header_containerListPage_3Hk9W">
+				<div class="headroom-wrapper" style="height: 95px;">
+					<div class="headroom headroom--pinned headroom--scrolled">
+						<div></div>
+						<div>
+							<div class="Header_content_kKyHc">
+								<div class="Header_innerContent_JKfQO">
+									<div class="Header_logoProviderWrapper_2rBoE">
+										<a class="Header_logo_36txl" href="/"><img alt="FOX" src="cwlogo.svg"></a>
+									</div>
+								</div>
+								<div class="Header_categories_3zGkq">
+									<div>
+										<a class="Header_categoryItem_2_wKp" href="/shows/#nav">Shows</a><a class="Header_categoryItem_2_wKp" href="/movies/#nav">Movies</a>
+									</div>
+								</div>
+								
+						</div>
+					</div>
+				</div>
+			</header>
+			<main class=" ft-header-content" role="main">
+				<div class="Home_screen_KPW1X">
+					<!-- react-empty: 1293 -->
+					<div id="newestEpisodes" class="Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
+						
+						</div>
+						<div id="shows"></div>
+					</div>
+				
+				</div>
+			</main><!-- react-empty: 697 -->
+		</div>
+	</div>
+	<style>
+	       @import "https://www.fox.com/static/fonts/graphik-500.css";
+	       @import "https://www.fox.com/static/fonts/graphik-700.css";
+	</style>
+	<script type="text/javascript">
+		
+fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub').then(function(res){return res.json();}).then(function(newEpisodes){
+console.log(newEpisodes)
+document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
+						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
+							<div class="Home_heroImageContainer_2Cj1c">
+								<div class="Home_heroImagePoster_C3La1" style="background-image: url('${newEpisodes.videos[0].large_thumbnail}');"></div>
+							</div>
+							<div>
+								<div class="HomeSlideHeader_container_1HOU-" data-name="FOX Presents">
+									<div class="HomeSlideHeader_header_25z0a">
+										<div class="HomeSlideHeader_imageAndText_16S3F">
+											<h2 class="HomeSlideHeader_headline_3_T_5"><img alt="CW Presents" src="cwlogo.svg"><span class="HomeSlideHeader_text_XnfMG">Presents</span></h2>
+										</div>
+									</div>
+									<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
+										<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="/ghosted/">${newEpisodes.videos[0].series_name}</a>
+										<div class="HomeSlideHeader_description_1rcQk">
+											<span class="HomeSlideHeader_highlight_3OVd4">${newEpisodes.videos[0].availability_asset_id.split('-')[newEpisodes.videos[0].availability_asset_id.split('-').length - 1]} ${newEpisodes.videos[0].title}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+											<g>
+												<path d="M7.41 7.84l4.59 4.58 4.59-4.58 1.41 1.41-6 6-6-6z"></path>
+											</g></svg></a>
+										</div>
+										<div class="HomeSlideHeader_meta_2M-Vy">
+											Aired ${newEpisodes.videos[0].airdate} • ${newEpisodes.videos[0].rating}
+										</div>
+										<div class="HomeSlideHeader_buttons_2hSs6">
+											<a class="HomeSlideHeader_showButton_ryBcr primaryButton" href="play.html?${newEpisodes.videos[0].share_url}"><svg class="Icon_icon_BJu7i Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+											<g>
+												<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+												<g id="arrow">
+													<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+													<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+												</g>
+											</g></svg><!-- react-text: 1474 -->Watch<!-- /react-text --></a><a class="HomeSlideHeader_moreLink_2lqBL" href="#${newEpisodes.videos[0].show_slug}">More Episodes</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="TileGrid_container_S_Mnl Home_container_1VKQ1 TileGrid_grid-4-1_WGcEN">
+									<div class="TileGrid_grid_vrnLT">
+										<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
+											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
+												<a href="play.html?${newEpisodes.videos[1].share_url}/">
+												<div>
+													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[1].large_thumbnail}"></div>
+													<div class="Tile_play_1CN22">
+														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+														<g>
+															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+															<g id="arrow">
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+															</g>
+														</g></svg>
+													</div>
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[1].show_slug}.png"></div>
+												</div></a>
+											</div>
+											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
+												<div class="Tile_info_28rKd">
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[1].show_slug}">
+													<div>
+														${newEpisodes.videos[1].series_name}
+													</div></a><a class="Tile_subtitle_OzXVN" href="play.html?${newEpisodes.videos[1].share_url}">
+													<div class="Tile_subtitleWrapper_1Vr9o">
+														<div class="Tile_subtitleText_2yDSn">
+															<span><!-- react-text: 1503 -->${newEpisodes.videos[1].availability_asset_id.split('-')[newEpisodes.videos[1].availability_asset_id.split('-').length - 1]} </span>
+															<div class="Tile_subtitleLastWord_2XP1a">
+																<span>${newEpisodes.videos[1].title}</span>
+																
+															</div>
+														</div>
+													</div></a>
+													<p class="Tile_metadata_3Snvo">Aired 10-8-17 • TV-PG DLV</p><button class="Tile_dotdotdot_68H99">• • •</button>
+												</div>
+												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
+													<div>
+														<div class="Tile_description_3584P homeTile_description_1Nhon">
+															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
+														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
+													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+													<g>
+														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
+													</g></svg></button>
+												</div>
+											</div>
+										</div>
+										
+
+
+				<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
+											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
+												<a href="play.html?${newEpisodes.videos[2].share_url}/">
+												<div>
+													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[2].large_thumbnail}"></div>
+													<div class="Tile_play_1CN22">
+														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+														<g>
+															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+															<g id="arrow">
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+															</g>
+														</g></svg>
+													</div>
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[2].show_slug}.png"></div>
+												</div></a>
+											</div>
+											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
+												<div class="Tile_info_28rKd">
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[2].show_slug}">
+													<div>
+														${newEpisodes.videos[2].series_name}
+													</div></a><a class="Tile_subtitle_OzXVN" href="/watch/818529c3d72584486365f78ae851fa67/">
+													<div class="Tile_subtitleWrapper_1Vr9o">
+														<div class="Tile_subtitleText_2yDSn">
+															<span><!-- react-text: 1503 -->${newEpisodes.videos[2].availability_asset_id.split('-')[newEpisodes.videos[2].availability_asset_id.split('-').length - 1]} </span>
+															<div class="Tile_subtitleLastWord_2XP1a">
+																<span>${newEpisodes.videos[2].title}</span>
+																
+															</div>
+														</div>
+													</div></a>
+													<p class="Tile_metadata_3Snvo">Aired 10-8-17 • TV-PG DLV</p><button class="Tile_dotdotdot_68H99">• • •</button>
+												</div>
+												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
+													<div>
+														<div class="Tile_description_3584P homeTile_description_1Nhon">
+															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
+														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
+													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+													<g>
+														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
+													</g></svg></button>
+												</div>
+											</div>
+										</div>
+
+
+
+															<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
+											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
+												<a href="play.html?${newEpisodes.videos[3].share_url}/">
+												<div>
+													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[3].large_thumbnail}"></div>
+													<div class="Tile_play_1CN22">
+														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+														<g>
+															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+															<g id="arrow">
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+															</g>
+														</g></svg>
+													</div>
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[3].show_slug}.png"></div>
+												</div></a>
+											</div>
+											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
+												<div class="Tile_info_28rKd">
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[3].show_slug}/">
+													<div>
+														${newEpisodes.videos[3].series_name}
+													</div></a><a class="Tile_subtitle_OzXVN" href="play.html?${newEpisodes.videos[0].share_url}">
+													<div class="Tile_subtitleWrapper_1Vr9o">
+														<div class="Tile_subtitleText_2yDSn">
+															<span><!-- react-text: 1503 -->${newEpisodes.videos[3].availability_asset_id.split('-')[newEpisodes.videos[3].availability_asset_id.split('-').length - 1]} </span>
+															<div class="Tile_subtitleLastWord_2XP1a">
+																<span>${newEpisodes.videos[3].title}</span>
+															
+															</div>
+														</div>
+													</div></a>
+													<p class="Tile_metadata_3Snvo">Aired 10-8-17 • TV-PG DLV</p><button class="Tile_dotdotdot_68H99">• • •</button>
+												</div>
+												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
+													<div>
+														<div class="Tile_description_3584P homeTile_description_1Nhon">
+															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
+														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
+													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+													<g>
+														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
+													</g></svg></button>
+												</div>
+											</div>
+										</div>
+										
+
+					</div>`
+
+})
+
+
+
+ 
+
+ fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
+ 	return res.json();
+ }).then(function(shows){
+ 	console.log(shows)
+ 	for (var i = shows.items.length - 1; i >= 0; i--) {
+ 		if (shows.items[i].show_type == 'cw-seed' || shows.items[i].slug == 'more-video') {
+ 			continue;
+ 		}
+
+ 		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + Date.now() ).then(function(res){return res.json();}).then(function(videos){
+ 			console.log(videos)
+ 			var totalEpi = ''
+ 			for (var i = videos.videos.length - 1; i >= 0; i--) {
+ 				if (!videos.videos[i].fullep) {continue;}
+ 				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
+						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
+							<a href="play.html?${videos.videos[i].share_url}">
+							<div>
+<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${videos.videos[i].large_thumbnail}"></div>
+
+								<div class="Tile_play_1CN22">
+									<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
+									<g>
+										<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+										<g id="arrow">
+											<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+											<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+										</g>
+									</g></svg>
+								</div>
+							
+								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
+							</div></a>
+						</div>
+						<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
+							<div class="Tile_info_28rKd">
+								<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+									New
+								</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${videos.videos[i].show_slug}">
+								<div>
+									${videos.videos[i].series_name}
+								</div></a> <a class="Tile_subtitle_OzXVN" href="play.html?${videos.videos[i].share_url}">
+								<div class="Tile_subtitleWrapper_1Vr9o">
+									<div class="Tile_subtitleText_2yDSn">
+										<span>${videos.videos[i].availability_asset_id.split('-')[videos.videos[i].availability_asset_id.split('-').length - 1]}</span>
+										<div class="Tile_subtitleLastWord_2XP1a">
+											<span>${videos.videos[i].title}</span>
+										</div>
+									</div>
+								</div></a>
+								<p class="Tile_metadata_3Snvo">Aired ${videos.videos[i].airdate} • ${videos.videos[i].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
+							</div>
+							<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
+								<div>
+									<a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="#${videos.videos[i].show_slug}">More Episodes</a>
+								</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
+								<g>
+									<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
+								</g></svg></button>
+							</div>
+						</div>
+					</div>
+					`
+ 			}
+ 			if (totalEpi == '') {return;}
+ 			/// ${videos.videos[0].series_name}
+ 			document.querySelector('#newestEpisodes').innerHTML += `<div id="${videos.videos[0].show_slug}" class="Home_slide_1puOI">
+	<div name="ALL_COLLECTIONS_SCROLL_PREFIX_10">
+		<div class="Home_heroImageContainer_2Cj1c">
+			<div class="Home_heroImagePoster_C3La1" style="background-image: url(${videos.videos[0].large_thumbnail.replace('720x400','1920x1080')});"></div>
+		</div>
+		<div>
+			<div class="HomeSlideHeader_container_1HOU-" data-name="New Episodes" id="">
+				<div class="HomeSlideHeader_header_25z0a">
+					<div class="">
+						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[0].show_slug}.png"></div></span></h2>
+					</div>
+				</div>
+				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
+					<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="#${videos.videos[0].slug}">${videos.videos[0].series_name}</a>
+					<div class="HomeSlideHeader_description_1rcQk">
+						<span class="HomeSlideHeader_highlight_3OVd4">${videos.videos[0].availability_asset_id.split('-')[videos.videos[0].availability_asset_id.split('-').length - 1]} ${videos.videos[0].title}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
+						<g>
+							<path d="M7.41 7.84l4.59 4.58 4.59-4.58 1.41 1.41-6 6-6-6z"></path>
+						</g></svg></a>
+					</div>
+					<div class="HomeSlideHeader_meta_2M-Vy">
+						Aired ${videos.videos[0].airdate} • ${videos.videos[0].rating}
+					</div>
+					<div class="HomeSlideHeader_buttons_2hSs6">
+						<a class="HomeSlideHeader_showButton_ryBcr primaryButton" href="play.html?${videos.videos[0].share_url}"><!-- react-text: 2892 -->Watch<!-- /react-text --></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="TileGrid_container_S_Mnl Home_container_1VKQ1 TileGrid_grid-4-1_WGcEN">
+				<div class="TileGrid_grid_vrnLT">
+					
+					
+					${totalEpi}
+					
+				
+					
+					
+					
+					
+				</div>
+			
+				<hr class="TileGrid_hr_v420K Home_hr_18tZa">
+			</div>
+		</div>
+	</div>
+</div>`
+
+
+var options = {
+  rootMargin: "0px",
+  threshold: [.3,.8,1]
+}
+
+
+    var io = new IntersectionObserver(
+    entries => {
+for (i in entries){
+
+// ||  entries[i].boundingClientRect.bottom > -50 
+console.log(entries)
+if( entries[i].isIntersecting ){
+try{
+console.log(entries[i].target.querySelector('.Home_heroImagePoster_C3La1'))
+entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6;
+entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
+
+}catch(e){
+
+}
+    }else{
+entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0
+entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
+}
+}
+    },
+    {
+    }
+,options);
+// Start observing an element
+var Lazyelements = document.querySelectorAll('.Home_slide_1puOI')
+for (var i = Lazyelements.length - 1; i >= 0; i--) {
+io.observe(Lazyelements[i])
+}
+ 		})
+
+ 	}
+ })
+	</script>
+
+	<script type="text/javascript">
+		!function(t,e){"use strict";function n(t){this.time=t.time,this.target=t.target,this.rootBounds=t.rootBounds,this.boundingClientRect=t.boundingClientRect,this.intersectionRect=t.intersectionRect||{top:0,bottom:0,left:0,right:0,width:0,height:0},this.isIntersecting=!!t.intersectionRect;var e=this.boundingClientRect,n=e.width*e.height,o=this.intersectionRect,i=o.width*o.height;this.intersectionRatio=n?i/n:this.isIntersecting?1:0}function o(t,e){var n=e||{};if("function"!=typeof t)throw new Error("callback must be a function");if(n.root&&1!=n.root.nodeType)throw new Error("root must be an Element");this._checkForIntersections=r(this._checkForIntersections.bind(this),this.THROTTLE_TIMEOUT),this._callback=t,this._observationTargets=[],this._queuedEntries=[],this._rootMarginValues=this._parseRootMargin(n.rootMargin),this.thresholds=this._initThresholds(n.threshold),this.root=n.root||null,this.rootMargin=this._rootMarginValues.map(function(t){return t.value+t.unit}).join(" ")}function i(){return t.performance&&performance.now&&performance.now()}function r(t,e){var n=null;return function(){n||(n=setTimeout(function(){t(),n=null},e))}}function s(t,e,n,o){"function"==typeof t.addEventListener?t.addEventListener(e,n,o||!1):"function"==typeof t.attachEvent&&t.attachEvent("on"+e,n)}function h(t,e,n,o){"function"==typeof t.removeEventListener?t.removeEventListener(e,n,o||!1):"function"==typeof t.detatchEvent&&t.detatchEvent("on"+e,n)}function c(t,e){var n=Math.max(t.top,e.top),o=Math.min(t.bottom,e.bottom),i=Math.max(t.left,e.left),r=Math.min(t.right,e.right),s=r-i,h=o-n;return s>=0&&h>=0&&{top:n,bottom:o,left:i,right:r,width:s,height:h}}function u(t){var e;try{e=t.getBoundingClientRect()}catch(t){}return e?(e.width&&e.height||(e={top:e.top,right:e.right,bottom:e.bottom,left:e.left,width:e.right-e.left,height:e.bottom-e.top}),e):{top:0,bottom:0,left:0,right:0,width:0,height:0}}function a(t,e){for(var n=e;n;){if(n==t)return!0;n=l(n)}return!1}function l(t){var e=t.parentNode;return e&&11==e.nodeType&&e.host?e.host:e}if("IntersectionObserver"in t&&"IntersectionObserverEntry"in t&&"intersectionRatio"in t.IntersectionObserverEntry.prototype)"isIntersecting"in t.IntersectionObserverEntry.prototype||Object.defineProperty(t.IntersectionObserverEntry.prototype,"isIntersecting",{get:function(){return this.intersectionRatio>0}});else{var p=[];o.prototype.THROTTLE_TIMEOUT=100,o.prototype.POLL_INTERVAL=null,o.prototype.observe=function(t){if(!this._observationTargets.some(function(e){return e.element==t})){if(!t||1!=t.nodeType)throw new Error("target must be an Element");this._registerInstance(),this._observationTargets.push({element:t,entry:null}),this._monitorIntersections(),this._checkForIntersections()}},o.prototype.unobserve=function(t){this._observationTargets=this._observationTargets.filter(function(e){return e.element!=t}),this._observationTargets.length||(this._unmonitorIntersections(),this._unregisterInstance())},o.prototype.disconnect=function(){this._observationTargets=[],this._unmonitorIntersections(),this._unregisterInstance()},o.prototype.takeRecords=function(){var t=this._queuedEntries.slice();return this._queuedEntries=[],t},o.prototype._initThresholds=function(t){var e=t||[0];return Array.isArray(e)||(e=[e]),e.sort().filter(function(t,e,n){if("number"!=typeof t||isNaN(t)||t<0||t>1)throw new Error("threshold must be a number between 0 and 1 inclusively");return t!==n[e-1]})},o.prototype._parseRootMargin=function(t){var e=(t||"0px").split(/\s+/).map(function(t){var e=/^(-?\d*\.?\d+)(px|%)$/.exec(t);if(!e)throw new Error("rootMargin must be specified in pixels or percent");return{value:parseFloat(e[1]),unit:e[2]}});return e[1]=e[1]||e[0],e[2]=e[2]||e[0],e[3]=e[3]||e[1],e},o.prototype._monitorIntersections=function(){this._monitoringIntersections||(this._monitoringIntersections=!0,this.POLL_INTERVAL?this._monitoringInterval=setInterval(this._checkForIntersections,this.POLL_INTERVAL):(s(t,"resize",this._checkForIntersections,!0),s(e,"scroll",this._checkForIntersections,!0),"MutationObserver"in t&&(this._domObserver=new MutationObserver(this._checkForIntersections),this._domObserver.observe(e,{attributes:!0,childList:!0,characterData:!0,subtree:!0}))))},o.prototype._unmonitorIntersections=function(){this._monitoringIntersections&&(this._monitoringIntersections=!1,clearInterval(this._monitoringInterval),this._monitoringInterval=null,h(t,"resize",this._checkForIntersections,!0),h(e,"scroll",this._checkForIntersections,!0),this._domObserver&&(this._domObserver.disconnect(),this._domObserver=null))},o.prototype._checkForIntersections=function(){var t=this._rootIsInDom(),e=t?this._getRootRect():{top:0,bottom:0,left:0,right:0,width:0,height:0};this._observationTargets.forEach(function(o){var r=o.element,s=u(r),h=this._rootContainsTarget(r),c=o.entry,a=t&&h&&this._computeTargetAndRootIntersection(r,e),l=o.entry=new n({time:i(),target:r,boundingClientRect:s,rootBounds:e,intersectionRect:a});c?t&&h?this._hasCrossedThreshold(c,l)&&this._queuedEntries.push(l):c&&c.isIntersecting&&this._queuedEntries.push(l):this._queuedEntries.push(l)},this),this._queuedEntries.length&&this._callback(this.takeRecords(),this)},o.prototype._computeTargetAndRootIntersection=function(n,o){if("none"!=t.getComputedStyle(n).display){for(var i=u(n),r=l(n),s=!1;!s;){var h=null,a=1==r.nodeType?t.getComputedStyle(r):{};if("none"==a.display)return;if(r==this.root||r==e?(s=!0,h=o):r!=e.body&&r!=e.documentElement&&"visible"!=a.overflow&&(h=u(r)),h&&!(i=c(h,i)))break;r=l(r)}return i}},o.prototype._getRootRect=function(){var t;if(this.root)t=u(this.root);else{var n=e.documentElement,o=e.body;t={top:0,left:0,right:n.clientWidth||o.clientWidth,width:n.clientWidth||o.clientWidth,bottom:n.clientHeight||o.clientHeight,height:n.clientHeight||o.clientHeight}}return this._expandRectByRootMargin(t)},o.prototype._expandRectByRootMargin=function(t){var e=this._rootMarginValues.map(function(e,n){return"px"==e.unit?e.value:e.value*(n%2?t.width:t.height)/100}),n={top:t.top-e[0],right:t.right+e[1],bottom:t.bottom+e[2],left:t.left-e[3]};return n.width=n.right-n.left,n.height=n.bottom-n.top,n},o.prototype._hasCrossedThreshold=function(t,e){var n=t&&t.isIntersecting?t.intersectionRatio||0:-1,o=e.isIntersecting?e.intersectionRatio||0:-1;if(n!==o)for(var i=0;i<this.thresholds.length;i++){var r=this.thresholds[i];if(r==n||r==o||r<n!=r<o)return!0}},o.prototype._rootIsInDom=function(){return!this.root||a(e,this.root)},o.prototype._rootContainsTarget=function(t){return a(this.root||e,t)},o.prototype._registerInstance=function(){p.indexOf(this)<0&&p.push(this)},o.prototype._unregisterInstance=function(){var t=p.indexOf(this);-1!=t&&p.splice(t,1)},t.IntersectionObserver=o,t.IntersectionObserverEntry=n}}(window,document);
+	</script>
+</body>
+</html>
