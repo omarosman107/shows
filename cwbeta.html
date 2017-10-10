@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>FOX Broadcasting Company | Full Episodes, Shows, Schedule</title>
+	<title>CWTV</title>
 	<meta content="width=device-width, initial-scale=1" data-react-helmet="true" name="viewport">
 	<meta content="website" data-react-helmet="true" property="og:type">
 	<meta content="text/html; charset=utf-8" data-react-helmet="true" http-equiv="Content-Type">
-	<link data-react-helmet="true" href="https://www.fox.com/static/images/FoxNow_AppStore.jpg" rel="apple-touch-icon">
-	<link data-react-helmet="true" href="https://www.fox.com/static/images/FoxNow_PlayStore.png" rel="android-touch-icon">
+		<link rel="apple-touch-icon" sizes="57x57" href="//images.cwtv.com/images/cw/touch-icon-iphone-114.png"/>
+	<link rel="apple-touch-icon" sizes="114x114" href="//images.cwtv.com/images/cw/touch-icon-iphone-114.png"/>
+	<link rel="apple-touch-icon" sizes="72x72" href="//images.cwtv.com/images/cw/touch-icon-ipad-144.png"/>
+	<link rel="apple-touch-icon" sizes="144x144" href="//images.cwtv.com/images/cw/touch-icon-ipad-144.png"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <meta content="yes" name="apple-mobile-web-app-capable">
+   <meta content="CWTV" name="apple-mobile-web-app-title">
+   <meta name="mobile-web-app-capable" content="yes">
+
+	<meta name="application-name" content="The CW Network"/>
 	<meta content="IE=9;IE=10;IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
 	<link href="https://upload.wikimedia.org/wikipedia/commons/4/4c/The_CW.svg" rel="shortcut icon">
 	<link href="https://www.fox.com/style.css?cb=fc4c0b570fb9b6d663f4bcc7f71ac421" rel="stylesheet" type="text/css">
@@ -15,6 +23,9 @@
 	..Home_heroImagePoster_C3La1{
 		    visibility: hidden;
 		    opacity: 0;
+		}
+		img {
+			    max-width: 100%;
 		}
 	</style>
 </head>
@@ -35,7 +46,7 @@
 								</div>
 								<div class="Header_categories_3zGkq">
 									<div>
-										<a class="Header_categoryItem_2_wKp" href="/shows/#nav">Shows</a><a class="Header_categoryItem_2_wKp" href="/movies/#nav">Movies</a>
+										<a onclick="showHandle()"  style="    display: inline-block;    padding: .5900em;" class="Header_categoryItem_2_wKp" href="#">Shows</a><a class="Header_categoryItem_2_wKp" href="/movies/#nav">Movies</a>
 									</div>
 								</div>
 								
@@ -43,10 +54,32 @@
 					</div>
 				</div>
 			</header>
+			<div >
+				<main style="display: none;" id="shows_cont" class="ft-header-content" role="main">
+	<div>
+		<div>
+			<div class="Shows_screen_3dtIQ AltHeader_altHeaderContent_C2zjB">
+				<div>
+					<div>
+						<div class="TileGrid_container_S_Mnl TileGrid_grid-4-1_WGcEN">
+							<div id="all_shows" class="TileGrid_grid_vrnLT">
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div><!-- react-empty: 3201 -->
+	</div>
+</main>
+
+
+			</div>
 			<main class=" ft-header-content" role="main">
 				<div class="Home_screen_KPW1X">
 					<!-- react-empty: 1293 -->
-					<div id="newestEpisodes" class="Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
+					<div id="newestEpisodes" class="">
 						
 						</div>
 						<div id="shows"></div>
@@ -61,10 +94,35 @@
 	       @import "https://www.fox.com/static/fonts/graphik-700.css";
 	</style>
 	<script type="text/javascript">
-		
+		function showHandle(){
+			if (document.querySelector('#shows_cont').style.display == 'none') {
+				document.querySelector('#shows_cont').style.display = 'block';
+			}else{
+				document.querySelector('#shows_cont').style.display = 'none';
+			}
+		}
 fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + Date.now()).then(function(res){return res.json();}).then(function(newEpisodes){
-console.log(newEpisodes)
-document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
+	var temp = {videos:[]}
+var l = []
+newEpisodes.videos.sort(function(x, y) {
+   var date1 = new Date(x.airdate);
+   var date2 = new Date(y.airdate);
+    return date1 < date2 ? 1 : -1;
+  }).forEach(function(x) {
+    l.push(x)
+  })
+  
+console.log(l)
+newEpisodes.videos = l 
+newEpisodes.videos = newEpisodes.videos.reverse()
+for (var i = newEpisodes.videos.length - 1; i >= 0; i--) {
+	if (newEpisodes.videos[i].show_type == 'cw-network' && newEpisodes.videos[i].fullep) {
+			temp.videos.push(newEpisodes.videos[i])
+
+	}
+}
+newEpisodes.videos = (temp.videos)
+document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
 						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
 							<div class="Home_heroImageContainer_2Cj1c">
 								<div class="Home_heroImagePoster_C3La1" style="background-image: url('${newEpisodes.videos[0].large_thumbnail}');"></div>
@@ -141,7 +199,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1p
 															</div>
 														</div>
 													</div></a>
-													<p class="Tile_metadata_3Snvo">Aired 10-8-17 • TV-PG DLV</p><button class="Tile_dotdotdot_68H99">• • •</button>
+													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[1].airdate} • ${newEpisodes.videos[1].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
 												</div>
 												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
 													<div>
@@ -196,7 +254,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1p
 															</div>
 														</div>
 													</div></a>
-													<p class="Tile_metadata_3Snvo">Aired 10-8-17 • TV-PG DLV</p><button class="Tile_dotdotdot_68H99">• • •</button>
+													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[2].airdate} • ${newEpisodes.videos[2].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
 												</div>
 												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
 													<div>
@@ -251,7 +309,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1p
 															</div>
 														</div>
 													</div></a>
-													<p class="Tile_metadata_3Snvo">Aired 10-8-17 • TV-PG DLV</p><button class="Tile_dotdotdot_68H99">• • •</button>
+													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[3].airdate} • ${newEpisodes.videos[3].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
 												</div>
 												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
 													<div>
@@ -280,15 +338,45 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1p
  }).then(function(shows){
  	console.log(shows)
  	for (var i = shows.items.length - 1; i >= 0; i--) {
- 		if (shows.items[i].show_type == 'cw-seed' || shows.items[i].slug == 'more-video') {
+ 		if (shows.items[i].show_type == 'cw-seed' || shows.items[i].slug == 'more-video' || shows.items[i].airtime  == "COMING SOON") {
  			continue;
  		}
-
+document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc MovieTile_tile_1a04u Tile_fadeAnimated_1K79m Tile_clickable_3dKX4" style="opacity: 1; animation: none;">
+									<div class="Tile_imageContainer_2rTWR">
+										<a href="#${shows.items[i].slug}">
+										<div>
+											<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_${shows.items[i].slug}.v_7.w_1200.jpg"></div>
+											<div class="Tile_networkIcon_3G2SX"></div>
+										</div></a>
+									</div>
+									<div class="Tile_details_9UwiV">
+										<div class="Tile_info_28rKd">
+											<a class="Tile_title_2XOxg MovieTile_title_1u6rs" href="#${shows.items[i].slug}">
+											<div>
+												${shows.items[i].title}
+											</div></a>
+										</div>
+									</div>
+								</div>
+								`
  		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + Date.now() ).then(function(res){return res.json();}).then(function(videos){
- 			console.log(videos)
  			var totalEpi = ''
+
+ 			videos.videos = videos.videos.reverse();
+var temp = {videos:[]}
+ 			videos.videos = videos.videos.reverse()
+for (var i = videos.videos.length - 1; i >= 0; i--) {
+	if (videos.videos[i].show_type == 'cw-network' && videos.videos[i].fullep) {
+			temp.videos.push(videos.videos[i])
+
+	}
+}
+videos = temp
+ 			console.log(temp)
+ 			original = videos.videos[videos.videos.length - 1]
  			for (var i = videos.videos.length - 1; i >= 0; i--) {
  				if (!videos.videos[i].fullep) {continue;}
+ 				if (i == videos.videos.length - 1){continue;}
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
 						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 							<a href="play.html?${videos.videos[i].share_url}">
@@ -341,31 +429,31 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1p
  			}
  			if (totalEpi == '') {return;}
  			/// ${videos.videos[0].series_name}
- 			document.querySelector('#newestEpisodes').innerHTML += `<div id="${videos.videos[0].show_slug}" class="Home_slide_1puOI">
+ 			document.querySelector('#newestEpisodes').innerHTML += `<div id="${original.show_slug}" class="card  Home_slide_1puOI">
 	<div name="ALL_COLLECTIONS_SCROLL_PREFIX_10">
 		<div class="Home_heroImageContainer_2Cj1c">
-			<div class="Home_heroImagePoster_C3La1" style="background-image: url(${videos.videos[0].large_thumbnail.replace('720x400','1920x1080')});"></div>
+			<div class="Home_heroImagePoster_C3La1" style="background-image: url(${original.large_thumbnail.replace('720x400','1920x1080')});"></div>
 		</div>
 		<div>
 			<div class="HomeSlideHeader_container_1HOU-" data-name="New Episodes" id="">
 				<div class="HomeSlideHeader_header_25z0a">
 					<div class="">
-						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[0].show_slug}.png"></div></span></h2>
+						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
 					</div>
 				</div>
 				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
-					<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="#${videos.videos[0].slug}">${videos.videos[0].series_name}</a>
+					<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="#${original.slug}">${original.series_name}</a>
 					<div class="HomeSlideHeader_description_1rcQk">
-						<span class="HomeSlideHeader_highlight_3OVd4">${videos.videos[0].availability_asset_id.split('-')[videos.videos[0].availability_asset_id.split('-').length - 1]} ${videos.videos[0].title}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
+						<span class="HomeSlideHeader_highlight_3OVd4">${original.availability_asset_id.split('-')[original.availability_asset_id.split('-').length - 1]} ${original.title}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
 						<g>
 							<path d="M7.41 7.84l4.59 4.58 4.59-4.58 1.41 1.41-6 6-6-6z"></path>
 						</g></svg></a>
 					</div>
 					<div class="HomeSlideHeader_meta_2M-Vy">
-						Aired ${videos.videos[0].airdate} • ${videos.videos[0].rating}
+						Aired ${original.airdate} • ${original.rating}
 					</div>
 					<div class="HomeSlideHeader_buttons_2hSs6">
-						<a class="HomeSlideHeader_showButton_ryBcr primaryButton" href="play.html?${videos.videos[0].share_url}"><!-- react-text: 2892 -->Watch<!-- /react-text --></a>
+						<a class="HomeSlideHeader_showButton_ryBcr primaryButton" href="play.html?${original.share_url}"><!-- react-text: 2892 -->Watch<!-- /react-text --></a>
 					</div>
 				</div>
 			</div>
@@ -393,26 +481,27 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="Home_slide_1p
 
 var options = {
   rootMargin: "0px",
-  threshold: [.3,.8,1]
+  threshold: [0,.3,.6,1.0]
 }
-
 
     var io = new IntersectionObserver(
     entries => {
+
+    	
+
 for (i in entries){
+
 
 // ||  entries[i].boundingClientRect.bottom > -50 
 console.log(entries)
-if( entries[i].isIntersecting ){
-try{
+if( entries[i].isIntersecting){
+
+	console.log(entries[i])
 console.log(entries[i].target.querySelector('.Home_heroImagePoster_C3La1'))
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6;
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
+}else{
 
-}catch(e){
-
-}
-    }else{
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
 }
@@ -421,8 +510,9 @@ entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility 
     {
     }
 ,options);
+
 // Start observing an element
-var Lazyelements = document.querySelectorAll('.Home_slide_1puOI')
+var Lazyelements = document.querySelectorAll('.card')
 for (var i = Lazyelements.length - 1; i >= 0; i--) {
 io.observe(Lazyelements[i])
 }
@@ -430,6 +520,80 @@ io.observe(Lazyelements[i])
 
  	}
  })
+
+function percEl(element){
+	var pageHeight = document.body.scrollHeight;
+var el = element
+var elPos = el.getBoundingClientRect();
+var elTop = elPos.top;
+return  ((elTop / pageHeight)*100)
+}
+
+function elementInViewport2(el) {
+  var top = el.offsetTop;
+  var left = el.offsetLeft;
+  var width = el.offsetWidth;
+  var height = el.offsetHeight;
+
+  while(el.offsetParent) {
+    el = el.offsetParent;
+    top += el.offsetTop;
+    left += el.offsetLeft;
+  }
+
+  return (
+    top < (window.pageYOffset + window.innerHeight) &&
+    left < (window.pageXOffset + window.innerWidth) &&
+    (top + height) > window.pageYOffset &&
+    (left + width) > window.pageXOffset
+  );
+}
+function calculateVisibilityForDiv(div$) {
+
+
+  var windowHeight = window.innerWidth || document.documentElement.clientWidth,
+    docScroll = window.scrollTop || document.body.scrollTop,
+    divPosition = div$.offsetTop,
+  divHeight = div$.offsetHeight || div$.clientHeight,
+    hiddenBefore = docScroll - divPosition,
+    hiddenAfter = (divPosition + divHeight) - (docScroll + windowHeight);
+
+  if ((docScroll > divPosition + divHeight) || (divPosition > docScroll + windowHeight)) {
+    return 0;
+  } else {
+    var result = 100;
+
+    if (hiddenBefore > 0) {
+      result -= (hiddenBefore * 100) / divHeight;
+    }
+
+    if (hiddenAfter > 0) {
+      result -= (hiddenAfter * 100) / divHeight;
+    }
+
+    return result;
+  }
+}
+
+function repbg(){
+	var maxperc = 0
+	var Lazyelements = document.querySelectorAll('.card')
+for (var i = Lazyelements.length - 1; i >= 0; i--) {
+	if (!elementInViewport2(Lazyelements[i])) {continue;}
+	console.log(Lazyelements[i],calculateVisibilityForDiv(Lazyelements[i]))
+if (percEl(Lazyelements[i]) > maxperc) {
+		Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6
+Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
+maxperc = percEl(Lazyelements[i])
+}else{
+	Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0
+Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
+}
+}
+console.log(maxperc)
+maxperc = 0
+}
+
 	</script>
 
 	<script type="text/javascript">
