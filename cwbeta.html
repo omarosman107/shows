@@ -125,7 +125,7 @@ newEpisodes.videos = (temp.videos)
 document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
 						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
 							<div class="Home_heroImageContainer_2Cj1c">
-								<div class="Home_heroImagePoster_C3La1" style="background-image: url('${newEpisodes.videos[0].large_thumbnail}');"></div>
+								<div class="Home_heroImagePoster_C3La1" style="background-image: url('${newEpisodes.videos[0].large_thumbnail.replace('720x400','1920x1080')}');"></div>
 							</div>
 							<div>
 								<div class="HomeSlideHeader_container_1HOU-" data-name="FOX Presents">
