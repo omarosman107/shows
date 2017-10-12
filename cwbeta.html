@@ -27,6 +27,18 @@
 		img {
 			    max-width: 100%;
 		}
+
+.w3-progressbar {
+    background-color: #e50914;
+    line-height: inherit;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: width,opacity;
+    height: .25rem;
+    position: absolute;
+    z-index: 8;
+    bottom: 0;
+}
 	</style>
 </head>
 <body style="">
@@ -101,28 +113,92 @@
 				document.querySelector('#shows_cont').style.display = 'none';
 			}
 		}
-fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + Date.now()).then(function(res){return res.json();}).then(function(newEpisodes){
+fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
+	    cache: "no-store"
+
+}).then(function(res){return res.json();}).then(function(newEpisodes){
 	var temp = {videos:[]}
-var l = []
-newEpisodes.videos.sort(function(x, y) {
-   var date1 = new Date(x.airdate);
-   var date2 = new Date(y.airdate);
-    return date1 < date2 ? 1 : -1;
-  }).forEach(function(x) {
-    l.push(x)
-  })
-  
-console.log(l)
-newEpisodes.videos = l 
-newEpisodes.videos = newEpisodes.videos.reverse()
-for (var i = newEpisodes.videos.length - 1; i >= 0; i--) {
+for (i = 0; i < newEpisodes.videos.length; i++) {
 	if (newEpisodes.videos[i].show_type == 'cw-network' && newEpisodes.videos[i].fullep) {
 			temp.videos.push(newEpisodes.videos[i])
 
 	}
 }
-newEpisodes.videos = (temp.videos)
+newEpisodes = temp
+console.log(temp)
+var otherEpisodes = ``
 
+for (i = 0; i < 4; i++) {
+	if (i == 0) {continue;}
+	//  /  
+	var perc = localStorage['?' + newEpisodes.videos[i].share_url + '/'] /  newEpisodes.videos[i].duration_secs * 100 + '%'
+	otherEpisodes += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
+											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
+												<a href="play.html?${newEpisodes.videos[i].share_url}/">
+												<div>
+													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[i].large_thumbnail}"><div class="w3-progressbar" style="
+    width: ${perc};
+"></div></div>
+													<div class="Tile_play_1CN22">
+														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+														<g>
+															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+															<g id="arrow">
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+															</g>
+														</g></svg>
+													</div>
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
+												</div></a>
+											</div>
+											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
+												<div class="Tile_info_28rKd">
+													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[i].show_slug}">
+													<div>
+														${newEpisodes.videos[i].series_name}
+													</div></a><a class="Tile_subtitle_OzXVN" href="play.html?${newEpisodes.videos[i].share_url}">
+													<div class="Tile_subtitleWrapper_1Vr9o">
+														<div class="Tile_subtitleText_2yDSn">
+															<span><!-- react-text: 1503 -->${newEpisodes.videos[i].availability_asset_id.split('-')[newEpisodes.videos[i].availability_asset_id.split('-').length - 1]} </span>
+															<div class="Tile_subtitleLastWord_2XP1a">
+																<span>${newEpisodes.videos[i].title}</span>
+																
+															</div>
+														</div>
+													</div></a>
+													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[i].airdate} • ${newEpisodes.videos[i].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
+												</div>
+												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
+													<div>
+														<div class="Tile_description_3584P homeTile_description_1Nhon">
+															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
+														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
+													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+													<g>
+														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
+													</g></svg></button>
+												</div>
+											</div>
+										</div>
+										
+
+
+`
+}
+
+	var min_left = ''
+ 			if ((localStorage['?' + newEpisodes.videos[0].share_url ])) {
+ 				   min_left =  			`• ${Math.floor((newEpisodes.videos[0].duration_secs - (localStorage['?' + newEpisodes.videos[0].share_url ]))/60)} mins left` 
+ 			}
+ 			if (min_left == '0 mins left') {
+ 				min_left = ''
+ 			}
 document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
 						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
 							<div class="Home_heroImageContainer_2Cj1c">
@@ -144,7 +220,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 											</g></svg></a>
 										</div>
 										<div class="HomeSlideHeader_meta_2M-Vy">
-											Aired ${newEpisodes.videos[0].airdate} • ${newEpisodes.videos[0].rating}
+											Aired ${newEpisodes.videos[0].airdate} • ${newEpisodes.videos[0].rating}  ${min_left}
 										</div>
 										<div class="HomeSlideHeader_buttons_2hSs6">
 											<a class="HomeSlideHeader_showButton_ryBcr primaryButton" href="play.html?${newEpisodes.videos[0].share_url}"><svg class="Icon_icon_BJu7i Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
@@ -162,168 +238,8 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 							<div>
 								<div class="TileGrid_container_S_Mnl Home_container_1VKQ1 TileGrid_grid-4-1_WGcEN">
 									<div class="TileGrid_grid_vrnLT">
-										<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
-											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
-												<a href="play.html?${newEpisodes.videos[3].share_url}/">
-												<div>
-													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[3].large_thumbnail}"></div>
-													<div class="Tile_play_1CN22">
-														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-														<g>
-															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
-															<g id="arrow">
-																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
-																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
-															</g>
-														</g></svg>
-													</div>
-													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div>
-													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[3].show_slug}.png"></div>
-												</div></a>
-											</div>
-											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
-												<div class="Tile_info_28rKd">
-													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[3].show_slug}">
-													<div>
-														${newEpisodes.videos[3].series_name}
-													</div></a><a class="Tile_subtitle_OzXVN" href="play.html?${newEpisodes.videos[3].share_url}">
-													<div class="Tile_subtitleWrapper_1Vr9o">
-														<div class="Tile_subtitleText_2yDSn">
-															<span><!-- react-text: 1503 -->${newEpisodes.videos[3].availability_asset_id.split('-')[newEpisodes.videos[3].availability_asset_id.split('-').length - 1]} </span>
-															<div class="Tile_subtitleLastWord_2XP1a">
-																<span>${newEpisodes.videos[3].title}</span>
-																
-															</div>
-														</div>
-													</div></a>
-													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[3].airdate} • ${newEpisodes.videos[3].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
-												</div>
-												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
-													<div>
-														<div class="Tile_description_3584P homeTile_description_1Nhon">
-															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
-														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
-													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-													<g>
-														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
-													</g></svg></button>
-												</div>
-											</div>
-										</div>
-										
-
-
-				<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
-											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
-												<a href="play.html?${newEpisodes.videos[2].share_url}/">
-												<div>
-													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[2].large_thumbnail}"></div>
-													<div class="Tile_play_1CN22">
-														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-														<g>
-															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
-															<g id="arrow">
-																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
-																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
-															</g>
-														</g></svg>
-													</div>
-													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div>
-													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[2].show_slug}.png"></div>
-												</div></a>
-											</div>
-											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
-												<div class="Tile_info_28rKd">
-													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[2].show_slug}">
-													<div>
-														${newEpisodes.videos[2].series_name}
-													</div></a><a class="Tile_subtitle_OzXVN" href="/watch/818529c3d72584486365f78ae851fa67/">
-													<div class="Tile_subtitleWrapper_1Vr9o">
-														<div class="Tile_subtitleText_2yDSn">
-															<span><!-- react-text: 1503 -->${newEpisodes.videos[2].availability_asset_id.split('-')[newEpisodes.videos[2].availability_asset_id.split('-').length - 1]} </span>
-															<div class="Tile_subtitleLastWord_2XP1a">
-																<span>${newEpisodes.videos[2].title}</span>
-																
-															</div>
-														</div>
-													</div></a>
-													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[2].airdate} • ${newEpisodes.videos[2].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
-												</div>
-												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
-													<div>
-														<div class="Tile_description_3584P homeTile_description_1Nhon">
-															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
-														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
-													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-													<g>
-														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
-													</g></svg></button>
-												</div>
-											</div>
-										</div>
-
-
-
-															<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
-											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
-												<a href="play.html?${newEpisodes.videos[1].share_url}/">
-												<div>
-													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[1].large_thumbnail}"></div>
-													<div class="Tile_play_1CN22">
-														<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-														<g>
-															<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
-															<g id="arrow">
-																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
-																<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
-															</g>
-														</g></svg>
-													</div>
-													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div>
-													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[1].show_slug}.png"></div>
-												</div></a>
-											</div>
-											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
-												<div class="Tile_info_28rKd">
-													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${newEpisodes.videos[1].show_slug}/">
-													<div>
-														${newEpisodes.videos[1].series_name}
-													</div></a><a class="Tile_subtitle_OzXVN" href="play.html?${newEpisodes.videos[0].share_url}">
-													<div class="Tile_subtitleWrapper_1Vr9o">
-														<div class="Tile_subtitleText_2yDSn">
-															<span><!-- react-text: 1503 -->${newEpisodes.videos[1].availability_asset_id.split('-')[newEpisodes.videos[1].availability_asset_id.split('-').length - 1]} </span>
-															<div class="Tile_subtitleLastWord_2XP1a">
-																<span>${newEpisodes.videos[3].title}</span>
-															
-															</div>
-														</div>
-													</div></a>
-													<p class="Tile_metadata_3Snvo">Aired ${newEpisodes.videos[1].airdate} • ${newEpisodes.videos[1].rating}</p><button class="Tile_dotdotdot_68H99">• • •</button>
-												</div>
-												<div class="Tile_moreInfo_2BKot homeTile_moreInfo_3wN9_">
-													<div>
-														<div class="Tile_description_3584P homeTile_description_1Nhon">
-															Marge and Lisa decide to turns an unpleasant experience Lisa had into a successful graphic novel.
-														</div><a class="Tile_descLink_2_Kvd homeTile_descLink_287Au" href="/the-simpsons/">More Episodes</a>
-													</div><button class="Tile_x_1AuLq"><svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_black_1G5R8" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-													<g>
-														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
-													</g></svg></button>
-												</div>
-											</div>
-										</div>
+								${otherEpisodes}		
+									</div>
 										
 
 					</div>`
@@ -380,11 +296,15 @@ videos = temp
  			for (i = 0; i < videos.videos.length; i++) {
  				if (!videos.videos[i].fullep) {continue;}
  				if (i == videos.videos.length - 1){continue;}
+ 					var perc = (localStorage['?' + videos.videos[i].share_url ]) /  videos.videos[i].duration_secs * 100 + '%'
+
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
 						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 							<a href="play.html?${videos.videos[i].share_url}">
 							<div>
-<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${videos.videos[i].large_thumbnail}"></div>
+<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${videos.videos[i].large_thumbnail}"><div class="w3-progressbar" style="
+    width: ${perc};
+"></div></div>
 
 								<div class="Tile_play_1CN22">
 									<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
@@ -432,6 +352,13 @@ videos = temp
  			}
  			if (totalEpi == '') {return;}
  			/// ${videos.videos[0].series_name}
+ 			var min_left = ''
+ 			if ((localStorage['?' + original.share_url ])) {
+ 				   min_left =  			`• ${Math.floor((original.duration_secs - (localStorage['?' + original.share_url ]))/60)} mins left` 
+ 			}
+ 			if (min_left == '0 mins left') {
+ 				min_left = ''
+ 			}
  			document.querySelector('#newestEpisodes').innerHTML += `<div id="${original.show_slug}" class="card  Home_slide_1puOI">
 	<div name="ALL_COLLECTIONS_SCROLL_PREFIX_10">
 		<div class="Home_heroImageContainer_2Cj1c">
@@ -453,7 +380,7 @@ videos = temp
 						</g></svg></a>
 					</div>
 					<div class="HomeSlideHeader_meta_2M-Vy">
-						Aired ${original.airdate} • ${original.rating}
+						Aired ${original.airdate} • ${original.rating} ${min_left}
 					</div>
 					<div class="HomeSlideHeader_buttons_2hSs6">
 						<a class="HomeSlideHeader_showButton_ryBcr primaryButton" href="play.html?${original.share_url}"><!-- react-text: 2892 -->Watch<!-- /react-text --></a>
@@ -496,11 +423,8 @@ for (i in entries){
 
 
 // ||  entries[i].boundingClientRect.bottom > -50 
-console.log(entries)
 if( entries[i].isIntersecting){
 
-	console.log(entries[i])
-console.log(entries[i].target.querySelector('.Home_heroImagePoster_C3La1'))
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6;
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
 }else{
@@ -515,10 +439,12 @@ entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility 
 ,options);
 
 // Start observing an element
+/*
 var Lazyelements = document.querySelectorAll('.card')
 for (var i = Lazyelements.length - 1; i >= 0; i--) {
 io.observe(Lazyelements[i])
 }
+*/
  		})
 
  	}
@@ -533,6 +459,7 @@ return  ((elTop / pageHeight)*100)
 }
 
 function elementInViewport2(el) {
+
   var top = el.offsetTop;
   var left = el.offsetLeft;
   var width = el.offsetWidth;
@@ -580,22 +507,36 @@ function calculateVisibilityForDiv(div$) {
 
 function repbg(){
 	var maxperc = 0
+	var maxelem
 	var Lazyelements = document.querySelectorAll('.card')
+
 for (var i = Lazyelements.length - 1; i >= 0; i--) {
-	if (!elementInViewport2(Lazyelements[i])) {continue;}
-	console.log(Lazyelements[i],calculateVisibilityForDiv(Lazyelements[i]))
-if (percEl(Lazyelements[i]) > maxperc) {
+	if (!elementInViewport2(Lazyelements[i])) {
+	Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0
+Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
+		continue;
+	}
+console.log(Lazyelements[i])
+if (calculateVisibilityForDiv(Lazyelements[i]) >= maxperc) {
+	/*
 		Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6
 Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
-maxperc = percEl(Lazyelements[i])
+*/
+maxperc = calculateVisibilityForDiv(Lazyelements[i])
+maxelem = Lazyelements[i]
 }else{
 	Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0
 Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
 }
 }
-console.log(maxperc)
 maxperc = 0
+console.log(maxperc,maxelem)
+	maxelem.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6
+maxelem.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
 }
+window.addEventListener('scroll', function() {
+repbg()
+});
 
 	</script>
 
