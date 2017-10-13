@@ -39,6 +39,9 @@
     z-index: 8;
     bottom: 0;
 }
+.PrimeTimeGrid_row_2-FSr .PrimeTimeGrid_tile_MaRMD {
+    display: inline-block;
+}
 	</style>
 </head>
 <body style="">
@@ -58,7 +61,7 @@
 								</div>
 								<div class="Header_categories_3zGkq">
 									<div>
-										<a onclick="showHandle()"  style="    display: inline-block;    padding: .5900em;" class="Header_categoryItem_2_wKp" href="#">Shows</a><a class="Header_categoryItem_2_wKp" href="/movies/#nav">Movies</a>
+										<a onclick="showHandle()"  style="    display: inline-block;    padding: .5900em;" class="Header_categoryItem_2_wKp" href="#">Shows</a><a class="Header_categoryItem_2_wKp" onclick="abtAir()"  style="    display: inline-block;    padding: .5900em;"  href="#">Upcoming</a>
 									</div>
 								</div>
 								
@@ -85,6 +88,19 @@
 		</div><!-- react-empty: 3201 -->
 	</div>
 </main>
+<div>
+	<div style="margin: auto;padding: 2vw">
+	<div id="upcoming" style="display: none;" class="PrimeTimeGrid_gridWrapper_Yt-EU">
+		<div id="schedule" name="PRIME_TIME_GRID_SCROLL_PREFIX2017-10-12">
+			<div class="PrimeTimeGrid_dateHeader_33m0m">
+			</div>
+	<div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</div>
 
 
 			</div>
@@ -113,7 +129,13 @@
 	       @import "css/graphik-700.css";
 	</style>
 	<script type="text/javascript">
-
+function abtAir(){
+	if (document.querySelector('#upcoming').style.display == 'none') {
+				document.querySelector('#upcoming').style.display = 'block';
+			}else{
+				document.querySelector('#upcoming').style.display = 'none';
+			}
+}
 
 		function showHandle(){
 			if (document.querySelector('#shows_cont').style.display == 'none') {
@@ -122,6 +144,67 @@
 				document.querySelector('#shows_cont').style.display = 'none';
 			}
 		}
+		fetch('http://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(json){
+			console.log(json.items)
+			json.items = json.items.reverse()
+			for (var i = json.items.length - 1; i >= 0; i--) {
+				var date = new Date(json.items[i].episode_date)
+				document.getElementById('schedule').innerHTML += `<div class="PrimeTimeGrid_row_2-FSr">
+				<div class="PrimeTimeGrid_tile_MaRMD">
+					<div class="Tile_tile_3qaLc PrimeTimeGrid_tile_MaRMD Tile_tile-image-left_P76vs">
+						<div class="Tile_imageContainer_2rTWR PrimeTimeGrid_imageContainer_fkUuD">
+							<a>
+							<div>
+								<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="									http://images.cwtv.com/thecw/img/w_638.s_mobile.i_video_thumbnail.guid_${json.items[i].video_guid}.jpg"></div>
+								<div class="Tile_play_1CN22">
+									<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
+									<g>
+										<circle cx="12.041" cy="12.041" id="Oval-3" r="11.041" style="fill: rgb(0, 0, 0); fill-opacity: 0; stroke: rgb(255, 255, 255); stroke-width: 2px;"></circle>
+										<g id="arrow">
+											<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872" id="Fill-1"></path>
+											<path d="M17.099,12.444l-7.656,4.352c-0.341,0.194 -0.767,-0.048 -0.767,-0.436l0,-8.703c0,-0.388 0.426,-0.631 0.767,-0.437l7.656,4.352c0.341,0.194 0.341,0.679 0,0.872Z" id="Stroke-3" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 0.14px;"></path>
+										</g>
+									</g></svg>
+								</div>
+								<div class="Tile_badge_2U8On PrimeTimeGrid_badge_YE2RE">
+									new
+								</div>
+							</div></a>
+						</div>
+						<div class="Tile_details_9UwiV PrimeTimeGrid_details_36P1n">
+							<div class="Tile_info_28rKd PrimeTimeGrid_info_16JQT">
+								<div class="Tile_badge_2U8On PrimeTimeGrid_badge_YE2RE">
+									new
+								</div><a class="Tile_title_2XOxg PrimeTimeGrid_title_254IQ" href="#">
+								<div>
+								${json.items[i].show_title}
+
+								</div></a>
+								<div class="Tile_subtitle_OzXVN PrimeTimeGrid_subtitle_32Nfk">
+									E${json.items[i].episode_number} ${json.items[i].episode_title}
+
+								</div>
+								<div class="Tile_description_3584P PrimeTimeGrid_description_1-sX9">
+																		${json.items[i].episode_description}
+
+								</div>
+																<p class="Tile_metadata_3Snvo PrimeTimeGrid_metadata_2yMNJ">${date.toDateString()
+}</p>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="PrimeTimeGrid_cta_3zsTs">
+					<div></div>
+				</div>
+				<div class="PrimeTimeGrid_time_3SrRI">
+					<span>${date.getHours() - 12 + ":" + date.getMinutes() + '0' + 'pm'} ET</span>
+				</div>
+			</div>
+`
+			}
+		})
 fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
 	    cache: "no-store"
 
@@ -193,6 +276,7 @@ for (i = 0; i < 4; i++) {
 														<path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
 													</g></svg></button>
 												</div>
+
 											</div>
 										</div>
 										
@@ -381,7 +465,7 @@ videos = temp
 					</div>
 					`
  			}
- 			
+
  			if (totalEpi == '') {return;}
  			/// ${videos.videos[0].series_name}
  			var min_left = ''
