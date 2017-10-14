@@ -393,6 +393,7 @@ document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc M
 								</div>
 								`
  		fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
+ 			if (videos.videos.length == 0) {return;}
  			var totalEpi = ''
 
  			videos.videos = videos.videos.reverse();
@@ -406,14 +407,13 @@ for (var i = videos.videos.length - 1; i >= 0; i--) {
 }
 
 videos = temp
- 			console.log(temp)
+ 			if (videos.videos.length == 0) {return;}
+
  			original = videos.videos[videos.videos.length - 1]
 
  			for (i = 0; i < videos.videos.length; i++) {
  				if (!videos.videos[i].fullep) {continue;}
  				if (i == videos.videos.length - 1){continue;}
- 				if (videos.videos[i]) {}
- 				console.log(videos.videos[i])
  					var perc = (localStorage['?' + videos.videos[i].share_url ]) /  videos.videos[i].duration_secs * 100 + '%'
 
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
@@ -472,6 +472,7 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
 
  			/// ${videos.videos[0].series_name}
  			var min_left = ''
+
  			if ((localStorage['?' + original.share_url ])) {
  				   min_left =  			`• ${Math.floor((original.duration_secs - (localStorage['?' + original.share_url ]))/60)} mins left` 
  			}
@@ -542,10 +543,8 @@ bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${
   var show_smllg = new IntersectionObserver(
     entries => {
 for (i in entries){
-console.log(entries)
 // ||  entries[i].boundingClientRect.bottom > -50 
 if(entries[i].isIntersecting){
-	console.log(entries[i].target.getAttribute('logo'))
 	entries[i].target.src = entries[i].target.getAttribute('logo')
 }
 }
@@ -637,7 +636,6 @@ for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
 if( entries[i].isIntersecting){
-	console.log(entries[i].target.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg'))
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').background = `url("${entries[i].target.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg')}")`
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6;
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
