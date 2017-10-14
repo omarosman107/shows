@@ -412,6 +412,8 @@ videos = temp
  			for (i = 0; i < videos.videos.length; i++) {
  				if (!videos.videos[i].fullep) {continue;}
  				if (i == videos.videos.length - 1){continue;}
+ 				if (videos.videos[i]) {}
+ 				console.log(videos.videos[i])
  					var perc = (localStorage['?' + videos.videos[i].share_url ]) /  videos.videos[i].duration_secs * 100 + '%'
 
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
@@ -468,7 +470,6 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
 					`
  			}
 
- 			if (totalEpi == '') {return;}
  			/// ${videos.videos[0].series_name}
  			var min_left = ''
  			if ((localStorage['?' + original.share_url ])) {
