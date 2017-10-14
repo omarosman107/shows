@@ -144,6 +144,7 @@ function abtAir(){
 				document.querySelector('#shows_cont').style.display = 'none';
 			}
 		}
+		/*
 		fetch('https://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(json){
 			console.log(json.items)
 			json.items = json.items.reverse()
@@ -205,6 +206,7 @@ function abtAir(){
 `
 			}
 		})
+		*/
 fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
 	    cache: "no-store"
 
@@ -249,7 +251,7 @@ src="https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${n
 													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
 														New
 													</div>
-													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="https://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png" src="https://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
 												</div></a>
 											</div>
 											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
@@ -432,7 +434,7 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
 									</g></svg>
 								</div>
 							
-								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
+								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
 							</div></a>
 						</div>
 						<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
@@ -487,7 +489,7 @@ bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${
 			<div class="HomeSlideHeader_container_1HOU-" data-name="New Episodes" id="">
 				<div class="HomeSlideHeader_header_25z0a">
 					<div class="">
-						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img src="https://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
+						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
 					</div>
 				</div>
 				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
@@ -535,6 +537,24 @@ bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${
 <!-->
 
 `
+
+  var show_smllg = new IntersectionObserver(
+    entries => {
+for (i in entries){
+console.log(entries)
+// ||  entries[i].boundingClientRect.bottom > -50 
+if(entries[i].isIntersecting){
+	console.log(entries[i].target.getAttribute('logo'))
+	entries[i].target.src = entries[i].target.getAttribute('logo')
+}
+}
+}
+)
+
+  var Lazyelements = document.querySelectorAll('.Tile_networkIcon_3G2SX img')
+for (var i = Lazyelements.length - 1; i >= 0; i--) {
+show_smllg.observe(Lazyelements[i])
+}		
 
 
 
@@ -711,7 +731,6 @@ for (var i = Lazyelements.length - 1; i >= 0; i--) {
 Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
 		continue;
 	}
-console.log(Lazyelements[i])
 if (calculateVisibilityForDiv(Lazyelements[i]) >= maxperc) {
 	/*
 		Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6
@@ -725,7 +744,6 @@ Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 
 }
 }
 maxperc = 0
-console.log(maxperc,maxelem)
 maxelem.querySelector('.Home_heroImagePoster_C3La1').style.backgroundImage = `url("${maxelem.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg')}")`
 
 	maxelem.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6
