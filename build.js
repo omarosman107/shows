@@ -682,9 +682,9 @@ loadMedia(l)
 
 
 }
-var theflash = 'http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash'
-var show_hub = 'http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub'
-var shows = 'http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100'
+var theflash = 'https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash'
+var show_hub = 'https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub'
+var shows = 'https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100'
 var proxy = 'https://cors-anywhere.herokuapp.com/'
 var template = "";
 if (!window.fetch) {
@@ -920,7 +920,7 @@ var cors_show_hub = 'https://crossorigin.me/' + show_hub
 function cw(show){
 	
 	loaders()
-fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
+fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
 	if (cwshows.items[i].deeplink.includes('cwseed') || cwshows.items[i].slug == 'more-video') {loaders('remove');continue;}
@@ -929,7 +929,7 @@ for(i in cwshows.items){
  continue;
 			}
 
-fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
+fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
 .then(function(res){
 return res.json()
 }).then(function(data){
@@ -959,10 +959,10 @@ return res.json()
       	if (webpcompatible == true) {
 // return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
 }
-      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+      	 return 'https://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
-      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
+      tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
       var episode_data = {
         img: cwdyres('638'),
         rating: (data.videos[i].rating),
@@ -1028,10 +1028,10 @@ fetch(show_hub + '?bust=' + Date.now()  , {
       	if (webpcompatible == true) {
 // return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
 }
-      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+      	 return 'https://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
-      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
+      tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
       var episode_data = {
         img: cwdyres('638'),
         rating: (data.videos[i].rating),

@@ -16,7 +16,7 @@
 
 	<meta name="application-name" content="The CW Network"/>
 	<meta content="IE=9;IE=10;IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
-	<link href="https://upload.wikimedia.org/wikipedia/commons/4/4c/The_CW.svg" rel="shortcut icon">
+	<link href="cwlogo.svg" rel="shortcut icon">
 	<link href="css/cwbeta.css" rel="stylesheet" type="text/css">
 	<link href="css/graphik-400.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
@@ -144,7 +144,7 @@ function abtAir(){
 				document.querySelector('#shows_cont').style.display = 'none';
 			}
 		}
-		fetch('http://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(json){
+		fetch('https://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(json){
 			console.log(json.items)
 			json.items = json.items.reverse()
 			for (var i = json.items.length - 1; i >= 0; i--) {
@@ -155,7 +155,7 @@ function abtAir(){
 						<div class="Tile_imageContainer_2rTWR PrimeTimeGrid_imageContainer_fkUuD">
 							<a>
 							<div>
-								<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="									http://images.cwtv.com/thecw/img/w_638.s_mobile.i_video_thumbnail.guid_${json.items[i].video_guid}.jpg"></div>
+								<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="									https://images.cwtv.com/thecw/img/w_638.s_mobile.i_video_thumbnail.guid_${json.items[i].video_guid}.jpg"></div>
 								<div class="Tile_play_1CN22">
 									<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
 									<g>
@@ -205,7 +205,7 @@ function abtAir(){
 `
 			}
 		})
-fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
+fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
 	    cache: "no-store"
 
 }).then(function(res){return res.json();}).then(function(newEpisodes){
@@ -228,7 +228,12 @@ for (i = 0; i < 4; i++) {
 											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 												<a href="play.html?${newEpisodes.videos[i].share_url}/">
 												<div>
-													<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="${newEpisodes.videos[i].large_thumbnail}"><div class="w3-progressbar" style="
+													<div class="LazyLoad is-visible"><img alt="" sizes="(max-width: 600px) 100vw, 25vw" class="Tile_image_19KoQ" srcset="https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 1920w 1080h,https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 682w 384h,
+https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 341w 192h"
+
+
+
+src="https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}"><div class="w3-progressbar" style="
     width: ${perc};
 "></div></div>
 													<div class="Tile_play_1CN22">
@@ -244,7 +249,7 @@ for (i = 0; i < 4; i++) {
 													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
 														New
 													</div>
-													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="https://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
 												</div></a>
 											</div>
 											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
@@ -295,8 +300,8 @@ for (i = 0; i < 4; i++) {
 document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
 						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
 							<div class="Home_heroImageContainer_2Cj1c">
-								<div class="Home_heroImagePoster_C3La1" style="
-								  background-image:       url('${newEpisodes.videos[0].large_thumbnail.replace('720x400','1920x1080')}');
+								<div class="Home_heroImagePoster_C3La1" bg="https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg" style="
+								  background-image:       url('https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg');
 
 		
 								"></div>
@@ -347,7 +352,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 
  
 
- fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
+ fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
  	return res.json();
  }).then(function(shows){
  	console.log(shows)
@@ -371,7 +376,7 @@ document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc M
 									<div class="Tile_imageContainer_2rTWR">
 										<a href="#${shows.items[i].slug}">
 										<div>
-											<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_${shows.items[i].slug}.v_7.w_600.jpg"></div>
+											<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_${shows.items[i].slug}.v_7.w_600.jpg"></div>
 											<div class="Tile_networkIcon_3G2SX"></div>
 										</div></a>
 									</div>
@@ -385,7 +390,7 @@ document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc M
 									</div>
 								</div>
 								`
- 		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
+ 		fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
  			var totalEpi = ''
 
  			videos.videos = videos.videos.reverse();
@@ -411,7 +416,8 @@ videos = temp
 						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 							<a href="play.html?${videos.videos[i].share_url}">
 							<div>
-<div class="LazyLoad "><img alt="" class="Tile_image_19KoQ" data-original="${videos.videos[i].large_thumbnail}"><div class="w3-progressbar" style="
+<div class="LazyLoad "><img alt="" sizes="(max-width: 600px) 100vw, 25vw" class="Tile_image_19KoQ" data-original="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg" data-original-set="https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 1920w 1080h,https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 682w 384h,
+https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 341w 192h"><div class="w3-progressbar" style="
     width: ${perc};
 "></div></div>
 
@@ -426,7 +432,7 @@ videos = temp
 									</g></svg>
 								</div>
 							
-								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
+								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img src="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
 							</div></a>
 						</div>
 						<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
@@ -472,13 +478,16 @@ videos = temp
  			document.querySelector('#newestEpisodes').innerHTML += `<div id="${original.show_slug}" class="card  Home_slide_1puOI">
 	<div name="ALL_COLLECTIONS_SCROLL_PREFIX_10">
 		<div class="Home_heroImageContainer_2Cj1c">
-			<div class="Home_heroImagePoster_C3La1" style="background-image: url(${original.large_thumbnail.replace('720x400','1920x1080')});"></div>
+			<div class="Home_heroImagePoster_C3La1" bg='https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${original.guid}.jpg' 
+bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${original.guid}.jpg"
+			
+"></div>
 		</div>
 		<div>
 			<div class="HomeSlideHeader_container_1HOU-" data-name="New Episodes" id="">
 				<div class="HomeSlideHeader_header_25z0a">
 					<div class="">
-						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img src="http://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
+						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img src="https://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
 					</div>
 				</div>
 				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
@@ -607,7 +616,8 @@ for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
 if( entries[i].isIntersecting){
-
+	console.log(entries[i].target.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg'))
+entries[i].target.querySelector('.Home_heroImagePoster_C3La1').background = `url("${entries[i].target.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg')}")`
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6;
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
 }else{
@@ -716,6 +726,8 @@ Lazyelements[i].querySelector('.Home_heroImagePoster_C3La1').style.visibility = 
 }
 maxperc = 0
 console.log(maxperc,maxelem)
+maxelem.querySelector('.Home_heroImagePoster_C3La1').style.backgroundImage = `url("${maxelem.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg')}")`
+
 	maxelem.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6
 maxelem.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
 }
