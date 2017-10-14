@@ -316,7 +316,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 										</div>
 									</div>
 									<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
-										<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="/ghosted/">${newEpisodes.videos[0].series_name}</a>
+										<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="#${newEpisodes.videos[0].show_slug}">${newEpisodes.videos[0].series_name}</a>
 										<div class="HomeSlideHeader_description_1rcQk">
 											<span class="HomeSlideHeader_highlight_3OVd4">${newEpisodes.videos[0].availability_asset_id.split('-')[newEpisodes.videos[0].availability_asset_id.split('-').length - 1]} ${newEpisodes.videos[0].title}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
 											<g>
@@ -434,7 +434,7 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
 									</g></svg>
 								</div>
 							
-								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
+								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus logo"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
 							</div></a>
 						</div>
 						<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
@@ -489,7 +489,7 @@ bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${
 			<div class="HomeSlideHeader_container_1HOU-" data-name="New Episodes" id="">
 				<div class="HomeSlideHeader_header_25z0a">
 					<div class="">
-						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
+						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG logo"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
 					</div>
 				</div>
 				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
@@ -551,7 +551,7 @@ if(entries[i].isIntersecting){
 }
 )
 
-  var Lazyelements = document.querySelectorAll('.Tile_networkIcon_3G2SX img')
+  var Lazyelements = document.querySelectorAll('.logo img')
 for (var i = Lazyelements.length - 1; i >= 0; i--) {
 show_smllg.observe(Lazyelements[i])
 }		
