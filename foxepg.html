@@ -574,10 +574,10 @@ str +=`<li   class=" card">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" class="w3-progressbar" starts="${data.member[i].startDate}" ends="${data.member[i].endDate}" style="width: ${perc}%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}" class="overlay-btn zoom-btn " title="Watch ${data.member[i].name}"><i class="fa fa-play playbutton"></i></a></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}" class="overlay-btn zoom-btn " title="Watch ${data.member[i].secondaryTitle}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       <div class="fanart-details">
-         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}">${data.member[i].name}</a></h2>
+         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${data.member[i].playerScreenUrl}">${data.member[i].secondaryTitle}</a></h2>
          <a  href="./?newfox:${data.member[i].seriesName}" class="secondary-link show-name">${data.member[i].seriesName}</a>
                <div class="cardBorder"></div>
             <p>${date} | ${data.member[i].durationInSeconds / 60 + 'm'} | ${data.member[i].contentRating} | ${'S'+data.member[i].seasonNumber+'E'+data.member[i].episodeNumber}</p>
