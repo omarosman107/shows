@@ -542,7 +542,7 @@ for (var i = document.querySelectorAll('.w3-progressbar').length - 1; i >= 0; i-
 
 })
 setInterval(function(){
-fetch('https://api.fox.com/fbc-content/'+apiver+'/screenpanels/58261c820501880001930b2e/items?itemsPerPage=1000',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
+fetch('https://api.fox.com/fbc-content/'+apiver+'/screenpanels/58261c820501880001930b2e/items?itemsPerPage=1000&&geoLatitude=42.6000000&geoLongitude=-84.6000000',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
 console.log(data)
 data.member = data.member.reverse(); 
 try{
