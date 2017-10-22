@@ -210,6 +210,7 @@ function abtAir(){
 fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
 	    cache: "no-store"
 
+
 }).then(function(res){return res.json();}).then(function(newEpisodes){
 	var temp = {videos:[]}
 for (i = 0; i < newEpisodes.videos.length; i++) {
@@ -318,10 +319,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 									<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
 										<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="#${newEpisodes.videos[0].show_slug}">${newEpisodes.videos[0].series_name}</a>
 										<div class="HomeSlideHeader_description_1rcQk">
-											<span class="HomeSlideHeader_highlight_3OVd4">${newEpisodes.videos[0].availability_asset_id.split('-')[newEpisodes.videos[0].availability_asset_id.split('-').length - 1]} ${newEpisodes.videos[0].title}</span><span class="HomeSlideHeader_descriptionText_1tkcV">${newEpisodes.videos[0].description_long}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-											<g>
-												<path d="M7.41 7.84l4.59 4.58 4.59-4.58 1.41 1.41-6 6-6-6z"></path>
-											</g></svg></a>
+											<span class="HomeSlideHeader_highlight_3OVd4">${newEpisodes.videos[0].availability_asset_id.split('-')[newEpisodes.videos[0].availability_asset_id.split('-').length - 1]} ${newEpisodes.videos[0].title}</span><span class="HomeSlideHeader_descriptionText_1tkcV">${newEpisodes.videos[0].description_long}</span>
 										</div>
 										<div class="HomeSlideHeader_meta_2M-Vy">
 											Aired ${newEpisodes.videos[0].airdate} • ${newEpisodes.videos[0].rating}  ${min_left}
@@ -415,6 +413,8 @@ videos = temp
  				if (!videos.videos[i].fullep) {continue;}
  				if (i == videos.videos.length - 1){continue;}
  					var perc = (localStorage['?' + videos.videos[i].share_url ]) /  videos.videos[i].duration_secs * 100 + '%'
+console.log( (new Date().getTime() -  new Date(videos.videos[i].airdate).getTime()) / (1000 * 3600 * 24) - 1)
+	  var days = Math.ceil(Math.abs( new Date(videos.videos[i].airdate).getTime() - new Date().getTime() / (1000 * 3600 * 24) - 1)); 
 
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
 						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
@@ -435,6 +435,9 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
 										</g>
 									</g></svg>
 								</div>
+								<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+														New
+													</div>
 							
 								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus logo"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
 							</div></a>
@@ -497,10 +500,7 @@ bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${
 				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
 					<span class="HomeSlideHeader_badge_tj27h">NEW</span><a class="HomeSlideHeader_showName_J8m0c" href="#${original.show_slug}">${original.series_name}</a>
 					<div class="HomeSlideHeader_description_1rcQk">
-						<span class="HomeSlideHeader_highlight_3OVd4">${original.availability_asset_id.split('-')[original.availability_asset_id.split('-').length - 1]} ${original.title}</span><span class="HomeSlideHeader_descriptionText_1tkcV">${original.description_long}</span><a class="HomeSlideHeader_toggle_dr219"><svg class="Icon_icon_BJu7i Icon_medium_1QgKp Icon_grey_3A_Zm" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
-						<g>
-							<path d="M7.41 7.84l4.59 4.58 4.59-4.58 1.41 1.41-6 6-6-6z"></path>
-						</g></svg></a>
+						<span class="HomeSlideHeader_highlight_3OVd4">${original.availability_asset_id.split('-')[original.availability_asset_id.split('-').length - 1]} ${original.title}</span><span class="HomeSlideHeader_descriptionText_1tkcV">${original.description_long}</span>
 					</div>
 					<div class="HomeSlideHeader_meta_2M-Vy">
 						Aired ${original.airdate} • ${original.rating} ${min_left}
