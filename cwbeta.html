@@ -227,6 +227,12 @@ for (i = 0; i < 4; i++) {
 	if (i == 0) {continue;}
 	//  /  
 	var perc = localStorage['?' + newEpisodes.videos[i].share_url + '/'] /  newEpisodes.videos[i].duration_secs * 100 + '%'
+	if ( (newEpisodes.videos[i].duration_secs*1) - (localStorage['?' + newEpisodes.videos[i].share_url + '/']*1)  < 32) {
+ 						console.log( newEpisodes.videos[i].title, (newEpisodes.videos[i].duration_secs*1) - (localStorage['?' + newEpisodes.videos[i].share_url + '/' ]*1) + 's left')
+ 						perc = '100%'
+ 					}
+
+
 	otherEpisodes += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
 											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 												<a href="play.html?${newEpisodes.videos[i].share_url}/">
@@ -413,7 +419,15 @@ videos = temp
  				if (!videos.videos[i].fullep) {continue;}
  				if (i == videos.videos.length - 1){continue;}
  					var perc = (localStorage['?' + videos.videos[i].share_url ]) /  videos.videos[i].duration_secs * 100 + '%'
-console.log( (new Date().getTime() -  new Date(videos.videos[i].airdate).getTime()) / (1000 * 3600 * 24) - 1)
+ 					if (localStorage['?' + videos.videos[i].share_url ]) {
+ 					
+ 					if ( (videos.videos[i].duration_secs*1) - (localStorage['?' + videos.videos[i].share_url ]*1)  < 32) {
+ 						console.log( videos.videos[i].title, (videos.videos[i].duration_secs*1) - (localStorage['?' + videos.videos[i].share_url ]*1) + 's left')
+ 						perc = '100%'
+ 					}
+
+ 					}
+ 				
 	  var days = Math.ceil(Math.abs( new Date(videos.videos[i].airdate).getTime() - new Date().getTime() / (1000 * 3600 * 24) - 1)); 
 
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
