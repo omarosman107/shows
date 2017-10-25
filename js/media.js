@@ -444,8 +444,27 @@ function fetchabcjson(value) {
 
 // FOX Fetch
 function fetchfoxjson(value) {
-   document.getElementById('orginVisit').href = value;
-   document.getElementById('orginVisit').innerHTML = value;
+
+     fetch('https://api.fox.com/fbc-content/v1_4/video/' + value.split('/watch')[1],{
+    headers: new Headers({
+    'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
+  })
+  }).then(function(res){return res.json();}).then(function(json){
+console.log(json)
+  bg(json.images.still.HD);
+         getShowinfo(json.seriesName);
+         showname.innerHTML = json.seriesName;
+         showdesc.innerHTML = json.description;
+         document.getElementById('epname').innerHTML = json.name;
+
+         document.title = json.seriesName + " - " + json.name;
+          play(json.videoRelease.url)
+                            document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 6.0em;display:inline-block;" src="' + json.images.logo.FHD + '" width="100%">';
+
+  })
+
+
+   return;
    if (value.includes('link.theplatform.com/s/fox.com/')) {
 
       fetch(value.split('?')[0] + "?format=preview", {
@@ -1484,35 +1503,11 @@ function googleAPI() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById('progress').style.width = "25%";
-      googlejson = JSON.parse(this.responseText);
-      googleurl = googlejson.results[0].unescapedUrl;
-      foxurl = googlejson.results[0].unescapedUrl;
+     var googlejson = JSON.parse(this.responseText);
+      console.log(googlejson.items)
+      var googleurl = googlejson.items[0].link;
       console.time();
-      for (var i = 0; i < googlejson.items.length; i++) {
 
-        if (JSON.stringify(googlejson.items[i]).includes('ogUrl')) {
-          console.log("worked");
-
-          cwurl = googlejson.items[i].richSnippet.metatags.ogUrl;
-        }
-
-        if (JSON.stringify(googlejson.items[i]).includes('ogType')) {
-          console.log("worked");
-          if (typeof googlejson.items[i].richSnippet.metatags.ogType == "string") {
-            if (googlejson.results[i].richSnippet.metatags.ogType == "video.episode") {
-
-              foxurl = googlejson.results[i].unescapedUrl;
-              break;
-            }
-
-            if (googlejson.results[i].richSnippet.metatags.ogType == "video.other") {
-
-              foxurl = googlejson.results[0].unescapedUrl;
-              break;
-            }
-          }
-        }
-      }
 
       for (tv in sitefunctions) {
         if (isDone == false) {
@@ -1520,18 +1515,7 @@ function googleAPI() {
           if (googleurl.includes(tv)) {
             console.log(tv + " " + "Detected");
             url = googleurl;
-            if (tv == "fox.com") {
-              url = foxurl;
-            }
-            if (tv == "cwtv.com") {
-              url = cwurl;
-            }
-            if (tv == "abc.go.com") {
-              url = cwurl;
-            }
 
-            document.getElementById('orginVisit').innerHTML = url;
-            document.getElementById('orginVisit').href = url;
             console.log(url);
             sitefunctions[tv](url);
             isDone = true;
