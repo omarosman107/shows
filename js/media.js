@@ -1505,9 +1505,28 @@ function googleAPI() {
       document.getElementById('progress').style.width = "25%";
      var googlejson = JSON.parse(this.responseText);
       console.log(googlejson.items)
-      var googleurl = googlejson.items[0].link;
+       googleurl = googlejson.items[0].link;
       console.time();
+      console.log(googleurl)
 
+
+for (i = 0; i < googlejson.items.length; i++) {
+   console.log(googlejson.items[i].pagemap.metatags)
+   if('pagemap' in googlejson.items[i]){
+      if ('metatags' in googlejson.items[i].pagemap) {
+
+ if ('og:url' in googlejson.items[i].pagemap.metatags[0]) {
+               googleurl = googlejson.items[0].pagemap.metatags[0]['og:url'];
+               console.log(googlejson.items[0].pagemap.metatags[0]['og:url'])
+
+ break;
+      }
+
+      }
+     
+   }
+}
+console.log(googleurl)
 
       for (tv in sitefunctions) {
         if (isDone == false) {
