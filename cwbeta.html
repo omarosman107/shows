@@ -430,6 +430,28 @@ videos = temp
  				
 	  var days = Math.ceil(Math.abs( new Date(videos.videos[i].airdate).getTime() - new Date().getTime() / (1000 * 3600 * 24) - 1)); 
 
+var isNew = ''
+function treatAsUTC(date) {
+    var result = new Date(date);
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+}
+
+function daysBetween(startDate, endDate) {
+    var millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+}
+
+
+function daydiff(first, second) {
+    return Math.round((second-first)/(1000*60*60*24));
+}
+
+if (daysBetween(videos.videos[i].airdate ,  new Date()  ) < 14) {
+	isNew = `<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
+									New
+								</div>`
+}
  				totalEpi += `<div class="Tile_tile_3qaLc Tile_clickable_3dKX4">
 						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 							<a href="play.html?${videos.videos[i].share_url}">
@@ -449,18 +471,14 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
 										</g>
 									</g></svg>
 								</div>
-								<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-														New
-													</div>
+								${isNew}
 							
 								<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus logo"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${videos.videos[i].show_slug}.png"></div>
 							</div></a>
 						</div>
 						<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
 							<div class="Tile_info_28rKd">
-								<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
-									New
-								</div><a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${videos.videos[i].show_slug}">
+								${isNew}<a class="Tile_title_2XOxg homeTile_title_10MKO" href="#${videos.videos[i].show_slug}">
 								<div>
 									${videos.videos[i].series_name}
 								</div></a> <a class="Tile_subtitle_OzXVN" href="play.html?${videos.videos[i].share_url}">

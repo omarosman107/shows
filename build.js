@@ -1272,9 +1272,11 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(functi
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
-  'ApiKey':apikey,
+		// apikey
+  'ApiKey':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*",
-  "Connection":"keep-alive"
+  "Connection":"keep-alive",
+  "Accept-language":"en-US,en;q=0.9"
 
 })
 

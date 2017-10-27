@@ -536,9 +536,11 @@ for (var i = document.querySelectorAll('.w3-progressbar').length - 1; i >= 0; i-
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
-  'ApiKey':apikey,
+  'ApiKey':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*",
-  "Connection":"keep-alive"
+  "Connection":"keep-alive",
+    "Accept-language":"en-US,en;q=0.9"
+
 
 })
 setInterval(function(){

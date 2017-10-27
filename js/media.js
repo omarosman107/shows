@@ -1168,8 +1168,11 @@ function foxapi(url) {
    var request = {
       method: 'GET',
       headers: {
-         'Content-Type': 'application/json',
-         'ApiKey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
+         'ApiKey':'abdcbed02c124d393b39e818a4312055',
+  "Accept":"application/json, text/plain, */*",
+  "Connection":"keep-alive",
+  "Accept-language":"en-US,en;q=0.9"
+
       }
    };
    fetch(url, request).then(function (res) {
@@ -1518,7 +1521,7 @@ for (i = 0; i < googlejson.items.length; i++) {
  if ('og:url' in googlejson.items[i].pagemap.metatags[0]) {
                googleurl = googlejson.items[0].pagemap.metatags[0]['og:url'];
                console.log(googlejson.items[0].pagemap.metatags[0]['og:url'])
-
+ 
  break;
       }
 
