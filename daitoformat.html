@@ -6,6 +6,7 @@
 <body>
 <input id="input" type="" name="">
 <button onclick="load()">Convert</button>
+<button onclick="old()">Convert OLD</button>
 <div id="data"></div>
 <img src="">
 <script type="text/javascript">
@@ -35,6 +36,15 @@ DAI URL:${data.stream_manifest}`
 			})
 
 		})
+	}
+	function old(){
+		str = document.getElementById('input').value
+		document.querySelector('img').src = document.getElementById('input').value
+		document.getElementById('data').innerHTML += 'https://www.cwtv.com/ioshlskeys/videos/'+str.split('thumbs/')[1].split('_')[0] +'_'+ str.split('thumbs/')[1].split('_')[1]+'.m3u8'+`
+MP4: http://cwtv-mrss-akamai.cwtv.com/`+str.split('thumbs/')[1].split('_')[0] +'_'+ str.split('thumbs/')[1].split('_')[1]+`_5128kbps.mp4
+
+DAI:http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+str.split('thumbs/')[1].split('_')[0] +'_'+ str.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
+
 	}
 </script>
 </body>
