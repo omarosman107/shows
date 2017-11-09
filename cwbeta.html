@@ -207,7 +207,7 @@ function abtAir(){
 			}
 		})
 		*/
-fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
+fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub?bust=' + (new Date()).getTime(),{
 	    cache: "no-store"
 
 
@@ -237,12 +237,12 @@ for (i = 0; i < 4; i++) {
 											<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 												<a href="play.html?${newEpisodes.videos[i].share_url}/">
 												<div>
-													<div class="LazyLoad is-visible"><img alt="" sizes="(max-width: 600px) 100vw, 25vw" class="Tile_image_19KoQ" srcset="https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 1920w 1080h,https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 682w 384h,
-https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 341w 192h"
+													<div class="LazyLoad is-visible"><img alt="" sizes="(max-width: 600px) 100vw, 25vw" class="Tile_image_19KoQ" srcset="http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 1920w 1080h,http://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 682w 384h,
+http://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}.jpg 341w 192h"
 
 
 
-src="https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}"><div class="w3-progressbar" style="
+src="http://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[i].guid}"><div class="w3-progressbar" style="
     width: ${perc};
 "></div></div>
 													<div class="Tile_play_1CN22">
@@ -516,8 +516,8 @@ https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos
  			document.querySelector('#newestEpisodes').innerHTML += `<div id="${original.show_slug}" class="card  Home_slide_1puOI">
 	<div name="ALL_COLLECTIONS_SCROLL_PREFIX_10">
 		<div class="Home_heroImageContainer_2Cj1c">
-			<div class="Home_heroImagePoster_C3La1" bg='https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${original.guid}.jpg' 
-bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${original.guid}.jpg"
+			<div class="Home_heroImagePoster_C3La1" bg='http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${original.guid}.jpg' 
+bgmb="http://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${original.guid}.jpg"
 			
 "></div>
 		</div>
@@ -525,7 +525,7 @@ bgmb="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${
 			<div class="HomeSlideHeader_container_1HOU-" data-name="New Episodes" id="">
 				<div class="HomeSlideHeader_header_25z0a">
 					<div class="">
-						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG logo"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
+						<h2 class="HomeSlideHeader_headline_3_T_5"><span class="HomeSlideHeader_text_XnfMG logo"><img logo="http://images.cwtv.com/images/cw/show-logo-horz/${original.show_slug}.png"></div></span></h2>
 					</div>
 				</div>
 				<div class="HomeSlideHeader_infoContainer_3jTzz ft-homeSlideHeader">
