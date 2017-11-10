@@ -258,7 +258,7 @@ src="http://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${ne
 													<div class="Tile_badge_2U8On homeTile_badge_2aP5n">
 														New
 													</div>
-													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img logo="https://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png" src="https://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
+													<div class="Tile_networkIcon_3G2SX homeTile_networkIcon_33Jus"><img logo="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png" src="http://images.cwtv.com/images/cw/show-logo-horz/${newEpisodes.videos[i].show_slug}.png"></div>
 												</div></a>
 											</div>
 											<div class="Tile_details_9UwiV homeTile_details_2zbfJ Tile_toggleEnabled_19ebQ">
@@ -309,8 +309,8 @@ src="http://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${ne
 document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
 						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
 							<div class="Home_heroImageContainer_2Cj1c">
-								<div class="Home_heroImagePoster_C3La1" bg="https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg" style="
-								  background-image:       url('https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg');
+								<div class="Home_heroImagePoster_C3La1" bg="http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg" style="
+								  background-image:       url('http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg');
 
 		
 								"></div>
@@ -358,7 +358,7 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 
  
 
- fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
+ fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
  	return res.json();
  }).then(function(shows){
  	console.log(shows)
@@ -382,7 +382,7 @@ document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc M
 									<div class="Tile_imageContainer_2rTWR">
 										<a href="#${shows.items[i].slug}">
 										<div>
-											<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_${shows.items[i].slug}.v_7.w_600.jpg"></div>
+											<div class="LazyLoad is-visible"><img alt="" class="Tile_image_19KoQ" src="http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_${shows.items[i].slug}.v_7.w_600.jpg"></div>
 											<div class="Tile_networkIcon_3G2SX"></div>
 										</div></a>
 									</div>
@@ -396,7 +396,7 @@ document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc M
 									</div>
 								</div>
 			 					`
- 		fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
+ 		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
  			if (videos.videos.length == 0) {return;}
  			var totalEpi = ''
 
@@ -456,8 +456,8 @@ if (daysBetween(videos.videos[i].airdate ,  new Date()  ) < 14) {
 						<div class="Tile_imageContainer_2rTWR homeTile_imageContainer_24TTT">
 							<a href="play.html?${videos.videos[i].share_url}">
 							<div>
-<div class="LazyLoad "><img alt="" sizes="(max-width: 600px) 100vw, 25vw" class="Tile_image_19KoQ" data-original="https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg" data-original-set="https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 1920w 1080h,https://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 682w 384h,
-https://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 341w 192h"><div class="w3-progressbar" style="
+<div class="LazyLoad "><img alt="" sizes="(max-width: 600px) 100vw, 25vw" class="Tile_image_19KoQ" data-original="http://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg" data-original-set="http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 1920w 1080h,http://images.cwtv.com/thecw/img/w_682.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 682w 384h,
+http://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${videos.videos[i].guid}.jpg 341w 192h"><div class="w3-progressbar" style="
     width: ${perc};
 "></div></div>
 
