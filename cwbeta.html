@@ -306,6 +306,9 @@ src="http://images.cwtv.com/thecw/img/w_341.s_mobile.i_video_thumbnail.guid_${ne
  			if (min_left == '0 mins left') {
  				min_left = ''
  			}
+ 			var playURL = `http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+newEpisodes.videos[0].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ newEpisodes.videos[0].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
+ 			var playURL = 'http://cwtv-mrss-akamai.cwtv.com/'+newEpisodes.videos[0].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ newEpisodes.videos[0].thumbnail.split('thumbs/')[1].split('_')[1]+`_1296kbps.mp4`
+
 document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_slide_1puOI Home_first_1_dzM Home_active_2l4lg Home_inactive_22OUv">
 						<div name="ALL_COLLECTIONS_SCROLL_PREFIX_0">
 							<div class="Home_heroImageContainer_2Cj1c">
@@ -313,7 +316,9 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 								  background-image:       url('http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_${newEpisodes.videos[0].guid}.jpg');
 
 		
-								"></div>
+								">
+								<video meta_url="${playURL}"  muted class="VideoHero_player_3wNHo" id="video-hero-home" playsinline="" loop="" autoplay="" src=""></video>
+								</div>
 							</div>
 							<div>
 								<div class="HomeSlideHeader_container_1HOU-" data-name="CW Presents">
@@ -351,6 +356,26 @@ document.querySelector('#newestEpisodes').innerHTML = `<div class="card Home_sli
 										
 
 					</div>`
+/*
+var video = document.querySelector('.VideoHero_player_3wNHo')
+video.src = playURL
+video.oncanplay = function(){
+	var video = document.querySelector('.VideoHero_player_3wNHo')
+
+	video.currentTime = 30
+video.pause()
+setTimeout(function(){
+	document.querySelector('.VideoHero_player_3wNHo').play()
+},1000);
+}
+return;
+*/
+    
+//        hls.loadSource(video.getAttribute('meta_url'));
+
+
+ 
+
 
 })
 
@@ -668,7 +693,9 @@ if( entries[i].isIntersecting){
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').background = `url("${entries[i].target.querySelector('.Home_heroImagePoster_C3La1').getAttribute('bg')}")`
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0.6;
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'visible'
+entries[i].target.querySelector('.VideoHero_player_3wNHo').play()
 }else{
+entries[i].target.querySelector('.VideoHero_player_3wNHo').pause()
 
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.opacity = 0
 entries[i].target.querySelector('.Home_heroImagePoster_C3La1').style.visibility = 'hidden'
@@ -1409,5 +1436,6 @@ repbg()
    ga('send', 'pageview');
 
   </script>
+  <script type="text/javascript" src="js/hls.min.js"></script>
 </body>
 </html>
