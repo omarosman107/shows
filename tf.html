@@ -370,10 +370,11 @@ id:"bc25867c-c680-49c4-9e67-b88271094ee5"
 file:"http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/2017/11/06/TheFlash-405-GirlsNightOut-T2713405-CW-Stereo_a149afe5a_dai.m3u8",
 id:"af03de70-81d3-44e0-a74b-013a632b12f0"
 },
-{title:"When Harry met Harry",
+{title:"When Harry Met Harry...",
 file:"http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/2017/11/13/TheFlash-406-WhenHarryMetHarry-T2713406-CW-Stereo_b6e6681d6_dai.m3u8",
 id:"cfeab90b-327e-4626-8189-1ad1d49b4ca8"
 },
+
 {},
 {},
 {},
@@ -394,21 +395,69 @@ id:"cfeab90b-327e-4626-8189-1ad1d49b4ca8"
 ]
 		}
 
+
+		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash?bust='+Date.now()).then(function(res){return res.json();}).then(function(data){
+					var newones = []
+					var ids = []
+					var serverids = []
+					var oldepi = []
+			for (var i = data.videos.length - 1; i >= 0; i--) {
+				if (data.videos[i].fullep) {
+					var season = _data[data.videos[i].availability_asset_id.split('-S')[2].split('E')[0] + '']
+									serverids.push(data.videos[i].guid)
+									newones.push({title:data.videos[i].title,file:`http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+data.videos[i].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ data.videos[i].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
+																,id:data.videos[i].guid})
+
+
+			
+				}
+
+			}
+
+	for (var z = season.length - 1; z >= 0; z--) {
+		if (JSON.stringify(season[z]) == '{}') {
+			continue;
+		}
+					oldepi.push(season[z])
+					ids.push(season[z].id)
+					
+				} 
+
+						
+							for (var i = serverids.length - 1; i >= 0; i--) {
+								if (ids.indexOf(serverids[i]) < 0) {
+									console.log(newones[i],season[i])
+									oldepi = oldepi.reverse()
+									console.log(season.splice(oldepi.length , 1,newones[i]))
+console.log('there is an episode thats not locally saved so i added it for you')
+								}
+							}
+							loadstuff();
+
+		})
+function loadstuff(){
 for(i in _data){
 var str = ``
 	
-	console.log(_data[i])
 	for (z = 0; z < _data[i].length; z++) { 
-		console.log(_data[i][z])
 		if (JSON.stringify(_data[i][z]) == '{}') {continue;}
 //				fetch(_data[i][z].file)
+
+  function cwdyres(resulution){
+
+      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+_data[i][z].id+'.jpg'
+      }
+      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+
+
+
 
 		str += `
 	<div class="Tile_tile_3qaLc videoTiles_tile_3s_K6 Tile_clickable_3dKX4">
 													<div class="Tile_imageContainer_2rTWR">
 														<a href="${_data[i][z].file}">
 														<div>
-															<div class="LazyLoad"><img class="Tile_image_19KoQ" src="http://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_${_data[i][z].id}.jpg"></div>
+															<div class="LazyLoad"><img class="Tile_image_19KoQ" srcset="${dyn}" src="http://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_${_data[i][z].id}.jpg"></div>
 															<div class="Tile_play_1CN22">
 																<svg class="Icon_icon_BJu7i Icon_full_btXpr Icon_white_1pDlt" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
 																<g>
@@ -443,7 +492,6 @@ var str = ``
 	}
 	if (str == ``) continue;
 
-	console.log(_data[i])
 	document.querySelector('.SeriesDetail_tabContent_3UcX5').innerHTML += `<div id="season-${i}">
 										<div>
 											<h1 class="VideosTab_seasonTitle_3WlzC">Season ${i}</h1>
@@ -459,6 +507,8 @@ ${str}
 												
 												</div>`
 }
+}
+loadstuff();
 	</script>
 
 </body>
