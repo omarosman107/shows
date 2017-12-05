@@ -744,6 +744,7 @@ var date1 = new Date()
 return await fetch(url).then(function(res){return res.text()})
     }
 function loadMedia(episodes) {
+	var ids = []
 	var thisTime = date1.getTime()
 
   var template = ''
@@ -752,6 +753,16 @@ function loadMedia(episodes) {
 try{
   console.time('ProcessShows')
   for (i in episodes) {
+  	if ('episode_id' in episodes[i]) {
+  		console.log(episodes[i].episode_id)
+  		console.log(ids.indexOf(episodes[i].episode_id))
+  		if (ids.indexOf(episodes[i].episode_id) > -1) {
+  			continue;
+  		}else{
+  		ids.push(episodes[i].episode_id)
+
+  		}
+  	}
     var json = episodes[i]
     var con = (json.show +''+ json.episode).toLowerCase().split(' ').join('').replace(/[^a-zA-Z ]/g, "")
     /*
@@ -976,6 +987,7 @@ return res.json()
         type: "cw",
         bg:      'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
         time:Date.parse(airdate),
+        episode_id:data.videos[i].guid,
         expires:new Date(data.videos[i].expire_time).getTime()
 
       }
@@ -1391,7 +1403,7 @@ return;
 	}
 apiver = (foxshows['@id'].split('content/')[1].split('/')[0])
 	
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders,mode: 'cors'}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,images&id=&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders,mode: 'cors'}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
@@ -1450,6 +1462,7 @@ try{
         bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(date),
         type:'newfox',
+        episode_id:fullEpisodes.member[i].id,
         hidden:fullEpisodes.member[i].hideVideo,
         expires:new Date(fullEpisodes.member[i].expires).getTime()
 
