@@ -569,6 +569,9 @@ if ('playerScreenUrl' in data.panels.member["0"].items.member[i]) {
 data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api.fox.com/fbc-content/'+apiver+'/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7]
 Playable = `<span class="expiring
              ">Fully Playable!</span>`
+}else{
+  //
+  data.panels.member["0"].items.member[i]['playerScreenUrl']=  'https://api.fox.com/fbc-content/v1_4/screens/live-player/5836e01e3f93d90001ab6614?epgListingId='+ data.panels.member["0"].items.member[i].id
 }
 
 var perc = ((((new Date()  - date) / (new Date(data.panels.member["0"].items.member[i].endDate) - new Date(data.panels.member["0"].items.member[i].startDate))) * 100) );
