@@ -164,7 +164,7 @@ function scrollFunction() {
         document.getElementById("myBtn").style.opacity = "0";
 
 
-  }
+  } 
 }
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
@@ -217,7 +217,8 @@ function doScrolling(elementY, duration) {
   })
 }
 
-function elementInViewport(el) {
+function elementInViewport2(el) {
+
   var top = el.offsetTop;
   var left = el.offsetLeft;
   var width = el.offsetWidth;
@@ -230,14 +231,49 @@ function elementInViewport(el) {
   }
 
   return (
-    top >= window.pageYOffset &&
-    left >= window.pageXOffset &&
-    (top + height) <= (window.pageYOffset + window.innerHeight) &&
-    (left + width) <= (window.pageXOffset + window.innerWidth)
+    top < (window.pageYOffset + window.innerHeight) &&
+    left < (window.pageXOffset + window.innerWidth) &&
+    (top + height) > window.pageYOffset &&
+    (left + width) > window.pageXOffset
   );
 }
+function scrolling(){
+		var cards = document.querySelectorAll('li')
+var images = document.querySelectorAll('.lazy')
 
+for (var i = images.length - 1; i >= 0; i--) {
+images[i].onload = function(element) {
+if (!element.target.classList.contains('loaded')) {
+element.target.classList.add('loaded');
+}
+}
+
+}
+
+		for (var i = cards.length - 1; i >= 0; i--) {
+if(elementInViewport2(cards[i]) || cards[i].parentNode.id == 'watching'){
+cards[i].style.visibility = 'visible';
+if (cards[i].querySelector('img').getAttribute('done') == 'true') continue;
+cards[i].querySelector('img').srcset =  cards[i].querySelector('img').getAttribute('data-original-set');
+cards[i].querySelector('img').src =  cards[i].querySelector('img').getAttribute('data-original');
+cards[i].querySelector('img').setAttribute('done','true')
+
+
+}else{
+	cards[i].style.visibility = 'hidden'
+}
+}
+
+	}
 function lazyLoadNew(){
+
+	
+
+scrolling();
+
+	return;
+
+
 var options = {
   rootMargin: "700px",
   threshold: 0,
@@ -418,6 +454,9 @@ loadMedia(l)
 console.time('addFinishedClass')
 document.body.setAttribute('class','finished');
 console.timeEnd('addFinishedClass')
+document.addEventListener("scroll", function(){scrolling()});
+scrolling()
+/*
 if ( 'IntersectionObserver' in window) {
  lazyLoadNew()
 
@@ -426,7 +465,7 @@ if ( 'IntersectionObserver' in window) {
 	var myLazyLoad = new LazyLoad();
 myLazyLoad.update()
 
-}
+}*/
 
 window.onscroll = function() {
 
@@ -478,13 +517,7 @@ function query(q) {
 
       }
     }
-if ( 'IntersectionObserver' in window) {
-
-}else{
-	console.log('using backup image loader :(')
-myLazyLoad.update()
-
-}
+scrolling()
     results(num)
   }, 100)
 }
@@ -551,13 +584,8 @@ function showQuery(q, o,type) {
       }
     }
     scrollShows()
-if ( 'IntersectionObserver' in window) {
-
-}else{
-	console.log('using backup image loader :(')
-myLazyLoad.update()
-
-}    results(num)
+    results(num)
+    scrolling();
     var Showtype = ''
 if (window.location.search.split(':')[0] == '') {
 	return;
@@ -800,7 +828,6 @@ if (!time > 0) {
       return '';
     }
     var perc = 0;
-    console.log(json.length - tempLS["?" + json.href] < 40)
     if (tempLS["?" + json.href]) {
       perc = tempLS["?" + json.href] / json.length * 100;
       if (perc == "NaN") {
@@ -889,7 +916,9 @@ if (json.hidden) {
             <p>${FDate} | ${json.rating} | ${timeofPlayback} | ${json.epiformat}</p>
         </div>
       <div class="bottom"></div>
-</li>`
+</li>
+
+`
  //   wrapper.innerHTML = '<li  aired="' + json.time + '"  ShowName="' + json.show + '" class="initialized  '+con+' ' + json.type + '  ' + json.id + '" data-query="' + query + '"><div  class="piece fanart-container"><div class="image-crop sixteen-nine"url="'+json.href+'" autoplay="'+json.autoplay+'" onmouseover="playHover(this)" onmouseout="stopHover(this)">' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><video class="sixteen-nine" style="top:0px;" playsinline muted loop width="100%" height="100%"></video><\/span><div class="imageBG"><\/div><img     class="cover sixteen-nine lazy"   sizes="(max-width: 600px) 70vw, 25vw"  alt="' + json.show + '"   data-original="'+json.img +'" data-original-set="' + json.imgdyn + '" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div  class="w3-progress-container" style=""><div class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn " title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2 ><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)" show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><div class="cardBorder"></div><div class=><p>' + FDate + ' | ' + json.rating + ' | ' + timeofPlayback + ' | ' + json.epiformat + '<\/p><\/div><i style="opacity:' + showCheck() + ';color:rgb(127, 218, 99);"class="visited fa fa-check" aria-hidden="true"><\/i><\/div><div class="bottom"><div class="bar"><\/div><div class="bar"><\/div><div class="bar"><\/div><\/div><\/div><\/li>'
      
 
