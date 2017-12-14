@@ -28,7 +28,7 @@
 								<div class="Branding_altHeaderReplacement_1-rB6"></div>
 								<div class="Branding_headerContainer_1x0g6 SeriesDetail_screenElement_3R-8W">
 									<a class="Branding_titleLink_3kB4I">
-									<h1 class="Branding_title_cAdjj"><img  class="Branding_titleImage_2q4mQ" src="http://images.cwtv.com/images/cw/show-logo-horz/the-flash.png"></h1></a>
+			 						<h1 class="Branding_title_cAdjj"><img  class="Branding_titleImage_2q4mQ" src="http://images.cwtv.com/images/cw/show-logo-horz/the-flash.png"></h1></a>
 									<div class="Branding_tuneInContainer_3BlFU"></div>
 								</div>
 							</div>
@@ -383,7 +383,11 @@ id:"a60e5b60-b2ca-4fb4-9417-57117bb9771e"
 	file:"http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/2017/11/27/TheFlash-408-CrisisOnEarthXPartThree-T2713408-CW-Stereo_a138e69da_dai.m3u8",
 	id:"f4819903-7f38-4802-b455-493eec1830f0"
 },
-{},
+{
+	title:"Don't Run",
+	file:"http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/2017/12/04/TheFlash-409-DontRun-T2713409-CW-Stereo_a1124f3ff_dai.m3u8",
+	id:"4f9aa7b6-d0d4-450e-8815-7db733b7149f"
+},
 {},
 {},
 {},
@@ -400,7 +404,11 @@ id:"a60e5b60-b2ca-4fb4-9417-57117bb9771e"
 {}
 ]
 		}
-
+console.log(`{
+	title:"Crisis on Earth X (3)",
+	file:"http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/2017/11/27/TheFlash-408-CrisisOnEarthXPartThree-T2713408-CW-Stereo_a138e69da_dai.m3u8",
+	id:"f4819903-7f38-4802-b455-493eec1830f0"
+},`)
  
 		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash?bust='+Date.now()).then(function(res){return res.json();}).then(function(data){
 					var newones = []
@@ -408,36 +416,35 @@ id:"a60e5b60-b2ca-4fb4-9417-57117bb9771e"
 					var serverids = []
 					var oldepi = []
 			for (var i = data.videos.length - 1; i >= 0; i--) {
-				if (data.videos[i].fullep) {
-					var season = _data[data.videos[i].availability_asset_id.split('-S')[2].split('E')[0] + '']
-									serverids.push(data.videos[i].guid)
-									newones.push({title:data.videos[i].title,file:`http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+data.videos[i].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ data.videos[i].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
-																,id:data.videos[i].guid})
+				var episodeNum = Number(data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1].split('E')[1])
+				var seasonNum = data.videos[i].availability_asset_id.split('-S')[2].split('E')[0] + ''
 
+
+
+
+
+				if (data.videos[i].fullep) {
+					var season = _data[seasonNum]
+					console.log(_data[seasonNum][episodeNum - 1],seasonNum + '  '+episodeNum)
+					if ( JSON.stringify(_data[seasonNum][episodeNum - 1]) == '{}') {
+						console.log('not there')
+						console.log(data.videos[i].title)
+						 _data[seasonNum][episodeNum] = {
+						 	title:data.videos[i].title,
+						 	file:`http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+data.videos[i].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ data.videos[i].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
+						 	,id:data.videos[i].guid
+						 }
+
+
+					}else{
+					}
 
 			
 				}
 
 			}
 
-	for (var z = season.length - 1; z >= 0; z--) {
-		if (JSON.stringify(season[z]) == '{}') {
-			continue;
-		}
-					oldepi.push(season[z])
-					ids.push(season[z].id)
-					
-				} 
 
-						
-							for (var i = serverids.length - 1; i >= 0; i--) {
-								if (ids.indexOf(serverids[i]) < 0) {
-									console.log(newones[i],season[i])
-									oldepi = oldepi.reverse()
-									console.log(season.splice(oldepi.length , 1,newones[i]))
-console.log('there is an episode thats not locally saved so i added it for you')
-								}
-							}
 							loadstuff();
 
 		})
