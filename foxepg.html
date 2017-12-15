@@ -550,7 +550,7 @@ function load(){
 
     // https://api.fox.com/fbc-content/v1_4/screens/fox-primetime-listings
     // https://api.fox.com/fbc-content/v1_4/screenpanels/59cedfd65f8322001fa76401
-fetch('https://api.fox.com/fbc-content/'+apiver+'/screens/fox-primetime-listings?itemsPerPage=1000&geoLatitude=42.6000000&geoLongitude=-84.6000000',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
+fetch('https://api.fox.com/fbc-content/'+apiver+'/screens/fox-primetime-listings?dateRange=1970-01-01T04:00:00.000Z..2917-12-29T16:00:00.000Z&itemsPerPage=1000&geoLatitude=42.6000000&geoLongitude=-84.6000000',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
 console.log(data.panels.member["0"].items.member)
 data.panels.member["0"].items.member = data.panels.member["0"].items.member.reverse(); 
 try{
@@ -573,6 +573,7 @@ Playable = `<span class="expiring
   //
   data.panels.member["0"].items.member[i]['playerScreenUrl']=  'https://api.fox.com/fbc-content/v1_4/screens/live-player/5836e01e3f93d90001ab6614?epgListingId='+ data.panels.member["0"].items.member[i].id
 }
+
 
 var perc = ((((new Date()  - date) / (new Date(data.panels.member["0"].items.member[i].endDate) - new Date(data.panels.member["0"].items.member[i].startDate))) * 100) );
 console.log(data.panels.member["0"].items.member[i].playerScreenUrl)
