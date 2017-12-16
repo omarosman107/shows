@@ -1,0 +1,28 @@
+#EXTM3U
+
+#EXTINF:-1,ABC News ONLIST=YES abcModal done
+
+#EXTINF:-1,RT HD ONLIST=YES rtModal done
+
+#EXTINF:-1,CBSN ONLIST=YES cbsnModal done
+
+#EXTINF:-1,Weather Channel ONLIST=YES weatherModal done
+
+#EXTINF:-1,Vevo3 HD ONLIST=YES vevoModal done
+
+#EXTINF:-1,Bloomberg ONLIST=YES bloomModal done
+
+#EXTINF:-1,Somali Cable TV ONLIST=YES cableModal done
+
+
+#EXTINF:-1, CNN  ONLIST=YES cnnModal done
+
+#EXTINF:-1, Cartoon Network ONLIST=YES cartoonNModal done
+
+
+#EXTINF:-1,ESPN ONLIST=YES espnModal done
+
+#EXTINF:-1, NBC GOLF ONLIST=NO
+
+
+#EXTINF:-1, NFL Now USA ONLIST=NO nflModal done

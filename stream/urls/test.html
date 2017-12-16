@@ -1,0 +1,42 @@
+
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<style>
+
+
+.ip {
+
+
+
+
+	font-family: 'Open Sans', sans-serif;
+	font-size: 75;
+	text-align: center;
+
+}
+
+</style>
+
+<div class="ip" id="div">
+<img src="../images/loading.gif" style=>
+
+</div>
+
+
+
+
+<script>
+fetch('https://api.ipify.org?format=json').then(function(response) { 
+  // Convert to JSON
+  return response.json();
+}).then(function(r) {
+  // Yay, `j` is a JavaScript object
+  console.log(r.ip); 
+    var div = document.getElementById('div');
+
+ div.innerHTML = r.ip;
+
+
+
+
+});
+</script>

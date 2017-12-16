@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" >
+
+	<title>Athan Json</title>
+</head>
+<body>
+
+<nav class="navbar navbar-light bg-faded">
+  <h1 class="navbar-brand m-b-0">Navbar</h1>
+</nav>
+<div class="jumbotron">
+  <h1 id="div" class="display-3">
+    Loading...
+  </h1>
+  <p class="lead">
+    This is your Public IP address on the World Wide Web.
+  </p>
+  <hr class="m-y-2" />
+  <p>
+    If you host a website on your server in your building and
+    port-forward it, you can go to this IP address and it will be
+    the same thing.
+  </p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn
+    more</a>
+  </p>
+</div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Time
+        </th>
+        <th>
+          Time Left
+        </th>
+      </tr>
+    </thead>
+    <tbody class="searchable">
+      <tr>
+        <th scope="row">
+          Fajr
+        </th>
+        <td id="f">
+          Time
+        </td>
+        <td>
+          Hello
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Dhuhr
+        </th>
+        <td id="d">
+          Time
+        </td>
+        <td>
+          Hello
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Asr
+        </th>
+        <td id="a">
+          Time
+        </td>
+        <td>
+          Hello
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Maghrib
+        </th>
+        <td id="m">
+          Time
+        </td>
+        <td>
+          Hello
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">
+          Isha
+        </th>
+        <td id="i">
+          Time
+        </td>
+        <td>
+          Hello
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+<script>
+function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
+loadCSS("https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css");
+
+fetch('https://api.ipify.org?format=json').then(function(response) {
+    // Convert to JSON
+    return response.json();
+}).then(function(r) {
+    // Yay, `j` is a JavaScript object
+    console.log(r.ip);
+    var div = document.getElementById('div');
+    var f = document.getElementById('f');
+    var d = document.getElementById('d');
+    var a = document.getElementById('a');
+    var m = document.getElementById('m');
+    var i = document.getElementById('i');
+    div.innerHTML = r.ip;
+    fetch(
+        'http://api.aladhan.com/timingsByCity?city=Lansing&country=USmethod=3'
+    ).then(function(response) {
+        // Convert to JSON
+        return response.json();
+    }).then(function(a) {
+        // Yay, `j` is a JavaScript object
+        console.log(a.data.timings.Asr);
+        f.innerHTML = a.data.timings.Fajr;
+        d.innerHTML = a.data.timings.Dhuhr;
+        m.innerHTML = a.data.timings.Maghrib;
+        i.innerHTML = a.data.timings.Isha;
+        a.innerHTML = a.data.timings.Asr;
+
+
+
+    });
+});
+</script>
+</body>
+</html>

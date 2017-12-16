@@ -1,0 +1,34 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+<script>
+function jsonCallback(json){
+  console.log(json);
+}
+var weather = new XMLHttpRequest();
+weather.open("GET", "https://crossorigin.me/http://livestream.com/api/accounts/2058831/events/universalsomalitv/viewing_info.json", false);
+weather.send(null);
+var r = JSON.parse(weather.response);
+function getWeather(id,res) {
+  document.getElementById(id).innerHTML=res;
+}
+window.location.href = (r.streamInfo.m3u8_url);
+
+player.load();
+
+function start_vilast() {
+    videojs('#LS',{});
+    videojs('#LS').src(r.streamInfo.secure_m3u8_url);
+    player.src({"type":"application/x-mpegURL", "src":("https://crossorigin.me/"+r.streamInfo.m3u8_url)});
+    console.log(r.streamInfo.m3u8_url)
+
+ }
+
+
+
+}
+</script>
+<body onload="start_viblast()">
+
+
+
+
+</body>

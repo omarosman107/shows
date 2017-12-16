@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<script>function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
+loadCSS("https://fonts.googleapis.com/css?family=Rubik");</script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+            <style>
+
+            td {
+
+
+              text-align:  justify;
+
+
+
+
+
+            }
+
+  .btn btn-success {
+    color: white;
+}
+
+
+
+
+            .table td, .table th {
+    padding: .75rem;
+    vertical-align: middle;
+    border-top: 1px solid #eceeef;
+}
+
+              #name,#channels {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    margin-bottom: .5rem;
+}
+
+            </style>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" >
+
+
+  <script>function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
+  loadCSS("css/style.css");</script>
+
+
+<meta name=description content="Cable Central Has The Highest Quality Livestreams compiled from online resources and are hosted by CDN's And Has Powerful Performance Across The Board">
+<meta name=viewport content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+<link rel=icon href="images/faviconlogohead.png">
+<title>Cable Central, We Have the Smoothest Livestreams On The InterWebs</title>
+<style>
+body{text-align:center}</style>
+</head>
+<body>
+<nav class="navbar navbar-light bg-faded" id=navbar>
+<button class="navbar-toggler hidden-sm-up" type=button>
+<img class=navbar-brand src="images/favicon.svg" alt="Cable Central" height=48px width=48px>
+</button>
+<div class="collapse navbar-toggleable-xs" id=exCollapsingNavbar2>
+<img src="images/favicon.svg" alt="Cable Central" height=48px width=48px>
+<ul class="nav navbar-nav">
+</ul>
+</div>
+</nav>
+<div class=jumbotron>
+<h1 id="name" >Cable Central</h1>
+<p class=lead>Cable Central, We Have the Smoothest Livestreams On The InterWebs and best of all, there are no ads!</p>
+<hr class=m-y-2>
+<p data-typer-targets="Testing Typer.js jQuery Plugin, Pretty sweet little plugin!">Cable Central Has The Highest Quality Livestreams compiled from online resources and are hosted by CDN's Across The Globe</p>
+<p class=lead>
+</p>
+</div>
+<h2 id="channels" >Channels</h2>
+</div>
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Channel</th>
+<th>Quality</th>
+<th>Working</th>
+<th>Stream</th>
+</tr>
+</thead>
+<noscript>YOU DONT HAVE JAVASCRIPT.</noscript>
+<div id="error"></div>
+<tbody id="table" class=searchable>
+</tbody>
+</table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script type="text/javascript">
+
+
+
+
+
+var  nworking = '<a class="btn btn-danger" aria-label=Delete>'
+var  working = '<a class="btn btn-success" aria-label=Delete>'
+  var template = ''
+var isworking
+var vidurl
+function insertData(data){
+document.getElementById('table').innerHTML = data
+}
+
+
+   
+var headers = new Headers({
+  'Accept': 'application/json',
+});
+    fetch('https://www.filmon.com/search?from=channels&term=somali&max_results=80',{headers:headers}).then(function(response) {
+  return response.json();
+}).then(function(r) {
+  console.log(r)
+  for (var i = r.searchResults.channels.matches.length - 1; i >= 0; i--) {
+    console.log(r.searchResults.channels.matches[i].id)
+        fetch('https://cors-anywhere.herokuapp.com/http://www.filmon.com/api-v2/channel/'+r.searchResults.channels.matches[i].id+'?protocol=hls',{headers:headers}).then(function(response) {
+  return response.json();
+}).then(function(a) {
+
+    channels.push({working:true,name:a.data.title,quality:'HD',src:a.data.streams[0].url})
+
+ converttoHTML()
+}).catch(function(e){
+document.getElementById('error').innerHTML = e
+});
+  }
+  
+
+}).catch(function(e){
+document.getElementById('error').innerHTML = e
+});
+
+
+
+
+
+
+
+
+
+var request = new Request('https://live-fx.mdialog.com/video_assets/fx-east/streams', {
+  method: 'POST', 
+  body: 'application_key=c853b33d85dedff637117a688dce70e3&api_key=54c0353d2f6bc7f465336f76fe579179&sdk_version=5.7.3',
+  headers: new Headers({
+    'Content-Type': 'application/x-www-form-urlencoded'
+  })
+});
+
+// Now use it!
+fetch('https://link.theplatform.com/s/fng-fx/rHlh_JpCqlLt?mbr=true&format=redirect&formats=Text&policy=93849329&affiliate=FX&&sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive').then(function(response) { 
+return (response.json())
+
+}).then(function(data){
+  console.log(data.playURL)
+                channels.push({working:true,name:'FX',quality:'HD',src:data.playURL})
+ converttoHTML()
+
+
+});
+
+              fetch('https://cors-anywhere.herokuapp.com/https://player-api.new.livestream.com/accounts/7334053/events/2797146/stream_info',{headers:headers}).then(function(response) {
+  return response.json();
+}).then(function(a) {
+
+    channels.push({working:true,name:'WLNS',quality:'HD',src:a.secure_m3u8_url})
+
+ converttoHTML()
+}).catch(function(e){
+document.getElementById('error').innerHTML = e
+});
+            
+
+
+
+
+
+var channels = [
+   {
+      "working":true,
+      "name":"FOX 47",
+      "quality":"HD",
+      "src":"https://content.uplynk.com/channel/1def886b4ea94e9294981ffcbea35408.m3u8?v=2&ad=live&ad.cping=1&ad.pingf=3&m.sound=normal&m.playback=autoplay&ad.sz=1x1000|400x300&ad.cust_params=fname%3Dlivestream_1%26temp%3D60-69%26weather%3Dcloudy%26iframed%3D0%26site%3Dprod%26player_width%3D1280%26player_height%3D720%26ip%3D[Insert_IP]%26ua%3D[Insert_UA]"
+   },
+            {
+                              "working":true,
+      "name":"CW",
+      "quality":"HD",
+            "src":"http://content.uplynk.com/6bad0d90ffd94df48f98da1e37fcea05.m3u8"
+            },
+   {
+      "working":true,
+      "name":"CBSN",
+      "quality":"HD",
+      "src":"https://www.cbsnews.com/common/video/dai_prod.m3u8"
+   },
+   {
+      "working":true,
+      "name":"ABC 7",
+      "quality":"HD",
+      "src":"https://content.uplynk.com/6d447732b6444264a154b4ccc7978456.m3u8"
+   },
+   {
+      "working":true,
+      "name":"PBS",
+      "quality":"HD",
+      "src":"http://192.95.33.51/live/47HyqwF0IZtYQrsxYoODrA/1488061476/fe22365235b496368609515523bfb971.m3u8"
+   },
+   {
+      "working":true,
+      "name":"NBC SPORTS",
+      "quality":"HD",
+      "src":"http://sprtott6-i.akamaihd.net/hls/live/222324/NBC-Sports0225074715/OTT6/OTT6_VIDEO_0_7064000.m3u8"
+   },
+   {
+      "working":true,
+      "name":"MSNBC",
+      "quality":"HD",
+      "src":"http://tvemsnbc-lh.akamaihd.net/i/nbcmsnbc_1@122532/master.m3u8"
+   },
+   {
+      "working":true,
+      "name":"Al-Jazeera",
+      "quality":"HD",
+      "src":"http://aljazeera-eng-hd-live.hls.adaptive.level3.net/aljazeera/english2/index.m3u8"
+   },
+   {
+      "working":true,
+      "name":"Bloomberg",
+      "quality":"HD",
+      "src":"http://cdn3.videos.bloomberg.com/btv/us/master.m3u8"
+   },
+   {
+      "working":true,
+      "name":"Weather Channel",
+      "quality":"HD",
+      "src":"http://cdnapi.kaltura.com/p/931702/sp/93170200/playManifest/entryId/1_oorxcge2/format/applehttp/protocol/http/uiConfId/28428751/a.m3u8"
+   },
+   {
+      "working":true,
+      "name":"Somali Cable",
+      "quality":"HD",
+      "src":"http://cdn01.iqbroadcast.tv:8081/g1/somcblehb9/playlist.m3u8?nimblesessionid="
+   }
+].reverse()
+
+function converttoHTML(){
+
+  try{
+    for (var channelName = channels.length - 1; channelName >= 0; channelName--) {
+        cname = (channels[channelName].name)
+  qual = (channels[channelName].quality)
+  isworking = (working)
+  if (channels[channelName].working == false){
+    isworking = (nworking)
+}
+  vidurl = ('urls/dynplayer.html?json=') + encodeURIComponent('{"title":"'+cname +'","play":"' + channels[channelName].src + '"}')
+   template += '<tr><th scope=row><a href="'+vidurl+'">'+ cname+'</a></th><td>' + qual +'</td><td>'+ isworking + "<i class='material-icons'>check_circle</i><td><a class='btn btn-success' href='"+vidurl+"' aria-label=Delete><i class='material-icons'>play_circle_filled</i></tr></a>";
+
+    }
+
+  insertData(template)
+  template = '';
+  
+}catch(e){
+  console.log(e)
+  alert(e)
+}
+}
+converttoHTML()
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66082501-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

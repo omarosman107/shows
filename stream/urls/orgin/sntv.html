@@ -1,0 +1,52 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.6.2-2/hls.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video-js.min.css" /></head>
+<body onload=" reload();">
+<video id=LS x-webkit-airplay="allow" preload=metadata class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls>
+<source  src="#" type="application/x-mpegURL">
+</video>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.0/video.min.js"></script>
+<script src="https://cdn.rawgit.com/Peer5/videojs-contrib-hls.js/master/src/videojs5.hlsjs.js"></script>
+<script>var player=videojs('LS');</script>
+</body>
+</html>
+
+
+<script>
+
+
+
+function reload() {
+    fetch('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.filmon.com%2Fapi-v2%2Fchannel%2F3734%3Fprotocol%3Dhls%22%20and%20itemPath%3D%22json.data.streams.url%22&format=json').then(function(response) {
+  // Convert to JSON
+  return response.json();
+}).then(function(r) {
+  // Yay, `j` is a JavaScript object
+
+
+    var finalurl = ("https://crossorigin.me/"+r.query.results.url[0])
+
+     player.src({"type":"application/x-mpegURL", "src":(r.query.results.url[0])});
+     player.play();
+
+
+
+
+
+
+});
+}
+
+
+
+</script>
+
+
+</body>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- optional: the quality selector stylesheet -->
+<link rel="stylesheet" href="//releases.flowplayer.org/quality-selector/flowplayer.quality-selector.css">
+
+<!-- ... -->
+
+<!-- Flowplayer library -->
+<script src="//releases.flowplayer.org/6.0.5/flowplayer.min.js"></script>
+
+<!-- load the Flowplayer hlsjs engine, including hls.js -->
+<script src="//releases.flowplayer.org/hlsjs/flowplayer.hlsjs.min.js"></script>
+
+<!-- optional: the quality selector plugin for quality selection when hlsjs is not supported -->
+<script src="//releases.flowplayer.org/quality-selector/flowplayer.quality-selector.min.js"></script>
+<style>
+#hlsjsvod {
+  background-image: url(//drive.cdn.flowplayer.org/202777/84049-snap.jpg);
+}
+#hlsjslive {
+  background-color: #2f2f4f;
+}
+</style>
+<script>
+/* global event listeners for demo purposes, omit in production */
+flowplayer(function (api, root) {
+  var instanceId = root.getAttribute("data-flowplayer-instance-id"),
+      engineInfo = document.getElementById("engine" + instanceId),
+      vtypeInfo = document.getElementById("vtype" + instanceId),
+      detail = document.getElementById("detail" + instanceId);
+
+  api.on("ready", function (e, api, video) {
+    var engineName = api.engine.engineName;
+
+    engineInfo.innerHTML = engineName;
+    vtypeInfo.innerHTML = video.type;
+    if (engineName !== "hlsjs") {
+      detail.innerHTML = "video source: " + video.src;
+    }
+
+  }).on("progress", function (e, api) {
+    var hlsengine = api.engine.hlsjs;
+
+    if (hlsengine) {
+      var current = hlsengine.currentLevel;
+          level = hlsengine.levels[current],
+          info = api.conf.clip.live
+              ? level.bitrate / 1000 + " kbps"
+              : level.height + "p";
+
+      detail.innerHTML = "HLS level " + (current > -1
+          ? current + ": " + info
+          : "");
+    }
+  });
+
+});
+/* end global event listeners setup */
+
+
+window.onload = function () {
+
+  flowplayer("#hlsjsvod", {
+    splash: true,
+    embed: false, // setup would need iframe embedding
+    ratio: 5/12,
+
+    // manual HLS level selection for Drive videos
+    hlsQualities: "drive",
+
+    // manual VOD quality selection when hlsjs is not supported
+    defaultQuality: "260p",
+    qualities: ["160p", "260p", "530p", "800p"],
+
+    clip: {
+      sources: [
+        { type: "application/x-mpegurl",
+          src:  "//cdn.flowplayer.org/202777/84049-bauhaus.m3u8" },
+        { type: "video/webm",
+          src:  "//cdn.flowplayer.org/202777/84049-bauhaus.webm" },
+        { type: "video/mp4",
+          src:  "//cdn.flowplayer.org/202777/84049-bauhaus.mp4" }
+      ]
+    }
+
+  });
+
+
+  flowplayer("#hlsjslive", {
+    splash: true,
+    embed: false,
+    ratio: 9/16,
+
+    clip: {
+      hlsQualities: [
+        // dimensions of all levels are the same
+        // set bitrate labels explicitly instead
+        { level: 0, label: "400k" },
+        { level: 1, label: "700k" },
+        { level: 2, label: "1000k" }
+      ],
+      live: true,
+      sources: [
+        { type: "application/x-mpegurl",
+          src: "//nasatv-lh.akamaihd.net/i/NASA_101@319270/master.m3u8" }
+      ]
+    }
+
+  });
+
+};
+</script>
+  </head>
+  <body>
+    <h2 id="vod">VOD</h2>
+
+<div id="hlsjsvod" class="is-closeable"></div>
+
+<div class="info">
+  <p>player engine: <span id="engine0"></span></p>
+
+  <p>video type: <span id="vtype0"></span></p>
+
+  <p id="detail0">&nbsp;</p>
+</div>
+
+<h2 id="live">Live</h2>
+
+<div id="hlsjslive" class="is-closeable"></div>
+
+<div class="info">
+  <p>player engine: <span id="engine1"></span></p>
+
+  <p>video type: <span id="vtype1"></span></p>
+
+  <p id="detail1">&nbsp;</p>
+</div>
+
+  </body>
+</html>
