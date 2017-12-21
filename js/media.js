@@ -1335,12 +1335,19 @@ mp4s = parser.parseFromString(mp4s,"text/xml");
 
 }
 console.log(item)
+if (item.releaseTypesCount == 0) {
+      foxapi('https://api.fox.com/fbc-content/v1_4/video/?name='+item.headline + '&showcode=' + item.showCode)
+      console.log('zero video types')
+      return;
+}
 if (item.id == 'live-player') {
    window.history.replaceState('', '', '?'+'https://api.fox.com/fbc-content/v1_4/video/'+item.panels.member[0].items.member[0].playerScreenUrl.split('player/')[1].split('?')[0]);
 
    foxapi('https://api.fox.com/fbc-content/v1_4/video/'+item.panels.member[0].items.member[0].playerScreenUrl.split('player/')[1].split('?')[0])
 return;
 }
+
+
 if ('videoRelease' in item == 0) {
    console.log('episode is not done airing yet')
 }

@@ -550,6 +550,8 @@ function load(){
 
     // https://api.fox.com/fbc-content/v1_4/screens/fox-primetime-listings
     // https://api.fox.com/fbc-content/v1_4/screenpanels/59cedfd65f8322001fa76401
+    //
+    // http://127.0.0.1/shows/play.html?https://api.fox.com/fbc-content/v1_4/screenpanels/58261c820501880001930b2e?dateRange=1970-12-17T05:00:00.000Z..228-01-29T17:00:00.000Z&geoLatitude=42.6000000&geoLongitude=-84.6000000
 fetch('https://api.fox.com/fbc-content/'+apiver+'/screens/fox-primetime-listings?dateRange=1970-01-01T04:00:00.000Z..2917-12-29T16:00:00.000Z&itemsPerPage=1000&geoLatitude=42.6000000&geoLongitude=-84.6000000',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
 console.log(data.panels.member["0"].items.member)
 data.panels.member["0"].items.member = data.panels.member["0"].items.member.reverse(); 
