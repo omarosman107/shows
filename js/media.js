@@ -1290,6 +1290,8 @@ function clone(obj) {
 }
 
 function handle(data){
+      window.history.replaceState('', '', '?'+data['@id']);
+
    player.duration(data.durationInSeconds)
       console.log(data.images.logo.FHD);
 
@@ -1335,6 +1337,7 @@ mp4s = parser.parseFromString(mp4s,"text/xml");
 
 }
 console.log(item)
+
 if (item.releaseTypesCount == 0) {
       foxapi('https://api.fox.com/fbc-content/v1_4/video/?name='+item.headline + '&showcode=' + item.showCode)
       console.log('zero video types')
