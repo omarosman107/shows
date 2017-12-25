@@ -543,6 +543,9 @@ for (var i = document.querySelectorAll('.w3-progressbar').length - 1; i >= 0; i-
 
 
 })
+
+
+
 function load(){
 	//	https://api.fox.com/fbc-content/v1_4/screens/live?dateRange=2017-10-31T04:00:00.000Z..2017-11-01T16:00:00.000Z&geoLatitude=42.7041623&geoLongitude=-84.5982073
     // https://api.fox.com/fbc-content/'+apiver+'/screenpanels/58261c820501880001930b2e/items?itemsPerPage=1000&&geoLatitude=42.6000000&geoLongitude=-84.6000000
@@ -613,12 +616,86 @@ document.querySelector('ul').innerHTML = str
 })
 
 }
-load() 
+//load()
+moreshows() 
 setInterval(function(){
-load()
-},2000)
+// load()
+moreshows()
+},10000)
 })
+ function moreshows(){
+     foxheaders = new Headers({
+  'ApiKey':'abdcbed02c124d393b39e818a4312055',
+  "Accept":"application/json, text/plain, */*",
+  "Connection":"keep-alive",
+    "Accept-language":"en-US,en;q=0.9"
 
+
+})
+    fetch('https://api.fox.com/fbc-content/v1_4/screens/live?dateRange=2018-01-01..2020-01-27&geoLatitude=42.7042484&geoLongitude=-84.5982427&network=fox',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
+      console.log(data.panels.member["0"].items.member)
+   data.panels.member["0"].items.member = data.panels.member["0"].items.member.reverse(); 
+try{
+  document.querySelector('ul').innerHTML = ''
+  var str = ''
+for (var i = data.panels.member["0"].items.member.length - 1; i >= 0; i--) {
+  console.log(data.panels.member["0"].items.member[i])
+var date = new Date(data.panels.member["0"].items.member[i].startDate);
+console.log(Date.parse(new Date(data.panels.member[0].items.member[i].endDate)) , Date.now())
+if (Date.parse(new Date(data.panels.member[0].items.member[i].originalAirDate))+ 7200000 < Date.now()) {
+  continue;
+}
+if (data.panels.member[0].items.member[i].seriesType == 'sportingEvent') {continue;}
+date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
+var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60));
+date = new Date(output)
+console.log(date)
+var Playable = ''
+if ('playerScreenUrl' in data.panels.member["0"].items.member[i]) {
+  console.log('fully Playable','https://api.fox.com/fbc-content/'+apiver+'/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7])
+data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api.fox.com/fbc-content/'+apiver+'/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7]
+Playable = `<span class="expiring
+             ">Fully Playable!</span>`
+}else{
+  //
+  data.panels.member["0"].items.member[i]['playerScreenUrl']=  'https://api.fox.com/fbc-content/v1_4/screens/live-player/5836e01e3f93d90001ab6614?epgListingId='+ data.panels.member["0"].items.member[i].id
+}
+
+
+var perc = ((((new Date()  - date) / (new Date(data.panels.member["0"].items.member[i].endDate) - new Date(data.panels.member["0"].items.member[i].startDate))) * 100) );
+console.log(data.panels.member["0"].items.member[i].playerScreenUrl)
+
+str +=`<li   class=" card">
+      <div class="image-crop sixteen-nine">
+      ${Playable}
+         <a onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">
+            <img class=" cover sixteen-nine loaded "  src="${data.panels.member["0"].items.member[i].images.videoList.raw + '?fit=inside%7C1920:1020'}"">
+         </a>
+         <span class="episode-gradient"></span>
+            <div id="progress" class="w3-progressbar" starts="${data.panels.member["0"].items.member[i].startDate}" ends="${data.panels.member["0"].items.member[i].endDate}" style="width: ${perc}%;"></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}" class="overlay-btn zoom-btn " title="Watch ${data.panels.member["0"].items.member[i].secondaryTitle}"><i class="fa fa-play playbutton"></i></a></div>
+      </div>
+      <div class="fanart-details">
+         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">${data.panels.member["0"].items.member[i].secondaryTitle}</a></h2>
+         <a  href="./?newfox:${data.panels.member["0"].items.member[i].seriesName}" class="secondary-link show-name">${data.panels.member["0"].items.member[i].seriesName}</a>
+               <div class="cardBorder"></div>
+            <p>${date} | ${data.panels.member["0"].items.member[i].durationInSeconds / 60 + 'm'} | ${data.panels.member["0"].items.member[i].contentRating} | ${'S'+data.panels.member["0"].items.member[i].seasonNumber+'E'+data.panels.member["0"].items.member[i].episodeNumber}</p>
+        </div>
+      </div>
+      <div class="bottom"></div>
+</li>`
+//`<li><img src="${data.panels.member["0"].items.member[i].images.videoList.HD}"><span>${data.panels.member["0"].items.member[i].name}</span></li>`
+
+}
+console.log(str == document.querySelector('ul').innerHTML)
+document.querySelector('ul').innerHTML = str
+
+}catch(e){
+  console.log(e)
+}
+
+    })
+  }
 </script>
 </body>
 </html>
