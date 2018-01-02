@@ -642,7 +642,7 @@ for (var i = data.panels.member["0"].items.member.length - 1; i >= 0; i--) {
   console.log(data.panels.member["0"].items.member[i])
 var date = new Date(data.panels.member["0"].items.member[i].startDate);
 console.log(Date.parse(new Date(data.panels.member[0].items.member[i].endDate)) , Date.now())
-if (Date.parse(new Date(data.panels.member[0].items.member[i].originalAirDate))+ 7200000 < Date.now()) {
+if (Date.parse(new Date(data.panels.member[0].items.member[i].originalAirDate))+ 4320000000 < Date.now()) {
   continue;
 }
 if (data.panels.member[0].items.member[i].seriesType == 'sportingEvent') {continue;}
