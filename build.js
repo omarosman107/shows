@@ -275,9 +275,9 @@ function lazyLoadNew(){
 
 	
 
-scrolling();
+// scrolling();
 
-	return;
+//	return;
 
 
 var options = {
@@ -457,8 +457,9 @@ element.target.classList.add('loaded');
 }
 }
 }
-scrolling()
-document.addEventListener("scroll", function(){scrolling()});
+// scrolling()
+lazyLoadNew()
+// document.addEventListener("scroll", function(){scrolling()});
 
 
    if (!document.getElementById('search').value == '') {
