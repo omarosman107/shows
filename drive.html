@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drive Downloader</title>
+</head>
+<body>
+<a id="getcode" href="https://accounts.google.com/o/oauth2/auth?client_id=410916888655-nju2kbodbvhptn9ui4afqdjfn4ocpff7.apps.googleusercontent.com&redirect_uri=http://tostream.ml/drive.html&scope=https://www.googleapis.com/auth/drive.readonly&response_type=code&access_type=offline&state=security_token&pageId=none" class="waves-effect waves-light btn">AUTHORIZE</a>
+<h1>Enter ID of Your Google Drive file.</h1>
+<input type="text">
+
+<button onclick="findurl()">enter</button>
+<a style="display: none;" id="link">Download Link here!</a>
+
+<script type="text/javascript">
+	var token
+	 var urltoken = window.location.search.split('=')[2]
+	 if (urltoken == undefined) {
+	 }else{
+fetch("https://www.googleapis.com/oauth2/v4/token?code="+ urltoken +"&client_id=410916888655-nju2kbodbvhptn9ui4afqdjfn4ocpff7.apps.googleusercontent.com&access_type=offline&approval_prompt=force&redirect_uri="+document.location.origin + document.location.pathname+"&client_secret=5xGx_nqPHT8ps7Gf5A_3YPZ9&grant_type=authorization_code",{method:'POST'}).then(function(res){
+	console.log(res);
+	if(res.ok){
+		document.getElementById('getcode').style.display = 'none'
+		return res.json();
+	}
+}).then(function(data){console.log(data.access_token)
+	token = data.access_token
+
+})
+	 }
+
+	 function findurl(){
+	 	document.querySelector('#link').href = ('https://www.googleapis.com/drive/v3/files/'+document.querySelector('input').value+'?acknowledgeAbuse=false&alt=media&access_token='+token);
+	 	document.querySelector('#link').style.display = 'block';
+	 	document.querySelector('#link').innerHTML = 'Download Link here! #'+document.querySelector('input').value
+	 }
+
+	
+
+</script>
+
+</body>
+</html>
