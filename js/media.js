@@ -109,6 +109,9 @@ function endTime() {
       ap = 'PM';
    }
    var m = pad(t.getMinutes());
+   if (h == 0) {
+      h = 12
+   }
 
    document.querySelector('.endTime').innerHTML = 'Ends at: ' + h + ':' + m + ' ' + ap;
 }
