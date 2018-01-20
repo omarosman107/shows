@@ -3,22 +3,30 @@
 <head>
 		    <meta name="viewport" content="width=device-width">
 
+  
 	<title>Drive Downloader</title>
 </head>
 <body>
+
+
+    <div id="result"></div>
+
+
 <a id="getcode" href="" class="waves-effect waves-light btn">AUTHORIZE</a>
 <h1>Enter ID of Your Google Drive file.</h1>
 <input type="text">
 
 <button onclick="findurl()">enter</button>
 <a style="display: none;" id="link">Download Link here!</a>
+<ul id="listFiles">
+</ul>
 
 <h1>upload from remote *beta</h1>
 <input type="text" name="" id="remote">
 <button onclick="uploadremote()">upload remote file</button>
 
 <script type="text/javascript">
-	document.getElementById('getcode').href = 'https://accounts.google.com/o/oauth2/auth?client_id=410916888655-nju2kbodbvhptn9ui4afqdjfn4ocpff7.apps.googleusercontent.com&redirect_uri='+document.location.origin + document.location.pathname+'&scope=https://www.googleapis.com/auth/drive.readonly&response_type=code&access_type=offline&state=security_token&pageId=none'
+	document.getElementById('getcode').href = 'https://accounts.google.com/o/oauth2/auth?client_id=410916888655-nju2kbodbvhptn9ui4afqdjfn4ocpff7.apps.googleusercontent.com&redirect_uri='+document.location.origin + document.location.pathname+'&scope=https://www.googleapis.com/auth/drive.readonly&response_type=code&state=token'
 	var token
 	 var urltoken = window.location.search.split('=')[2]
 	 if (urltoken == undefined) {
@@ -31,7 +39,13 @@ fetch("https://www.googleapis.com/oauth2/v4/token?code="+ urltoken +"&client_id=
 	}
 }).then(function(data){console.log(data.access_token)
 	token = data.access_token
-
+fetch('https://www.googleapis.com/drive/v3/files/?&q=mimeType%20!%3D%20%27image%2Fjpeg%27%20and%20mimeType%20!%3D%20%27application%2Fvnd.google-apps.folder%27%20and%20mimeType%20!%3D%20%27image%2Fpng%27%20and%20mimeType%20!%3D%20%27application%2Fvnd.google-apps.document%27&access_token='+token).then(function(res){return res.json();}).then(function(data){
+	data.files = data.files.reverse();
+	for (var i = data.files.length - 1; i >= 0; i--) {
+		console.log(data.files[i].name,data.files[i].id)
+		document.getElementById('listFiles').innerHTML += `<li><a href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?acknowledgeAbuse=false&alt=media&access_token='+token}">${data.files[i].name}</a></li>`
+	}
+})
 })
 	 }
 
