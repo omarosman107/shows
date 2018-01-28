@@ -294,20 +294,16 @@ for (i in entries){
 // ||  entries[i].boundingClientRect.bottom > -50 
 if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
 try{
-	console.time('change css to visible')
 entries[i].target.style.visibility = 'visible'
 entries[i].target.style.zIndex = '999999'
 
-console.timeEnd('change css to visible')
 }catch(e){
 
 }
     }else{
-    		console.time('change css to hidden')
 
 entries[i].target.style.visibility = 'hidden'
 entries[i].target.style.zIndex = '-999999'
-    		console.timeEnd('change css to hidden')
 
 }
 }
@@ -324,7 +320,6 @@ efficientDOM.observe(lazyDOM[i])
 
 
 
-	console.time('initImg')
 
 /*
 setTimeout(function(){
@@ -808,6 +803,30 @@ function loadMedia(episodes) {
   var tempLS = localStorage
 try{
   console.time('ProcessShows')
+  var upnextshows = []
+for(i in episodes.reverse()){
+	var done = false;
+	console.log(Number(episodes[i].epiformat.split('S')[1].split('E')[0]),Number(episodes[i].epiformat.split('E')[1]))
+	if(!upnextshows[episodes[i].show]){
+		upnextshows[episodes[i].show] = {show:episodes[i].show,episodes:[],latestWatched:null,latestWNum:null,upNext:null,upNextNum:null}
+	}
+	console.log(episodes[i].length - tempLS["?" + episodes[i].href] < 36)
+	if (episodes[i].length - tempLS["?" + episodes[i].href] < 36) {
+		done = true;
+		episodes[i]['done'] = done
+		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done}
+		upnextshows[episodes[i].show].latestWNum = Number(episodes[i].epiformat.split('E')[1])
+	}
+	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].epiformat.split('E')[1]) && upnextshows[episodes[i].show].latestWNum != null ) {
+		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done}
+		upnextshows[episodes[i].show].upNextNum =  Number(episodes[i].epiformat.split('E')[1])
+
+	}
+	upnextshows[episodes[i].show].episodes.push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done})
+
+}
+console.log(upnextshows)
+episodes.reverse()
   for (i in episodes) {
   	if ('episode_id' in episodes[i]) {
   		if (ids.indexOf(episodes[i].episode_id) > -1) {
@@ -877,7 +896,7 @@ if (!time > 0) {
 if (json.length - tempLS["?" + json.href] < 36) {
 	perc = 100
 }
-    if (json.length - tempLS["?" + json.href] > 36 && tempLS["?" + json.href] > 10) {
+    if (json.length - tempLS["?" + json.href] > 36 && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'
@@ -1501,7 +1520,6 @@ srcset = srcset.substr(0, srcset.length - 1);
 var date = new Date(fullEpisodes.member[i].originalAirDate)
 date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60) < 0 ? "-" : "+") + ((Math.abs(date.getTimezoneOffset() / 60) < 10) ?  ("0" + Math.abs(date.getTimezoneOffset() / 60)) : test) + "00";
-console.log(fullEpisodes.member[i].originalAirDate,output)
 try{
 
 	if (!('autoPlayVideo' in fullEpisodes.member[i])) {
