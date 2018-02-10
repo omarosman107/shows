@@ -486,7 +486,24 @@ setTimeout(scrollFunction,340)
 
 };
 
+if (window.addEventListener)
+            addEventListener('storage', storage_event, false);
+        else if (window.attachEvent)
+            attachEvent('onstorage', storage_event, false);
+        function storage_event(e) {
+if(e.key == 'last_bandwidth'){return;}
+            console.log( e.newValue);
+for(var i = document.getElementsByClassName(e.key.substr(1)).length - 1; i >= 0; i--){
+var perc = ( e.newValue / document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') * 100)
+if(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') - e.newValue < 36){
+perc = 100
+}
+console.log(perc)
+console.log(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').style.width = perc + "%" )
+}
+        }
 
+       
 
   
 
@@ -908,7 +925,7 @@ if (json.length - tempLS["?" + json.href] < 36) {
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 80vw, 460px" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
          </a>
          <span class="episode-gradient"></span>
-            <div id="progress" class="w3-progressbar" style="width: ${perc}%;"></div>
+            <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       ${almost_expire()}
@@ -937,7 +954,7 @@ if (json.hidden) {
     }
     var out = "'out'"
 
-    template +=  `<li style="${hidden()}"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id}   data-query="${query}">
+    template +=  `<li style="${hidden()}"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
@@ -946,7 +963,7 @@ if (json.hidden) {
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 90vw, 35vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
          </a>
          <span class="episode-gradient"></span>
-            <div class="w3-progressbar" style="width: ${perc}%;"></div>
+            <div class="w3-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
       </div>
       ${almost_expire()}
