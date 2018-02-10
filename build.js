@@ -27,10 +27,21 @@ window.addEventListener('scroll', function() {
         var hls = new Hls();
 
 function playHover(element){
+	var video = document.createElement('video')
+video.className = 'sixteen-nine';
+video.style.top = '0px';
+video.playsinline='';
+video.muted = 'true';
+video.loop = '';
+video.style.width = '100%';
+video.style.height = '100%';
+
+element.querySelector('a').insertBefore(video,element.querySelector('img'))
+
+
   hovering = setTimeout(function(){
 
  
-
 
     var video = element.querySelector('video')
 video.addEventListener("timeupdate", function(e){
@@ -222,7 +233,6 @@ function doScrolling(elementY, duration) {
 }
 
 function elementInViewport2(el) {
-	console.time()
 // return true;
 
    const rect = el.getBoundingClientRect();
@@ -233,7 +243,6 @@ function elementInViewport2(el) {
     // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
     const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
     const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
-console.timeEnd()
 
     return (vertInView && horInView);
 }
@@ -273,7 +282,6 @@ ignored.push(cards[i])
 
 function lazyLoadNew(){
 
-	
 
 // scrolling();
 
@@ -430,6 +438,7 @@ function loaders(atr) {
     num--
   document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
     if (num == 0) {
+    	console.time()
 
 document.body.setAttribute('class','finished');
 	
@@ -502,7 +511,7 @@ console.log(perc)
 console.log(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').style.width = perc + "%" )
 }
         }
-
+console.timeEnd();
        
 
   
@@ -815,7 +824,7 @@ function loadMedia(episodes) {
 	var ids = []
 	var thisTime = date1.getTime()
 
-  var template = ''
+  var template = []
   var watching = ''
   var tempLS = localStorage
 try{
@@ -823,11 +832,9 @@ try{
   var upnextshows = []
 for(i in episodes.reverse()){
 	var done = false;
-	console.log(Number(episodes[i].epiformat.split('S')[1].split('E')[0]),Number(episodes[i].epiformat.split('E')[1]))
 	if(!upnextshows[episodes[i].show]){
 		upnextshows[episodes[i].show] = {show:episodes[i].show,episodes:[],latestWatched:null,latestWNum:null,upNext:null,upNextNum:null}
 	}
-	console.log(episodes[i].length - tempLS["?" + episodes[i].href] < 36)
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < 36) {
 		done = true;
 		episodes[i]['done'] = done
@@ -953,13 +960,14 @@ if (json.hidden) {
 }
     }
     var out = "'out'"
+var old = `            <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
+            <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
 
-    template +=  `<li style="${hidden()}"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
+`
+    template.push( `<li style="${hidden()};visibility:hidden;"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
-            <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
-            <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 90vw, 35vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
          </a>
          <span class="episode-gradient"></span>
@@ -976,13 +984,15 @@ if (json.hidden) {
       <div class="bottom"></div>
 </li>
 
-`
+`)
  //   wrapper.innerHTML = '<li  aired="' + json.time + '"  ShowName="' + json.show + '" class="initialized  '+con+' ' + json.type + '  ' + json.id + '" data-query="' + query + '"><div  class="piece fanart-container"><div class="image-crop sixteen-nine"url="'+json.href+'" autoplay="'+json.autoplay+'" onmouseover="playHover(this)" onmouseout="stopHover(this)">' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><video class="sixteen-nine" style="top:0px;" playsinline muted loop width="100%" height="100%"></video><\/span><div class="imageBG"><\/div><img     class="cover sixteen-nine lazy"   sizes="(max-width: 600px) 70vw, 25vw"  alt="' + json.show + '"   data-original="'+json.img +'" data-original-set="' + json.imgdyn + '" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div  class="w3-progress-container" style=""><div class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn " title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2 ><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)" show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><div class="cardBorder"></div><div class=><p>' + FDate + ' | ' + json.rating + ' | ' + timeofPlayback + ' | ' + json.epiformat + '<\/p><\/div><i style="opacity:' + showCheck() + ';color:rgb(127, 218, 99);"class="visited fa fa-check" aria-hidden="true"><\/i><\/div><div class="bottom"><div class="bar"><\/div><div class="bar"><\/div><div class="bar"><\/div><\/div><\/div><\/li>'
      
   }
+console.log(template)
 
   document.getElementById('watching').innerHTML += watching;
-  document.getElementById('carasoul').innerHTML += template;
+  document.getElementById('carasoul').innerHTML += template.join('');
+
     console.timeEnd('ProcessShows')
 
   }catch(e){

@@ -249,8 +249,8 @@ li:hover .image-crop .grayscale{
 
 .tvshow {
     width: 20vw;
-    -webkit-transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);
-    transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);
+  /*  -webkit-transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);
+    transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);*/
     will-change: opacity,transform;
     opacity: .4;
     box-shadow: 1px 0 0 1px rgba(0,0,0,.33);
@@ -521,17 +521,17 @@ background-color: rgba(255, 255, 255, 0.21);
     box-shadow: 0 1px 1px rgba(0,0,0,.1), 0 1px 8px rgba(0,0,0,.1);
     will-change: opacity,transform;
     -webkit-transition: transform .2s linear;
-    transition: transform .2s linear;
+   /* transition: transform .2s linear;
     -webkit-transform: translateX(0%);
-    transform: translateX(0%);
+    transform: translateX(0%);*/
     will-change: transform;
     
 }
 
 
 .initialized:hover{
-    -webkit-transform:translate3d(0,-5px,0);
-    transform: translate3d(0,-5px,0);
+   /* -webkit-transform:translate3d(0,-5px,0);
+    transform: translate3d(0,-5px,0);*/
 
 }
 .initialized:hover::after {
