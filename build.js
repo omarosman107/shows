@@ -369,7 +369,7 @@ if(entries[i].target.hasAttribute('data-original-set')){
 
 io.unobserve(entries[i].target);
 entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
-entries[i].target.removeAttribute('data-original-set')
+// entries[i].target.removeAttribute('data-original-set')
 }catch(e){
 
 }
@@ -379,7 +379,7 @@ entries[i].target.removeAttribute('data-original-set')
 try{
 	io.unobserve(entries[i].target);
 entries[i].target.src =  entries[i].target.getAttribute('data-original');
-entries[i].target.removeAttribute('data-original')
+// entries[i].target.removeAttribute('data-original')
 
 }catch(e){
 
