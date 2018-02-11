@@ -1554,7 +1554,7 @@ try{
       finalObj.push({
         img: fullEpisodes.member[i].images.still.SD,
         rating: rating(fullEpisodes.member[i].contentRating),
-        href: fullEpisodes.member[i]['@id'],
+        href: 'https://api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
         show: fullEpisodes.member[i].seriesName,
         episode: fullEpisodes.member[i].name,
         id: makeid(),
