@@ -1386,15 +1386,12 @@ var apikey = ''
 
 
 loaders()
-fetch('https://config.foxdcg.com/foxnow/ios/3.0/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
-		// apikey
-  'ApiKey':'abdcbed02c124d393b39e818a4312055',
+  'ApiKey':apikey,
   "Accept":"application/json, text/plain, */*",
-  "Connection":"keep-alive",
-  "Accept-language":"en-US,en;q=0.9"
 
 })
 
@@ -1571,7 +1568,7 @@ try{
         type:'newfox',
         episode_id:fullEpisodes.member[i].id,
         hidden:fullEpisodes.member[i].hideVideo,
-        expires:new Date(fullEpisodes.member[i].expires).getTime()
+        expires:new Date(fullEpisodes.member[i].expires).getTime() + 1000000000
 
               });
   }catch(e){
