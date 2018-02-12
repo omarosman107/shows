@@ -328,9 +328,23 @@ function fetchcwjson(value) {
       // finalurl = data.videos.hls5128.uri;
       finalurl = data.videos.variantplaylist_dai.uri;
  // { "src": data.assetFields.smoothStreamingUrl + '(format=mpd-time-csf).mpd', "type": "application/dash+xml" }, { "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" }, { "src": finalurl, "type": "application/x-mpegURL" },
-      player.src([{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}]);
-     console.log('http://hlsioscwtv.warnerbros.com/hls/'+finalurl.replace('ioshlskeys','hls').split('_dai')[0].split('/videos/')[1] + '_dai_6628kbps/'+finalurl.replace('ioshlskeys','hls').split('_dai')[0].split('/videos/')[1] + '_dai_6628kbps.m3u8')
-     console.log(finalurl)
+     
+
+     fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
+         method:"POST",
+         headers:new Headers({
+            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"'
+         })
+      }).then(function(res){return res.json();}).then(function(hls){
+            player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"},{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}]);
+
+      })
+
+
+
+   //   player.src([{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}]);
+    // console.log('http://hlsioscwtv.warnerbros.com/hls/'+finalurl.replace('ioshlskeys','hls').split('_dai')[0].split('/videos/')[1] + '_dai_6628kbps/'+finalurl.replace('ioshlskeys','hls').split('_dai')[0].split('/videos/')[1] + '_dai_6628kbps.m3u8')
+    // console.log(finalurl)
      var combine = `
 #EXTM3U
 #EXT-X-VERSION:3
@@ -349,7 +363,7 @@ ${finalurl}
 ${data.assetFields.smoothStreamingUrl+'(format=m3u8-aapl).m3u8'}
 
 `
-console.log(window.btoa(combine))
+// console.log(window.btoa(combine))
 var url = "data:application/x-mpegURL;base64,"+window.btoa(combine)
 
 // player.src({"src":url, "type": "application/vnd.apple.mpegurl"})
