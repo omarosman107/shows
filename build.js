@@ -278,30 +278,70 @@ ignored.push(cards[i])
 	}
 
 
+var items 
+// Cache: Our client rects are kept here, we can use this to clear them later.
+var elemsWithBoundingRects = [];
+window.pbsGetBoundingClientRect = function( element ) {
+// Check if we already got the client rect before.
+if ( ! element._boundingClientRect ) {
+// If not, get it then store it for future use.
+element._boundingClientRect = element.getBoundingClientRect();
+elemsWithBoundingRects.push( element );
+}
+return element._boundingClientRect;
+};
 
 
 function lazyLoadNew(){
+	 items = document.getElementsByClassName('initialized')
+/*
+function checkVisible(elm, threshold, mode) {
+  threshold = threshold || 0;
+  mode = mode || 'visible';
+
+  var rect = elm.pbsGetBoundingClientRect();
+  var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+  var above = rect.bottom - threshold < 0;
+  var below = rect.top - viewHeight + threshold >= 0;
+
+  return mode === 'above' ? above : (mode === 'below' ? below : !above && !below);
+}
+window.addEventListener("scroll", function(){
+	for (var i = items.length - 1; i >= 0; i--) {
+
+if(checkVisible(items[i])){
+items[i].style.visibility = 'visible'
+items[i].style.zIndex = '999999'
+items[i].querySelector('img').srcset =  items[i].querySelector('img').getAttribute('data-original-set');
 
 
+
+}
+}
+});
+
+return;
+*/
 // scrolling();
 
 //	return;
 
 
 var options = {
-  rootMargin: "700px",
-  threshold: 0,
-  margin:'600px'
+  rootMargin: 10000,
+  root:document.getElementById('carasoul')
 }
 
 
     var efficientDOM = new IntersectionObserver(
     entries => {
+    	console.log(entries)
 for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
 if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
 try{
+
 entries[i].target.style.visibility = 'visible'
 entries[i].target.style.zIndex = '999999'
 
@@ -309,7 +349,6 @@ entries[i].target.style.zIndex = '999999'
 
 }
     }else{
-
 entries[i].target.style.visibility = 'hidden'
 entries[i].target.style.zIndex = '-999999'
 
@@ -964,7 +1003,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
             <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
 
 `
-    template.push( `<li style="${hidden()};visibility:hidden;"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
+    template.push( `<li style="${hidden()};visibility:visible;"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
