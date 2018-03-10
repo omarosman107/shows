@@ -361,7 +361,10 @@ entries[i].target.style.zIndex = '-999999'
 // Start observing an element
 var lazyDOM = document.querySelectorAll('li')
 for (var i = lazyDOM.length - 1; i >= 0; i--) {
-efficientDOM.observe(lazyDOM[i])
+	if(lazyDOM[i].className.includes('forceVisible')){
+continue;
+}
+// efficientDOM.observe(lazyDOM[i])
 }
 
 
@@ -502,6 +505,12 @@ element.target.classList.add('loaded');
 }
 // scrolling()
 lazyLoadNew()
+var sorted_shows = showhtml.sort(dynamicSort("show"));
+document.getElementById('tvShows').innerHTML = ''
+sorted_shows.reverse()
+for (var i = sorted_shows.length - 1; i >= 0; i--) {
+	document.getElementById('tvShows').innerHTML += sorted_shows[i].html;
+}
 // document.addEventListener("scroll", function(){scrolling()});
 
 
@@ -527,13 +536,13 @@ if ( 'IntersectionObserver' in window) {
 myLazyLoad.update()
 
 }*/
-
+/*
 window.onscroll = function() {
 
 setTimeout(scrollFunction,340)
 
 };
-
+*/
 if (window.addEventListener)
             addEventListener('storage', storage_event, false);
         else if (window.attachEvent)
@@ -595,7 +604,6 @@ function query(q) {
 
       }
     }
-scrolling()
     results(num)
   }, 100)
 }
@@ -663,7 +671,7 @@ function showQuery(q, o,type) {
     }
     scrollShows()
     results(num)
-    scrolling();
+   // scrolling();
     var Showtype = ''
 if (window.location.search.split(':')[0] == '') {
 	return;
@@ -712,6 +720,18 @@ var tvdbimg = 'https://thetvdb.com/banners/posters/279121-50.jpg'
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
+var showhtml = []
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property].toLowerCase() < b[property].toLowerCase()) ? -1 : (a[property].toLowerCase() > b[property].toLowerCase()) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
 function tvlist(showName,img,type) {
   if (showName in tvobj) {
     return 'Already In.';
@@ -719,12 +739,13 @@ function tvlist(showName,img,type) {
 
   tvobj[(showName)] = ''
 if (img != undefined) {
-  document.getElementById('tvShows').innerHTML += `<div show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
+ /* document.getElementById('tvShows').innerHTML += `<div show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
   <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
-</div>
-
-
-`; 
+</div>`
+*/
+showhtml.push({show:showName,html:`<div show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
+  <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
+</div>`,img:img}); 
 return;
 }
 
@@ -959,12 +980,13 @@ if (!time > 0) {
 if (json.length - tempLS["?" + json.href] < 36) {
 	perc = 100
 }
+
     if (json.length - tempLS["?" + json.href] > 36 && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'
        
-        watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card  ${json.href}">
+        watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
             <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
@@ -998,12 +1020,17 @@ if (json.hidden) {
 	return 'opacity: .3'
 }
     }
+    var visible = ""
+    console.log(i)
+    if (i < 30) {
+    	visible = "forceVisible"
+    }
     var out = "'out'"
 var old = `            <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
             <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
 
 `
-    template.push( `<li style="${hidden()};visibility:visible;"  aired="${json.time}" ShowName="${json.show}" class=" initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
+    template.push( `<li style="${hidden()};visibility:visible;"  aired="${json.time}" ShowName="${json.show}" class="${visible} initialized  ${con} ${json.type} ${json.id} ${json.href}"   data-query="${query}">
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
@@ -1437,8 +1464,8 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(functi
 // https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
-var foxshowlist = ['snowfall']
-var foxshowNames = {'snowfall':'Snowfall'}
+var foxshowlist = ['snowfall','atlanta']
+var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 var showEpisodeCount = {}
 fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
@@ -1446,12 +1473,13 @@ var allEpisodeCount = 0
 		if (foxshows.member[i].fullEpisodeCount == 0 || 'fullEpisodeCount' in foxshows.member[i] == false) continue;
 
 		showEpisodeCount[foxshows.member[i].showCode] = foxshows.member[i].fullEpisodeCount
-	//	if(foxshows.member[i].network == 'fox'){
+		if(foxshows.member[i].network == 'fox'){
+			if (foxshows.member[i].showCode == 'the-x-files') continue;
 			foxshowlist.push(foxshows.member[i].showCode)
 			foxshowNames[foxshows.member[i].showCode] = foxshows.member[i].name
 			allEpisodeCount = allEpisodeCount +  foxshows.member[i].fullEpisodeCount
 
-	//	}
+		}
 	}
 	console.log(foxshowNames)
 	console.log(foxshowlist, showEpisodeCount)
