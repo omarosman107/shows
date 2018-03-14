@@ -1,0 +1,59 @@
+/* Ostrich Sans */
+
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: local('☺'), url('ostrich-sans-black.woff') format('woff');
+	font-weight: 900;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: local('☺'), url('ostrich-sans-bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: local('☺'), url('ostrich-sans-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: local('☺'), url('ostrich-sans-light.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+
+/* Ostrich Sans Dashed */
+
+@font-face {
+	font-family: 'Ostrich Sans Dashed';
+	src: local('☺'), url('ostrich-sans-dashed.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+
+/* Ostrich Sans Rounded */
+
+@font-face {
+	font-family: 'Ostrich Sans Rounded';
+	src: local('☺'), url('ostrich-sans-rounded.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+
+/* Ostrich Sans Inline */
+
+@font-face {
+	font-family: 'Ostrich Sans Inline';
+	src: local('☺'), url('ostrich-sans-inline-regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans Inline';
+	src: local('☺'), url('ostrich-sans-inline-italic.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+}

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Athan Times</title>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <style type="text/css">
+        
+        .main {
+            width: 90%;
+            background: white;
+            margin: auto;
+            margin-top: 70px;
+            box-shadow: rgb(197, 204, 212) 0px 2px 20px 0px;
+            margin-bottom: 40px;
+        }
+
+        body {
+            background: #f4f4f4;
+            margin: 0;
+            color: white;
+        }
+
+        .top {
+            background: black;
+            height: 75%;
+            margin: auto;
+            font-size: 11em;
+            text-align: center;
+            background: url(bg.jpg);
+            background-size: cover;
+            font-family: Ostrich Sans Inline,Helvetica;
+        }
+
+        .static {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 1;
+            z-index: 15;
+            -webkit-transform: translateZ(0px);
+            transform: translateZ(0px);
+            -webkit-transition: -webkit-transform 0.4s;
+            transition: -webkit-transform 0.4s;
+            transition: transform 0.4s;
+            transition: transform 0.4s, -webkit-transform 0.4s;
+            border: none;
+        }
+
+        .prayers {
+            font-size: 18px;
+            display: inline-block;
+            width: 19%;
+            color: #787878;
+            text-align: center;
+            font-family: Quicksand,Helvetica;
+            font-weight: 600;
+        }
+
+        .prayers span {
+            font-size: 4vw;
+            display: block;
+            font-family: Montserrat,Helvetica;
+            font-weight: normal;
+            color: #565656;
+        }
+
+        .prayers span.ampm {
+            display: inline-block;
+            font-size: 3vw;
+        }
+
+        .times {
+            padding: 50px;
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        #left {
+            position: relative;
+            bottom: -80px;
+            font-weight: 700;
+            font-size: 2em;
+            left: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            #left {
+                position: relative;
+                bottom: -80px;
+                font-weight: 700;
+                font-size: 30vw;
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .prayers {
+                font-size: 20px;
+                display: inline-block;
+                width: 100%;
+                color: #787878;
+                text-align: center;
+                font-family: Quicksand.Helvetica;
+                font-weight: 600;
+            }
+            .prayers span {
+                font-size: 19vw;
+                display: block;
+                font-family: Ostrich Sans Rounded,Helvetica;
+                font-weight: bolder;
+                color: #565656;
+            }
+            .prayers span.ampm {
+                display: inline-block;
+                font-size: 9vw;
+            }
+        }
+
+        #until {
+            font-size: 40px;
+
+            color: rgba(255, 255, 255, 0.49);
+        }
+
+        @media (min-width: 2000px) {
+            #left {
+                position: relative;
+                bottom: 0px;
+                font-weight: 700;
+                font-size: 24vw;
+                left: 20px;
+            }
+
+            #until {
+                font-size: 4vw;
+                color: rgba(255, 255, 255, 0.49);
+                position: relative;
+            }
+         
+    </style>
+    <noscript id="deferred-styles">
+
+<link async href="https://fonts.googleapis.com/css?family=Quicksand:500|Montserrat:400" rel="stylesheet">
+    <link async rel="stylesheet" type="text/css" href="fonts/font.css">
+    </noscript>
+</head>
+
+<body>
+    <div class="main">
+        <div style="height: 4px;
+    background: lightgreen;
+    width: 0%;
+ 	-webkit-transition: width 500ms ease-out,opacity 500ms linear;
+    transition: width 500ms ease-out,opacity 500ms linear;" id="prog"></div>
+        <div class="top">
+            <div class="overlay">
+
+                <div onclick="city()" id="location" style="
+    position: relative;
+    font-size: -webkit-xxx-large;
+    padding: 15px;
+    float: right;
+    cursor: pointer;
+    ">            <svg fill="#FFFFFF" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg"> <path d="M0 0h24v24H0zm11.75 11.47l-.11-.11z" fill="none"/><path d="M12 6.5c1.38 0 2.5 1.12 2.5 2.5 0 .74-.33 1.39-.83 1.85l3.63 3.63c.98-1.86 1.7-3.8 1.7-5.48 0-3.87-3.13-7-7-7-1.98 0-3.76.83-5.04 2.15l3.19 3.19c.46-.52 1.11-.84 1.85-.84zm4.37 9.6l-4.63-4.63-.11-.11L3.27 3 2 4.27l3.18 3.18C5.07 7.95 5 8.47 5 9c0 5.25 7 13 7 13s1.67-1.85 3.38-4.35L18.73 21 20 19.73l-3.63-3.63z"/></svg></div>
+
+                <div id="currentTime" style="
+    position: absolute;
+    font-size: -webkit-xxx-large;
+    font-family: Ostrich Sans,Helvetica;
+    padding: 15px;
+"></div>
+                <div style="
+    max-height: 100%;
+    padding: 17px;
+" class="timerContainer">
+                    <span id="left"></span>
+                    <br>
+                    <span id="until" style="">Until iftar</span>
+                </div>
+            </div>
+        </div>
+        <div class="times">
+            <div class="prayers">Fajr<span id="fajr"></span></div>
+            <div class="prayers">Dhuhr<span id="duhur"></span></div>
+            <div class="prayers">Asr<span id="asr"></span></div>
+            <div class="prayers">Maghrib<span id="maghrib"></span></div>
+            <div class="prayers">Isha<span id="isha"></span></div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        var ramadanTimes = [{
+                year: 2017,
+                start: "May 27",
+                end: "June 25"
+            },
+            {
+                year: 2018,
+                start: "May 16",
+                end: "June 14"
+            },
+            {
+                year: 2019,
+                start: "May 6",
+                end: "June 4"
+            },
+            {
+                year: 2020,
+                start: "April 24",
+                end: "May 23"
+            },
+            {
+                year: 2021,
+                start: "April 13",
+                end: "May 12"
+            },
+            {
+                year: 2022,
+                start: "April 3",
+                end: "May 2"
+            },
+
+        ]
+ var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById("deferred-styles");
+        var replacement = document.createElement("div");
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);
+        function city() {
+            var txt;
+            var place = prompt("Please enter your location:", "");
+            if (place == null || place == "") {
+                return;
+            } else {
+                txt = place;
+            }
+            document.getElementById('location').innerHTML = '<svg fill="#FFFFFF" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
+
+            prayers(place)
+
+        }
+
+        // At first, let's check if we have permission for notification
+        // If not, let's ask for it
+        if (window.Notification && Notification.permission !== "granted") {
+            Notification.requestPermission(function(status) {
+                if (Notification.permission !== status) {
+                    Notification.permission = status;
+                }
+            });
+        }
+
+
+        // If the user agreed to get notified
+        // Let's try to send ten notifications
+        if (window.Notification && Notification.permission === "granted") {
+            var i = 0;
+            // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
+
+        }
+
+        // If the user hasn't told if he wants to be notified or not
+        // Note: because of Chrome, we are not sure the permission property
+        // is set, therefore it's unsafe to check for the "default" value.
+        else if (window.Notification && Notification.permission !== "denied") {
+            Notification.requestPermission(function(status) {
+                // If the user said okay
+                if (status === "granted") {
+                    var i = 0;
+                    // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
+
+                }
+
+                // Otherwise, we can fallback to a regular modal alert
+                else {}
+            });
+        }
+
+        // If the user refuses to get notified
+        else {
+            // We can fallback to a regular modal alert
+        }
+        var notified = false
+        var done = false
+
+        function notif(a) {
+            if (a == 'done' && !done) {
+                var n = new Notification("It's Iftar now! ", {
+                    tag: 'soManyNotification'
+                });
+
+                done = true
+            }
+            if (a == 'notify' && !notified) {
+                var n = new Notification("it's almost iftar! ", {
+                    tag: 'soManyNotification'
+                });
+
+                notified = true
+            }
+
+        }
+
+
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
+
+        var xml = new XMLHttpRequest();
+        xml.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var data = (this.responseText)
+                data = data.replace(/<img /gi, "<my_img ").replace(/<\/img>/gi, "</my_img>");
+                doc = document.createElement('body')
+                doc.innerHTML = data
+                var whenstart = new Date(doc.querySelectorAll('.vk_ans')[0].querySelectorAll('div')[1].innerHTML + ' ' + new Date().getFullYear())
+
+                var whenend = new Date(doc.querySelectorAll('.vk_ans')[1].querySelectorAll('div')[1].innerHTML + ' ' + new Date().getFullYear())
+                whenend.setTime(whenend.getTime() + 2 * 86400000);
+                whenstart.setTime(whenstart.getTime() + 1 * 86400000);
+                var today = new Date()
+                var p = (((today - whenstart) / (whenend - whenstart)) * 100) + '%';
+
+
+                document.getElementById('currentTime').innerHTML = getTimeRemaining(whenend).days + " days left"
+                document.getElementById('prog').style.width = (((today - whenstart) / (whenend - whenstart)) * 100) + '%';
+
+                if (getTimeRemaining(whenend).days < 0) {
+                    document.getElementById('prog').style.width = '100%';
+                    document.getElementById('currentTime').innerHTML = "RAMADAN FINISHED"
+                    return;
+                }
+
+                setInterval(function() {
+                    var today = new Date()
+                    if (getTimeRemaining(whenend).days < 0) {
+                        document.getElementById('prog').style.width = '100%';
+                        document.getElementById('currentTime').innerHTML = "RAMADAN FINISHED"
+                        return;
+                    }
+                    document.getElementById('prog').style.width = (((today - whenstart) / (whenend - whenstart)) * 100) + '%';
+                    document.getElementById('currentTime').innerHTML = getTimeRemaining(whenend).days + " days left"
+
+                }, 3000)
+
+            }
+        }
+        //  xml.open("GET", 'https://cors-anywhere.herokuapp.com/https://www.google.com/search?q=ramadan+' + new Date().getFullYear(), true);
+        // xml.send();
+        window.onload = function() {
+            var currYear = new Date().getFullYear()
+
+            function handleTime(time) {
+                console.log(time)
+                var whenstart = new Date(time.start + ' ' + currYear)
+                var whenend = new Date(time.end + ' ' + currYear)
+                var today = new Date()
+                var p = (((today - whenstart) / (whenend - whenstart)) * 100) + '%';
+                console.log(p)
+
+                document.getElementById('currentTime').innerHTML = getTimeRemaining(whenend).days + " days left"
+                document.getElementById('prog').style.width = (((today - whenstart) / (whenend - whenstart)) * 100) + '%';
+                if (getTimeRemaining(whenend).days < 0) {
+                    document.getElementById('prog').style.width = '100%';
+                    document.getElementById('currentTime').innerHTML = "RAMADAN FINISHED"
+                    return;
+                }
+                setInterval(function() {
+                    var today = new Date()
+                    if (getTimeRemaining(whenend).days < 0) {
+                        document.getElementById('prog').style.width = '100%';
+                        document.getElementById('currentTime').innerHTML = "RAMADAN FINISHED"
+                        return;
+                    }
+                    document.getElementById('prog').style.width = (((today - whenstart) / (whenend - whenstart)) * 100) + '%';
+                    document.getElementById('currentTime').innerHTML = getTimeRemaining(whenend).days + " days left"
+
+                }, 3000)
+
+            }
+            for (var i = ramadanTimes.length - 1; i >= 0; i--) {
+                if (currYear == ramadanTimes[i].year) {
+                    handleTime(ramadanTimes[i])
+                    break;
+                }
+            }
+        }
+
+
+        var timer
+
+        function prayers(place, type) {
+            clearInterval(timer);
+
+
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText)
+                    var fajr = new Date(data.data.timings.Fajr + " " + data.data.date.readable)
+                    var duhur = new Date(data.data.timings.Dhuhr + " " + data.data.date.readable)
+                    var asr = new Date(data.data.timings.Asr + " " + data.data.date.readable)
+                    var maghrib = new Date(data.data.timings.Maghrib + " " + data.data.date.readable)
+                    var isha = new Date(data.data.timings.Isha + " " + data.data.date.readable)
+
+                    function formatAMPM(date) {
+                        var hours = date.getHours();
+                        var minutes = date.getMinutes();
+                        var ampm = hours >= 12 ? 'pm' : 'am';
+                        hours = hours % 12;
+                        hours = hours ? hours : 12; // the hour '0' should be '12'
+                        minutes = minutes < 10 ? '0' + minutes : minutes;
+                        var strTime = hours + ':' + minutes + ' ' + '<span class="ampm">' + ampm + '</span>';
+                        return strTime;
+                    }
+
+                    document.getElementById('fajr').innerHTML = formatAMPM(fajr)
+                    document.getElementById('duhur').innerHTML = formatAMPM(duhur);
+                    document.getElementById('asr').innerHTML = formatAMPM(asr)
+                    document.getElementById('maghrib').innerHTML = formatAMPM(maghrib);
+                    document.getElementById('isha').innerHTML = formatAMPM(isha);
+
+                    var end = maghrib
+
+                    var _second = 1000;
+                    var _minute = _second * 60;
+                    var _hour = _minute * 60;
+                    var _day = _hour * 24;
+
+                    function showRemaining() {
+
+
+                        var now = new Date();
+                        var distance = end - now;
+                        if (distance < 0) {
+
+                            clearInterval(timer);
+                            document.getElementById('left').innerHTML = 'Eat';
+                            document.getElementById('until').innerHTML = 'Until Fajr!';
+
+                            notif('done')
+                            return;
+                        }
+                        if (distance < 600000) {
+                            notif('notify')
+                        }
+                        /*
+                                var days = Math.floor(distance / _day);
+                                var hours = Math.floor((distance % _day) / _hour);
+                                var minutes = Math.floor((distance % _hour) / _minute);
+                                var seconds = Math.floor((distance % _minute) / _second);
+
+                                if (hours < 10) {
+                                	hours = '0' + hours
+                                }
+                                   if (minutes < 10) {
+                                	minutes = '0' + minutes
+                                }
+                                   if (seconds < 10) {
+                                	seconds = '0' + seconds
+                                }
+                        */
+
+                        var time = getTimeRemaining(end)
+                        if (time.hours < 10) {
+                            time.hours = '0' + time.hours
+                        }
+                        if (time.minutes < 10) {
+                            time.minutes = '0' + time.minutes
+                        }
+                        if (time.seconds < 10) {
+                            time.seconds = '0' + time.seconds
+                        }
+
+                        document.getElementById('left').innerHTML = time.hours + ":" + time.minutes + ':' + time.seconds
+
+                    }
+                    showRemaining()
+                    timer = setInterval(showRemaining, 1000);
+
+
+
+
+                }
+            };
+
+            if (type == 'coords') {
+
+                loc = new XMLHttpRequest();
+                loc.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var data = JSON.parse(this.responseText).results[0]
+                        document.getElementById('until').innerHTML = (data.formatted_address) + ' - left until iftar'
+
+                    }
+                }
+                loc.open("GET", 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + place.latitude + ',' + place.longitude, true);
+                loc.send();
+
+
+
+                var url = 'http://api.aladhan.com/timings?latitude=' + place.latitude + '&longitude=' + place.longitude + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone
+                xhttp.open("GET", url, true);
+                xhttp.send();
+                return;
+            } else {
+                loc = new XMLHttpRequest();
+                loc.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var data = JSON.parse(this.responseText).results[0]
+                        document.getElementById('until').innerHTML = (data.formatted_address) + ' - left until iftar'
+                        console.log(data.geometry.location.lat, data.geometry.location.lng)
+                        var url = 'http://api.aladhan.com/timings?latitude=' + data.geometry.location.lat + '&longitude=' + data.geometry.location.lng + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone +
+                            '&method=2'
+                        xhttp.open("GET", url, true);
+                        xhttp.send();
+
+
+                        for (var i = data.address_components.length - 1; i >= 0; i--) {
+                            console.log(data.address_components[i])
+                            if (data.address_components[i].types[0] == "locality") {
+                                console.log(data.address_components[i].long_name);
+
+
+                                return false;
+                            }
+                        }
+
+
+                    }
+                }
+                loc.open("GET", 'https://maps.googleapis.com/maps/api/geocode/json?address=' + place, true);
+                loc.send();
+
+            }
+
+
+        }
+        /*
+        var ip = new XMLHttpRequest();
+        ip.onreadystatechange = function(){
+        		if (this.readyState == 4 && this.status == 200) {
+        var ipdata = JSON.parse(this.responseText)
+        prayers(ipdata.city + ' , ' + ipdata.region_name +' '+ ipdata.country_name)
+        }
+        }
+        ip.open("GET",'https://freegeoip.net/json/',true);
+        ip.send();
+        */
+
+
+
+
+        function do_something(coords) {
+            console.log(coords)
+            var coords = {
+                latitude: coords.latitude,
+                longitude: coords.longitude
+            };
+            prayers(coords, 'coords')
+
+        }
+        function googleLoc(){
+  var a = new XMLHttpRequest();
+                        a.onreadystatechange=function(){
+                            if (this.readyState == 4 && this.status == 200) {
+                                console.log(this.responseText)
+                                var location = JSON.parse(this.responseText)
+                                var coords = {
+                                    latitude: location.location.lat,
+                                    longitude: location.location.lng
+                                }
+                                prayers(coords,'coords')
+                            }
+                        }
+                        a.open('POST','https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyA1eAYocNqcnhzpVxTSehY77tnKT1o5ZZQ',true)
+                        a.send();
+        }
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+                document.getElementById('location').innerHTML = '<svg fill="#FFFFFF" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
+                prayers(position.coords, 'coords')
+
+
+            },
+            function(failure) {
+
+                var ip = new XMLHttpRequest();
+                ip.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status != 200) {
+                        console.log('worked')
+ googleLoc()
+                        return;
+                    }
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = JSON.parse(this.responseText)
+                        document.getElementById('location').innerHTML = '<svg fill="#FFFFFF" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
+
+                        prayers(response.city + ', ' + response.region + ' , ' + response.postal + ' , ' + response.country)
+                    }
+                }
+                ip.open("GET", 'https://ipinfo.io/geo', true);
+                ip.send();
+
+
+            });
+    </script>
+</body>
+
+</html>
