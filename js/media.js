@@ -141,6 +141,7 @@ vid.addEventListener('loadstart', function(){
       error(e);
    };
 // loadeddata
+
    vid.addEventListener('loadeddata', function () {
       document.getElementById('LS').style.opacity = 1;
       //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
@@ -174,6 +175,8 @@ vid.addEventListener('loadstart', function(){
   
          ga('send', 'pageview');
    }, false);
+   
+
    return;
    console.log(player.src())
 
@@ -345,26 +348,7 @@ function fetchcwjson(value) {
    //   player.src([{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}]);
     // console.log('http://hlsioscwtv.warnerbros.com/hls/'+finalurl.replace('ioshlskeys','hls').split('_dai')[0].split('/videos/')[1] + '_dai_6628kbps/'+finalurl.replace('ioshlskeys','hls').split('_dai')[0].split('/videos/')[1] + '_dai_6628kbps.m3u8')
     // console.log(finalurl)
-     var combine = `
-#EXTM3U
-#EXT-X-VERSION:3
-#EXT-X-MEDIA-SEQUENCE:0
-#EXT-X-PLAYLIST-TYPE:VOD
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1296000,RESOLUTION=640x360,CODECS="avc1.42c01f,mp4a.40.2",CLOSED-CAPTIONS=NONE
-${finalurl}
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=350800,PROGRAM-ID=1,CODECS="avc1.4d401f",RESOLUTION=320x180,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-350800-repid-350800-tc-0.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=508400,PROGRAM-ID=1,CODECS="avc1.4d401f",RESOLUTION=320x180,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-508400-repid-508400-tc-0.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=823200,PROGRAM-ID=1,CODECS="avc1.4d401f",RESOLUTION=512x288,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-823200-repid-823200-tc-0.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=1217200,PROGRAM-ID=1,CODECS="avc1.4d401f",RESOLUTION=640x360,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-1217200-repid-1217200-tc-0.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=1926000,PROGRAM-ID=1,CODECS="avc1.4d401f",RESOLUTION=768x432,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-1926000-repid-1926000-tc-0.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=3178000,PROGRAM-ID=1,CODECS="avc1.4d4020",RESOLUTION=1280x720,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-3178000-repid-3178000-tc-0.m3u8"
-#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=3721200,PROGRAM-ID=1,CODECS="avc1.640029",RESOLUTION=1920x1080,URI="1061099587841_1507087424110_300000_6/format-hls-track-iframe-bandwidth-3721200-repid-3721200-tc-0.m3u8"
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1296000,RESOLUTION=640x360,CODECS="avc1.42c01f,mp4a.40.2",CLOSED-CAPTIONS=NONE
-${data.assetFields.smoothStreamingUrl+'(format=m3u8-aapl).m3u8'}
 
-`
-// console.log(window.btoa(combine))
-var url = "data:application/x-mpegURL;base64,"+window.btoa(combine)
 
 // player.src({"src":url, "type": "application/vnd.apple.mpegurl"})
       player.play();
