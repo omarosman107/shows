@@ -705,6 +705,24 @@ var iframeDOM = document.createElement('html');
 var pageDOM = document.createElement('html');
 
 function fetchnbcjson(value) {
+   fetch('https://player.theplatform.com/p/HNK2IC/y9LXf40HJyoN/select/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]).then(function(res){return res.text()}).then(function(data){
+var htmlparsed = tohtml(data);
+var episode_title = htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content')
+var description = htmlparsed.querySelector('meta[property="og:description"]').getAttribute('content')
+      showdesc.innerHTML = description;
+      document.title =  episode_title;
+      document.getElementById('epname').innerHTML = episode_title;
+
+var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
+fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(function(res){return res.json()}).then(function(meta){
+   showname.innerHTML = (meta['nbcu$seriesShortTitle'])
+   bg(meta.defaultThumbnailUrl+'?impolicy=nbc_com&imwidth=720')
+})
+player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
+resume()
+
+   })
+   return;
    document.getElementById('progress').style.width = "35%";
    console.log(value);
    $.get(value, function (data) {

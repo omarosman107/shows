@@ -898,7 +898,7 @@ for(i in episodes.reverse()){
 	if(!upnextshows[episodes[i].show]){
 		upnextshows[episodes[i].show] = {show:episodes[i].show,episodes:[],latestWatched:null,latestWNum:null,upNext:null,upNextNum:null}
 	}
-	if (episodes[i].length - tempLS["?" + episodes[i].href] < 36) {
+	if (episodes[i].length - tempLS["?" + episodes[i].href] < 46) {
 		done = true;
 		episodes[i]['done'] = done
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done}
@@ -980,11 +980,11 @@ if (!time > 0) {
     }
   
     var done = perc > 99
-if (json.length - tempLS["?" + json.href] < 36) {
+if (json.length - tempLS["?" + json.href] < 46) {
 	perc = 100
 }
 
-    if (json.length - tempLS["?" + json.href] > 36 && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
+    if (json.length - tempLS["?" + json.href] > 46 && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'
@@ -1249,6 +1249,81 @@ fetch(show_hub + '?bust=' + Date.now()  , {
 
 });
 }
+
+
+
+function nbc(){
+	var nbcshows = {}
+	fetch('https://api.nbc.com/v3.14/shows?fields%5Bimages%5D=internalId%2CdisplayName%2CaltText%2Ccaption%2Ccopyright%2Ccredit%2Ckeywords%2Cpath&fields%5Bshows%5D=internalId%2CurlAlias%2Cname%2CshortTitle%2CsortTitle%2Cdescription%2CshortDescription%2Ctype%2Cactive%2Ccategory%2Cgenre%2CtuneIn%2Cfrontends%2Csocial%2CappTuneIn%2CapplyHighlight&filter%5Bactive%5D=1&filter%5Bfrontends%5D=tv&include=image%2CtvosProperties&page%5Bnumber%5D=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
+		console.log(shows)
+		for (var i = shows.data.length - 1; i >= 0; i--) {
+			var showId = shows.data[i].id
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
+				continue;
+			}
+			nbcshows[showId] = 'https://img.nbc.com/'+shows.included[i].attributes.path +'?impolicy=nbc_com&imwidth='+480;
+
+			loaders()
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=15').then(function(res){return res.json()}).then(function(episode){
+				console.log(episode)
+				if (episode.data.length == 0) {
+					loaders('remove');
+					return;
+					 }
+				for (var z = episode.data.length - 1; z >= 0; z--) {
+					if (new Date((episode.data[z].attributes.expiration)) < new Date()) {continue;}
+					if (episode.data[z].attributes.type != 'Full Episode') {
+						continue;
+					}
+					console.log(episode.data[z])
+					function nbcimg(res){
+						return ('https://img.nbc.com/'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res)
+						 
+
+
+					}
+					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
+      tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
+
+					      var episodes = {
+        img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
+        rating: 'TV-14',
+        imgdyn: dyn,
+        id: makeid(),
+        href: episode.data[z].attributes.permalink,
+        show: episode.data[z].attributes.categories[0].split('/')[1],
+        episode: episode.data[z].attributes.title,
+        epiformat: epiformat(episode.data[z].attributes.seasonNumber, episode.data[z].attributes.episodeNumber),
+        length: episode.data[z].attributes.runTime,
+        type: "nbc",
+        bg:'',
+        time:Date.parse(new Date(episode.data[z].attributes.airdate)),
+        expires:new Date(episode.data[z].attributes.expiration).getTime()
+
+      }
+            finalObj.push(episodes)
+
+				}
+									loaders('remove')
+
+			})
+		}
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function fox(range) {
   loaders()
@@ -1917,6 +1992,7 @@ imgdyn:""
     }else{
       cw()
       newfox()
+      nbc()
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
 if (hlsSupported) {
