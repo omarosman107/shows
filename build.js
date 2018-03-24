@@ -736,11 +736,11 @@ function dynamicSort(property) {
     }
 }
 function tvlist(showName,img,type) {
-  if (showName in tvobj) {
+  if (showName.toLowerCase() in tvobj) {
     return 'Already In.';
   }
 
-  tvobj[(showName)] = ''
+  tvobj[(showName.toLowerCase())] = ''
 if (img != undefined) {
  /* document.getElementById('tvShows').innerHTML += `<div show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
   <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
