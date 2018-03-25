@@ -161,7 +161,7 @@ vid.addEventListener('loadstart', function(){
 
          localStorage[window.location.search] = player.currentTime();
          if (player.currentTime() == player.duration()) {
-            localStorage.removeItem(window.location.search);
+           // localStorage.removeItem(window.location.search);
          }
       }, 2000);
 

@@ -1024,7 +1024,6 @@ if (json.hidden) {
 }
     }
     var visible = ""
-    console.log(i)
     if (i < 30) {
     	visible = "forceVisible"
     }
@@ -1057,7 +1056,6 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
  //   wrapper.innerHTML = '<li  aired="' + json.time + '"  ShowName="' + json.show + '" class="initialized  '+con+' ' + json.type + '  ' + json.id + '" data-query="' + query + '"><div  class="piece fanart-container"><div class="image-crop sixteen-nine"url="'+json.href+'" autoplay="'+json.autoplay+'" onmouseover="playHover(this)" onmouseout="stopHover(this)">' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><video class="sixteen-nine" style="top:0px;" playsinline muted loop width="100%" height="100%"></video><\/span><div class="imageBG"><\/div><img     class="cover sixteen-nine lazy"   sizes="(max-width: 600px) 70vw, 25vw"  alt="' + json.show + '"   data-original="'+json.img +'" data-original-set="' + json.imgdyn + '" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div  class="w3-progress-container" style=""><div class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn " title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2 ><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)" show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><div class="cardBorder"></div><div class=><p>' + FDate + ' | ' + json.rating + ' | ' + timeofPlayback + ' | ' + json.epiformat + '<\/p><\/div><i style="opacity:' + showCheck() + ';color:rgb(127, 218, 99);"class="visited fa fa-check" aria-hidden="true"><\/i><\/div><div class="bottom"><div class="bar"><\/div><div class="bar"><\/div><div class="bar"><\/div><\/div><\/div><\/li>'
      
   }
-console.log(template)
 
   document.getElementById('watching').innerHTML += watching;
   document.getElementById('carasoul').innerHTML += template.join('');
@@ -1104,12 +1102,12 @@ var obj = []
 var cors_show_hub = 'https://crossorigin.me/' + show_hub
 // var show_hub = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from json where url="' + show_hub + '"') + '&format=json&bust='+Date.now();
 function cw(show){
-	
+	var skipTheseShows = ['Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
 fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
-	if (cwshows.items[i].deeplink.includes('cwseed') || cwshows.items[i].slug == 'more-video') {loaders('remove');continue;}
+	if (cwshows.items[i].deeplink.includes('cwseed') || cwshows.items[i].slug == 'more-video' || skipTheseShows.includes(cwshows.items[i].title)) {loaders('remove');continue;}
 			if (show != 'undefined' && show != undefined && cwshows.items[i].title.toLowerCase().includes(show.toLowerCase()) == false){
  loaders('remove');
  continue;
@@ -1255,7 +1253,6 @@ fetch(show_hub + '?bust=' + Date.now()  , {
 function nbc(){
 	var nbcshows = {}
 	fetch('https://api.nbc.com/v3.14/shows?fields%5Bimages%5D=internalId%2CdisplayName%2CaltText%2Ccaption%2Ccopyright%2Ccredit%2Ckeywords%2Cpath&fields%5Bshows%5D=internalId%2CurlAlias%2Cname%2CshortTitle%2CsortTitle%2Cdescription%2CshortDescription%2Ctype%2Cactive%2Ccategory%2Cgenre%2CtuneIn%2Cfrontends%2Csocial%2CappTuneIn%2CapplyHighlight&filter%5Bactive%5D=1&filter%5Bfrontends%5D=tv&include=image%2CtvosProperties&page%5Bnumber%5D=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
-		console.log(shows)
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
@@ -1265,7 +1262,6 @@ function nbc(){
 
 			loaders()
 			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=15').then(function(res){return res.json()}).then(function(episode){
-				console.log(episode)
 				if (episode.data.length == 0) {
 					loaders('remove');
 					return;
@@ -1275,7 +1271,6 @@ function nbc(){
 					if (episode.data[z].attributes.type != 'Full Episode') {
 						continue;
 					}
-					console.log(episode.data[z])
 					function nbcimg(res){
 						return ('https://img.nbc.com/'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res)
 						 
@@ -1547,12 +1542,15 @@ var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 var showEpisodeCount = {}
 fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
+	var skipTheseShows = ['Love Connection','Showtime at the Apollo']
+
 	for (var i = foxshows.member.length - 1; i >= 0; i--) {
 		if (foxshows.member[i].fullEpisodeCount == 0 || 'fullEpisodeCount' in foxshows.member[i] == false) continue;
 
 		showEpisodeCount[foxshows.member[i].showCode] = foxshows.member[i].fullEpisodeCount
 		if(foxshows.member[i].network == 'fox'){
-			if (foxshows.member[i].showCode == 'the-x-files') continue;
+			if (foxshows.member[i].showCode == 'the-x-files' || skipTheseShows.includes(foxshows.member[i].name)) continue;
+
 			foxshowlist.push(foxshows.member[i].showCode)
 			foxshowNames[foxshows.member[i].showCode] = foxshows.member[i].name
 			allEpisodeCount = allEpisodeCount +  foxshows.member[i].fullEpisodeCount
@@ -1644,6 +1642,7 @@ loaders('remove')
 })
 return;
 */
+
 	for (var i = foxshowlist.length - 1; i >= 0; i--) {
 		  loaders()
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
