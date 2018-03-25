@@ -716,6 +716,11 @@ var description = htmlparsed.querySelector('meta[property="og:description"]').ge
 var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
 fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(function(res){return res.json()}).then(function(meta){
    showname.innerHTML = (meta['nbcu$seriesShortTitle'])
+   fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
+      fetch('https://api.nbc.com/v3.14/images/'+showapi.data["0"].relationships.logo.data.id).then(function(res){return res.json()}).then(function(image){
+          document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;margin-top: -50%;margin-bottom: 2%;margin-left: -4%;" src="'+'https://img.nbc.com/'+image.data.attributes.path+'" width="100%">'
+      })
+   })
    bg(meta.defaultThumbnailUrl+'?impolicy=nbc_com&imwidth=720')
 })
 player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
