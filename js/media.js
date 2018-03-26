@@ -956,7 +956,7 @@ function fetchfxjson(value) {
       // url (required), options (optional)
       document.getElementById('progress').style.width = "30%";
       // url (required), options (optional)
-        fetch('https://api.fox.com/fbc-content/v3_blue/video?externalId=' + value.split('video/')[1],{
+        fetch('https://api.fox.com/fbc-content/v1_4/video?externalId=' + value.split('video/')[1],{
     headers: new Headers({
     'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
   })
@@ -1117,7 +1117,7 @@ return;
 
 function fxsite(url){
   url = url.split('_=')[1];
-  fetch('https://api.fox.com/fbc-content/v3_blue/video?externalId=' + document.referrer.split('video/')[1],{
+  fetch('https://api.fox.com/fbc-content/v1_4/video?externalId=' + document.referrer.split('video/')[1],{
     headers: new Headers({
     'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
   })

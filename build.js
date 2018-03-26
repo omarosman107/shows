@@ -1542,7 +1542,7 @@ var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 var showEpisodeCount = {}
 fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
-	var skipTheseShows = ['Love Connection','Showtime at the Apollo']
+	var skipTheseShows = ['Love Connection','Showtime at the Apollo','New Girl']
 
 	for (var i = foxshows.member.length - 1; i >= 0; i--) {
 		if (foxshows.member[i].fullEpisodeCount == 0 || 'fullEpisodeCount' in foxshows.member[i] == false) continue;
