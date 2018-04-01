@@ -262,11 +262,7 @@ function scrolling(num){
 
 
 		for (var i = cards.length - 1; i >= 0; i--) {
-		/*	if (i > num){
-				console.log(i)
-			 continue;
-		}
-		*/
+		
 			if (ignored.includes(cards[i])) continue;
 if(elementInViewport2(cards[i]) || cards[i].parentNode.id == 'watching'){
 cards[i].style.visibility = 'visible';
@@ -301,115 +297,7 @@ return element._boundingClientRect;
 
 function lazyLoadNew(){
 	 items = document.getElementsByClassName('initialized')
-/*
-function checkVisible(elm, threshold, mode) {
-  threshold = threshold || 0;
-  mode = mode || 'visible';
 
-  var rect = elm.pbsGetBoundingClientRect();
-  var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
-  var above = rect.bottom - threshold < 0;
-  var below = rect.top - viewHeight + threshold >= 0;
-
-  return mode === 'above' ? above : (mode === 'below' ? below : !above && !below);
-}
-window.addEventListener("scroll", function(){
-	for (var i = items.length - 1; i >= 0; i--) {
-
-if(checkVisible(items[i])){
-items[i].style.visibility = 'visible'
-items[i].style.zIndex = '999999'
-items[i].querySelector('img').srcset =  items[i].querySelector('img').getAttribute('data-original-set');
-
-
-
-}
-}
-});
-
-return;
-*/
-// scrolling();
-
-//	return;
-
-/*
-var options = {
-  rootMargin: 10000,
-  root:document.getElementById('carasoul')
-}
-
-
-    var efficientDOM = new IntersectionObserver(
-    entries => {
-    	console.log(entries)
-for (i in entries){
-
-// ||  entries[i].boundingClientRect.bottom > -50 
-if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
-try{
-
-entries[i].target.style.visibility = 'visible'
-entries[i].target.style.zIndex = '999999'
-
-}catch(e){
-
-}
-    }else{
-entries[i].target.style.visibility = 'hidden'
-entries[i].target.style.zIndex = '-999999'
-
-}
-}
-    },
-    {
-    }
-,options);
-// Start observing an element
-var lazyDOM = document.querySelectorAll('li')
-for (var i = lazyDOM.length - 1; i >= 0; i--) {
-	if(lazyDOM[i].className.includes('forceVisible')){
-continue;
-}
-// efficientDOM.observe(lazyDOM[i])
-}
-*/
-
-
-
-
-
-/*
-setTimeout(function(){
-var Lazyelements = document.querySelectorAll('.lazy')
-for(i in Lazyelements){
-Lazyelements[i].onload = function(element) {
-if (!element.target.classList.contains('loaded')) {
-element.target.classList.add('loaded');
-
-}
-}
-
-if(elementInViewport(Lazyelements[i])){
-
-  if (Lazyelements[i].hasAttribute('data-original-set')){
-Lazyelements[i].srcset =  Lazyelements[i].getAttribute('data-original-set');
-Lazyelements[i].removeAttribute('data-original-set')
-};
-  if (Lazyelements[i].hasAttribute('data-original')){
-Lazyelements[i].src = Lazyelements[i].getAttribute('data-original');
-Lazyelements[i].removeAttribute('data-original')
-};
-
-
-}
-
-
-}
-},20)
-return ;
-
-*/
 var options = {
   rootMargin: "100px",
   threshold: 0,
@@ -1277,7 +1165,7 @@ for(i in cwshows.items){
  continue;
 			}
 console.log(show)
-				if (show == 'undefined' && isMobile && localStorage['like']) {
+				if (show == undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(cwshows.items[i].title)) {
 			loaders('remove');
@@ -1349,76 +1237,6 @@ loaders('remove')
 }).catch(function(e){
 	loaders('remove')
 })
-return;
-loaders()
-fetch(show_hub + '?bust=' + Date.now()  , {
-  method: 'get',
-  cache: "no-store"
-}).then(function(response) {
-  return response.json();
-}).then(function(data) {
-
-  var start = new Date()
-  var showsTemp = {}
-  for (i in data.videos) {
-    if (data.videos[i].fullep == 1) {
-
-
-      function millisToMinutesAndSeconds(millis) {
-        var minutes = Math.floor(millis / 60000 * 60);
-        var seconds = ((millis % 60000) / 1000).toFixed(0);
-        return minutes;
-      }
-      var epinum = data.videos[i].episode
-      try {
-        epinum = data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1]
-        var s = (data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1].split('E')[0].split('S')[1])
-        var e = (data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1].split('E')[1])
-      } catch (e) {
-        console.log(e)
-      }
-      var airdate =  data.videos[i].airdate
-      if (airdate == '') {
-        airdate = (data.videos[i].start_time)
-      }
-      function cwdyres(resulution){
-
-      	if (webpcompatible == true) {
-// return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
-}
-      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
-      }
-      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
-      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
-      var episode_data = {
-        img: cwdyres('638'),
-        rating: (data.videos[i].rating),
-        imgdyn: dyn,
-        id: makeid(),
-        href: data.videos[i].share_url,
-        show: data.videos[i].series_name,
-        episode: data.videos[i].title,
-        epiformat: epiformat(s, e),
-        length: data.videos[i].duration_secs,
-        type: "cw",
-        bg:      'http://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
-        time:Date.parse(airdate),
-        expires:new Date(data.videos[i].expire_time).getTime()
-
-      }
-            finalObj.push(episode_data)
-
-
-    }
-  }
-  loaders('remove');
-  template = ''
-  var end = new Date()
-}).catch(function(err) {
-  console.log(err)
-    loaders('remove');
-
-});
 }
 
 
@@ -1508,7 +1326,6 @@ function fancyTimeFormat(time) {
   return ret;
 }
 
-// fox('0-200')
 var webpcompatible = false
 
 
@@ -1519,8 +1336,6 @@ var webpcompatible = false
 			return false;
 		}else{
 			 webpcompatible = true
-			console.log('webp is supported')
-
 		}
 	};
 	WebP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
@@ -1572,98 +1387,14 @@ var allEpisodeCount = 0
 
 		}
 	}
-	console.log(foxshowNames)
-	console.log(foxshowlist, showEpisodeCount)
-	/*
-var showSearch = ''
-var Getshows = []
-for (var i = foxshowlist.length - 1; i >= 0; i--) {
-	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
-		continue;
-	}
-Getshows.push(foxshowlist[i])
-}
-if (Getshows.length == 0) {
-	Getshows = foxshowlist
-}
-fetch("https://api.fox.com/fbc-content/v1_4/video/?seriesType=series&itemsPerPage=1000&_fields=images,name,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&videoType=fullEpisode&showCode="+Getshows.join(','),{headers:foxheaders}).then(function(res){return res.json();}).then(function(fullEpisodes){
- if ('member' in fullEpisodes) {
-for(i in fullEpisodes.member){
 
-  // !json.member[i].requiresAuth &&
-var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
-var sizes = [
-'110:110',
-'320:180',
-'480:270',
-'528:297',
-'740:416',
-'1280:720',
-'1920:1080'
-]
-var srcset = ''
-function webpImage(){
-if (webpcompatible) {
-	return '&output-format=webp';
-}else{
-	return ''
-}
-}
-for (var z = sizes.length - 1; z >= 0; z--) {
-// sizes[z].split(':')[0] == '1920'
-	if (false) {
-		  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
-	}else{
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z]) + ' '+ sizes[z].split(':')[0] +'w ,')
-
-	}
-}
-srcset = srcset.substr(0, srcset.length - 1);
-var date = new Date(fullEpisodes.member[i].originalAirDate)
-date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
-var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60) < 0 ? "-" : "+") + ((Math.abs(date.getTimezoneOffset() / 60) < 10) ?  ("0" + Math.abs(date.getTimezoneOffset() / 60)) : test) + "00";
-console.log(fullEpisodes.member[i].originalAirDate,output)
-
-      finalObj.push({
-        img: fullEpisodes.member[i].images.still.SD,
-        rating: rating(fullEpisodes.member[i].contentRating),
-        href: fullEpisodes.member[i]['@id'],
-        show: fullEpisodes.member[i].seriesName,
-        episode: fullEpisodes.member[i].name,
-        id: makeid(),
-        epiformat: epiformat(fullEpisodes.member[i].seasonNumber, fullEpisodes.member[i].episodeNumber),
-        length: fullEpisodes.member[i].durationInSeconds,
-        type: fullEpisodes.member[i].network,
-        imgdyn: srcset,
-        autoplay:fullEpisodes.member[i].autoPlayVideo.default.url,
-        bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
-        time:Date.parse(date),
-        type:'newfox',
-        hidden:fullEpisodes.member[i].hideVideo,
-        expires:new Date(fullEpisodes.member[i].expires).getTime()
-
-              });
-                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'newfox' )
-
-
-} 
-
-}
-
-
-loaders('remove')
-}).catch(function(e){
-	console.log(e)
-})
-return;
-*/
 
 	for (var i = foxshowlist.length - 1; i >= 0; i--) {
 		  loaders()
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
 		loaders('remove');continue;
 	}
-	if (show != undefined && isMobile && localStorage['like']) {
+	if (show == undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(foxshowNames[foxshowlist[i]])) {
 			loaders('remove');
@@ -1761,221 +1492,15 @@ console.log(e)
 
 loaders('remove')
 
-return;
-fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/seasons/?seriesType=series&itemsPerPage="+300+"&_fields=@id,fullEpisodeCount,showCode&showCode=" + foxshowlist.join(','),{headers:foxheaders,mode: 'cors'}).then(function(res){return res.json();}).then(function(shows){
-  var allshows = []
-allshows.unshift.apply( allshows, shows.member );
-    for (var i = allshows.length - 1; i >= 0; i--) {
-    	return;
-if(true){
-	if (!foxshowlist.includes(allshows[i].showCode)) continue;
-	if (allshows[i].fullEpisodeCount == 0) continue
-		if (show != 'undefined' && show != undefined && allshows[i].name.toLowerCase().includes(show.toLowerCase()) == false) continue;
-	// allshows[i].network != 'fx' 
-
-  loaders()
-
-            fetch(allshows[i]['@id'] + '/episodes',{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
-
-var json =  showdata
-for(i in json.member){
-
-  // !json.member[i].requiresAuth &&
-if(json.member[i].isFullEpisode ){
-var image = json.member[i].images.still.HD.split('?')[0]
-var sizes = [
-'208:*',
-'240:*',
-'304:*',
-'384:*',
-'400:*',
-'480:*',
-'576:*',
-'740:*',
-'896:*',
-'1280:*',
-'1920:*'
-]
-var srcset = ''
-for (var z = sizes.length - 1; z >= 0; z--) {
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])  + ' '+ sizes[z].split(':')[0] +'w ,')
-}
-srcset = srcset.substr(0, srcset.length - 1);
-var temp = new Date((json.member[i].originalAirDate))
-// + (temp.getTimezoneOffset() / 60)
-temp.setHours(temp.getHours() - 12 );
-
-
-      finalObj.push({
-        img: json.member[i].images.still.SD,
-        rating: rating(json.member[i].contentRating),
-        href: json.member[i]['@id'],
-        show: json.member[i].seriesName,
-        episode: json.member[i].name,
-        id: makeid(),
-        epiformat: epiformat(json.member[i].seasonNumber, json.member[i].episodeNumber),
-        length: json.member[i].durationInSeconds,
-        type: json.member[i].network,
-        imgdyn: srcset,
-        autoplay:json.member[i].autoPlayVideo.default.url,
-        bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
-        time:Date.parse(temp),
-        type:'newfox',
-        hidden:json.member[i].hideVideo
-
-              });
-                  tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*','newfox' )
-
-}
-} 
-loaders('remove')
-
-
-
-
-
-
-            }).catch(function(e){
-              loaders('remove')
-              console.log(e)
-            })
-          }
-    }
-loaders('remove')
-}).catch(function(e){
-  console.log(e)
-  loaders('remove')
-})
-
-
-loaders('remove')
 
 
 
 })
 
 })
-// loaders()
 
 
 
-
-
-/*
-
-fetch(config.apis.content.baseUrl + "/fbc-content/"+apiver+"/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100&dma=999",{headers:foxheaders}).then(function(res){return res.json();}).then(function(shows){
-  var allshows = []
-allshows.unshift.apply( allshows, shows.member );
-    var json = []
-    for (var i = allshows.length - 1; i >= 0; i--) {
-      json.push({name:allshows[i].name,image:allshows[i].images.seriesList.HD})
-if(allshows[i].seriesType != 'special' || allshows[i].seriesType != 'movie'){
-	if (allshows[i].network != 'fox' && allshows[i].name != 'Snowfall' ) continue;
-	// allshows[i].network != 'fx' 
-console.log(show)
-	if (show != 'undefined' && show != undefined && allshows[i].name.toLowerCase().includes(show.toLowerCase()) == false) continue;
-
-  loaders()
-  console.log(allshows[i])
-            fetch(allshows[i].screenUrl,{headers:foxheaders}).then(function(res){return res.json()}).then(function(showdata){
-              loaders()
-              if (showdata.panels.member.length != 1) {
-
-     if ('episodes' in showdata.panels.member[1].items.member["0"]) {
-     	console.log(showdata.panels.member[1].items.member[0].dateModified)
-fetch(showdata.panels.member[1].items.member[0].episodes["@id"],{headers:foxheaders,cache: "force-cache"}).then(function(res){return res.json()}).then(function(episodes){
-var json =  episodes
-console.log(json.member)
-for(i in json.member){
-
-  // !json.member[i].requiresAuth &&
-if(json.member[i].isFullEpisode ){
-var image = json.member[i].images.still.HD.split('?')[0]
-var sizes = [
-'208:*',
-'240:*',
-'304:*',
-'384:*',
-'400:*',
-'480:*',
-'576:*',
-'740:*',
-'896:*',
-'1280:*',
-'1920:*'
-]
-var srcset = ''
-for (var z = sizes.length - 1; z >= 0; z--) {
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])  + ' '+ sizes[z].split(':')[0] +'w ,')
-}
-srcset = srcset.substr(0, srcset.length - 1);
-var temp = new Date((json.member[i].originalAirDate))
-// + (temp.getTimezoneOffset() / 60)
-temp.setHours(temp.getHours() - 12 );
-console.log(temp)
-
-
-      finalObj.push({
-        img: json.member[i].images.still.SD,
-        rating: rating(json.member[i].contentRating),
-        href: json.member[i]['@id'],
-        show: json.member[i].seriesName,
-        episode: json.member[i].name,
-        id: makeid(),
-        epiformat: epiformat(json.member[i].seasonNumber, json.member[i].episodeNumber),
-        length: json.member[i].durationInSeconds,
-        type: json.member[i].network,
-        imgdyn: srcset,
-        autoplay:json.member[i].autoPlayVideo.default.url,
-        bg:json.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
-        time:Date.parse(temp),
-        type:'newfox',
-        hidden:json.member[i].hideVideo
-
-              });
-                  tvlist(json.member[i].seriesName,json.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*','newfox' )
-
-}
-} 
-loaders('remove')
-}).catch(function(e){
-  console.log(e)
-  loaders('remove')
-})
-}else{
-  loaders('remove')
-}
-
-
-              }else{
-                loaders('remove')
-              }
-         
-
-
-
-
-loaders('remove')
-
-            }).catch(function(e){
-              loaders('remove')
-              console.log(e)
-            })
-          }
-    }
-loaders('remove')
-}).catch(function(e){
-  console.log(e)
-  loaders('remove')
-})
-
-
-loaders('remove')
-
-})
-
-loaders()
-*/
 
 
 }
@@ -2023,40 +1548,4 @@ if (hlsSupported) {
     }
 
 
-
-
-
-/*
-if (typeof(Worker) !== "undefined") {
-  loaders();
-   var worker = new Worker('js/foxworker.js');
-
-
-worker.addEventListener('message', function(e) {
-  if (e.data == 'loaded') {
-    loaders('remove')
-    return;
-  }
-  if (e.data == 'remove') {
-    loaders('remove')
-    return;
-  }
-  if (e.data == 'add') {
-    loaders()
-    return;
-  }
-
-   if ('loadshow' in e.data) {
-    tvlist(e.data.loadshow,e.data.img)
-    return;
-  }
-  if ('show' in e.data) {
-    finalObj.push(e.data)
-  }
-}, false);
-
-  }else{
-    newfox()
-  }
-*/
 console.timeEnd('parse')
