@@ -312,7 +312,20 @@ function fetchcwjson(value) {
    // HLS = 154 | 206
    // MP4 = 213
    );var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
-   
+         bg('http://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
+
+     fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
+         method:"POST",
+         headers:new Headers({
+            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"'
+         })
+      }).then(function(res){return res.json();}).then(function(hls){
+            player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
+                  player.play();
+      resume();
+// ,{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}
+      })
+
  fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter?track=Closed%20Captioning').then(function (res) {
       return res.json();
    }).then(function (cap) {
@@ -333,15 +346,6 @@ function fetchcwjson(value) {
  // { "src": data.assetFields.smoothStreamingUrl + '(format=mpd-time-csf).mpd', "type": "application/dash+xml" }, { "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" }, { "src": finalurl, "type": "application/x-mpegURL" },
      
 
-     fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
-         method:"POST",
-         headers:new Headers({
-            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"'
-         })
-      }).then(function(res){return res.json();}).then(function(hls){
-            player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"},{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}]);
-
-      })
 
 
 
@@ -351,8 +355,7 @@ function fetchcwjson(value) {
 
 
 // player.src({"src":url, "type": "application/vnd.apple.mpegurl"})
-      player.play();
-      resume();
+
 
       console.log(finalurl);
       getShowinfo(data.assetFields.seriesName)
@@ -375,7 +378,7 @@ function fetchcwjson(value) {
       document.getElementById('epname').innerHTML = data.assetFields.title;
       isDone = true;
    }).catch(function(e){
-      error()
+     // error()
       console.log(e)
    });
 }
