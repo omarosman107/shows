@@ -8,6 +8,13 @@ var lite = false;
 function liteactivate(){
 	lite = true;
 }
+
+var isMobile = false; //initiate as false
+// device detection
+if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) { 
+    isMobile = true;
+}
 var showswithimages = {}
 /*
 window.addEventListener('scroll', function() {
@@ -652,13 +659,7 @@ function loaders(atr) {
 
 
 
-var isMobile = false; //initiate as false
-// device detection
-if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
-    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) { 
-    isMobile = true;
-}
-if (!isMobile) {
+if (!isMobile || !window.location.search == '' || window.location.search == '?') {
 document.body.setAttribute('class','finished');
 
 
@@ -1275,8 +1276,8 @@ for(i in cwshows.items){
  loaders('remove');
  continue;
 			}
-
-				if (localStorage['like']) {
+console.log(show)
+				if (show == 'undefined' && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(cwshows.items[i].title)) {
 			loaders('remove');
@@ -1422,7 +1423,7 @@ fetch(show_hub + '?bust=' + Date.now()  , {
 
 
 
-function nbc(){
+function nbc(show){
 	var nbcshows = {}
 	fetch('https://api.nbc.com/v3.14/shows?fields%5Bimages%5D=internalId%2CdisplayName%2CaltText%2Ccaption%2Ccopyright%2Ccredit%2Ckeywords%2Cpath&fields%5Bshows%5D=internalId%2CurlAlias%2Cname%2CshortTitle%2CsortTitle%2Cdescription%2CshortDescription%2Ctype%2Cactive%2Ccategory%2Cgenre%2CtuneIn%2Cfrontends%2Csocial%2CappTuneIn%2CapplyHighlight&filter%5Bactive%5D=1&filter%5Bfrontends%5D=tv&include=image%2CtvosProperties&page%5Bnumber%5D=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
@@ -1430,7 +1431,7 @@ function nbc(){
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
 				continue;
 			}
-			if (localStorage['like']) {
+			if (show == undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(shows.data[i].attributes.shortTitle)) {
 			continue;
@@ -1491,120 +1492,6 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-function fox(range) {
-  loaders()
-
-  fetch('https://feed.theplatform.com/f/fox-mobile/fullepisodes?count=true&form=json&byCustomValue={requiresAuth}{false}&range=0-100', {
-    method: 'get',
-    cache: "no-store"
-  }).then(function(response) {
-    return response.json();
-  }).then(function(data) {
-    var showsTemp = {}
-    for (i in data.entries) {
-      if (!showsTemp[data.entries[i].fox$series]) {
-        showsTemp[data.entries[i].fox$series] = data.entries[i].fox$series
-        fetch('https://api.fox.com/fbc-content/v3_blue/video?externalId=' + data.entries[i].fox$freewheelId,{
-    headers: new Headers({
-    'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
-  })
-  }).then(function(res){return res.json();}).then(function(json){
-console.log(json)
-console.log(data.entries[i].title, json.member[0].name)
-tvlist(json.member[0].seriesName,json.member["0"].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' )
-})
-      }
-      var date = new Date(data.entries[i].pubDate)
-      date.setDate(date.getDate() - 1);
-      var srcset = ''
-      var srcobj = []
-      for (var z = data.entries[i].media$thumbnails.length - 1; z >= 0; z--) {
-        var img = data.entries[i].media$thumbnails[z].plfile$url
-        img = img.replace('http', 'https')
-        srcobj.push({
-          src: img,
-          width: data.entries[i].media$thumbnails[z].plfile$width
-        })
-        srcset += img + ' ' + data.entries[i].media$thumbnails[z].plfile$width + 'w ,  ';
-      }
-      srcobj = srcobj.sort(function(a, b) {
-        if (a.width < b.width) return -1;
-        if (a.width > b.width) return 1;
-        return 0;
-      })
-      srcobj = srcobj.reverse()
-        /* for (var y = srcobj.length - 1; y >= 0; y--) {
-          var google = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&url='
-          cdn = 'https://d1r1anxoiubeog.cloudfront.net/'
-          srcset += cdn + srcobj[y].src + ' ' + srcobj[y].width + 'w ,  ';
-        }
-        */
-      finalObj.push({
-        img: '',
-        rating: rating(data.entries[i].media$ratings[0].rating),
-        href: data.entries[i].media$content[0].plfile$url,
-        show: data.entries[i].fox$series,
-        episode: data.entries[i].title,
-        id: makeid(),
-        epiformat: epiformat(data.entries[i].fox$season, data.entries[i].fox$episode),
-        length: (data.entries[i].media$content[0].plfile$duration),
-        type: "fox",
-        imgdyn: srcset,
-        time:Date.parse(date) + 86400000
-      })
-
-    }
-    loaders('remove');
-  }).catch(function(err) {
-    console.log(err)
-  });
-}
-
-function procABC(showepi) {
-  var showObj = []
-  for (a in showepi.videos.video) {
-    var thumb
-    try {
-      if (showepi.videos.video[a].hasOwnProperty('thumbnails')) {
-        thumb = showepi.videos.video[a].thumbnails.thumbnail[0].$
-      }
-      var airdate = formatDate(showepi.videos.video[a].airdates.airdate)
-    } catch (e) {
-      console.log(e)
-    }
-    showObj.push({
-      img: thumb,
-      rating: (showepi.videos.video[a].tvrating.rating),
-      href: "abc.go.com/vidcode=" + showepi.videos.video[a]['@id'],
-      show: showepi.videos.video[a].show.title,
-      episode: showepi.videos.video[a].title,
-      id: makeid(),
-      epiformat: epiformat(showepi.videos.video[a].season.trackcode.generic.cseason, showepi.videos.video[a].number),
-      length: msToTime(showepi.videos.video[a].duration['$']),
-      type: "abc"
-    });
-  }
-  loadMedia(showObj)
-  loaders('remove');
-}
-
-function useABC(json) {
-  for (i in json.shows.show) {
-    addJS('https://api.watchabc.go.com/vp2/ws/s/contents/2020/videos/jsonp/001/001/-1/' + json.shows.show[i]['@id'] + '/-1/-1/-1/-1?callback=procABC')
-  }
-  loadMedia(obj)
-}
 // addJS('https://api.watchabc.go.com/vp2/ws/s/contents/2020/shows/jsonp/001/001/-1?callback=useABC')
 function fancyTimeFormat(time) {
   // Hours, minutes and seconds
@@ -1619,60 +1506,6 @@ function fancyTimeFormat(time) {
   ret += "" + mins + ":" + (secs < 10 ? "0" : "");
   ret += "" + secs;
   return ret;
-}
-function aswim(){
-  loaders()
-fetch(proxy + 'http://www.adultswim.com/videos/api/v2/videos?fields=title,season_number,collection_title,episode_number,episode,auth,duration,tv_rating,launch_date,type,images,episode,images,title&q=type:episode&size=130&from=0', {
-   method: 'get',
-   cache: "no-store"
-}).then(function(response) {
-   return response.json(); 
-}).then(function(data){
-
-var start = new Date()
-
-for(i in data.data){
-if (data.data[i].type == 'episode' && 'images' in data.data[i] && data.data[i].auth == false) {
-
-
-
-
-
-var epinum = "S" +data.data[i].season_number +"E" +data.data[i].episode_number
-
-
-if (data.data[i].images.length != 0 && data.data[i].collection_title != undefined ) {
-
-
- finalObj.push({img:data.data[i].images[0].url,
-   rating:(data.data[i].tv_rating),
-   imgdyn:'',
-   href: "asdir=" +data.data[i].id,
-   show:data.data[i].collection_title,
-   episode:data.data[i].title,
-   epiformat:epinum,
-   length:(data.data[i].duration),
-   type:"adultswim",
-   id: makeid(),
-   time:(new Date(Number(data.data[i].launch_date + '000')).getTime())
- })
- console.log(data.data[i].launch_date)
-
-tvlist(data.data[i].collection_title)
-}
-  }
-}
-loaders('remove');
-
-
-  var end = new Date()
-
-
-
-}).catch(function(err) {
-console.log(err)
-});
-
 }
 
 // fox('0-200')
@@ -1830,7 +1663,7 @@ return;
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
 		loaders('remove');continue;
 	}
-	if (localStorage['like']) {
+	if (show != undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(foxshowNames[foxshowlist[i]])) {
 			loaders('remove');
