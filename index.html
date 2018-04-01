@@ -521,7 +521,10 @@ li:nth-child(even) {
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
 <body>
+    <div id="showsLike" style="z-index: 1000;"></div>
+
 <div class="lScreen">
+
 <div class="progCont" style="height: 4px;    background: rgba(255, 255, 255, 0.07);"><div id="topprogress" class="" ></div>
 </div>
 <div id="particles-background" class="vertical-centered-box"></div>
@@ -548,7 +551,10 @@ li:nth-child(even) {
 
   <div class="contain">
 
-    <p style=" padding-top: 20px; padding-left: 25px;">Made By <a href="https://twitter.com/itsMangoPlays">@itsMangoPlays</a></p><a href="#" onclick="showAll('')">
+    <p class="clear" style="display: none; padding-top: 20px; padding-left: 25px;"><a onclick="localStorage.clear('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
+
+
+    <a href="#" onclick="showAll('')">
     <h1 style="text-align:center;font-size:xx-large;padding-top: 100px;    font-family: ProximaNovaB;color: white;">EPISODES</h1></a>
     <button id="myBtn" onclick="topFunction()" style="z-index: 1;" title="Go to top"><i aria-hidden="true" class="fa fa-level-up"></i></button>
     <div class="box">

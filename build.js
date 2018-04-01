@@ -8,6 +8,7 @@ var lite = false;
 function liteactivate(){
 	lite = true;
 }
+var showswithimages = {}
 /*
 window.addEventListener('scroll', function() {
     clearTimeout(timer);
@@ -477,16 +478,49 @@ function addJS(url) {
 var maxnum = 0
 var num = 0
 
-function loaders(atr) {
-  if (atr == 'remove') {
+function selectedshows(alreadySelected){
+		document.getElementsByClassName('clear')[0].style.position = 'absolute';
+		document.getElementsByClassName('clear')[0].style.right = 0;
+				document.getElementsByClassName('clear')[0].style.paddingRight = '25px';
+								document.getElementsByClassName('clear')[0].style.display = '';
+								document.getElementsByClassName('clear')[0].style.top = 0;
+	if (alreadySelected) {
+		  	document.getElementById('showsLike').style.display = 'none'
 
-    num--
-  document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
-    if (num == 0) {
-    	console.time()
+var newfinalshows = []
+	for (var i = finalObj.length - 1; i >= 0; i--) {
+		if (alreadySelected.includes(finalObj[i].show)) {
 
-document.body.setAttribute('class','finished');
-	
+			newfinalshows.push(finalObj[i])
+		}
+	}
+ var q = []
+ newfinalshows.sort(function(x, y) {
+   var date1 = (x.time);
+   var date2 = (y.time);
+    return date1 < date2 ? 1 : -1;
+  }).forEach(function(x) {
+    q.push(x)
+  });
+  document.getElementById('carasoul').innerHTML = ''
+  document.getElementById('watching').innerHTML = ''
+  	document.getElementById('showsLike').style.display = 'none'
+  	document.body.setAttribute('class','finished');
+
+loadMedia(q)
+everythingfinished(alreadySelected)
+
+
+
+
+
+
+return;
+
+	}
+	var selected = document.querySelectorAll('.checked')
+	console.log(selected)
+	if (selected.length == 0 ) {
 
 var l = []
 finalObj.sort(function(x, y) {
@@ -497,6 +531,50 @@ finalObj.sort(function(x, y) {
     l.push(x)
   });
 loadMedia(l)
+  	document.getElementById('showsLike').style.display = 'none'
+  	document.body.setAttribute('class','finished');
+
+		everythingfinished()
+return;
+	}
+
+	var checkedShows = []
+	for (var i = selected.length - 1; i >= 0; i--) {
+		if(selected[i]){
+			checkedShows.push(selected[i].value)
+
+		}
+	}
+	localStorage['like'] = JSON.stringify(checkedShows)
+	console.log(checkedShows)
+	var newfinalshows = []
+	for (var i = finalObj.length - 1; i >= 0; i--) {
+		if (checkedShows.includes(finalObj[i].show)) {
+					console.log(finalObj[i])
+
+			newfinalshows.push(finalObj[i])
+		}
+	}
+ var q = []
+ newfinalshows.sort(function(x, y) {
+   var date1 = (x.time);
+   var date2 = (y.time);
+    return date1 < date2 ? 1 : -1;
+  }).forEach(function(x) {
+    q.push(x)
+  });
+  document.getElementById('carasoul').innerHTML = ''
+  document.getElementById('watching').innerHTML = ''
+  	document.getElementById('showsLike').style.display = 'none'
+  	document.body.setAttribute('class','finished');
+
+loadMedia(q)
+everythingfinished(checkedShows)
+
+}
+
+function everythingfinished(exclude){
+console.log(exclude)
  cards = document.querySelectorAll('li')
  images = document.querySelectorAll('.lazy')
  for (var i = images.length - 1; i >= 0; i--) {
@@ -508,11 +586,22 @@ element.target.classList.add('loaded');
 }
 // scrolling()
 lazyLoadNew()
+
 var sorted_shows = showhtml.sort(dynamicSort("show"));
 document.getElementById('tvShows').innerHTML = ''
 sorted_shows.reverse()
 for (var i = sorted_shows.length - 1; i >= 0; i--) {
+	if (exclude) {
+			if(exclude.includes(sorted_shows[i].show)){
 	document.getElementById('tvShows').innerHTML += sorted_shows[i].html;
+
+			}
+
+	}else{
+	document.getElementById('tvShows').innerHTML += sorted_shows[i].html;
+
+	}
+
 }
 // document.addEventListener("scroll", function(){scrolling()});
 
@@ -528,24 +617,6 @@ for (var i = sorted_shows.length - 1; i >= 0; i--) {
 }
 
 
-
-/*
-if ( 'IntersectionObserver' in window) {
- lazyLoadNew()
-
-}else{
-	console.log('using backup image loader :(')
-	var myLazyLoad = new LazyLoad();
-myLazyLoad.update()
-
-}*/
-/*
-window.onscroll = function() {
-
-setTimeout(scrollFunction,340)
-
-};
-*/
 if (window.addEventListener)
             addEventListener('storage', storage_event, false);
         else if (window.attachEvent)
@@ -567,6 +638,98 @@ console.timeEnd();
 
   
 
+
+
+
+}
+function loaders(atr) {
+  if (atr == 'remove') {
+
+    num--
+  document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
+    if (num == 0) {
+    	console.time()
+
+
+
+var isMobile = false; //initiate as false
+// device detection
+if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) { 
+    isMobile = true;
+}
+if (!isMobile) {
+document.body.setAttribute('class','finished');
+
+
+var l = []
+finalObj.sort(function(x, y) {
+   var date1 = (x.time);
+   var date2 = (y.time);
+    return date1 < date2 ? 1 : -1;
+  }).forEach(function(x) {
+    l.push(x)
+  });
+loadMedia(l)
+
+everythingfinished()
+
+
+}else{
+
+
+
+
+
+	if (localStorage['like']) {
+		selectedshows(JSON.parse(localStorage['like']))
+		 return;
+	}
+	var allshowdata = '<h1>What shows do you watch?</h1><p>If nothing is selected then all shows will appear (slower).</p><button onclick="selectedshows()">Ok</button><ul style="    padding: 8px;list-style: none;">'
+console.log(showswithimages)
+for (i in showswithimages) {
+	console.log(showswithimages[i])
+	allshowdata += `<li style="padding-bottom:5px;padding-top: 5px;
+    margin: 5px;border-radius: 2px;    background: rgba(76, 76, 76, 0.53)!important;" onclick="if(this.querySelector('input').checked){
+		this.querySelector('input').checked = false;
+		this.querySelector('input').classList = '';
+		this.querySelector('.over').style.display = 'none'
+	}else{
+		this.querySelector('input').checked = true;
+		this.querySelector('input').classList += ' checked';
+		this.querySelector('.over').style.display = 'flex'
+
+	}">
+	<input type="checkbox" class="showButton" value="${i}">
+	<div class="image" style=" position: relative;
+      width: auto;max-width:50%;    display: inline-block;
+  ">
+	<img style="  max-width: 100%;
+  max-height: 100%;display:inline-block" src="${showswithimages[i]}">
+  <div class="over" style="     width: 100%;
+    height: 100%;position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+    background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+        align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 40px;
+    color: #fff;
+    text-align: center;
+
+  z-index: 200;"><i class="fa fa-check check"></i></div>
+	</div>
+	${i}
+	</input></li>`
+}
+allshowdata += '</ul>'
+	document.getElementById('showsLike').innerHTML = allshowdata
+
+
+	document.getElementById('showsLike').style.display = ''
+}
 
 
     }
@@ -1146,6 +1309,7 @@ return res.json()
       	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+      showswithimages[data.videos[i].series_name] = 'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg'
       tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
       var episode_data = {
         img: cwdyres('638'),
@@ -1279,7 +1443,7 @@ function nbc(){
 					}
 					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
-
+showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 					      var episodes = {
         img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
         rating: 'TV-14',
@@ -1719,7 +1883,7 @@ try{
   	console.log(e)
   }
                   tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'newfox' )
-
+showswithimages[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage()
 
 } 
 
