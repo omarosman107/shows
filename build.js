@@ -1276,6 +1276,14 @@ for(i in cwshows.items){
  continue;
 			}
 
+				if (localStorage['like']) {
+		var savedShows = JSON.parse(localStorage['like'])
+		if (!savedShows.includes(cwshows.items[i].title)) {
+			loaders('remove');
+			continue;
+		}
+	}
+
 fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
 .then(function(res){
 return res.json()
@@ -1422,9 +1430,19 @@ function nbc(){
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
 				continue;
 			}
+			if (localStorage['like']) {
+		var savedShows = JSON.parse(localStorage['like'])
+		if (!savedShows.includes(shows.data[i].attributes.shortTitle)) {
+			continue;
+		}
+	}
+
 			nbcshows[showId] = 'https://img.nbc.com/'+shows.included[i].attributes.path +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
+
+
+
 			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=15').then(function(res){return res.json()}).then(function(episode){
 				if (episode.data.length == 0) {
 					loaders('remove');
@@ -1812,6 +1830,13 @@ return;
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
 		loaders('remove');continue;
 	}
+	if (localStorage['like']) {
+		var savedShows = JSON.parse(localStorage['like'])
+		if (!savedShows.includes(foxshowNames[foxshowlist[i]])) {
+			loaders('remove');
+			continue;
+		}
+	}
 apiver = (foxshows['@id'].split('content/')[1].split('/')[0])
 var str = 'images'
 
@@ -2145,6 +2170,7 @@ imgdyn:""
 		finalObj.push(offlineSet[i])
 	}
 }
+
 
     if (!window.location.search == '' || window.location.search == '?') {
       for (var i = window.location.search.split('?')[1].split(',').length - 1; i >= 0; i--) {
