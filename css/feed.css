@@ -54,6 +54,10 @@ input {
     text-align: center;
     font-size: 16px;
     margin: .35rem;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 .watchingTitle a {
 
