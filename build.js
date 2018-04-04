@@ -1051,6 +1051,10 @@ if (json.length - tempLS["?" + json.href] < 46) {
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
+      <h2 class="watchingTitle" style="">
+<a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
+
+
       ${almost_expire()}
 </li>`
 

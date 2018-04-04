@@ -49,7 +49,18 @@ input {
     z-index: 8;
     bottom: 0;
 }
+.watchingTitle {
+    max-width: 100%;
+    text-align: center;
+    font-size: 16px;
+    margin: .35rem;
+}
+.watchingTitle a {
 
+    color: hsla(0, 0%, 100%, 0.58);
+    font-family: ProximaNovaB,serif;
+    letter-spacing: 0;
+}
 body {
     
     background-size: cover;
