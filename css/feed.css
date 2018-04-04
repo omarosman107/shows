@@ -73,7 +73,7 @@ body {
     margin-top: 20px;
     width: 100%;
     height: 6px;
-    background-color: rgba(76, 76, 76, 0.32);
+  /*  background-color: rgba(76, 76, 76, 0.32);*/
     opacity: 1;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 
@@ -275,10 +275,10 @@ li:hover .image-crop .grayscale{
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     will-change: transform;
-    margin: 12px;
     position: relative;
-    background: rgba(255, 255, 255, 0.18);
+  /*  background: rgba(255, 255, 255, 0.18);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
+    */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     -moz-backface-visibility: hidden; -webkit-backface-visibility: hidden; backface-visibility: hidden;
@@ -472,11 +472,12 @@ p {
     position: relative;
     vertical-align: top;
     overflow: hidden;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.2);
-    will-change: transform;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
-
+  /*  border-radius: 2px;
+    */
+  /*  background: rgba(255, 255, 255, 0.2);*/
+        background: #333333;    will-change: transform;
+/*    box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
+*/
 }
  
 .fanarts-list>li .fanart-container {
@@ -595,7 +596,7 @@ body a {
 }
 
 .fanarts-list>li .fanart-details h2 a {
-    color: #fff9f9;
+    color: #fff;
 }
 
 .fanarts-list>li a:hover {
@@ -604,7 +605,7 @@ body a {
 
 .fanarts-list>li .fanart-details .secondary-link {
     font-size: 12px;
-color: #dad6d6;
+    color: hsla(0,0%,100%,.6);
     font-family: ProximaNova
 }
 
@@ -618,7 +619,7 @@ color: #dad6d6;
 .fanarts-list>li .fanart-details p {
     width: 75%;
     margin: 5px auto 0;
-color: #dad6d6;
+    color: hsla(0,0%,100%,.6);
     font-size: 13px;
     font-family: ProximaNova;
     padding: 5px 0
@@ -750,7 +751,7 @@ color: #dad6d6;
 
     .fanarts-list>li {
         margin: 34px 0 0px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,.17),0 0 8px 0 rgba(0,0,0,.12)
+       /* box-shadow: 0 4px 8px 0 rgba(0,0,0,.17),0 0 8px 0 rgba(0,0,0,.12)*/
     }
 }
 
