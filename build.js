@@ -533,10 +533,15 @@ console.timeEnd();
 
   
 
-
-
+/*
+var head = document.getElementsByTagName('head')[0];
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+head.appendChild(script);
 
 }
+*/
 function loaders(atr) {
   if (atr == 'remove') {
 
