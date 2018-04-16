@@ -539,9 +539,9 @@ var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
 head.appendChild(script);
-
-}
 */
+}
+
 function loaders(atr) {
   if (atr == 'remove') {
 
@@ -1552,4 +1552,4 @@ if (hlsSupported) {
     }
 
 
-console.timeEnd('parse')
+console.timeEnd('parse');
