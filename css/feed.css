@@ -85,9 +85,7 @@ body {
 
 .bottom {
     position: relative;
-    margin-top: 20px;
     width: 100%;
-    height: 6px;
   /*  background-color: rgba(76, 76, 76, 0.32);*/
     opacity: 1;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -404,10 +402,12 @@ h1 {
 h2,ul {
     margin-bottom: 10px
 }
-
+.fanart-details h2 {
+        margin-bottom: 0px;
+}
 h2 {
     font-size: 30px;
-    margin-top: 20px
+    margin-top: 6px;
 }
 
 ul {
@@ -636,7 +636,6 @@ body a {
     color: hsla(0,0%,100%,.6);
     font-size: 13px;
     font-family: ProximaNova;
-    padding: 5px 0
 }
 .cardBorder {
     width: 193px;
@@ -756,7 +755,6 @@ body a {
         margin: auto;
         width: 100%;
         padding-left: 0;
-            padding: 1px 8px 0;
     }
 
     .fanarts-list>li .fanart-container {
@@ -764,7 +762,6 @@ body a {
     }
 
     .fanarts-list>li {
-        margin: 34px 0 0px;
        /* box-shadow: 0 4px 8px 0 rgba(0,0,0,.17),0 0 8px 0 rgba(0,0,0,.12)*/
     }
 }

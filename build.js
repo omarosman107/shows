@@ -1049,8 +1049,7 @@ if (json.length - tempLS["?" + json.href] < 46) {
         watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
-            <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
-            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 80vw, 460px" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
+            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 20vw, 25vw" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
@@ -1092,7 +1091,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
-            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 90vw, 35vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
+            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
          </a>
          <span class="episode-gradient"></span>
             <div class="w3-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
@@ -1102,8 +1101,8 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
-         <div class="cardBorder"></div>
-            <p>${FDate} • ${json.rating} • ${timeofPlayback} • ${json.epiformat}</p>
+         <div style="border-top:0;" class="cardBorder"></div>
+            <p>${FDate} • ${timeofPlayback} • ${json.epiformat}</p>
         </div>
       <div class="bottom"></div>
 </li>
@@ -1416,13 +1415,12 @@ for(i in fullEpisodes.member){
 
 var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
 var sizes = [
-'110:110',
+'110:62',
 '320:180',
 '480:270',
 '528:297',
 '740:416',
-'1280:720',
-'1920:1080'
+'1280:720'
 ]
 var srcset = ''
 function webpImage(){
