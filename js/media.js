@@ -69,31 +69,17 @@ function loadURL(url, type) {
 var played = false;
 
 function resumePlayback(state) {
-  if (state == true) {
-        if (localStorage[window.location.search]) {
-
-         player.currentTime(localStorage[window.location.search]);
-         played = true;
-      }
+if (!played) {
+   if(player.duration() - localStorage[window.location.search] < 48){
+      played = true;
       return;
-
-  }
-
-   if (played == false) {
-
-
-      if (state == false) {
-         return;
-      }
-
-      if (localStorage[window.location.search]) {
-
-  
+}
+        if (localStorage[window.location.search] > 10 ) {
 
          player.currentTime(localStorage[window.location.search]);
          played = true;
       }
-   }
+}
 }
 function pad(n) {
    return n < 10 ? "0" + n : n;
@@ -140,7 +126,6 @@ vid.addEventListener('loadstart', function(){
    vid.onerror = function (e) {
       error(e);
    };
-// loadeddata
 
    vid.addEventListener('loadeddata', function () {
       document.getElementById('LS').style.opacity = 1;
@@ -160,87 +145,23 @@ vid.addEventListener('loadstart', function(){
          endTime();
 
          localStorage[window.location.search] = player.currentTime();
-         if (player.currentTime() == player.duration()) {
-           // localStorage.removeItem(window.location.search);
-         }
+       
       }, 2000);
 
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
       };
 
-      window.onunload = function () {
-         localStorage[window.location.search] = player.currentTime();
-      };
   
          ga('send', 'pageview');
    }, false);
    
 
-   return;
-   console.log(player.src())
-
-   if (player.src().includes('fox')) {
-
-   vid.addEventListener('canplay', function () {
- document.getElementById('LS').style.opacity = 1;
-      //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
-      document.getElementById('blockLoader').style.opacity = "0";
-      document.getElementById('blockLoader').style.display = 'absolute';
-      document.getElementById('blockLoader').style.zIndex = '-99999';
-})
-}
-   return;
-   vid.oncanplay = function () {
-      document.getElementById('LS').style.opacity = 1;
-      //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
-      document.getElementById('blockLoader').style.opacity = "0";
-      document.getElementById('blockLoader').style.display = 'absolute';
-      document.getElementById('blockLoader').style.zIndex = '-99999';
-
-      var played = true;
-      resumePlayback();
-      player.play();
-      endTime();
-
-      setInterval(function () {
-         endTime();
-
-         localStorage[window.location.search] = player.currentTime();
-         if (player.currentTime() == player.duration()) {
-            localStorage.removeItem(window.location.search);
-         }
-      }, 2000);
-
-      document.body.onunload = function () {
-         localStorage[window.location.search] = player.currentTime();
-
-
-      };
-
 
 
    };
 
-   function on_progress(event) {
-      console.log('buffered', player.bufferedEnd() / player.duration() * 100 + "%");
-      document.getElementById('progressplayer').style.width = player.currentTime() / player.duration() * 100 + "%";
-      // it will log always 0
-   }
-
-   player.on('progress', on_progress);
-
-   document.getElementsByClassName('resume')[0].style.display = 'none';
-
-   document.getElementsByClassName('resume')[0].style.opacity = 0;
-
-   if (!localStorage[window.location.search] == '' || !localStorage[window.location.search] == 'undefined') {
-
-      //  document.getElementsByClassName('resume')[0].style.opacity = 1
-      // document.getElementById('timestamp').innerHTML = fmtMSS(localStorage[window.location.search]).split('.')[0] 
-
-   } else {}
-}
+  
 
 if (localStorage[window.location.search] == '' || localStorage[window.location.search] == 'undefined') {
    console.log("No cookie for position found");
