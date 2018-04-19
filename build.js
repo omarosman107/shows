@@ -34,6 +34,9 @@ window.addEventListener('scroll', function() {
         var hls = new Hls();
 
 function playHover(element){
+	if (isMobile) {
+		return;
+	}
 	var video = document.createElement('video')
 video.className = 'sixteen-nine';
 video.style.top = '0px';
@@ -106,6 +109,9 @@ if (url.includes('api.fox.com')) {
 
 }
 function stopHover(element){
+	if (isMobile) {
+		return;
+	}
   clearTimeout(hovering);
     var video = element.querySelector('video')
 
