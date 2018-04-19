@@ -527,8 +527,9 @@ if(e.key == 'last_bandwidth'){return;}
             console.log( e.newValue);
 for(var i = document.getElementsByClassName(e.key.substr(1)).length - 1; i >= 0; i--){
 var perc = ( e.newValue / document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') * 100)
-if(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') - e.newValue < 36){
+if(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') - e.newValue < 46){
 perc = 100
+document.getElementsByClassName(e.key.substr(1))[i].outerHTML = ''
 }
 console.log(perc)
 console.log(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').style.width = perc + "%" )
@@ -946,7 +947,7 @@ var date1 = new Date()
   async function  fetchurl(url){
 return await fetch(url).then(function(res){return res.text()})
     }
-function loadMedia(episodes) {
+function loadMedia(episodes,arg) {
 	var ids = []
 	var thisTime = date1.getTime()
 
