@@ -228,7 +228,7 @@ function raw(url) {
 function fetchcwjson(value) {
    console.log(value);
    document.getElementById('progress').style.width = "35%";
-   var stripped = value.split('?')[1].split('=')[1];
+   var stripped = value.split('?')[1].split('=')[1].split('/')[0];
    console.log(stripped
    // HLS = 154 | 206
    // MP4 = 213
