@@ -1056,7 +1056,7 @@ if (json.length - tempLS["?" + json.href] < 46) {
         watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
-            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 20vw, 25vw" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
+            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
@@ -1253,7 +1253,7 @@ loaders('remove')
 
 function nbc(show){
 	var nbcshows = {}
-	fetch('https://api.nbc.com/v3.14/shows?fields%5Bimages%5D=internalId%2CdisplayName%2CaltText%2Ccaption%2Ccopyright%2Ccredit%2Ckeywords%2Cpath&fields%5Bshows%5D=internalId%2CurlAlias%2Cname%2CshortTitle%2CsortTitle%2Cdescription%2CshortDescription%2Ctype%2Cactive%2Ccategory%2Cgenre%2CtuneIn%2Cfrontends%2Csocial%2CappTuneIn%2CapplyHighlight&filter%5Bactive%5D=1&filter%5Bfrontends%5D=tv&include=image%2CtvosProperties&page%5Bnumber%5D=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
+	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
@@ -1266,7 +1266,7 @@ function nbc(show){
 		}
 	}
 
-			nbcshows[showId] = 'https://img.nbc.com/'+shows.included[i].attributes.path +'?impolicy=nbc_com&imwidth='+480;
+			nbcshows[showId] = 'https://img.nbc.com'+shows.included[i].attributes.path +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
 
@@ -1283,7 +1283,7 @@ function nbc(show){
 						continue;
 					}
 					function nbcimg(res){
-						return ('https://img.nbc.com/'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res)
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res)
 						 
 
 

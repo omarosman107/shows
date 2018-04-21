@@ -388,77 +388,8 @@ console.log(json)
 
   })
 
-
-   return;
-   if (value.includes('link.theplatform.com/s/fox.com/')) {
-
-      fetch(value.split('?')[0] + "?format=preview", {
-         method: 'get'
-      }).then(function (response) {
-         return response.json();
-      }).then(function (data) {
-         document.getElementById('progress').style.width = "100%";
-
-         showname.innerHTML = toTitleCase(data['fox$showcode'].replace('-', ' '));
-         document.title = toTitleCase(data['fox$showcode'].replace('-', ' ')) + " - " + data.title;
-
-         showdesc.innerHTML = data.description;
-      });
-
-      document.getElementById('downloader').href = value.split('?')[0] + "?mbr=true&auto=true&manifest=m3u&metafile=false";
-
-      player.src({ "type": "application/x-mpegURL", "src": value.split('?')[0] + "?mbr=true&manifest=m3u&metafile=false" });
-
-      resume();
-      document.getElementById('progress').style.width = "90%";
-document.getElementById('projpar').style.display = 'none'
-   } else {
-      var epiname;
-      // url (required), options (optional)
-      document.getElementById('progress').style.width = "30%";
-      fetch("https://feed.theplatform.com/f/fox.com/fullepisodes?form=json&range=1-1&byCustomValue={fox:freewheelId}{" + value.split('watch/')[1].split("/")[0] + "}", {
-         method: 'get'
-      }).then(function (response) {
-         return response.json();
-      }).then(function (data) {
-         console.log(data.entryCount);
-         if (data.entryCount == 0) {
-            showname.innerHTML = "THIS VIDEO IS NOT AVALIABLE";
-            document.getElementById('progress').style.width = "100%";
-         } else {
-            document.getElementById('progress').style.width = "50%";
-            epiname = data.entries["0"].title;
-            showname.innerHTML = data.entries["0"].fox$series;
-            document.title = data.entries["0"].fox$series + " - " + data.entries["0"].title;
-            bg(data.entries["0"].media$thumbnails[0].plfile$url);
-
-            getShowinfo(data.entries["0"].fox$series);
-            showdesc.innerHTML = data.entries["0"].description;
-            // url (required), options (optional)
-            document.getElementById('progress').style.width = "90%";
-            mediaurl = data.entries["0"].media$content["0"].plfile$url;
-            console.log(mediaurl);
-            document.getElementById('downloader').href = mediaurl.split('?')[0] + "?mbr=true&auto=true&manifest=m3u&metafile=false";
-
-            player.src({ "type": "application/vnd.apple.mpegurl", "src": mediaurl.split('?')[0] + "?mbr=true&manifest=m3u&metafile=false" });
-            resume();
-
-            document.getElementById('epname').innerHTML = data.entries["0"].title;
-
-            document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
-            isDone = true;
-         }
-      });
-   }
 }
-// WatchCartoon Fetch
-function fetchcartoonjson(value) {}
-// Netflix Fetch
-function fetchnetflixjson(value) {
-   console.log(value);
-   return value;
-}
+
 // CBS Fetch
 function fetchcbsjson(value) {
    document.getElementById('progress').style.width = "35%";
@@ -959,17 +890,6 @@ function backupWay(url){
    // app.dcg-foxnow%2Fiphone%2Ffxn%2Flive
    // app.dcg-foxnow%2Fappletv%2Ffox
    fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn&auth='+auth).then(function(res){if(res.status != 200){
-fetch('https://feed.theplatform.com/f/fox-mobile/metadata?count=true&form=json&byCustomValue={brightcoveId}{'+play.fox$freewheelId+'}&range=0-1').then(function(res){return res.json();}).then(function(info){
-fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?mbr=true&formats=mpeg4&format=smil&switch=http').then(function(r){
-return r.text()}).then(function(mp4s){
-   parser = new DOMParser();
-mp4s = parser.parseFromString(mp4s,"text/xml");
-      document.getElementById('downloader').href = mp4s.querySelector('video').getAttribute('src');
-  player.src(mp4s.querySelector('video').getAttribute('src') );
-   console.log(mp4s.querySelector('video').getAttribute('src'))
-resume()
-})
-})
 return;
 }else{return res.json();}}).then(function(play){
 fetch(play.interstitialURL.replace('http://','https://')).then(function(res){return res.text()
@@ -1253,36 +1173,6 @@ function handle(data){
       document.getElementById('epname').innerHTML = data.name;
 
 play(data.videoRelease.url)
-// https://feed.theplatform.com/f/fox-mobile/metadata?count=true&form=json&byCustomValue={brightcoveId}{958946371970}&range=0-1
-fetch('https://feed.theplatform.com/f/fox-mobile/metadata?count=true&form=json&byCustomValue={brightcoveId}{'+data.externalId+'}&range=0-1').then(function(res){return res.json();}).then(function(info){
-fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?format=script').then(function(r){
-   return r.json()
-}).then(function(subtitles){
-   for (var i = subtitles.captions.length - 1; i >= 0; i--) {
-      if(subtitles.captions[i].type == 'text/vtt'){
-         var  track = player.addTextTrack("captions", "English", "en");
-fetch(subtitles.captions[i].src.replace('http://','https://')).then(function(res){return res.text()}).then(function(vtt){
-   convertVttToJson(vtt).then(function(json){console.log(json)
-      for (i = 0, len = json.length; i < len; ++i) {
-         track.addCue(new VTTCue(json[i].start - .5, json[i].end - .5 , json[i].part));
-      }
-
-   })
-})
-      }
-   }
-})
-
-fetch(info.entries["0"].media$content["0"].plfile$url.split('?')[0] + '?mbr=true&formats=mpeg4&format=smil&switch=http').then(function(r){
-return r.text()}).then(function(mp4s){
-   parser = new DOMParser();
-mp4s = parser.parseFromString(mp4s,"text/xml");
-   console.log(mp4s.querySelector('video').getAttribute('src'))
-      document.getElementById('downloader').href = mp4s.querySelector('video').getAttribute('src');
-
-})
-})
-
 }
 console.log(item)
 
