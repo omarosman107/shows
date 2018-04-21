@@ -246,7 +246,7 @@ function fetchcwjson(value) {
       resume();
 // ,{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}
       })
-
+/*
  fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter?track=Closed%20Captioning').then(function (res) {
       return res.json();
    }).then(function (cap) {
@@ -255,7 +255,7 @@ function fetchcwjson(value) {
          track.addCue(new VTTCue(cap[i].startTime, cap[i].endTime, cap[i].metadata.Text));
       }
    });
-   
+   */
    fetch(url, {
       method: 'get'
    }).then(function (response) {
@@ -294,7 +294,6 @@ function fetchcwjson(value) {
            "src": finalurl 
         }); */
 
-      bg(data.images.cwtv720x400.uri);
 
       document.getElementById('epname').innerHTML = data.assetFields.title;
       isDone = true;
