@@ -75,6 +75,7 @@ if (!played) {
 function pad(n) {
    return n < 10 ? "0" + n : n;
 }
+var b = ''
 function endTime() {
    var t = new Date();
    t.setSeconds(t.getSeconds() + player.duration() - player.currentTime());
@@ -90,7 +91,11 @@ function endTime() {
       h = 12
    }
 
-   document.querySelector('.endTime').innerHTML = 'Ends at: ' + h + ':' + m + ' ' + ap;
+x =  'Ends at: ' + h + ':' + m + ' ' + ap;
+if (b != x) {
+   document.querySelector('.endTime').innerHTML = x;
+   b=x
+}
 }
 function fmtMSS(s) {
    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + s;
@@ -120,7 +125,6 @@ vid.addEventListener('loadstart', function(){
 vid.addEventListener('loadstart',function(){
 if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
                resumePlayback();
-
 }
 
 })
