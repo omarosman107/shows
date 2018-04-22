@@ -6,16 +6,7 @@
 // var x2js = new X2JS();
 var player = videojs('LS', {html5: {
   hls: {
-    bandwidth:function(){
-
-   if (localStorage['last_bandwidth']) {
-      return (localStorage['last_bandwidth'])
-
-   }else{
-      return null;
-   }
-
-    }
+    enableLowInitialPlaylist:false
   }
 }});
 
@@ -113,7 +104,7 @@ function resume() {
 vid.addEventListener('loadstart', function(){
 
    if (localStorage['last_bandwidth']) {
-      // player.tech_.hls.bandwidth = (localStorage['last_bandwidth'])
+      player.tech().hls.bandwidth = (localStorage['last_bandwidth'])
       console.log('set last bandwidth', localStorage['last_bandwidth']  / 1048576 + ' mbps')
 
    }
@@ -126,8 +117,17 @@ vid.addEventListener('loadstart', function(){
    vid.onerror = function (e) {
       error(e);
    };
+vid.addEventListener('loadstart',function(){
+if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
+               resumePlayback();
 
+}
+
+})
+  
    vid.addEventListener('loadeddata', function () {
+               resumePlayback();
+
       document.getElementById('LS').style.opacity = 1;
       //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
       document.getElementById('blockLoader').style.opacity = "0";
@@ -137,7 +137,6 @@ vid.addEventListener('loadstart', function(){
 
   
       var played = true;
-      resumePlayback();
       player.play();
       endTime();
 
@@ -417,142 +416,6 @@ document.getElementById('projpar').style.display = 'none'
       isDone = true;
    });
 }
-// Nickelodeon
-var arr = '';
-var playlist = [];
-
-function fetchnickjson(value) {
-   document.getElementById('progress').style.width = "35%";
-   $.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20data-contenturi%20from%20html%20where%20url%3D'" + value + "'%20and%20xpath%3D%22%2F%2Fdiv%5B%40class%3D'video-player'%5D%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", function (data) {
-      document.getElementById('progress').style.width = "50%";
-      console.log(data.query.results.div["data-contenturi"]);
-
-      $.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D%27http://feeds.mtvnservices.com/od/feed/nick-mrss-player-prime-external/?mgid=" + data.query.results.div["data-contenturi"] + "%27%20&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", function (data) {
-         console.log(data.query.results.rss.channel.description);
-
-         showdesc.innerHTML = data.query.results.rss.channel.description;
-
-         document.getElementById('progress').style.width = "60%";
-
-         if (data.query.results.rss.channel.item.length > 1) {
-            showname.innerHTML = data.query.results.rss.channel.title + " - " + data.query.results.rss.channel.item[0].title;
-            document.title = data.query.results.rss.channel.title + " - " + data.query.results.rss.channel.item[0].title;
-
-            for (var i = 0; i < data.query.results.rss.channel.item.length; i++) {
-
-               var newItem = {
-                  sources: [{
-
-                     src: gatherData(data.query.results.rss.channel.item[i].group.content.url + "?format=json&acceptMethods=hls"),
-                     type: "application/x-mpegURL"
-
-                  }]
-
-               };
-               playlist.push(newItem);
-            }
-         }
-         if (data.query.results.rss.channel.item.length == 1) {
-            showname.innerHTML = data.query.results.rss.channel.title + " - " + data.query.results.rss.channel.item.title;
-            document.title = data.query.results.rss.channel.title + " - " + data.query.results.rss.channel.item.title;
-            var newItem = {
-               src: gatherData(data.query.results.rss.channel.item.group.content.url + "?format=json&acceptMethods=hls"),
-               type: "application/x-mpegURL"
-            };
-            playlist.push(newItem);
-         }
-         document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
-         isDone = true;
-
-         player.playlist(playlist);
-         player.load();
-         player.playlist.autoadvance(0);
-         document.getElementById('blockLoader').style.opacity = "0";
-         document.getElementById('blockLoader').style.display = 'none';
-      });
-   });
-}
-
-function gatherData(info) {
-   var final;
-   var xhttp = new XMLHttpRequest();
-   xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-         xml = JSON.parse(this.responseText);
-         //var jsonfirst = (JSON.parse(this.response)).package.video.item[0].rendition[(JSON.parse(this.response)).package.video.item[0].rendition.length - 1].src
-         var jsonfirst = xml.package.video.item["0"].rendition["0"].src;
-         console.log(jsonfirst);
-         final = jsonfirst;
-         player.src();
-      };
-   };
-   xhttp.open("GET", info, false);
-   xhttp.send();
-   return final;
-}
-// South Park
-function fetchsouthpjson(value) {
-   document.getElementById('progress').style.width = "20%";
-   $.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20%20data-itemid%2Ccontent%20from%20html%20where%20url%3D%27" + value + '%27%20and%20compat%3D"html5"%20and%20xpath%3D"%2F%2Fdiv%5B%40id%3D%27player_page_player%27%5D%7C%2F%2Fmeta%5B%40property%3D%27og%3Atitle%27%5D%7C%2F%2Fmeta%5B%40property%3D%27sm4%3Acategory%27%5D%7C%2F%2Fmeta%5B%40property%3D%27og%3Adescription%27%5D"&format=json&callback=', function (data) {
-      console.log(data.query.results.div["data-itemid"]);
-      document.getElementById('progress').style.width = "40%";
-      showname.innerHTML = data.query.results.meta[2].content + " - " + data.query.results.meta["0"].content;
-      document.title = data.query.results.meta[2].content + " - " + data.query.results.meta["0"].content;
-
-      showdesc.innerHTML = data.query.results.meta[1].content;
-      $.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20channel.item.group.content.url%20from%20xml%20where%20url%3D%27http%3A%2F%2Fsouthpark.cc.com%2Ffeeds%2Fvideo-player%2Fmrss%3Furi%3Dmgid%253Aarc%253Aepisode%253Asouthparkstudios.com%253A" + data.query.results.div["data-itemid"] + '%27%20%20and%20itemPath%3D"rss"&format=json&callback=', function (data1) {
-         document.getElementById('progress').style.width = "60%";
-
-         var playlist = [];
-         if (data1.query.count > 1) {
-            for (var i = 0; i < data1.query.results.rss.length; i++) {
-               var newItem = {
-                  file: gatherSouthParkData(data1.query.results.rss[i].channel.item.group.content.url.split('?')[0] + "?format=json&acceptMethods=hls"),
-                  type: "hls"
-               };
-               playlist.push(newItem);
-            }
-         }
-         if (data1.query.count == 1) {
-
-            var newItem = {
-               file: gatherSouthParkData(data1.query.results.rss.channel.item.group.content.url.split('?')[0] + "?format=json&acceptMethods=hls"),
-               type: "hls"
-            };
-         }
-         document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
-         isDone = true;
-
-         jwplayer("myElement1").setup({
-            cast: {},
-
-            playlist: playlist
-
-         });
-         jwplayer("myElement1").load(playlist);
-      });
-
-      function gatherSouthParkData(info) {
-         var final;
-         var xhttp = new XMLHttpRequest();
-         xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-               xml = this.responseText;
-               var jsonfirst = JSON.parse(this.response).package.video.item[0].rendition[JSON.parse(this.response).package.video.item[0].rendition.length - 1].src;
-               console.log(jsonfirst);
-               videourl = jsonfirst.replace("rtmpe://cp9950.edgefcs.net/ondemand/mtvnorigin/", "http://viacommtvstrmfs.fplive.net/");
-               document.getElementById('downloader').href = videourl;
-               final = videourl;
-            };
-         };
-         xhttp.open("GET", info, false);
-         xhttp.send();
-         return final;
-      }
-   });
-}
 // NBC 
 var mediaurl;
 var iframeDOM = document.createElement('html');
@@ -753,56 +616,6 @@ document.getElementById('projpar').style.display = 'none'
       isDone = true;
    });
 }
-// diziay.com
-function fetchdiziayjson(value) {
-
-   fetch('https://query.yahooapis.com/v1/public/yql?q=select%20src%2Ccontent%20from%20html%20where%20url%3D%27' + value + '%27%20and%20compat%3D"html5"%20and%20xpath%3D"%2F%2Fiframe%7C%2F%2Fspan%5B%40class%3D%27bolumisim%27%5D%7C%2F%2Fname%5B%40itemprop%3D%27name%27%5D"&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=').then(function (response) {
-
-      document.getElementById('progress').style.width = "40%";
-
-      return response.json();
-   }).then(function (data) {
-      showname.innerHTML = data.query.results.name.split('Sezon')[0] + " - " + data.query.results.span;
-      document.title = data.query.results.name.split('Sezon')[0] + " - " + data.query.results.span;
-
-      console.log(data.query.results.iframe["0"].src);
-
-      for (var i = 0; i < data.query.results.iframe.length; i++) {
-
-         if (data.query.results.iframe[i].src.includes('http://dizipas.org/player/dizi-oynat.php')) {
-            document.getElementById('progress').style.width = "70%";
-
-            console.log(data.query.results.iframe[i].src.split('=')[1]);
-            fetch('https://dizipas.org/player/ajax.php?dizi=' + data.query.results.iframe[i].src.split('=')[1]).then(function (response) {
-               document.getElementById('progress').style.width = "90%";
-
-               return response.json();
-            }).then(function (ajaxinfo) {
-
-               console.log(ajaxinfo.success[0].src);
-
-               document.getElementById('downloader').href = ajaxinfo.success[0].src;
-               var obj = [];
-               for (var i = ajaxinfo.success.length - 1; i >= 0; i--) {
-                  console.log(ajaxinfo.success[i].src);
-                  obj.push({ file: ajaxinfo.success[i].src, type: "mp4", label: ajaxinfo.success[i].label });
-               }
-               console.log(obj);
-               jwplayer("myElement1").setup({
-                  cast: {},
-
-                  sources: obj
-               });
-               resume();
-               document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
-
-               isDone = true;
-            });
-         }
-      }
-   });
-}
 // fxfetch
 function fetchfxjson(value) {
 
@@ -832,29 +645,7 @@ document.getElementById('projpar').style.display = 'none'
   })
 }
 
-function fetchlplatjson(value) {
 
-   fetch(value.split('?')[0] + "?format=preview", {
-      method: 'get'
-   }).then(function (response) {
-      return response.json();
-   }).then(function (data) {
-      document.getElementById('progress').style.width = "100%";
-      bg(data.defaultThumbnailUrl);
-      showname.innerHTML = data.categories[0].name.split('/')[1];
-      document.getElementById('epname').innerHTML = data.title;
-
-      document.title = data.categories[0].name.split('/')[1] + ' - ' + data.title;
-      getShowinfo(data.categories[0].name.split('/')[1]);
-
-      showdesc.innerHTML = data.description;
-   });
-   document.getElementById('downloader').href = value.split('?')[0] + "?mbr=true&manifest=m3u&format=redirect";
-
-   player.src({ "type": "application/x-mpegURL", "src": value.split('?')[0] + "?mbr=true&manifest=m3u&format=redirect" });
-   resume();
-document.getElementById('projpar').style.display = 'none'
-} 
 function play(url,auth){
 // '?mbr=true&formats=m3u&format=smil&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn%2Flive&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&auth=' + auth 
 // ?mbr=true&format=script
@@ -1000,30 +791,6 @@ console.log(json)
   })
 }
 
-function tvzion(value) {
-   console.log(value
-   // url (required), options (optional)
-   );fetch("https://cors-anywhere.herokuapp.com/" + value, {
-      method: 'get'
-   }).then(function (response) {
-      return response.text();
-   }).then(function (data) {
-      var body = document.createElement("BODY");
-      body.innerHTML = data;
-      console.log(body.querySelector('.breadcrumb').querySelectorAll('a')[1].innerHTML);
-
-      showname.innerHTML = body.querySelector('[itemprop]').getAttribute('content');
-      document.getElementById('epname').innerHTML = body.querySelector('.inline-block').innerText.split('(')[1].split(')')[0];
-
-      showdesc.innerHTML = body.querySelector('p').innerText;
-      document.title = body.querySelector('.breadcrumb').querySelectorAll('a')[1].innerHTML;
-      getShowinfo(body.querySelector('[itemprop]').getAttribute('content'));
-
-      document.getElementById('progress').style.width = "60%";
-   }).catch(function (err) {
-      console.log(err);
-   });
-} 
 Number.prototype.between = function(a, b) {
   var min = Math.min.apply(Math, [a, b]),
     max = Math.max.apply(Math, [a, b]);
@@ -1170,6 +937,8 @@ function handle(data){
 
       showdesc.innerHTML = data.description;
       document.getElementById('epname').innerHTML = data.name;
+            document.title = data.seriesName + " - " + data.name;
+
 
 play(data.videoRelease.url)
 }
@@ -1297,19 +1066,14 @@ var sitefunctions = {
   "api-staging.fox.com": foxapi,
   "funimation.com": funimation,
   "cwtv.com": fetchcwjson,
-  "diziay.com": fetchdiziayjson,
   "adultswim.com": fetchaswimjson,
   "cwseed.com": fetchcwjson,
-  "nick.com": fetchnickjson,
   "abc.go.com": fetchabcjson,
-  "southpark.cc.com": fetchsouthpjson,
   "amc.com": fetchamcjson,
   "cbs.com": fetchcbsjson,
   "nbc.com": fetchnbcjson,
   "fox.com": fetchfoxjson,
-  "link.theplatform.com": fetchlplatjson,
   "fxnetworks.com": fetchfxjson,
-  "tvzion.pro": tvzion
 
   /* var player = videojs('LS');;
    player.ready(function() {
