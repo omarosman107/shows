@@ -1398,7 +1398,7 @@ var allEpisodeCount = 0
 		}
 	}
 
-
+function loadSeperate(){
 	for (var i = foxshowlist.length - 1; i >= 0; i--) {
 		  loaders()
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
@@ -1497,7 +1497,8 @@ console.log(e)
 		loaders('remove')
 	})
 	}
-	/*
+}
+	function loadTogether(){
 for (var i = foxshowlist.length - 1; i >= 0; i--) {
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
 		  foxshowlist.splice(i, 1);
@@ -1600,9 +1601,9 @@ console.log(e)
 	})
 	
 
-loaders('remove')
-	*/
-
+	}
+loadTogether()
+// loadSeperate()
 loaders('remove')
 
 
