@@ -61,11 +61,7 @@ var played = false;
 
 function resumePlayback(state) {
 if (!played) {
-   if(player.duration() - localStorage[window.location.search] < 48){
-      played = true;
-      return;
-}
-        if (localStorage[window.location.search] > 10 ) {
+        if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > 48) {
 
          player.currentTime(localStorage[window.location.search]);
          played = true;

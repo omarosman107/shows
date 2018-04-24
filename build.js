@@ -997,7 +997,6 @@ episodes.reverse()
     */
 
     var time = json.time
-
 if (!time > 0) {
   time = 140000000
 }
@@ -1163,18 +1162,23 @@ var obj = []
 
 var cors_show_hub = 'https://crossorigin.me/' + show_hub
 // var show_hub = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from json where url="' + show_hub + '"') + '&format=json&bust='+Date.now();
+var cwTimes = {}
 function cw(show){
 	var skipTheseShows = ['Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
 fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
+	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
+if (isNaN(airtime) || airtime == '') {
+airtime = '8'
+}
+cwTimes[cwshows.items[i].title] = airtime
 	if (cwshows.items[i].deeplink.includes('cwseed') || cwshows.items[i].slug == 'more-video' || skipTheseShows.includes(cwshows.items[i].title)) {loaders('remove');continue;}
 			if (show != 'undefined' && show != undefined && cwshows.items[i].title.toLowerCase().includes(show.toLowerCase()) == false){
  loaders('remove');
  continue;
 			}
-console.log(show)
 				if (show == undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(cwshows.items[i].title)) {
@@ -1204,7 +1208,8 @@ return res.json()
       } catch (e) {
         console.log(e)
       }
-      var airdate =  data.videos[i].airdate
+      var airdate =  data.videos[i].airdate +' '+ (12 + Number(cwTimes[data.videos[i].series_name]) + ':00')
+
       if (airdate == '') {
         airdate = (data.videos[i].start_time)
       }
