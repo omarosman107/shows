@@ -6,7 +6,7 @@
 // var x2js = new X2JS();
 var player = videojs('LS', {html5: {
   hls: {
-    enableLowInitialPlaylist:false
+    enableLowInitialPlaylist:true;
   }
 }});
 
