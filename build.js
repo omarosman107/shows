@@ -1521,7 +1521,7 @@ continue;
 
 console.log(foxshowlist.join())
 		  loaders()
-
+if (foxshowlist.length == 0) {loaders('remove');return;}
 	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
