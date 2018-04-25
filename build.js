@@ -1125,6 +1125,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
 
   }catch(e){
 console.log(e)
+alert(e)
 }
 }
 
@@ -1208,7 +1209,7 @@ return res.json()
       } catch (e) {
         console.log(e)
       }
-      var airdate =  data.videos[i].airdate +' '+ (12 + Number(cwTimes[data.videos[i].series_name]) + ':00')
+      var airdate =  data.videos[i].airdate //+' '+ (12 + Number(cwTimes[data.videos[i].series_name]) + ':00')
 
       if (airdate == '') {
         airdate = (data.videos[i].start_time)
