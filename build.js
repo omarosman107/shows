@@ -810,7 +810,7 @@ if (img != undefined) {
   <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
 </div>`
 */
-showhtml.push({show:showName,html:`<div show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
+showhtml.push({show:showName,html:`<div  percent="" show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
   <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
 </div>`,img:img}); 
 return;
@@ -947,6 +947,10 @@ var date1 = new Date()
   async function  fetchurl(url){
 return await fetch(url).then(function(res){return res.text()})
     }
+
+var doneNum = {}
+  var upnextshows = []
+
 function loadMedia(episodes,arg) {
 	var ids = []
 	var thisTime = date1.getTime()
@@ -956,15 +960,20 @@ function loadMedia(episodes,arg) {
   var tempLS = localStorage
 try{
   console.time('ProcessShows')
-  var upnextshows = []
 for(i in episodes.reverse()){
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
-		upnextshows[episodes[i].show] = {show:episodes[i].show,episodes:[],latestWatched:null,latestWNum:null,upNext:null,upNextNum:null}
+		upnextshows[episodes[i].show] = {show:episodes[i].show,episodes:[],latestWatched:null,latestWNum:null,upNext:null,upNextNum:null,percentage:null}
 	}
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < 46) {
 		done = true;
 		episodes[i]['done'] = done
+		if (doneNum[episodes[i].show] == undefined) {
+				doneNum[episodes[i].show] = 0
+			}
+		doneNum[episodes[i].show] += 1
+		//		console.log(episodes[i].show,doneNum[episodes[i].show])
+
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done}
 		upnextshows[episodes[i].show].latestWNum = Number(episodes[i].epiformat.split('E')[1])
 	}
@@ -976,9 +985,15 @@ for(i in episodes.reverse()){
 	upnextshows[episodes[i].show].episodes.push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done})
 
 }
-console.log(upnextshows)
+
+
 episodes.reverse()
   for (i in episodes) {
+	upnextshows[episodes[i].show].percentage = (doneNum[episodes[i].show] / upnextshows[episodes[i].show].episodes.length) 
+
+
+
+
   	if ('episode_id' in episodes[i]) {
   		if (ids.indexOf(episodes[i].episode_id) > -1) {
   			continue;
@@ -1120,6 +1135,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
 
   document.getElementById('watching').innerHTML += watching;
   document.getElementById('carasoul').innerHTML += template.join('');
+console.log(upnextshows)
 
     console.timeEnd('ProcessShows')
 
@@ -1375,7 +1391,7 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(functi
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
-  'ApiKey':apikey,
+  'ApiKey':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*",
 
 })
