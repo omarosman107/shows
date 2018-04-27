@@ -939,6 +939,17 @@ function handle(data){
       document.getElementById('epname').innerHTML = data.name;
             document.title = data.seriesName + " - " + data.name;
 
+fetch(data.documentReleases[0].url).then(function(res){return res.json();}).then(function(preview){
+   var vidPreview = {}
+eachCount = (preview.endTime / preview.imageCount / 1000 + -.2)
+   for (i = 0; i <  preview.thumbnails.length; i++) {
+      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
+            console.log((i*eachCount))
+
+   }
+   console.log(vidPreview)
+   player.thumbnails(vidPreview);
+})
 
 play(data.videoRelease.url)
 }
