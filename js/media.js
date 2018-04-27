@@ -941,7 +941,7 @@ function handle(data){
 
 fetch(data.documentReleases[0].url).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
-eachCount = (preview.endTime / preview.imageCount / 1000 + -.2)
+eachCount = (preview.endTime / preview.imageCount / 1000)
    for (i = 0; i <  preview.thumbnails.length; i++) {
       vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
             console.log((i*eachCount))
