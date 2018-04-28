@@ -429,8 +429,22 @@ var description = htmlparsed.querySelector('meta[property="og:description"]').ge
       showdesc.innerHTML = description;
       document.title =  episode_title;
       document.getElementById('epname').innerHTML = episode_title;
-
 var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
+fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(function(res){return res.text();}).then(function(thumbnails){
+   fetch(  tohtml(thumbnails).querySelector('imagestream').getAttribute('src')).then(function(res){return res.json();}).then(function(preview){
+   var vidPreview = {}
+eachCount = (preview.endTime / preview.imageCount / 1000)
+   for (i = 0; i <  preview.thumbnails.length; i++) {
+      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
+            console.log((i*eachCount))
+
+   }
+   console.log(vidPreview)
+   player.thumbnails(vidPreview);
+})
+
+})
+
 fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(function(res){return res.json()}).then(function(meta){
    showname.innerHTML = (meta['nbcu$seriesShortTitle'])
    fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
@@ -444,45 +458,7 @@ player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.c
 resume()
 
    })
-   return;
-   document.getElementById('progress').style.width = "35%";
-   console.log(value);
-   $.get(value, function (data) {
-      document.getElementById('progress').style.width = "50%";
-      var episodedetails;
-      var htmlparsed = tohtml(data);
-      pageDOM.innerHTML = htmlparsed.getElementsByTagName('iframe')[0].outerHTML;
-      console.log(pageDOM);
-      console.log(pageDOM.getElementsByTagName('iframe')[0].src);
-      var jsonfirst = pageDOM.getElementsByTagName('iframe')[0].src;
-      episodedetails = JSON.parse(htmlparsed.querySelector('script[type="application/ld+json"]').innerHTML);
-      console.log(jsonfirst);
-      getShowinfo(episodedetails.partOfSeries.name);
-      showname.innerHTML = episodedetails.partOfSeries.name + "- " + episodedetails.name;
-      showdesc.innerHTML = episodedetails.description;
-      document.title = episodedetails.partOfSeries.name + "- " + episodedetails.name;
-
-      var iframefetchajax = new XMLHttpRequest();
-      iframefetchajax.onreadystatechange = function () {
-         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('progress').style.width = "75%";
-            var htmlframe = tohtml(this.responseText);
-            console.log(htmlframe);
-            var jsonfirst = htmlframe.getElementsByTagName('link')[1].href;
-            mediaurl = jsonfirst;
-            var videofile = mediaurl.split('?')[0] + "?manifest=m3u&mbr=true&metafile=false";
-            console.log(videofile
-            // fetch(mediaurl.split('?')[0] + '?format=')
-            );player.src({ "type": "application/x-mpegURL", "src": videofile });
-            resume();
-            document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
-            isDone = true;
-         }
-      };
-      iframefetchajax.open("GET", jsonfirst, true);
-      iframefetchajax.send();
-   });
+  
 }
 // AdultSwim
 function fetchaswimjson(value) {
@@ -665,8 +641,29 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
    return res.text();
 }
 }).then(function(m3u8){
-  console.log(parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1].replace('.m3u8','.mp4') )
-  player.src({ "type": "application/x-mpegURL", "src": parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1] });
+  var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
+  console.log(m3u8.split('.')[2].split('/')[1])
+fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
+   console.log(videoData)
+ var vidPreview = {}
+eachCount = videoData.slice_dur
+console.log(Math.ceil(videoData.duration / videoData.slice_dur))
+function toPaddedHexString(num, len) {
+    str = num.toString(16);
+    return "0".repeat(len - str.length) + str.toUpperCase();
+}
+
+   for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
+      vidPreview[`${(i*eachCount)}`] = {"src":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
+            console.log((i*eachCount))
+
+   }
+   console.log(vidPreview)
+   player.thumbnails(vidPreview);
+
+
+})
+  player.src({ "type": "application/x-mpegURL", "src": m3u8 });
          resume();
 })
 }else{
@@ -939,17 +936,6 @@ function handle(data){
       document.getElementById('epname').innerHTML = data.name;
             document.title = data.seriesName + " - " + data.name;
 
-fetch(data.documentReleases[0].url).then(function(res){return res.json();}).then(function(preview){
-   var vidPreview = {}
-eachCount = (preview.endTime / preview.imageCount / 1000)
-   for (i = 0; i <  preview.thumbnails.length; i++) {
-      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
-            console.log((i*eachCount))
-
-   }
-   console.log(vidPreview)
-   player.thumbnails(vidPreview);
-})
 
 play(data.videoRelease.url)
 }
