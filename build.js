@@ -949,7 +949,7 @@ return await fetch(url).then(function(res){return res.text()})
     }
 
 var doneNum = {}
-  var upnextshows = []
+  var upnextshows = {}
 
 function loadMedia(episodes,arg) {
 	var ids = []
@@ -974,15 +974,15 @@ for(i in episodes.reverse()){
 		doneNum[episodes[i].show] += 1
 		//		console.log(episodes[i].show,doneNum[episodes[i].show])
 
-		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done}
+		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].latestWNum = Number(episodes[i].epiformat.split('E')[1])
 	}
 	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].epiformat.split('E')[1]) && upnextshows[episodes[i].show].latestWNum != null ) {
-		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done}
+		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].upNextNum =  Number(episodes[i].epiformat.split('E')[1])
 
 	}
-	upnextshows[episodes[i].show].episodes.push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done})
+	upnextshows[episodes[i].show].episodes.push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href})
 
 }
 
@@ -1136,6 +1136,8 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
   document.getElementById('watching').innerHTML += watching;
   document.getElementById('carasoul').innerHTML += template.join('');
 console.log(upnextshows)
+
+localStorage['showData'] = JSON.stringify(upnextshows)
 
     console.timeEnd('ProcessShows')
 

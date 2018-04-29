@@ -58,7 +58,8 @@ function loadURL(url, type) {
    resume();
 }
 var played = false;
-
+var currentEpisode = {}
+var next = {}
 function resumePlayback(state) {
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > 48) {
@@ -97,8 +98,17 @@ function fmtMSS(s) {
    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + s;
 }
 
-function resume() {
 
+function playNext(){
+document.querySelector('.upnext').style.display = 'none';
+console.log(next)
+window.history.replaceState('Object', 'Title', '?'+next.link);
+findName(next.link)
+
+}
+var interval
+function resume() {
+clearInterval(interval)
    var vid = document.getElementById('LS_html5_api');
 
    var vid = document.getElementById(player.el().children[0].id);
@@ -140,10 +150,27 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
       player.play();
       endTime();
 
-      setInterval(function () {
+
+  interval = setInterval(function () {
          endTime();
 
          localStorage[window.location.search] = player.currentTime();
+
+         if (player.duration() - player.currentTime() < 48) {
+            var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show]
+            for (var i = showJson.episodes.length - 1; i >= 0; i--) {
+               if (showJson.episodes[i].episode == currentEpisode.episode ) {
+
+                  if (i+1 - showJson.episodes.length - 1 == -1 ) {return;}
+
+               next = showJson.episodes[i+1]
+               document.querySelector('.showTitle').innerHTML = currentEpisode.show
+               document.querySelector('.episode').innerHTML = next.episode
+               document.querySelector('.upnext').style.display = 'block';
+
+               }
+            }
+         }
        
       }, 2000);
 
@@ -279,7 +306,7 @@ function fetchcwjson(value) {
 
       console.log(finalurl);
       getShowinfo(data.assetFields.seriesName)
-
+currentEpisode = {show:data.assetFields.seriesName,episode:data.assetFields.title}
       showname.innerHTML = data.assetFields.seriesName;
       document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 11.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + data.assetFields.showSlug + '.png" width="100%">';
       showdesc.innerHTML = data.assetFields.description;
@@ -447,6 +474,8 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
 
 fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(function(res){return res.json()}).then(function(meta){
    showname.innerHTML = (meta['nbcu$seriesShortTitle'])
+   currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content')}
+
    fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
       fetch('https://api.nbc.com/v3.14/images/'+showapi.data["0"].relationships.logo.data.id).then(function(res){return res.json()}).then(function(image){
           document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;margin-top: -50%;margin-bottom: 2%;margin-left: -4%;" src="'+'https://img.nbc.com/'+image.data.attributes.path+'" width="100%">'
@@ -925,6 +954,7 @@ function handle(data){
 
    player.duration(data.durationInSeconds)
       console.log(data.images.logo.FHD);
+currentEpisode = {show:data.seriesName,episode:data.name}
 
       bg(data.images.still.HD);
             showname.innerHTML = data.seriesName;
@@ -1096,8 +1126,10 @@ if (window.location.search.split('?').length == 3) {
 var currenturl = decodeURIComponent(currenturl)
 var xhttp = new XMLHttpRequest();
 
-function findName() {
-
+function findName(url) {
+if (url) {
+   currenturl = url
+}
   document.getElementById('progress').style.width = "0%";
   console.time();
   for (tv in sitefunctions) {
@@ -1182,6 +1214,7 @@ function tvstQ(q) {
   return query;
 }
 
+
 function getShowinfo(name) {
 
   var showFetch = new XMLHttpRequest();
@@ -1191,9 +1224,9 @@ function getShowinfo(name) {
 
       var data = JSON.parse(this.responseText);
       console.log(data);
-      document.getElementsByClassName('showImg')[0].href = "https://www.tvtime.com/en/show/" + data.query.results.json.id;
-      document.getElementsByClassName('showImg')[0].innerHTML = '<img width="100%" src="' + data.query.results.json.all_images.poster._[3] + '">';
-      document.getElementById('showname').href = "https://www.tvtime.com/en/show/" + data.query.results.json.id;
+//      document.getElementsByClassName('showImg')[0].href = "https://www.tvtime.com/en/show/" + data.query.results.json.id;
+  //    document.getElementsByClassName('showImg')[0].innerHTML = '<img width="100%" src="' + data.query.results.json.all_images.poster._[3] + '">';
+    //  document.getElementById('showname').href = "https://www.tvtime.com/en/show/" + data.query.results.json.id;
       if (document.getElementById('showname').querySelectorAll('img').length === 0) {
         fetch('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fwebservice.fanart.tv%2Fv3%2Ftv%2F' + data.query.results.json.id + '%3Fapi_key%3D334bde683eabd3ae55eb6a1917bd4795%22%20&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=&_maxage=360000').then(function (res) {
           return res.json();
@@ -1211,5 +1244,5 @@ function getShowinfo(name) {
     }
   };
   showFetch.open("GET", tvstQ(name), true);
-  showFetch.send();
+//  showFetch.send();
 }
