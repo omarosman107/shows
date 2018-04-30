@@ -110,14 +110,13 @@ img.loaded.grayscale {
     
     /* Chrome 19+ & Safari 6+ */
     
-  -webkit-transition: all .6s ease;
   /* Fade to color for Chrome and Safari */
   -webkit-backface-visibility: hidden;
   /* Fix for transition flickering */
     opacity: 0.8 !important;
     transition-delay: 100ms;
-        -webkit-transition: all 0.25s;
-    transition: all 0.25s;
+            transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    transition-duration: 400ms;
 }
 li:hover .image-crop .grayscale{
       filter: none;
@@ -691,9 +690,8 @@ body a {
     opacity: 0;
 }
 .image-crop img{
--webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    transition: all .2s ease;
+    transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    transition-duration: 400ms;
 }
 .image-crop:hover img{
 }
