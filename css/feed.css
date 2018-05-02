@@ -246,7 +246,6 @@ li:hover .image-crop .grayscale{
     transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);*/
     opacity: .4;
     background-size: cover;
-    border-radius: 2px;
     transform: scale(0.9);
     margin: 6px -9px 6px 6px;
 }
@@ -503,7 +502,6 @@ background-color: rgba(255, 255, 255, 0.21);
 }
 .initialized {
     margin-bottom: 16px;
-    border-radius: 3px;
     width: 25vw;
     min-width: 300px;
    /* transition: transform .2s linear;
