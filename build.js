@@ -1145,9 +1145,6 @@ if (json.length - tempLS["?" + json.href] < 46) {
       </div>
       <h2 class="watchingTitle" style="">
 <a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
-
-
-      ${almost_expire()}
 </li>`
 
 //        watching.innerHTML =  '<li style="margin: 11px;" class=" card  ' + json.href + '"><a href="#"><div style="   " class="piece fanart-container"><div class="image-crop sixteen-nine" >' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><\/span><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><div class="imageBG"><\/div><img    class="cover sixteen-nine lazy "    sizes="(max-width: 600px) 80vw, 460px"    alt="' + json.episode + '" data-original-set="' + json.imgdyn + '" class"" class="cover" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn "  title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)"  show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><a href="javascript:"><i style="    /* opacity: ' + showCheck() + '; */color: rgb(127, 218, 99);position: absolute;right: 10px;bottom: 10px;display:none;" class="visited fa fa-check" aria-hidden="true"><\/i><\/a><\/div><div class="bottom"><\/div><\/div><\/a><\/li>'
