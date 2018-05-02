@@ -41,9 +41,6 @@ input {
 .w3-progressbar {
     background-color: #e50914;
     line-height: inherit;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: width,opacity;
     height: .35rem;
     position: absolute;
     z-index: 8;
@@ -88,7 +85,6 @@ body {
     width: 100%;
   /*  background-color: rgba(76, 76, 76, 0.32);*/
     opacity: 1;
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 
 }
 
@@ -103,24 +99,13 @@ body {
 }
 img.loaded.grayscale {
 
-  /* Firefox 3.5+, IE10 */
- /* filter: gray(15%);
-  /* IE6-9 */
-   /* -webkit-filter: grayscale(15%);
-    
-    /* Chrome 19+ & Safari 6+ */
-    
-  /* Fade to color for Chrome and Safari */
-  -webkit-backface-visibility: hidden;
-  /* Fix for transition flickering */
-    opacity: 0.8 !important;
+  /*  opacity: 0.8 !important;
     transition-delay: 100ms;
             transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
     transition-duration: 400ms;
+*/
 }
 li:hover .image-crop .grayscale{
-      filter: none;
-  /* -webkit-filter: grayscale(0%); */
     opacity: 1 !important;
 }
 
@@ -166,7 +151,6 @@ li:hover .image-crop .grayscale{
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
     font-family: ProximaNovaB;
     transition: background .5s ease,color .3s ease;
-    will-change: background,color;
 
 }
 .container-1 input#search:focus {
@@ -223,17 +207,13 @@ li:hover .image-crop .grayscale{
 }
 
 .piece {
-    border-radius: 2px
 }
 
 .image-crop {
-    border-radius: 2px 2px 0 0;
--webkit-transform: translate3d(0,0,0)
 
     width: 100%;
 }
 .initialized {
-    -webkit-transform: translate3d(0,0,0);
 
 }
 
@@ -264,18 +244,13 @@ li:hover .image-crop .grayscale{
     width: 20vw;
   /*  -webkit-transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);
     transition: transform 0.3s cubic-bezier(.03,.98,.52,.99);*/
-    will-change: opacity,transform;
     opacity: .4;
-    box-shadow: 1px 0 0 1px rgba(0,0,0,.33);
     background-size: cover;
     border-radius: 2px;
     transform: scale(0.9);
-    box-shadow: 0 1px 1px rgba(0,0,0,.1), 0 1px 8px rgba(0,0,0,.1);
     margin: 6px -9px 6px 6px;
 }
-.initialized{
-        will-change: transform,box-shadow;
-}
+
 .tvshow,.tvshow img {
 }
 
@@ -286,10 +261,8 @@ li:hover .image-crop .grayscale{
     -webkit-overflow-scrolling: touch;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    will-change: transform;
     position: relative;
   /*  background: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
     */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
@@ -488,7 +461,7 @@ p {
   /*  border-radius: 2px;
     */
   /*  background: rgba(255, 255, 255, 0.2);*/
-        background: #333333;    will-change: transform;
+        background: #333333;   
 /*    box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
 */
 }
@@ -533,14 +506,10 @@ background-color: rgba(255, 255, 255, 0.21);
     border-radius: 3px;
     width: 25vw;
     min-width: 300px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.1), 0 1px 8px rgba(0,0,0,.1);
-    will-change: opacity,transform;
    /* transition: transform .2s linear;
     -webkit-transform: translateX(0%);
     transform: translateX(0%);*/
-    will-change: transform;
-      -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
+
     
 }
 
@@ -566,7 +535,6 @@ background-color: rgba(255, 255, 255, 0.21);
     width: 100%;
     position: relative;
     overflow: visible;
-    -webkit-transform: translate3d(0,0,0);
     background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
         background: -webkit-radial-gradient(50% 50% farthest-corner,rgba(50,50,50,.5) 0,#323232 100%);
     background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
@@ -649,8 +617,6 @@ body a {
 }
 
 .tvshow:hover {
-    transform: transale3d(0,0,0);
-        box-shadow: 0px 0px 2px 1px rgba(0,0,0,.1);
 
 }
 
@@ -710,7 +676,6 @@ body a {
 
 
 .initialized {
-    will-change: width;
 }
 
 .imageBG {
@@ -732,16 +697,13 @@ body a {
     background-size: cover!important;
     background-position: 50%;
     opacity: 0;
-        will-change: opacity;
 }
 
 @media (max-width:600px) {
     .initialized {
-        will-change: width;
         border-radius: 0;
         width: 100%;
         max-width: 100%;
-        box-shadow: 0 0 0 0 rgba(107,107,107,.15);
         
     }
 
@@ -853,7 +815,6 @@ body a {
     transition: all 200ms ease-in;
     transform: scale(1);
         text-shadow: 0 1px 7px rgba(0, 0, 0, 0.46);
-      will-change: transform;
 
 }
 
@@ -889,9 +850,7 @@ transition: all 1s cubic-bezier(0.12, 0.49, 0.9, 3.59);
         width: 100%;
     height: 100%;    }
 }
-.initialized:active {
-    transform: scale(.998)
-}
+
    .new-label {
       position: absolute;
     top: 24px;

@@ -335,10 +335,12 @@ function scrolling(num){
 if(elementInViewport2(cards[i]) || cards[i].parentNode.id == 'watching'){
 cards[i].style.visibility = 'visible';
 if (cards[i].querySelector('img').getAttribute('done') == 'true') continue;
+		requestAnimationFrame(() => {
+
 cards[i].querySelector('img').srcset =  cards[i].querySelector('img').getAttribute('data-original-set');
 cards[i].querySelector('img').src =  cards[i].querySelector('img').getAttribute('data-original');
 cards[i].querySelector('img').setAttribute('done','true')
-
+})
 ignored.push(cards[i])
 }else{
 	cards[i].style.visibility = 'hidden'
@@ -468,8 +470,10 @@ var newfinalshows = []
   document.getElementById('carasoul').innerHTML = ''
   document.getElementById('watching').innerHTML = ''
   	document.getElementById('showsLike').style.display = 'none'
-  	document.body.setAttribute('class','finished');
+  			requestAnimationFrame(() => {
 
+  	document.body.setAttribute('class','finished');
+})
 loadMedia(q)
 everythingfinished(alreadySelected)
 
@@ -537,7 +541,6 @@ everythingfinished(checkedShows)
 }
 
 function everythingfinished(exclude){
-console.log(exclude)
  cards = document.querySelectorAll('li')
  images = document.querySelectorAll('.lazy')
  for (var i = images.length - 1; i >= 0; i--) {
@@ -617,14 +620,13 @@ function loaders(atr) {
   if (atr == 'remove') {
 
     num--
-  document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
+ // document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
     if (num == 0) {
     	console.time()
 
 
 
 if (!isMobile || !window.location.search == '' || window.location.search == '?') {
-document.body.setAttribute('class','finished');
 
 
 var l = []
@@ -638,6 +640,7 @@ finalObj.sort(function(x, y) {
 loadMedia(l)
 
 everythingfinished()
+document.body.setAttribute('class','finished');
 
 
 }else{
@@ -1187,7 +1190,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
          <div style="border-top:0;" class="cardBorder"></div>
-            <p>${FDate} • ${timeofPlayback} • ${json.epiformat}</p>
+            <p>${FDate} • ${timeofPlayback} • S${json.seasonNumber}:E${json.episodeNumber}</p>
         </div>
       <div class="bottom"></div>
 </li>
@@ -1199,7 +1202,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
 
   document.getElementById('watching').innerHTML += watching;
   document.getElementById('carasoul').innerHTML += template.join('');
-console.log(upnextshows)
+  console.log(upnextshows)
 
 localStorage['showData'] = JSON.stringify(upnextshows)
 
@@ -1315,6 +1318,8 @@ return res.json()
         show: data.videos[i].series_name,
         episode: data.videos[i].title,
         epiformat: epiformat(s, e),
+        episodeNumber:Number(e),
+        seasonNumber:Number(s),
         length: data.videos[i].duration_secs,
         type: "cw",
         bg:  'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
@@ -1388,6 +1393,8 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
         show: episode.data[z].attributes.categories[0].split('/')[1],
         episode: episode.data[z].attributes.title,
         epiformat: epiformat(episode.data[z].attributes.seasonNumber, episode.data[z].attributes.episodeNumber),
+        episodeNumber: Number(episode.data[z].attributes.episodeNumber),
+        seasonNumber: Number(episode.data[z].attributes.seasonNumber),
         length: episode.data[z].attributes.runTime,
         type: "nbc",
         bg:'',
@@ -1486,106 +1493,7 @@ var allEpisodeCount = 0
 		}
 	}
 
-function loadSeperate(){
-	for (var i = foxshowlist.length - 1; i >= 0; i--) {
-		  loaders()
-	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
-		loaders('remove');continue;
-	}
-	if (show == undefined && isMobile && localStorage['like']) {
-		var savedShows = JSON.parse(localStorage['like'])
-		if (!savedShows.includes(foxshowNames[foxshowlist[i]])) {
-			loaders('remove');
-			continue;
-		}
-	}
-apiver = (foxshows['@id'].split('content/')[1].split('/')[0])
-console.log(foxshowlist.join())
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist[i],{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
-if ('member' in fullEpisodes) {
-for(i in fullEpisodes.member){
 
-  // !json.member[i].requiresAuth &&
-
-var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
-var sizes = [
-'110:62',
-'320:180',
-'480:270',
-'528:297',
-'740:416',
-'1280:720'
-]
-var srcset = ''
-function webpImage(){
-if (webpcompatible) {
-	return '&output-format=webp';
-}else{
-	return ''
-}
-}
-for (var z = sizes.length - 1; z >= 0; z--) {
-// sizes[z].split(':')[0] == '1920'
-	if (false) {
-		  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
-	}else{
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z]) + ' '+ sizes[z].split(':')[0] +'w ,')
-
-	}
-}
-srcset = srcset.substr(0, srcset.length - 1);
-var date = new Date(fullEpisodes.member[i].originalAirDate)
-date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
-var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60) < 0 ? "-" : "+") + ((Math.abs(date.getTimezoneOffset() / 60) < 10) ?  ("0" + Math.abs(date.getTimezoneOffset() / 60)) : test) + "00";
-try{
-
-	if (!('autoPlayVideo' in fullEpisodes.member[i])) {
-
-		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
-
-	}
-      finalObj.push({
-        img: fullEpisodes.member[i].images.still.SD,
-        rating: rating(fullEpisodes.member[i].contentRating),
-        href: 'https://api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
-        show: fullEpisodes.member[i].seriesName,
-        episode: fullEpisodes.member[i].name,
-        id: makeid(),
-        epiformat: epiformat(fullEpisodes.member[i].seasonNumber, fullEpisodes.member[i].episodeNumber),
-        length: fullEpisodes.member[i].durationInSeconds,
-        type: fullEpisodes.member[i].network,
-        imgdyn: srcset,
-        autoplay:fullEpisodes.member[i].autoPlayVideo.default.url,
-        bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
-        time:Date.parse(date),
-        type:'newfox',
-        episode_id:fullEpisodes.member[i].id,
-        hidden:fullEpisodes.member[i].hideVideo,
-        expires:new Date(fullEpisodes.member[i].expires).getTime() + 1000000000
-
-              });
-  }catch(e){
-  	console.log(e)
-  }
-                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'newfox' )
-showswithimages[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage()
-
-} 
-
-}
-
-
-
-
-		loaders('remove')
-
-	}).catch(function(e){
-console.log(e)
-
-		loaders('remove')
-	})
-	}
-}
 	function loadTogether(){
 for (var i = foxshowlist.length - 1; i >= 0; i--) {
 	if (show != 'undefined' && show != undefined && foxshowNames[foxshowlist[i]].toLowerCase().includes(show.toLowerCase()) == false) {
@@ -1604,7 +1512,7 @@ continue;
 console.log(foxshowlist.join())
 		  loaders()
 if (foxshowlist.length == 0) {loaders('remove');return;}
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,contentRating,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
@@ -1613,9 +1521,7 @@ for(i in fullEpisodes.member){
 var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
 var sizes = [
 '110:62',
-'320:180',
 '480:270',
-'528:297',
 '740:416',
 '1280:720'
 ]
@@ -1628,13 +1534,7 @@ if (webpcompatible) {
 }
 }
 for (var z = sizes.length - 1; z >= 0; z--) {
-// sizes[z].split(':')[0] == '1920'
-	if (false) {
-		  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z])+webpImage()  + ' '+ sizes[z].split(':')[0] +'w ,')
-	}else{
-  srcset += (image + '?downsize=' + encodeURIComponent(sizes[z]) + ' '+ sizes[z].split(':')[0] +'w ,')
-
-	}
+ srcset += (image + '?fit=inside|' + encodeURIComponent(sizes[z]) +  ' ' + sizes[z].split(':')[0] +'w ,')
 }
 srcset = srcset.substr(0, srcset.length - 1);
 var date = new Date(fullEpisodes.member[i].originalAirDate)
@@ -1655,6 +1555,8 @@ try{
         episode: fullEpisodes.member[i].name,
         id: makeid(),
         epiformat: epiformat(fullEpisodes.member[i].seasonNumber, fullEpisodes.member[i].episodeNumber),
+        episodeNumber: Number(fullEpisodes.member[i].episodeNumber),
+        seasonNumber: Number(fullEpisodes.member[i].seasonNumber),
         length: fullEpisodes.member[i].durationInSeconds,
         type: fullEpisodes.member[i].network,
         imgdyn: srcset,
