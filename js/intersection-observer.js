@@ -58,7 +58,7 @@ function IntersectionObserverEntry(entry) {
   var targetRect = this.boundingClientRect;
   var targetArea = targetRect.width * targetRect.height;
   var intersectionRect = this.intersectionRect;
-  var intersectionArea = intersectionRect.width + 100 * intersectionRect.height + 100;
+  var intersectionArea = intersectionRect.width + 100 * intersectionRect.height + 1;
 
   // Sets intersection ratio.
   if (targetArea) {

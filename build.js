@@ -369,7 +369,6 @@ function lazyLoadNew(){
 	 items = document.getElementsByClassName('initialized')
 
 var options = {
-  rootMargin: "100px",
   threshold: 0,
   root: null
 }
@@ -1044,9 +1043,9 @@ for(i in episodes.reverse()){
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].latestWNum = Number(episodes[i].epiformat.split('E')[1])
 	}
-	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].epiformat.split('E')[1]) && upnextshows[episodes[i].show].latestWNum != null ) {
+	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && upnextshows[episodes[i].show].latestWNum != null ) {
 		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
-		upnextshows[episodes[i].show].upNextNum =  Number(episodes[i].epiformat.split('E')[1])
+		upnextshows[episodes[i].show].upNextNum =  episodes[i].episodeNumber
 
 	}
 	upnextshows[episodes[i].show].episodes.push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href})
@@ -1333,6 +1332,48 @@ return res.json()
   loaders('remove')
 })
 }
+/*
+fetch('theflash.json').then(function(res){return res.json();}).then(function(theflash){
+
+	for(i in theflash){
+console.log(i)
+if (3 > i ) {continue;}
+for(z in theflash[i]){
+      function cwdyres(resulution){
+
+      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+theflash[i][z].id+'.jpg'
+      }
+      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+
+  var episode_data = {
+        img: cwdyres('638'),
+        rating: 'TV-14',
+        imgdyn: dyn,
+        id: makeid(),
+        href: 'http://cwtv.com/shows/the-flash/title/?play='+ theflash[i][z].id,
+        show: 'The Flash',
+        episode: theflash[i][z].title,
+        epiformat: 'S'+Number(i)+'E'+Number([z]+1),
+        episodeNumber:Number([z])+1,
+        seasonNumber:Number(i),
+        length: 2600,
+        type: "cw",
+        bg: '',
+        time:(1400000000),
+        episode_id:theflash[i][z].id,
+
+      }
+            finalObj.push(episode_data)
+
+
+
+
+}
+}
+
+
+})
+*/
 loaders('remove')
 }).catch(function(e){
 	loaders('remove')
