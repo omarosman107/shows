@@ -64,7 +64,7 @@ function resumePlayback(state) {
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > 48) {
 
-         player.currentTime(localStorage[window.location.search]);
+         player.currentTime(localStorage[window.location.search] - 5);
          played = true;
       }
 }
