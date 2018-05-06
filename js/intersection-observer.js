@@ -58,7 +58,7 @@ function IntersectionObserverEntry(entry) {
   var targetRect = this.boundingClientRect;
   var targetArea = targetRect.width * targetRect.height;
   var intersectionRect = this.intersectionRect;
-  var intersectionArea = intersectionRect.width + 100 * intersectionRect.height + 1;
+  var intersectionArea = intersectionRect.width * intersectionRect.height;
 
   // Sets intersection ratio.
   if (targetArea) {
@@ -616,7 +616,7 @@ function removeEvent(node, event, fn, opt_useCapture) {
  *     is found.
  */
 function computeRectIntersection(rect1, rect2) {
-  var top = Math.max(rect1.top, rect2.top);
+  var top = Math.max(rect1.top, rect2.top) - 1000;
   var bottom = Math.min(rect1.bottom, rect2.bottom);
   var left = Math.max(rect1.left, rect2.left);
   var right = Math.min(rect1.right, rect2.right);
