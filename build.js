@@ -380,29 +380,21 @@ for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
 if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
-if(entries[i].target.hasAttribute('data-original-set')){
-	try{
+		io.unobserve(entries[i].target);
 
-io.unobserve(entries[i].target);
+	//requestAnimationFrame(function(time){
+	//	console.log(time)
+
+	if(entries[i].target.hasAttribute('data-original-set')){
 entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
-// entries[i].target.removeAttribute('data-original-set')
-}catch(e){
-
-}
-
-  };
-    if(entries[i].target.hasAttribute('data-original')){
-try{
-	io.unobserve(entries[i].target);
+};
+	if(entries[i].target.hasAttribute('data-original')){
 entries[i].target.src =  entries[i].target.getAttribute('data-original');
-// entries[i].target.removeAttribute('data-original')
+};
 
-}catch(e){
 
-}
-    
-  };
 
+	//})
 
 
 }
