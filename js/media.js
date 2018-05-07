@@ -9,7 +9,7 @@ var player = videojs('LS', {html5: {
     enableLowInitialPlaylist:true
   }
 }});
-
+videojs.Hls.GOAL_BUFFER_LENGTH = 260
 
 player.ready(function () {
    this.hotkeys({
@@ -665,6 +665,7 @@ xmlDoc = parser.parseFromString(play,"text/xml");
 */
 // param[name="testPlayerUrl"]
 if ('uplynk$testPlayerUrl' in play) {
+
 fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res){if(res.status != 200){ backupWay(url)
 }else{
    return res.text();
@@ -760,6 +761,9 @@ player.on('timeupdate', function () {
 
 
       });
+var pbs = play.playURL.split('?')[1]
+var id = play.playURL.replace('/preplay2/','/').split('uplynk.com')[1].split('/')[1]
+console.log(play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs)
          player.src({ "type": "application/x-mpegURL", "src": play.playURL });
          resume();
 
