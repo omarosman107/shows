@@ -9,8 +9,13 @@ var player = videojs('LS', {html5: {
     enableLowInitialPlaylist:true
   }
 }});
-videojs.Hls.GOAL_BUFFER_LENGTH = 260
+videojs.Hls.GOAL_BUFFER_LENGTH = 100
+videojs.Hls.xhr.beforeRequest = function(options) {
+   //console.log(options)
 
+
+  return options;
+};
 player.ready(function () {
    this.hotkeys({
       volumeStep: 0.1,
@@ -19,7 +24,6 @@ player.ready(function () {
    });
 
 });
-
 
 var secondsToTimeCode = function secondsToTimeCode(timeInSeconds) {
 
@@ -112,16 +116,20 @@ clearInterval(interval)
    var vid = document.getElementById('LS_html5_api');
 
    var vid = document.getElementById(player.el().children[0].id);
-vid.addEventListener('loadstart', function(){
 
+
+vid.addEventListener('loadstart', function(){
    if (localStorage['last_bandwidth']) {
+
       player.tech().hls.bandwidth = (localStorage['last_bandwidth'])
-      console.log('set last bandwidth', localStorage['last_bandwidth']  / 1048576 + ' mbps')
+      console.log('set last bandwidth', localStorage['last_bandwidth']  / 1024/1024 + ' mbps')
 
    }
+
+
    setInterval(function(){
       localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
-      console.log(player.tech_.hls.bandwidth / 1048576 + ' mbps')
+      console.log(player.tech_.hls.bandwidth / 1024/1024 + ' mbps')
    },6000)
 })
 
