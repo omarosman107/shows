@@ -757,14 +757,15 @@ adstrack.addEventListener('cuechange', function() {
  
   });
 */
-
+//Skip ads 
+/*
 player.on('timeupdate', function () {
   if (adsHandle(this.currentTime()).playing) {
           this.currentTime(adsHandle(this.currentTime()).end);
 
   }
     })
-  
+  */
 
 
 
