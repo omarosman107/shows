@@ -693,6 +693,8 @@ function toPaddedHexString(num, len) {
 
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
       vidPreview[`${(i*eachCount)}`] = {"src":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
+      var img = new Image;
+      img.src = videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'
             console.log((i*eachCount))
 
    }
