@@ -1495,7 +1495,7 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(functi
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
   'ApiKey':'abdcbed02c124d393b39e818a4312055',
-  "Accept":"application/json, text/plain, */*",
+  "Accept":"application/json, text/plain, */*"
 
 })
 
@@ -1505,7 +1505,7 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(functi
 var foxshowlist = ['snowfall','atlanta']
 var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 var showEpisodeCount = {}
-fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
+fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
 	var skipTheseShows = ['Love Connection','Showtime at the Apollo','New Girl']
 
