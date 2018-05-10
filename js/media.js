@@ -322,7 +322,7 @@ currentEpisode = {show:data.assetFields.seriesName,episode:data.assetFields.titl
       showname.innerHTML = data.assetFields.seriesName;
       document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + data.assetFields.showSlug + '.png">';
       showdesc.innerHTML = data.assetFields.description;
-      
+
       document.title = data.assetFields.seriesName + " - " + data.assetFields.title;
       document.getElementById('progress').style.width = "60%";
       document.getElementById('downloader').href = 'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_5128kbps.mp4';
@@ -469,18 +469,11 @@ var description = htmlparsed.querySelector('meta[property="og:description"]').ge
       document.title =  episode_title;
       document.getElementById('epname').innerHTML = episode_title;
 var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
-fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(function(res){return res.text();}).then(function(thumbnails){
-   fetch(  tohtml(thumbnails).querySelector('imagestream').getAttribute('src')).then(function(res){return res.json();}).then(function(preview){
-   var vidPreview = {}
-eachCount = (preview.endTime / preview.imageCount / 1000)
-   for (i = 0; i <  preview.thumbnails.length; i++) {
-      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
-            console.log((i*eachCount))
 
-   }
-   console.log(vidPreview)
-   player.thumbnails(vidPreview);
-})
+fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(function(res){return res.text();}).then(function(thumbnails){
+         // https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21_1200.fs
+      //https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21.jpg?impolicy=nbc_com&imwidth=720
+
 
 })
 
@@ -493,9 +486,27 @@ fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(f
           document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;margin-top: -50%;margin-bottom: 2%;margin-left: -4%;" src="'+'https://img.nbc.com/'+image.data.attributes.path+'" width="100%">'
       })
    })
+         console.log(meta.defaultThumbnailUrl.replace('.jpg','_1200.fs'))
+   fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
+   var vidPreview = {}
+eachCount = (preview.endTime / preview.imageCount / 1000)
+   for (i = 0; i <  preview.thumbnails.length; i++) {
+      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
+            console.log((i*eachCount))
+
+   }
+   console.log(vidPreview)
+   player.thumbnails(vidPreview);
+})
+
+
    bg(meta.defaultThumbnailUrl+'?impolicy=nbc_com&imwidth=720')
 })
-player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
+fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect').then(function(res){
+   console.log(res.url.replace('3104027',value.split('/')[value.split('/').length-1]))
+   player.src({type:'application/vnd.apple.mpegurl',src:res.url.replace('3104027',value.split('/')[value.split('/').length-1])})
+})
+//player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
 resume()
 
    })
