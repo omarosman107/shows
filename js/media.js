@@ -997,6 +997,7 @@ currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumbe
       document.getElementById('epname').innerHTML = data.name;
             document.title = data.seriesName + " - " + data.name;
 
+play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.guid+'?format=script')
 
 play(data.videoRelease.url)
 }
