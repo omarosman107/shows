@@ -61,15 +61,11 @@
 	<script type="text/javascript">
 var _data = {}
 
-  async function  request(){
+   function  request(){
 
-_data =  await fetch('theflash.json').then(function(res){return res.json()})
-    }
+ fetch('theflash.json').then(function(res){return res.json()}).then(function(_data){
 
- request();
-
- 
-		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash?bust='+Date.now()).then(function(res){return res.json();}).then(function(data){
+	fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash?bust='+Date.now()).then(function(res){return res.json();}).then(function(data){
 					var newones = []
 					var ids = []
 					var serverids = []
@@ -181,6 +177,16 @@ ${str}
 }
 }
 loadstuff();
+
+})
+
+	
+
+    }
+
+ request();
+
+ 
 	</script>
 
 </body>
