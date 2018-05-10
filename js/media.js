@@ -280,21 +280,25 @@ function fetchcwjson(value) {
       resume();
 // ,{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}
       })
-/*
+// Get Captions!
  fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter?track=Closed%20Captioning').then(function (res) {
       return res.json();
    }).then(function (cap) {
-      track = player.addTextTrack("captions", "English", "en");
+      track = player.addTextTrack("subtitles", "English Alt", "en");
       for (i = 0, len = cap.length; i < len; ++i) {
          track.addCue(new VTTCue(cap[i].startTime, cap[i].endTime, cap[i].metadata.Text));
       }
    });
-   */
+   
+
+
+
    fetch(url, {
       method: 'get'
    }).then(function (response) {
       return response.json();
    }).then(function (data) {
+    
       document.getElementById('progress').style.width = "50%";
       // finalurl = data.videos.hls5128.uri;
       finalurl = data.videos.variantplaylist_dai.uri;
@@ -316,7 +320,7 @@ function fetchcwjson(value) {
       getShowinfo(data.assetFields.seriesName)
 currentEpisode = {show:data.assetFields.seriesName,episode:data.assetFields.title}
       showname.innerHTML = data.assetFields.seriesName;
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 11.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + data.assetFields.showSlug + '.png" width="100%">';
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + data.assetFields.showSlug + '.png">';
       showdesc.innerHTML = data.assetFields.description;
       
       document.title = data.assetFields.seriesName + " - " + data.assetFields.title;
@@ -974,7 +978,7 @@ currentEpisode = {show:data.seriesName,episode:data.name}
       bg(data.images.still.HD);
             showname.innerHTML = data.seriesName;
 
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;width: 11.0em;display:inline-block;" src="' + data.images.logo.FHD + '" width="100%">';
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="' + data.images.logo.FHD + '" >';
       getShowinfo(data.seriesName);
 
       showdesc.innerHTML = data.description;

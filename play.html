@@ -603,6 +603,12 @@ button {
 <script type="text/javascript" src="js/fetch.min.js"></script></script> 
 <script  type="text/javascript" src="js/videojs.hotkeys.min.js"></script>
 <script type="text/javascript" src="js/videojs-contrib-hls.min.js"></script>
+<script type="text/javascript" src="js/captionator-min.js"></script>
+<script type="text/javascript">
+	window.addEventListener("load",function(eventData) {
+		captionator.captionify();
+	});
+</script>
 <script type="text/javascript">
 function error(){
 document.body.setAttribute('class',' error')
