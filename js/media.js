@@ -507,6 +507,7 @@ fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&
    console.log(res.url.replace('3104027',value.split('/')[value.split('/').length-1]))
    player.src({type:'application/vnd.apple.mpegurl',src:res.url.replace('3104027',value.split('/')[value.split('/').length-1])})
 })
+console.log('https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect')
 //player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
 resume()
 
@@ -997,7 +998,7 @@ currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumbe
       document.getElementById('epname').innerHTML = data.name;
             document.title = data.seriesName + " - " + data.name;
 
-play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.guid+'?format=script')
+play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materialIDs[0]+'?format=script')
 
 play(data.videoRelease.url)
 }
