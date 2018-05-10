@@ -1021,7 +1021,7 @@ try{
 for(i in episodes.reverse()){
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
-		upnextshows[episodes[i].show] = {show:episodes[i].show,episodes:[],latestWatched:null,latestWNum:null,upNext:null,upNextNum:null,percentage:null}
+		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:null,percentage:null}
 	}
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < 46) {
 		done = true;
@@ -1033,21 +1033,27 @@ for(i in episodes.reverse()){
 		//		console.log(episodes[i].show,doneNum[episodes[i].show])
 
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
-		upnextshows[episodes[i].show].latestWNum = Number(episodes[i].epiformat.split('E')[1])
+		upnextshows[episodes[i].show].latestWNum = episodes[i].episodeNumber
+		upnextshows[episodes[i].show].latestWSesN = episodes[i].seasonNumber
 	}
 	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && upnextshows[episodes[i].show].latestWNum != null ) {
 		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].upNextNum =  episodes[i].episodeNumber
+		upnextshows[episodes[i].show].upNextSeason = episodes[i].seasonNumber
 
 	}
-	upnextshows[episodes[i].show].episodes.push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href})
+console.log(upnextshows[episodes[i].show].seasons)
+if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
+upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
+}
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href})
 
 }
 
 
 episodes.reverse()
   for (i in episodes) {
-	upnextshows[episodes[i].show].percentage = (doneNum[episodes[i].show] / upnextshows[episodes[i].show].episodes.length) 
+	upnextshows[episodes[i].show].percentage = (doneNum[episodes[i].show] / upnextshows[episodes[i].show].totalEpisodes) 
 
 
 

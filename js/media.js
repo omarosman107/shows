@@ -165,13 +165,14 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
          localStorage[window.location.search] = player.currentTime();
 
          if (player.duration() - player.currentTime() < 48) {
-            var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show]
-            for (var i = showJson.episodes.length - 1; i >= 0; i--) {
-               if (showJson.episodes[i].episode == currentEpisode.episode ) {
 
-                  if (i+1 - showJson.episodes.length - 1 == -1 ) {return;}
+            var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
+            for (var i = showJson.length - 1; i >= 0; i--) {
+               if (showJson[i].episode == currentEpisode.episode ) {
 
-               next = showJson.episodes[i+1]
+                  if (i+1 - showJson.length - 1 == -1 ) {return;}
+
+               next = showJson[i+1]
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
                document.querySelector('.episode').innerHTML = next.episode
                document.querySelector('.upnext').style.display = 'block';
@@ -479,7 +480,7 @@ fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(fun
 
 fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(function(res){return res.json()}).then(function(meta){
    showname.innerHTML = (meta['nbcu$seriesShortTitle'])
-   currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content')}
+   currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content'),season:meta['nbcu$seasonNumber']}
 
    fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
       fetch('https://api.nbc.com/v3.14/images/'+showapi.data["0"].relationships.logo.data.id).then(function(res){return res.json()}).then(function(image){
@@ -984,7 +985,7 @@ function handle(data){
 
    player.duration(data.durationInSeconds)
       console.log(data.images.logo.FHD);
-currentEpisode = {show:data.seriesName,episode:data.name}
+currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumber}
 
       bg(data.images.still.HD);
             showname.innerHTML = data.seriesName;
