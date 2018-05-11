@@ -1557,8 +1557,11 @@ for(i in fullEpisodes.member){
 var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
 var sizes = [
 '110:62',
+'304:171',
 '480:270',
+'528:297',
 '740:416',
+'840:315',
 '1280:720'
 ]
 var srcset = ''

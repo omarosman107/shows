@@ -407,7 +407,8 @@ function fetchabcjson(value) {
 
 // FOX Fetch
 function fetchfoxjson(value) {
-
+foxapi('https://api.fox.com/fbc-content/v1_4/video/' + value.split('/watch')[1])
+return;
      fetch('https://api.fox.com/fbc-content/v1_4/video/' + value.split('/watch')[1],{
     headers: new Headers({
     'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
@@ -997,6 +998,11 @@ currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumbe
       showdesc.innerHTML = data.description;
       document.getElementById('epname').innerHTML = data.name;
             document.title = data.seriesName + " - " + data.name;
+            if (!data.materialIDs) {
+               data['materialIDs'] = []
+               data.materialIDs.push(data.guid)
+            }
+            console.log(data.materialIDs)
 if (data.network == 'fx') {
    play('https://link.theplatform.com/s/fox-dcg/media/guid/2696725017/'+data.materialIDs[0]+'?format=script')
 
