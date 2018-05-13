@@ -680,7 +680,7 @@ document.getElementById('projpar').style.display = 'none'
 function play(url,auth){
 // '?mbr=true&formats=m3u&format=smil&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn%2Flive&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&auth=' + auth 
 // ?mbr=true&format=script
-     fetch(url.split('?')[0] + '?mbr=true&format=script', {
+     fetch(url.split('?')[0] + '?format=script', {
          method: 'get'
       }).then(function (response) {
            return response.json();
