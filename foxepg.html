@@ -560,12 +560,13 @@ try{
  data.panels.member["0"].items.member.reverse()
       console.log(data.panels.member["0"].items.member)
 for (var i = data.panels.member["0"].items.member.length - 1; i >= 0; i--) {
-  if (data.panels.member[0].items.member[i].guid == 'paid-program') {continue;}
 var date = new Date(data.panels.member["0"].items.member[i].startDate);
 if (Date.parse(new Date(data.panels.member[0].items.member[i].originalAirDate))+ 4320000000 < Date.now()) {
   continue;
 }
-if (data.panels.member[0].items.member[i].seriesType == 'sportingEvent') {continue;}
+if (data.panels.member[0].items.member[i].seriesType != 'series') {continue;}
+if (!data.panels.member[0].items.member[i].network == 'fox' || !data.panels.member[0].items.member[i].showCode == 'snowfall' || !data.panels.member[0].items.member[i].showCode == 'atlanta') {continue;}
+
 date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((date.getTimezoneOffset() / 60));
 date = new Date(output)
