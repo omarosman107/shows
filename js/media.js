@@ -983,7 +983,6 @@ function clone(obj) {
 }
 
 function handle(data){
-      window.history.replaceState('', '', '?'+data['@id']);
 
    player.duration(data.durationInSeconds)
       console.log(data.images.logo.FHD);
@@ -1012,9 +1011,11 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
 }
 
 play(data.videoRelease.url)
+      window.history.replaceState('', '', '?'+data['@id']);
+
 }
 console.log(item)
-
+/*
 if (item.releaseTypesCount == 0) {
       foxapi('https://api.fox.com/fbc-content/v1_4/video/?name='+item.headline + '&showcode=' + item.showCode)
       console.log('zero video types')
@@ -1026,7 +1027,7 @@ if (item.id == 'live-player') {
    foxapi('https://api.fox.com/fbc-content/v1_4/video/'+item.panels.member[0].items.member[0].playerScreenUrl.split('player/')[1].split('?')[0])
 return;
 }
-
+*/
 
 if ('videoRelease' in item == 0) {
    console.log('episode is not done airing yet')
