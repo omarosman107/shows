@@ -458,6 +458,8 @@ var newfinalshows = []
   }).forEach(function(x) {
     q.push(x)
   });
+
+
   document.getElementById('carasoul').innerHTML = ''
   document.getElementById('watching').innerHTML = ''
   	document.getElementById('showsLike').style.display = 'none'
@@ -615,6 +617,7 @@ function loaders(atr) {
     if (num == 0) {
     	console.time()
 
+finalObj =  finalObj.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
 
 
 if (!isMobile || !window.location.search == '' || window.location.search == '?') {
@@ -1046,6 +1049,7 @@ if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
 	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href})
+
 
 }
 
@@ -1581,16 +1585,13 @@ srcset = srcset.substr(0, srcset.length - 1);
 var date = new Date(epg.panels.member["0"].items.member[i].originalAirDate)
 date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 
-
-
-
-				 finalObj.push({
-        img: epg.panels.member["0"].items.member[i].images.videoList.SD,
-        rating: rating(epg.panels.member["0"].items.member[i].contentRating),
+var this_episode = {
+        img: image + '?fit=inside%7C480:270',
+        rating: '',
         href: 'https://api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
         show: epg.panels.member["0"].items.member[i].seriesName,
         episode: epg.panels.member["0"].items.member[i].name,
-        id: makeid(),
+        id: epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
         epiformat: epiformat(epg.panels.member["0"].items.member[i].seasonNumber, epg.panels.member["0"].items.member[i].episodeNumber),
         episodeNumber: Number(epg.panels.member["0"].items.member[i].episodeNumber),
         seasonNumber: Number(epg.panels.member["0"].items.member[i].seasonNumber),
@@ -1603,9 +1604,15 @@ date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
         type:'newfox',
         episode_id:epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
         hidden:epg.panels.member["0"].items.member[i].hideVideo,
-        expires:new Date(epg.panels.member["0"].items.member[i].expires).getTime() // + 1000000000
+        expires:new Date(epg.panels.member["0"].items.member[i].expires).getTime()  + 1000000000
 
-              });
+              }
+
+
+if (!finalObj.includes(this_episode)) {
+				 finalObj.push(this_episode);
+}
+
 
 
 
@@ -1654,13 +1661,14 @@ try{
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
 
 	}
-      finalObj.push({
+	// rating(fullEpisodes.member[i].contentRating)
+	var this_episode = {
         img: fullEpisodes.member[i].images.still.SD,
-        rating: rating(fullEpisodes.member[i].contentRating),
+        rating: '',
         href: 'https://api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
         show: fullEpisodes.member[i].seriesName,
         episode: fullEpisodes.member[i].name,
-        id: makeid(),
+        id: fullEpisodes.member[i].id,
         epiformat: epiformat(fullEpisodes.member[i].seasonNumber, fullEpisodes.member[i].episodeNumber),
         episodeNumber: Number(fullEpisodes.member[i].episodeNumber),
         seasonNumber: Number(fullEpisodes.member[i].seasonNumber),
@@ -1675,7 +1683,11 @@ try{
         hidden:fullEpisodes.member[i].hideVideo,
         expires:new Date(fullEpisodes.member[i].expires).getTime() + 1000000000
 
-              });
+              }
+              if (!finalObj.includes(this_episode)) {
+      finalObj.push(this_episode);
+
+              }
   }catch(e){
   	console.log(e)
   }
