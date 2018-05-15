@@ -610,7 +610,8 @@ button {
 	});
 </script>
 <script type="text/javascript">
-function error(){
+function error(e){
+	console.log(e)
 document.body.setAttribute('class',' error')
 document.querySelector('.maw').style.display = 'block'
 }

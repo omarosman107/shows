@@ -803,6 +803,8 @@ console.log(play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs
 return;
 
 
+  }).catch(function(e){
+   error(e)
   })
 
 }

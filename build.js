@@ -1042,7 +1042,6 @@ for(i in episodes.reverse()){
 		upnextshows[episodes[i].show].upNextSeason = episodes[i].seasonNumber
 
 	}
-console.log(upnextshows[episodes[i].show].seasons)
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
@@ -1484,6 +1483,7 @@ var webpcompatible = false
   
 
 
+var foxshowlist = ['snowfall','atlanta']
 
 function newfox(show){
 
@@ -1508,7 +1508,6 @@ fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(functi
 // https://api.fox.com/fbc-content/v3_blue/screenpanels/57d15aaa3721cfe22013ead4/items?itemsPerPage=100
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
-var foxshowlist = ['snowfall','atlanta']
 var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 var showEpisodeCount = {}
 fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
@@ -1548,6 +1547,75 @@ continue;
 console.log(foxshowlist.join())
 		  loaders()
 if (foxshowlist.length == 0) {loaders('remove');return;}
+loaders()
+fetch('https://api.fox.com/fbc-content/v1_5/screens/live',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
+ epg.panels.member["0"].items.member =  epg.panels.member["0"].items.member.concat(epg.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
+
+	for (var i = epg.panels.member["0"].items.member.length - 1; i >= 0; i--) {
+		if (!foxshowlist.includes(epg.panels.member["0"].items.member[i].showCode) || epg.panels.member["0"].items.member[i].seriesType != 'series') {continue;}
+				console.log(epg.panels.member["0"].items.member[i])
+
+
+var image = epg.panels.member["0"].items.member[i].images.videoList.HD.split('?')[0]
+var sizes = [
+'110:62',
+'304:171',
+'480:270',
+'528:297',
+'740:416',
+'840:315',
+'1280:720'
+]
+var srcset = ''
+function webpImage(){
+if (webpcompatible) {
+	return '&output-format=webp';
+}else{
+	return ''
+}
+}
+for (var z = sizes.length - 1; z >= 0; z--) {
+ srcset += (image + '?fit=inside|' + encodeURIComponent(sizes[z]) +  ' ' + sizes[z].split(':')[0] +'w ,')
+}
+srcset = srcset.substr(0, srcset.length - 1);
+var date = new Date(epg.panels.member["0"].items.member[i].originalAirDate)
+date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
+
+
+
+
+				 finalObj.push({
+        img: epg.panels.member["0"].items.member[i].images.videoList.SD,
+        rating: rating(epg.panels.member["0"].items.member[i].contentRating),
+        href: 'https://api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        show: epg.panels.member["0"].items.member[i].seriesName,
+        episode: epg.panels.member["0"].items.member[i].name,
+        id: makeid(),
+        epiformat: epiformat(epg.panels.member["0"].items.member[i].seasonNumber, epg.panels.member["0"].items.member[i].episodeNumber),
+        episodeNumber: Number(epg.panels.member["0"].items.member[i].episodeNumber),
+        seasonNumber: Number(epg.panels.member["0"].items.member[i].seasonNumber),
+        length: epg.panels.member["0"].items.member[i].durationInSeconds,
+        type: epg.panels.member["0"].items.member[i].network,
+        imgdyn: srcset,
+        autoplay:epg.panels.member["0"].items.member[i].autoPlayVideo.default.url,
+        bg:epg.panels.member["0"].items.member[i].images.videoList.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
+        time:Date.parse(date),
+        type:'newfox',
+        episode_id:epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        hidden:epg.panels.member["0"].items.member[i].hideVideo,
+        expires:new Date(epg.panels.member["0"].items.member[i].expires).getTime() // + 1000000000
+
+              });
+
+
+
+	}
+
+loaders('remove')
+})
+
+
+
 	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
