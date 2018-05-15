@@ -1520,9 +1520,14 @@ var allEpisodeCount = 0
 
 	for (var i = foxshows.member.length - 1; i >= 0; i--) {
 		if (foxshows.member[i].fullEpisodeCount == 0 || 'fullEpisodeCount' in foxshows.member[i] == false) continue;
-
+if (show != undefined) {
+			if (show.toLowerCase().includes(foxshows.member[i].name)) {
+				
+								skipTheseShows.push(foxshows.member[i].name)
+			}
+}
 		showEpisodeCount[foxshows.member[i].showCode] = foxshows.member[i].fullEpisodeCount
-		if(foxshows.member[i].network == 'fox'){
+		if(foxshows.member[i].network == 'fox' || skipTheseShows.includes(foxshows.member[i])){
 			if (foxshows.member[i].showCode == 'the-x-files' || skipTheseShows.includes(foxshows.member[i].name)) continue;
 
 			foxshowlist.push(foxshows.member[i].showCode)
