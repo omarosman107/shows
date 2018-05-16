@@ -105,6 +105,7 @@
                 font-weight: 700;
                 font-size: 30vw;
                 left: 20px;
+                    font-weight: 900;
             }
         }
 
@@ -183,6 +184,7 @@
     font-size: -webkit-xxx-large;
     font-family: Ostrich Sans,Helvetica;
     padding: 15px;
+    text-rendering: geometricPrecision;
 "></div>
                 <div style="
     max-height: 100%;
@@ -528,12 +530,12 @@
 
                     }
                 }
-                loc.open("GET", 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + place.latitude + ',' + place.longitude, true);
+                loc.open("GET", '//maps.googleapis.com/maps/api/geocode/json?latlng=' + place.latitude + ',' + place.longitude, true);
                 loc.send();
 
 
 
-                var url = 'http://api.aladhan.com/timings?latitude=' + place.latitude + '&longitude=' + place.longitude + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone
+                var url = '//api.aladhan.com/timings?latitude=' + place.latitude + '&longitude=' + place.longitude + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone
                 xhttp.open("GET", url, true);
                 xhttp.send();
                 return;

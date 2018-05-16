@@ -1261,7 +1261,7 @@ var cwTimes = {}
 function cw(show){
 	var skipTheseShows = ['Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
-fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
+fetch('//images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
 	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
@@ -1282,7 +1282,7 @@ cwTimes[cwshows.items[i].title] = airtime
 		}
 	}
 
-fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
+fetch('//images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
 .then(function(res){
 return res.json()
 }).then(function(data){
@@ -1313,11 +1313,11 @@ return res.json()
       	if (webpcompatible == true) {
 // return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
 }
-      	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+      	 return '//images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
-      showswithimages[data.videos[i].series_name] = 'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg'
-      tvlist(data.videos[i].series_name,'http://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
+      showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg'
+      tvlist(data.videos[i].series_name,'//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
       var episode_data = {
         img: cwdyres('638'),
         rating: (data.videos[i].rating),
@@ -1397,7 +1397,7 @@ loaders('remove')
 
 function nbc(show){
 	var nbcshows = {}
-	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
+	fetch('//api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
@@ -1416,7 +1416,7 @@ function nbc(show){
 
 
 
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=5').then(function(res){return res.json()}).then(function(episode){
+			fetch('//api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=5').then(function(res){return res.json()}).then(function(episode){
 				if (episode.data.length == 0) {
 					loaders('remove');
 					return;
@@ -1512,7 +1512,7 @@ var apikey = ''
 
 
 loaders()
-fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch('//config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
@@ -1569,7 +1569,7 @@ console.log(foxshowlist.join())
 		  loaders()
 if (foxshowlist.length == 0) {loaders('remove');return;}
 loaders()
-fetch('https://api.fox.com/fbc-content/v1_5/screens/live',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
+fetch('//api.fox.com/fbc-content/v1_5/screens/live',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
  epg.panels.member["0"].items.member =  epg.panels.member["0"].items.member.concat(epg.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
 
 	for (var i = epg.panels.member["0"].items.member.length - 1; i >= 0; i--) {
@@ -1608,7 +1608,7 @@ date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 var this_episode = {
         img: image + '?fit=inside%7C480:270',
         rating: '',
-        href: 'https://api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        href: '//api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
         show: epg.panels.member["0"].items.member[i].seriesName,
         episode: epg.panels.member["0"].items.member[i].name,
         id: epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
@@ -1685,7 +1685,7 @@ try{
 	var this_episode = {
         img: fullEpisodes.member[i].images.still.SD,
         rating: '',
-        href: 'https://api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
+        href: '//api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
         show: fullEpisodes.member[i].seriesName,
         episode: fullEpisodes.member[i].name,
         id: fullEpisodes.member[i].id,
