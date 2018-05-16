@@ -1562,6 +1562,9 @@ fetch('https://api.fox.com/fbc-content/v1_5/screens/live',{headers:foxheaders}).
 
 	for (var i = epg.panels.member["0"].items.member.length - 1; i >= 0; i--) {
 		if (!foxshowlist.includes(epg.panels.member["0"].items.member[i].showCode) || epg.panels.member["0"].items.member[i].seriesType != 'series') {continue;}
+			if (epg.panels.member[0].items.member[i].datePublished != epg.panels.member[0].items.member[i].startDate) {
+				continue;
+			}
 				console.log(epg.panels.member["0"].items.member[i])
 
 
