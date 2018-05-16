@@ -163,7 +163,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
          endTime();
 
          localStorage[window.location.search] = player.currentTime();
-
+            localStorage[window.location.search+'_duration'] = player.duration();
          if (player.duration() - player.currentTime() < 48) {
 
             var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
@@ -185,6 +185,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
 
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
+         localStorage[window.location.search+'_duration'] = player.duration();
       };
 
   

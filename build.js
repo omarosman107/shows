@@ -1022,6 +1022,12 @@ function loadMedia(episodes,arg) {
 try{
   console.time('ProcessShows')
 for(i in episodes.reverse()){
+
+	  if (tempLS['?'+episodes[i].href+'_duration'] != undefined) {
+      	episodes[i].length = Number(tempLS['?'+episodes[i].href+'_duration'])
+
+      }
+
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
 		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:null,percentage:null}
@@ -1099,6 +1105,12 @@ if (!time > 0) {
     var perc = 0;
     if (tempLS["?" + json.href]) {
       perc = tempLS["?" + json.href] / json.length * 100;
+     /* if (!tempLS['?'+json.href+'_duration'] == undefined) {
+      	      perc = tempLS["?" + json.href] / json.length * 100;
+
+      }else{
+      	json.length = tempLS['?'+json.href+'_duration']
+      }*/
       if (perc == "NaN") {
         perc = 0
       }
