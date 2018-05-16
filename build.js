@@ -1397,7 +1397,7 @@ loaders('remove')
 
 function nbc(show){
 	var nbcshows = {}
-	fetch('//api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
+	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
@@ -1416,7 +1416,7 @@ function nbc(show){
 
 
 
-			fetch('//api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=5').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=5').then(function(res){return res.json()}).then(function(episode){
 				if (episode.data.length == 0) {
 					loaders('remove');
 					return;

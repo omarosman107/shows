@@ -282,6 +282,16 @@ function fetchcwjson(value) {
       resume();
 // ,{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}
       })
+      fetch('//images.cwtv.com/feed/mobileapp/video-meta/apiversion_7/guid_'+stripped).then(function(res){return res.json();}).then(function(episode_data){
+         currentEpisode = {show:episode_data.series_name,episode:episode_data.title}
+      showname.innerHTML = episode_data.video.series_name;
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + episode_data.video.show_slug + '.png">';
+      showdesc.innerHTML = episode_data.video.description_long;
+      document.getElementById('epname').innerHTML = episode_data.video.title;
+            document.title = episode_data.video.series_name + " - " + episode_data.video.title;
+
+
+      })
 // Get Captions!
  fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter?track=Closed%20Captioning').then(function (res) {
       return res.json();
@@ -293,7 +303,7 @@ function fetchcwjson(value) {
    });
    
 
-
+return;
 
    fetch(url, {
       method: 'get'
