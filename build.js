@@ -1608,7 +1608,7 @@ date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 var this_episode = {
         img: image + '?fit=inside%7C480:270',
         rating: '',
-        href: '//api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        href: 'https://api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
         show: epg.panels.member["0"].items.member[i].seriesName,
         episode: epg.panels.member["0"].items.member[i].name,
         id: epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
@@ -1685,7 +1685,7 @@ try{
 	var this_episode = {
         img: fullEpisodes.member[i].images.still.SD,
         rating: '',
-        href: '//api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
+        href: 'https://api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
         show: fullEpisodes.member[i].seriesName,
         episode: fullEpisodes.member[i].name,
         id: fullEpisodes.member[i].id,
