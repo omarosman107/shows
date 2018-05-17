@@ -5,11 +5,16 @@
 
 // var x2js = new X2JS();
 var player = videojs('LS', {html5: {
+   hlsjsConfig: {
+      debug:true,
+                 startPosition: getLastTime(),
+                 maxStarvationDelay:0
+
+   },
   hls: {
     enableLowInitialPlaylist:true
   }
 }});
-videojs.Hls.GOAL_BUFFER_LENGTH = 100
 videojs.Hls.xhr.beforeRequest = function(options) {
    //console.log(options)
 
@@ -61,10 +66,20 @@ function loadURL(url, type) {
 
    resume();
 }
-var played = false;
+var played = 0;
 var currentEpisode = {}
 var next = {}
+function getLastTime(){
+   if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 48) {
+      return localStorage[window.location.search] - 5;
+      }
+   return 0;
+}
 function resumePlayback(state) {
+   
+   if (!player.canPlayType('application/vnd.apple.mpegURL')) {
+   return;
+}
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > 48) {
 
@@ -90,6 +105,7 @@ function endTime() {
    var m = pad(t.getMinutes());
    if (h == 0) {
       h = 12
+      ap = 'AM'
    }
 
 x =  'Ends at: ' + h + ':' + m + ' ' + ap;
@@ -121,30 +137,32 @@ clearInterval(interval)
 vid.addEventListener('loadstart', function(){
    if (localStorage['last_bandwidth']) {
 
-      player.tech().hls.bandwidth = (localStorage['last_bandwidth'])
-      console.log('set last bandwidth', localStorage['last_bandwidth']  / 1024/1024 + ' mbps')
+  //    player.tech().hls.bandwidth = (localStorage['last_bandwidth'])
+    //  console.log('set last bandwidth', localStorage['last_bandwidth']  / 1024/1024 + ' mbps')
 
    }
 
 
    setInterval(function(){
-      localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
-      console.log(player.tech_.hls.bandwidth / 1024/1024 + ' mbps')
+     // localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
+  //    console.log(player.tech_.hls.bandwidth / 1024/1024 + ' mbps')
    },6000)
 })
 
    vid.onerror = function (e) {
       error(e);
    };
+   /*
 vid.addEventListener('loadstart',function(){
 if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
                resumePlayback();
 }
 
 })
-  
+  */
    vid.addEventListener('loadeddata', function () {
                resumePlayback();
+
 
       document.getElementById('LS').style.opacity = 1;
       //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
@@ -480,25 +498,14 @@ function fetchnbcjson(value) {
    resume();
 })
 
-   fetch('https://player.theplatform.com/p/HNK2IC/y9LXf40HJyoN/select/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]).then(function(res){return res.text()}).then(function(data){
-var htmlparsed = tohtml(data);
-var episode_title = htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content')
-var description = htmlparsed.querySelector('meta[property="og:description"]').getAttribute('content')
+fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=script').then(function(res){return res.json()}).then(function(meta){
+   showname.innerHTML = (meta['nbcu$seriesShortTitle'])
+var episode_title =  (meta['title'])
+var description =  (meta['description'])
+   currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:episode_title,season:meta['nbcu$seasonNumber']}
       showdesc.innerHTML = description;
       document.title =  episode_title;
       document.getElementById('epname').innerHTML = episode_title;
-var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
-
-fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(function(res){return res.text();}).then(function(thumbnails){
-         // https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21_1200.fs
-      //https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21.jpg?impolicy=nbc_com&imwidth=720
-
-
-})
-
-fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=script').then(function(res){return res.json()}).then(function(meta){
-   showname.innerHTML = (meta['nbcu$seriesShortTitle'])
-   currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content'),season:meta['nbcu$seasonNumber']}
 
    fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
       fetch('https://api.nbc.com/v3.14/images/'+showapi.data["0"].relationships.logo.data.id).then(function(res){return res.json()}).then(function(image){
@@ -522,11 +529,30 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
    bg(meta.defaultThumbnailUrl+'?impolicy=nbc_com&imwidth=720')
 })
 
+
+/*
+   fetch('https://player.theplatform.com/p/HNK2IC/y9LXf40HJyoN/select/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]).then(function(res){return res.text()}).then(function(data){
+var htmlparsed = tohtml(data);
+var episode_title = htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content')
+var description = htmlparsed.querySelector('meta[property="og:description"]').getAttribute('content')
+      showdesc.innerHTML = description;
+      document.title =  episode_title;
+      document.getElementById('epname').innerHTML = episode_title;
+var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
+
+fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(function(res){return res.text();}).then(function(thumbnails){
+         // https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21_1200.fs
+      //https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21.jpg?impolicy=nbc_com&imwidth=720
+
+
+})
+
+
 console.log('https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect')
 //player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
 
    })
-  
+  */
 }
 // AdultSwim
 function fetchaswimjson(value) {
@@ -712,6 +738,8 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res
 }).then(function(m3u8){
   var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
   console.log(m3u8.split('.')[2].split('/')[1])
+    player.src({ "type": "application/x-mpegURL", "src": m3u8 });
+         resume();
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
    console.log(videoData)
  var vidPreview = {}
@@ -724,8 +752,8 @@ function toPaddedHexString(num, len) {
 
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
       vidPreview[`${(i*eachCount)}`] = {"src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'}
-      var img = new Image;
-      img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
+     // var img = new Image;
+    //  img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
             console.log((i*eachCount))
 
    }
@@ -734,8 +762,7 @@ function toPaddedHexString(num, len) {
 
 
 })
-  player.src({ "type": "application/x-mpegURL", "src": m3u8 });
-         resume();
+
 })
 }else{
  backupWay(url)
