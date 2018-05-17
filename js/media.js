@@ -6,7 +6,6 @@
 // var x2js = new X2JS();
 var player = videojs('LS', {html5: {
    hlsjsConfig: {
-      debug:true,
                  startPosition: getLastTime(),
                  maxStarvationDelay:0
 
@@ -730,14 +729,15 @@ xmlDoc = parser.parseFromString(play,"text/xml");
 */
 // param[name="testPlayerUrl"]
 if ('uplynk$testPlayerUrl' in play) {
-
-fetch(play.uplynk$testPlayerUrl.replace('http://','https://')).then(function(res){if(res.status != 200){ backupWay(url)
+fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?exp='+(new Date().getTime() + 10000000 ) / 1000
+).then(function(res){if(res.status != 200){ backupWay(url)
 }else{
    return res.text();
 }
 }).then(function(m3u8){
   var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
   console.log(m3u8.split('.')[2].split('/')[1])
+
     player.src({ "type": "application/x-mpegURL", "src": m3u8 });
          resume();
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
@@ -1052,7 +1052,7 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
 
 }
 
-play(data.videoRelease.url)
+// play(data.videoRelease.url)
       window.history.replaceState('', '', '?'+data['@id']);
 
 }
