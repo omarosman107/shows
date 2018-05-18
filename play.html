@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head data-cast-api-enabled="true"> <!-- allow chromecast extention -->
+
+<script src="http://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script> <!-- add chromecast sdk -->
+
 
 	<meta content="width=device-width, initial-scale=1" data-react-helmet="true" name="viewport">
 	<meta content="website" data-react-helmet="true" property="og:type">
@@ -514,7 +517,8 @@ button {
 </div>
 												<div class="VideoPlayer_videoContainer_YtwNO">
 													<div   id="video-player">
-             <video width="100%"   id=LS x-webkit-airplay="allow" preload="auto" autoplay=""  data-setup="" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
+
+             <video width="100%"   id=LS x-webkit-airplay="allow" preload="auto" autoplay="" title="" data-setup="" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" controls="controls">
 </video>
 </div>
 
@@ -594,6 +598,8 @@ button {
 	</div>
 
 	<link href="css/videojs.thumbnails.css" rel="stylesheet">
+	<link href="css/videojs-chromecast.css" rel="stylesheet">
+
 
 	<script type="text/javascript" src="js/video.min.js"></script>
 <script type="text/javascript" src="js/videojs.thumbnails.js"></script>
@@ -604,14 +610,9 @@ button {
 <script type="text/javascript" src="js/fetch.min.js"></script></script> 
 <script  type="text/javascript" src="js/videojs.hotkeys.min.js"></script>
 <script type="text/javascript" src="js/videojs-contrib-hlsjs.min.js"></script>
+<script src="js/videojs-chromecast.min.js"></script><!-- add plugin -->
 <script type="text/javascript" src="js/captionator-min.js"></script>
-<script type="text/javascript">
-var ad_idzone = "3011788",
-      ad_frequency_period = 180,
-      ad_frequency_count = 1,
-      ad_trigger_method = 1;
-</script>
-<script type="text/javascript" src="https://ads.exdynsrv.com/popunder1000.js"></script>
+
 <script type="text/javascript">
 	window.addEventListener("load",function(eventData) {
 		captionator.captionify();
@@ -670,6 +671,7 @@ loadCSS('css/video-js.min.css')
    ga('create', 'UA-66082501-10', 'auto');
   
   </script>
+  <script type="text/javascript" src="js/videojs.ga.min.js"></script>
 
 </body>
 </html> 

@@ -127,11 +127,13 @@ findName(next.link)
 }
 var interval
 function resume() {
+player.ga()
+
 clearInterval(interval)
    var vid = document.getElementById('LS_html5_api');
 
    var vid = document.getElementById(player.el().children[0].id);
-
+vid.title = document.title
 
 vid.addEventListener('loadstart', function(){
    if (localStorage['last_bandwidth']) {
