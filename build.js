@@ -1374,9 +1374,9 @@ continue;
   var s = (data.items[i].episode_season)
         var e = (data.items[i].episode_number.split(data.items[i].episode_season)[1])
         console.log(e)
-      var airdate =  new Date(data.items[i].episode_date)
+      var airdate = (moment(data.items[i].episode_date).toDate())
       console.log(airdate)
-      if((airdate - new Date().getTime() ) / 1000 > 96768){
+      if((airdate - new Date() ) / 1000 > 96768){
       	continue;
       }
 
