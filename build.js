@@ -1282,6 +1282,9 @@ cwTimes[cwshows.items[i].title] = airtime
 		}
 	}
 
+
+
+
 fetch('//images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
 .then(function(res){
 return res.json()
@@ -1345,6 +1348,68 @@ return res.json()
   loaders('remove')
 })
 }
+loaders()
+			fetch('https://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(data){
+			console.log(data.items)
+			data.items = data.items.reverse()
+			for (var i = data.items.length - 1; i >= 0; i--) {
+				if(data.items[i].video_is_new){
+				var date = new Date(data.items[i].episode_date)
+			console.log(data.items[i])
+						if (show != 'undefined' && show != undefined && data.items[i].show_title.toLowerCase().includes(show.toLowerCase()) == false){
+continue;
+}
+			      function cwdyres(resulution){
+
+      	if (webpcompatible == true) {
+// return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+}
+      	 return '//images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.items[i].video_guid+'.jpg'
+      }
+      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+      showswithimages[data.items[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.items[i].show_slug+'.v_7.w_385.jpg'
+      tvlist(data.items[i].show_title,'//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.items[i].show_slug+'.v_7.w_385.jpg','cw')
+
+
+  var s = (data.items[i].episode_season)
+        var e = (data.items[i].episode_number.split(data.items[i].episode_season)[1])
+        console.log(e)
+      var airdate =  new Date(data.items[i].episode_date)
+      console.log(airdate)
+      if((airdate - new Date().getTime() ) / 1000 > 96768){
+      	continue;
+      }
+
+			   var episode_data = {
+        img: cwdyres('638'),
+        rating:'',
+        imgdyn: dyn,
+        id: makeid(),
+        href: 'http://cwtv.com'+data.items[i].video_share_url,
+        hidden:true,
+        show: data.items[i].show_title,
+        episode: data.items[i].episode_title + ' Trailer',
+        epiformat: epiformat(s, e),
+        episodeNumber:Number(e),
+        seasonNumber:Number(s),
+        length: data.items[i].episode_duration * 60,
+        type: "cw",
+        bg:  '',
+        time:Date.parse(airdate),
+        episode_id:data.items[i].video_guid,
+        expires:new Date(data.items[i].expire_time).getTime()
+
+      }
+            finalObj.push(episode_data)
+
+
+
+				}
+			}
+							loaders('remove')
+
+		})
+
 /*
 fetch('theflash.json').then(function(res){return res.json();}).then(function(theflash){
 
