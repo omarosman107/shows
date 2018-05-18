@@ -1569,18 +1569,18 @@ console.log(foxshowlist.join())
 		  loaders()
 if (foxshowlist.length == 0) {loaders('remove');return;}
 loaders()
-fetch('//api.fox.com/fbc-content/v1_5/screens/live',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
- epg.panels.member["0"].items.member =  epg.panels.member["0"].items.member.concat(epg.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
+fetch('https://api.fox.com/fbc-content/v1_5/screenpanels/58261c820501880001930b2e/items/',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
+ // epg.panels.member["0"].items.member =  epg.panels.member["0"].items.member.concat(epg.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
 
-	for (var i = epg.panels.member["0"].items.member.length - 1; i >= 0; i--) {
-		if (!foxshowlist.includes(epg.panels.member["0"].items.member[i].showCode) || epg.panels.member["0"].items.member[i].seriesType != 'series') {continue;}
-			if (epg.panels.member[0].items.member[i].datePublished != epg.panels.member[0].items.member[i].startDate) {
+	for (var i = epg.member.length - 1; i >= 0; i--) {
+		if (!foxshowlist.includes(epg.member[i].showCode) || epg.member[i].seriesType != 'series') {continue;}
+			if (epg.member[i].datePublished != epg.member[i].startDate) {
 				continue;
 			}
-				console.log(epg.panels.member["0"].items.member[i])
+				console.log(epg.member[i])
 
 
-var image = epg.panels.member["0"].items.member[i].images.videoList.HD.split('?')[0]
+var image = epg.member[i].images.videoList.HD.split('?')[0]
 var sizes = [
 '110:62',
 '304:171',
@@ -1602,29 +1602,29 @@ for (var z = sizes.length - 1; z >= 0; z--) {
  srcset += (image + '?fit=inside|' + encodeURIComponent(sizes[z]) +  ' ' + sizes[z].split(':')[0] +'w ,')
 }
 srcset = srcset.substr(0, srcset.length - 1);
-var date = new Date(epg.panels.member["0"].items.member[i].originalAirDate)
+var date = new Date(epg.member[i].originalAirDate)
 date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
 
 var this_episode = {
         img: image + '?fit=inside%7C480:270',
         rating: '',
-        href: 'https://api.fox.com/fbc-content/v1_5/video/'+epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
-        show: epg.panels.member["0"].items.member[i].seriesName,
-        episode: epg.panels.member["0"].items.member[i].name,
-        id: epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
-        epiformat: epiformat(epg.panels.member["0"].items.member[i].seasonNumber, epg.panels.member["0"].items.member[i].episodeNumber),
-        episodeNumber: Number(epg.panels.member["0"].items.member[i].episodeNumber),
-        seasonNumber: Number(epg.panels.member["0"].items.member[i].seasonNumber),
-        length: epg.panels.member["0"].items.member[i].durationInSeconds,
-        type: epg.panels.member["0"].items.member[i].network,
+        href: 'https://api.fox.com/fbc-content/v1_5/video/'+epg.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        show: epg.member[i].seriesName,
+        episode: epg.member[i].name,
+        id: epg.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        epiformat: epiformat(epg.member[i].seasonNumber, epg.member[i].episodeNumber),
+        episodeNumber: Number(epg.member[i].episodeNumber),
+        seasonNumber: Number(epg.member[i].seasonNumber),
+        length: epg.member[i].durationInSeconds,
+        type: epg.member[i].network,
         imgdyn: srcset,
-        autoplay:epg.panels.member["0"].items.member[i].autoPlayVideo.default.url,
-        bg:epg.panels.member["0"].items.member[i].images.videoList.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
+        autoplay:epg.member[i].autoPlayVideo.default.url,
+        bg:epg.member[i].images.videoList.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(date),
         type:'newfox',
-        episode_id:epg.panels.member["0"].items.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
-        hidden:epg.panels.member["0"].items.member[i].hideVideo,
-        expires:new Date(epg.panels.member["0"].items.member[i].expires).getTime()  + 1000000000
+        episode_id:epg.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
+        hidden:epg.member[i].hideVideo,
+        expires:new Date(epg.member[i].expires).getTime()  + 1000000000
 
               }
 
