@@ -505,7 +505,7 @@ var episode_title =  (meta['title'])
 var description =  (meta['description'])
    currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:episode_title,season:meta['nbcu$seasonNumber']}
       showdesc.innerHTML = description;
-      document.title =  episode_title;
+      document.title =  meta['nbcu$seriesShortTitle'] + ' - ' + episode_title;
       document.getElementById('epname').innerHTML = episode_title;
 
    fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
@@ -530,30 +530,6 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
    bg(meta.defaultThumbnailUrl+'?impolicy=nbc_com&imwidth=720')
 })
 
-
-/*
-   fetch('https://player.theplatform.com/p/HNK2IC/y9LXf40HJyoN/select/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]).then(function(res){return res.text()}).then(function(data){
-var htmlparsed = tohtml(data);
-var episode_title = htmlparsed.querySelector('meta[property="og:title"]').getAttribute('content')
-var description = htmlparsed.querySelector('meta[property="og:description"]').getAttribute('content')
-      showdesc.innerHTML = description;
-      document.title =  episode_title;
-      document.getElementById('epname').innerHTML = episode_title;
-var id = (htmlparsed.querySelector('meta[property="og:url"]').getAttribute('content').split('/')[8])
-
-fetch('https://link.theplatform.com/s/NnzsPC/media/'+id+'?format=smil').then(function(res){return res.text();}).then(function(thumbnails){
-         // https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21_1200.fs
-      //https://mpxstatic-nbcmpx.nbcuni.com/image/355/550/180502_3715109_Lawrence_Dean_Devlin___26__anvver_21.jpg?impolicy=nbc_com&imwidth=720
-
-
-})
-
-
-console.log('https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect')
-//player.src({type:'application/vnd.apple.mpegurl',src:'https://link.theplatform.com/s/NnzsPC/media/'+id+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect'})
-
-   })
-  */
 }
 // AdultSwim
 function fetchaswimjson(value) {
