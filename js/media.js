@@ -321,7 +321,7 @@ function fetchcwjson(value) {
       }
    });
    
-
+console.log(url)
 return;
 
    fetch(url, {
