@@ -184,7 +184,9 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
          if (player.duration() - player.currentTime() < 48) {
-
+if(!(localStorage['showData'])[currentEpisode.show]){
+return;
+  }
             var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
             for (var i = showJson.length - 1; i >= 0; i--) {
                if (showJson[i].episode == currentEpisode.episode ) {
@@ -514,6 +516,12 @@ var description =  (meta['description'])
       })
    })
          console.log(meta.defaultThumbnailUrl.replace('.jpg','_1200.fs'))
+         fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=smil').then(function(res){return res.text();}).then(function(smil){
+
+          //  var doc = document.createElement('body')
+            //doc.innerHTML = smil
+            //console.log(doc)
+         })
    fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
 eachCount = (preview.endTime / preview.imageCount / 1000)
@@ -730,8 +738,11 @@ function toPaddedHexString(num, len) {
 
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
       vidPreview[`${(i*eachCount)}`] = {"src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'}
-     // var img = new Image;
-    //  img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
+    if(i % 4 == 0){
+var img = new Image;
+      img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
+    }
+     
             console.log((i*eachCount))
 
    }
