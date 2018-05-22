@@ -5,17 +5,17 @@
 
 
 // var x2js = new X2JS();
+console.log(getLastTime().start)
 var player = videojs('LS', {html5: {
    hlsjsConfig: {
-                 startPosition: getLastTime(),
-                 maxStarvationDelay:1,
-                  maxLoadingDelay:0
+                 startPosition: getLastTime().start,
+                 maxStarvationDelay:3,
+                  maxLoadingDelay:1,
+                  abrEwmaDefaultEstimate:getLastTime().bandwidth
 
-   },
-  hls: {
-    enableLowInitialPlaylist:true
-  }
+   }
 }});
+
 videojs.Hls.xhr.beforeRequest = function(options) {
    //console.log(options)
 
@@ -72,14 +72,15 @@ var currentEpisode = {}
 var next = {}
 function getLastTime(){
    if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 48) {
-      return localStorage[window.location.search] - 5;
+      return {start:localStorage[window.location.search] - 5,bandwidth:Number(localStorage['last_bandwidth'])};
       }
-   return 0;
+   return {start:0,bandwidth:Number(localStorage['last_bandwidth'])};
 }
 function resumePlayback(state) {
      console.timeEnd();
 
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
+      played = true;
    return;
 }
 if (!played) {
@@ -151,8 +152,8 @@ vid.addEventListener('loadstart', function(){
 
 
    setInterval(function(){
-     // localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
-  //    console.log(player.tech_.hls.bandwidth / 1024/1024 + ' mbps')
+      localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
+      console.log(player.tech_.hls.bandwidth / 1024/1024 + ' mbps')
    },6000)
 })
 
