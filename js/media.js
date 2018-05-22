@@ -1,13 +1,15 @@
 
 
 
+  console.time();
 
 
 // var x2js = new X2JS();
 var player = videojs('LS', {html5: {
    hlsjsConfig: {
                  startPosition: getLastTime(),
-                 maxStarvationDelay:0
+                 maxStarvationDelay:1,
+                  maxLoadingDelay:0
 
    },
   hls: {
@@ -75,7 +77,8 @@ function getLastTime(){
    return 0;
 }
 function resumePlayback(state) {
-   
+     console.timeEnd();
+
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
    return;
 }
@@ -102,6 +105,9 @@ function endTime() {
       ap = 'PM';
    }
    var m = pad(t.getMinutes());
+   if(h == 12){
+      ap = 'PM'      
+   }
    if (h == 0) {
       h = 12
       ap = 'AM'
@@ -1216,7 +1222,6 @@ if (url) {
    currenturl = url
 }
   document.getElementById('progress').style.width = "0%";
-  console.time();
   for (tv in sitefunctions) {
 
     if (currenturl.includes(tv)) {
@@ -1226,7 +1231,6 @@ if (url) {
 
       //        eval(sitefunctions[tv]);
       );isDone = true;
-      console.timeEnd();
       return;
     }
   }

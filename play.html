@@ -492,6 +492,14 @@ button {
 .video-js .vjs-text-track {
   background-color: transparent;
 }
+.vjs-tech  {
+  pointer-events: none;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+-moz-user-select: none;     /* Firefox all */
+-ms-user-select: none;      /* IE 10+ */
+-o-user-select: none;
+user-select: none;
+}
 </style>
 
 </head>
@@ -506,7 +514,7 @@ button {
 				<div class="Watch_screen_g8no6">
 					<div>
 						<div class="Watch_player_26Btw">
-							<div class="Watch_videoSizer_3CBbh">
+							<div oncontextmenu="return false;" class="Watch_videoSizer_3CBbh">
 								<div class="Watch_panelPlayer_2FzUC Watch_panelPlayerAltHeader_LC8jt">
 									<div class="Watch_videoOuterContainer_3HgFc">
 										<div class="VideoContainer_container_25vYU VideoContainer_container_106mb">
