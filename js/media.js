@@ -303,8 +303,8 @@ function fetchcwjson(value) {
    );var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
    fetch(url).then(function(res){return res.json();}).then(function(data){
          data.assetFields.smoothStreamingUrl
-      document.getElementById('downloader').href = data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8';
-      player.src([{src:data.assetFields.smoothStreamingUrl + '(format=mpd-time-csf).mpd'}])
+      document.getElementById('downloader').href = data.videos.variantplaylist.uri.replace('http://hlsioscwtv.warnerbros.com','https://www.cwtv.com',);
+   //   player.src([{src:data.assetFields.smoothStreamingUrl + '(format=mpd-time-csf).mpd'}])
 resume()
 
    })
