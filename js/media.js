@@ -767,13 +767,12 @@ function toPaddedHexString(num, len) {
 }
 
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
-      vidPreview[`${(i*eachCount)}`] = {"src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'}
+      vidPreview[`${(i*eachCount)}`] = {"width":"256","src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg',"tempsrc":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
     if(i % 4 == 0){
-var img = new Image;
-      img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
+//var img = new Image;
+  //    img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
     }
      
-            console.log((i*eachCount))
 
    }
    console.log(vidPreview)
