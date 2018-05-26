@@ -195,14 +195,15 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
          if (player.duration() - player.currentTime() < 48) {
-if(!(localStorage['showData'])[currentEpisode.show]){
+if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
   }
             var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
             for (var i = showJson.length - 1; i >= 0; i--) {
+               console.log(showJson[i])
                if (showJson[i].episode == currentEpisode.episode ) {
 
-                  if (i+1 - showJson.length - 1 == -1 ) {return;}
+                  if (i+1 - showJson.length - 1 == -1 ) {console.log('no episode newer');return;}
 
                next = showJson[i+1]
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
@@ -291,6 +292,11 @@ function raw(url) {
    player.play();
    resume();
 }
+function parseHTML(html) {
+    var t = document.createElement('template');
+    t.innerHTML = html;
+    return t.content.cloneNode(true);
+}
 
 // CWTV Fetch 
 function fetchcwjson(value) {
@@ -302,9 +308,7 @@ function fetchcwjson(value) {
    // MP4 = 213
    );var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
    fetch(url).then(function(res){return res.json();}).then(function(data){
-         data.assetFields.smoothStreamingUrl
-      document.getElementById('downloader').href = data.videos.variantplaylist.uri.replace('http://hlsioscwtv.warnerbros.com','https://www.cwtv.com',);
-   //   player.src([{src:data.assetFields.smoothStreamingUrl + '(format=mpd-time-csf).mpd'}])
+ document.getElementById('downloader').href = data.videos.variantplaylist.uri.replace('http://hlsioscwtv.warnerbros.com','https://www.cwtv.com',);
 resume()
 
    })
@@ -317,6 +321,11 @@ resume()
             Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"'
          })
       }).then(function(res){return res.json();}).then(function(hls){
+
+  //    track = player.addRemoteTextTrack({kind:"captions",src:hls.subtitles[0].webvtt, srclang:"English"});
+
+//track.src = hls.subtitles[0].webvtt
+
 
 var isMobile = false; //initiate as false
 // device detection
@@ -334,7 +343,7 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
 // ,{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}
       })
       fetch('//images.cwtv.com/feed/mobileapp/video-meta/apiversion_7/guid_'+stripped).then(function(res){return res.json();}).then(function(episode_data){
-         currentEpisode = {show:episode_data.series_name,episode:episode_data.title}
+         currentEpisode = {show:episode_data.video.series_name,episode:episode_data.video.title,season:episode_data.video.availability_asset_id.split('-')[episode_data.video.availability_asset_id.split('-').length - 1].split('E')[0].split('S')[1]}
       showname.innerHTML = episode_data.video.series_name;
       document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + episode_data.video.show_slug + '.png">';
       showdesc.innerHTML = episode_data.video.description_long;
