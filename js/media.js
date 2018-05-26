@@ -1054,13 +1054,11 @@ function clone(obj) {
 function handle(data){
 
    player.duration(data.durationInSeconds)
-      console.log(data.images.logo.FHD);
 currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumber}
 
       bg(data.images.still.HD);
             showname.innerHTML = data.seriesName;
 
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="' + data.images.logo.FHD + '" >';
       getShowinfo(data.seriesName);
 
       showdesc.innerHTML = data.description;
@@ -1081,6 +1079,7 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
 
 // play(data.videoRelease.url)
       window.history.replaceState('', '', '?'+data['@id']);
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="' + data.images.logo.FHD + '" >';
 
 }
 console.log(item)

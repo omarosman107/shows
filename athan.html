@@ -96,17 +96,18 @@
             font-weight: 700;
             font-size: 2em;
             left: 20px;
+                max-width: 100%;
+        -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
         }
 
         @media (max-width: 1000px) {
             #left {
-    position: relative;
-    bottom: -80px;
+    position: inherit;
     font-weight: 700;
     font-size: 25vw;
-    left: -10px;
     font-family: Helvetica;
-    letter-spacing: -8px;
+    letter-spacing: -10px;
 
 
             }
@@ -252,6 +253,8 @@
           webkitRequestAnimationFrame || msRequestAnimationFrame;
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
+       
+
         function city() {
             var txt;
             var place = prompt("Please enter your location:", "");
@@ -343,6 +346,8 @@
             };
         }
 
+// query google for ramadan dates
+/*
         var xml = new XMLHttpRequest();
         xml.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -384,6 +389,9 @@
         }
         //  xml.open("GET", 'https://cors-anywhere.herokuapp.com/https://www.google.com/search?q=ramadan+' + new Date().getFullYear(), true);
         // xml.send();
+        */
+
+
         window.onload = function() {
             var currYear = new Date().getFullYear()
 
@@ -423,6 +431,17 @@
             }
         }
 
+                    function formatAMPM(date) {
+                        var hours = date.getHours();
+                        var minutes = date.getMinutes();
+                        var ampm = hours >= 12 ? 'pm' : 'am';
+                        hours = hours % 12;
+                        hours = hours ? hours : 12; // the hour '0' should be '12'
+                        minutes = minutes < 10 ? '0' + minutes : minutes;
+                        var strTime = hours + ':' + minutes + ' ' + '<span class="ampm">' + ampm + '</span>';
+                        return strTime;
+                    }
+
 
         var timer
 
@@ -435,23 +454,12 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText)
-                    var currentDate = new Date();
+                    var currentDate = new Date(data.data.date.readable);
                     var fajr = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate(),data.data.timings.Fajr.split(':')[0],data.data.timings.Fajr.split(':')[1],0)
                     var duhur = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate(),data.data.timings.Dhuhr.split(':')[0],data.data.timings.Dhuhr.split(':')[1],0)
                     var asr = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate(),data.data.timings.Asr.split(':')[0],data.data.timings.Asr.split(':')[1],0)
                     var maghrib = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate(),data.data.timings.Maghrib.split(':')[0],data.data.timings.Maghrib.split(':')[1],0)
                     var isha = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate(),data.data.timings.Isha.split(':')[0],data.data.timings.Isha.split(':')[1],0)
-
-                    function formatAMPM(date) {
-                        var hours = date.getHours();
-                        var minutes = date.getMinutes();
-                        var ampm = hours >= 12 ? 'pm' : 'am';
-                        hours = hours % 12;
-                        hours = hours ? hours : 12; // the hour '0' should be '12'
-                        minutes = minutes < 10 ? '0' + minutes : minutes;
-                        var strTime = hours + ':' + minutes + ' ' + '<span class="ampm">' + ampm + '</span>';
-                        return strTime;
-                    }
 
                     document.getElementById('fajr').innerHTML = formatAMPM(fajr)
                     document.getElementById('duhur').innerHTML = formatAMPM(duhur);
@@ -483,22 +491,6 @@
                         if (distance < 600000) {
                             notif('notify')
                         }
-                        /*
-                                var days = Math.floor(distance / _day);
-                                var hours = Math.floor((distance % _day) / _hour);
-                                var minutes = Math.floor((distance % _hour) / _minute);
-                                var seconds = Math.floor((distance % _minute) / _second);
-
-                                if (hours < 10) {
-                                	hours = '0' + hours
-                                }
-                                   if (minutes < 10) {
-                                	minutes = '0' + minutes
-                                }
-                                   if (seconds < 10) {
-                                	seconds = '0' + seconds
-                                }
-                        */
 
                         var time = getTimeRemaining(end)
                         if (time.hours < 10) {
@@ -575,19 +567,6 @@
 
 
         }
-        /*
-        var ip = new XMLHttpRequest();
-        ip.onreadystatechange = function(){
-        		if (this.readyState == 4 && this.status == 200) {
-        var ipdata = JSON.parse(this.responseText)
-        prayers(ipdata.city + ' , ' + ipdata.region_name +' '+ ipdata.country_name)
-        }
-        }
-        ip.open("GET",'https://freegeoip.net/json/',true);
-        ip.send();
-        */
-
-
 
 
         function do_something(coords) {
@@ -636,6 +615,7 @@
                         document.getElementById('location').innerHTML = '<svg fill="#FFFFFF" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
 
                         prayers(response.city + ', ' + response.region + ' , ' + response.postal + ' , ' + response.country)
+
                     }
                 }
                 ip.open("GET", 'https://ipinfo.io/geo', true);
