@@ -1475,7 +1475,7 @@ function nbc(show){
 		}
 	}
 
-			nbcshows[showId] = 'https://img.nbc.com'+shows.included[i].attributes.path +'?impolicy=nbc_com&imwidth='+480;
+			nbcshows[showId] = 'https://img.nbc.com/'+'//sites//'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
 
@@ -1492,7 +1492,7 @@ function nbc(show){
 						continue;
 					}
 					function nbcimg(res){
-						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res)
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?imwidth='+res)
 						 
 
 
