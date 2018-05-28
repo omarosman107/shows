@@ -1022,17 +1022,21 @@ function loadMedia(episodes,arg) {
 try{
   console.time('ProcessShows')
 for(i in episodes.reverse()){
-
+var endTime = 48
+if(tempLS['?'+episodes[i].href +'_end']){
+	endTime = tempLS['?'+episodes[i].href +'_end']
+}
 	  if (tempLS['?'+episodes[i].href+'_duration'] != undefined) {
       	episodes[i].length = Number(tempLS['?'+episodes[i].href+'_duration'])
 
       }
+episodes[i].end = episodes[i].length - endTime 
 
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
 		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:null,percentage:null}
 	}
-	if (episodes[i].length - tempLS["?" + episodes[i].href] < 46) {
+	if (episodes[i].length - tempLS["?" + episodes[i].href] < endTime) {
 		done = true;
 		episodes[i]['done'] = done
 		if (doneNum[episodes[i].show] == undefined) {
@@ -1137,11 +1141,11 @@ if (!time > 0) {
     }
   
     var done = perc > 99
-if (json.length - tempLS["?" + json.href] < 46) {
+if (json.length - tempLS["?" + json.href] < json.end) {
 	perc = 100
 }
 
-    if (json.length - tempLS["?" + json.href] > 46 && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
+    if (json.length - tempLS["?" + json.href] > json.end && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'

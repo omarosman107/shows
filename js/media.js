@@ -88,7 +88,7 @@ function resumePlayback(state) {
    return;
 }
 if (!played) {
-        if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > 48) {
+        if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
 
          player.currentTime(localStorage[window.location.search] - 5);
          played = true;
@@ -137,7 +137,12 @@ findName(next.link)
 
 }
 var interval
+var finishDur
 function resume() {
+    finishDur = player.duration() - 48
+   if(localStorage[window.location.search + '_end']){
+      finishDur = localStorage[window.location.search + '_end']
+   }
 player.ga()
 player.currentTime(getLastTime().start)
 clearInterval(interval)
@@ -173,6 +178,10 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
 })
   */
    vid.addEventListener('loadeddata', function () {
+          finishDur = player.duration() - 48
+   if(localStorage[window.location.search + '_end']){
+      finishDur = localStorage[window.location.search + '_end']
+   }
                resumePlayback();
 
 
@@ -194,7 +203,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
 
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
-         if (player.duration() - player.currentTime() < 48) {
+         if (player.duration() - player.currentTime() < player.duration() - finishDur) {
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
   }
@@ -353,12 +362,17 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
 
       })
 // Get Captions!
- fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter?track=Closed%20Captioning').then(function (res) {
+ fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter').then(function (res) {
       return res.json();
    }).then(function (cap) {
       track = player.addTextTrack("subtitles", "English Alt", "en");
       for (i = 0, len = cap.length; i < len; ++i) {
+         if(cap[i].track == 'Closed Captioning'){
          track.addCue(new VTTCue(cap[i].startTime, cap[i].endTime, cap[i].metadata.Text));
+      }
+      if(cap[i].track == 'Video Attributes'){
+         localStorage[window.location.search + '_end'] = cap[i].startTime - 3.5
+      }
       }
    });
    
