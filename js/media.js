@@ -1076,6 +1076,9 @@ currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumbe
       getShowinfo(data.seriesName);
 
       showdesc.innerHTML = data.description;
+      if(data.name == data.seriesName){
+         data.name = data.headline;
+      }
       document.getElementById('epname').innerHTML = data.name;
             document.title = data.seriesName + " - " + data.name;
             if (!data.materialIDs) {
