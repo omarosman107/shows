@@ -16,8 +16,7 @@ var player = videojs('LS', {html5: {
    },
    hls: {
       useCueTags:true,
-      bandwidth:getLastTime().bandwidth
-   }
+      bandwidth:getLastTime().bandwidth   }
 }});
 
 videojs.Hls.xhr.beforeRequest = function(options) {
@@ -162,7 +161,6 @@ vid.addEventListener('loadstart', function(){
 
    setInterval(function(){
       localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
-      console.log(player.tech_.hls.bandwidth / 1024/1024 + ' mbps')
    },6000)
 })
 
@@ -492,7 +490,7 @@ function fetchabcjson(value) {
 
 // FOX Fetch
 function fetchfoxjson(value) {
-foxapi('https://api.fox.com/fbc-content/v1_4/video/' + value.split('/watch')[1])
+foxapi('https://api.fox.com/fbc-content/v1_4/video' + value.split('/watch')[1])
 return;
      fetch('https://api.fox.com/fbc-content/v1_4/video/' + value.split('/watch')[1],{
     headers: new Headers({
