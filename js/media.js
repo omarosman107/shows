@@ -319,7 +319,7 @@ function fetchcwjson(value) {
 resume()
 
    })
-    fetch('http://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u').then(function(res){
+    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u').then(function(res){
 
       console.log(res)
       if(res.status != 404){
