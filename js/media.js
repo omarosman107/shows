@@ -323,7 +323,7 @@ resume()
     fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u').then(function(res){
 
       console.log(res)
-      if(res.status != 404){
+      if(res.status == 200){
          console.log('1080p available!')
          player.src({"src":res.url,"type": "application/vnd.apple.mpegurl"})
          resume();
