@@ -358,10 +358,10 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
             
 // ,{ "src": finalurl, "type": "application/vnd.apple.mpegurl" },{ "src": data.assetFields.smoothStreamingUrl + '(format=m3u8-aapl).m3u8', "type": "application/x-mpegURL" },{"src":  'http://cwtv-mrss-akamai.cwtv.com/'+ data.videos.variantplaylist.uri.split('videos/')[1].split('.m3u8')[0] + '_3596kbps.mp4',"type":"video/mp4"}
       })
-      fetch('//images.cwtv.com/feed/mobileapp/video-meta/apiversion_7/guid_'+stripped).then(function(res){return res.json();}).then(function(episode_data){
+      fetch('https://images.cwtv.com/feed/mobileapp/video-meta/apiversion_7/guid_'+stripped).then(function(res){return res.json();}).then(function(episode_data){
          currentEpisode = {show:episode_data.video.series_name,episode:episode_data.video.title,season:episode_data.video.availability_asset_id.split('-')[episode_data.video.availability_asset_id.split('-').length - 1].split('E')[0].split('S')[1]}
       showname.innerHTML = episode_data.video.series_name;
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="http://images.cwtv.com/images/cw/show-logo-horz/' + episode_data.video.show_slug + '.png">';
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="https://images.cwtv.com/images/cw/show-logo-horz/' + episode_data.video.show_slug + '.png">';
       showdesc.innerHTML = episode_data.video.description_long;
       document.getElementById('epname').innerHTML = episode_data.video.title;
             document.title = episode_data.video.series_name + " - " + episode_data.video.title;
