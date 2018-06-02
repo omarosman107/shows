@@ -314,17 +314,19 @@ function fetchcwjson(value) {
    // HLS = 154 | 206
    // MP4 = 213
    );var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
-   fetch(url).then(function(res){return res.json();}).then(function(data){
+  /* fetch(url).then(function(res){return res.json();}).then(function(data){
  document.getElementById('downloader').href = data.videos.variantplaylist.uri.replace('http://hlsioscwtv.warnerbros.com','https://www.cwtv.com',);
 resume()
 
    })
+   */
     fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u').then(function(res){
 
       console.log(res)
       if(res.status != 404){
          console.log('1080p available!')
          player.src({"src":res.url,"type": "application/vnd.apple.mpegurl"})
+         resume();
       }
    })
          bg('http://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
