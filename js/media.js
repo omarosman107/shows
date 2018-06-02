@@ -329,7 +329,7 @@ resume()
          resume();
       }
    })
-         bg('http://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
+         bg('https://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
 
      fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
          method:"POST",
