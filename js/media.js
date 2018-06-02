@@ -319,7 +319,14 @@ function fetchcwjson(value) {
 resume()
 
    })
-    
+    fetch('http://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u').then(function(res){
+
+      console.log(res)
+      if(res.status != 404){
+         console.log('1080p available!')
+         player.src({"src":res.url,"type": "application/vnd.apple.mpegurl"})
+      }
+   })
          bg('http://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
 
      fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
@@ -341,7 +348,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     isMobile = true;
 }
 console.log(player.src() == '')
-if(isMobile || player.src() == ''){
+if(player.src() == ''){
 player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
                   player.play();
       resume();

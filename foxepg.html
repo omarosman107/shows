@@ -596,7 +596,7 @@ str +=`<li   class=" card">
       </div>
       <div class="fanart-details">
          <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">${data.panels.member["0"].items.member[i].secondaryTitle}</a></h2>
-         <a  href="./?newfox:${data.panels.member["0"].items.member[i].seriesName}" class="secondary-link show-name">${data.panels.member["0"].items.member[i].seriesName}</a>
+         <a  href="./?fox:${data.panels.member["0"].items.member[i].seriesName}" class="secondary-link show-name">${data.panels.member["0"].items.member[i].seriesName}</a>
                <div class="cardBorder"></div>
             <p>${date} | ${data.panels.member["0"].items.member[i].durationInSeconds / 60 + 'm'} | ${data.panels.member["0"].items.member[i].contentRating} | ${'S'+data.panels.member["0"].items.member[i].seasonNumber+'E'+data.panels.member["0"].items.member[i].episodeNumber}</p>
         </div>

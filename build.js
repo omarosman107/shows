@@ -1296,7 +1296,9 @@ return res.json()
     for (i in data.videos) {
     if (data.videos[i].fullep == 1) {
 
-
+if(data.videos[i].mpx_url != ''){
+	console.log(data.videos[i].mpx_url,data.videos[i].series_name + ' '+ data.videos[i].title + ' '+ data.videos[i].airdate)
+}
       function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000 * 60);
         var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -1571,7 +1573,7 @@ var webpcompatible = false
 
 var foxshowlist = ['snowfall','atlanta']
 
-function newfox(show){
+function fox(show){
 
 var externalToApi = 'https://api.fox.com/fbc-content/v3/video?externalId=853172291669'
 var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
@@ -1691,7 +1693,7 @@ var this_episode = {
         autoplay:epg.member[i].autoPlayVideo.default.url,
         bg:epg.member[i].images.videoList.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(date),
-        type:'newfox',
+        type:'fox',
         episode_id:epg.member[i].playerScreenUrl.split('player/')[1].split('?')[0],
         hidden:epg.member[i].hideVideo,
         expires:new Date(epg.member[i].expires).getTime()  + 1000000000
@@ -1768,7 +1770,7 @@ try{
         autoplay:fullEpisodes.member[i].autoPlayVideo.default.url,
         bg:fullEpisodes.member[i].images.still.HD.replace('http://','https://').split('?')[0].split('?')[0] + '?downsize=8px:*',
         time:Date.parse(date),
-        type:'newfox',
+        type:'fox',
         episode_id:fullEpisodes.member[i].id,
         hidden:fullEpisodes.member[i].hideVideo,
         expires:new Date(fullEpisodes.member[i].expires).getTime() + 1000000000
@@ -1781,7 +1783,7 @@ try{
   }catch(e){
   	console.log(e)
   }
-                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'newfox' )
+                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'fox' )
 showswithimages[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage()
 
 } 
@@ -1851,7 +1853,7 @@ imgdyn:""
     sConfig.split('?')[1]
     }else{
       cw()
-      newfox()
+      fox()
       nbc()
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
@@ -1862,3 +1864,4 @@ if (hlsSupported) {
 
 
 console.timeEnd('parse');
+ 
