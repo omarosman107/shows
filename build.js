@@ -166,7 +166,7 @@ if (url.includes('api.fox.com')) {
 
 
 
-  },700)
+  },5000)
 
 
 }
@@ -1325,6 +1325,7 @@ return res.json()
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg'
       tvlist(data.videos[i].series_name,'//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
+
       var episode_data = {
         img: cwdyres('638'),
         rating: (data.videos[i].rating),
@@ -1339,7 +1340,7 @@ return res.json()
         length: data.videos[i].duration_secs,
         type: "cw",
         bg:  'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
-        time:Date.parse(airdate),
+        time:Date.parse(moment(airdate).toDate()),
         episode_id:data.videos[i].guid,
         expires:new Date(data.videos[i].expire_time).getTime()
 
