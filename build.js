@@ -1160,7 +1160,7 @@ if (json.length - tempLS["?" + json.href] < json.end) {
          <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       <h2 class="watchingTitle" style="">
-<a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
+<a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">"${json.episode}"</a></h2>
 </li>`
 
 //        watching.innerHTML =  '<li style="margin: 11px;" class=" card  ' + json.href + '"><a href="#"><div style="   " class="piece fanart-container"><div class="image-crop sixteen-nine" >' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><\/span><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><div class="imageBG"><\/div><img    class="cover sixteen-nine lazy "    sizes="(max-width: 600px) 80vw, 460px"    alt="' + json.episode + '" data-original-set="' + json.imgdyn + '" class"" class="cover" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn "  title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)"  show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><a href="javascript:"><i style="    /* opacity: ' + showCheck() + '; */color: rgb(127, 218, 99);position: absolute;right: 10px;bottom: 10px;display:none;" class="visited fa fa-check" aria-hidden="true"><\/i><\/a><\/div><div class="bottom"><\/div><\/div><\/a><\/li>'
@@ -1196,11 +1196,11 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
          </a>
          <span class="episode-gradient"></span>
             <div class="w3-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title='Watch "${json.episode}"'><i class="fa fa-play playbutton" style="visibility: visible;"></i></a></div>
       </div>
       ${almost_expire()}
       <div class="fanart-details">
-         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">${json.episode}</a></h2>
+         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">"${json.episode}"</a></h2>
          <a onclick="showQuery(null,this,'${json.type}')" data-type="${json.type}" show="${json.show}" href="javascript:" class="secondary-link show-name">${json.show}</a>
          <div style="border-top:0;" class="cardBorder"></div>
             <p>${FDate} • ${timeofPlayback} • S${json.seasonNumber}:E${json.episodeNumber}</p>
@@ -1584,7 +1584,7 @@ var apikey = ''
 
 
 loaders()
-fetch('//config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch('//config.foxneodigital.com/foxnow/ios/3.8/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
@@ -1720,7 +1720,9 @@ if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
   // !json.member[i].requiresAuth &&
-
+if(!'images' in fullEpisodes.member[i]){
+	console.log(fullEpisodes.member[i])
+}
 var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
 var sizes = [
 '110:62',

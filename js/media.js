@@ -19,12 +19,7 @@ var player = videojs('LS', {html5: {
       bandwidth:getLastTime().bandwidth   }
 }});
 
-videojs.Hls.xhr.beforeRequest = function(options) {
-   //console.log(options)
 
-
-  return options;
-};
 player.ready(function () {
    this.hotkeys({
       volumeStep: 0.1,
@@ -33,6 +28,7 @@ player.ready(function () {
    });
 
 });
+
 
 var secondsToTimeCode = function secondsToTimeCode(timeInSeconds) {
 
@@ -81,6 +77,15 @@ function getLastTime(){
 }
 function resumePlayback(state) {
      console.timeEnd();
+   player.hls.xhr.beforeRequest = function(options) {
+      if(!options.uri.includes('.key') && options.uri.includes('http://hlsioscwtv.warnerbros.com/')){
+         if(options.uri.split('kbps-')[1].split('.ts')[0]  % 2 == 0){
+ // options.uri = options.uri.replace('http://hlsioscwtv.warnerbros.com/', 'http://level3-hls-segment-vod-wb.vip1-ord1.dlvr1.net/');
+
+         }
+      }
+   return options;
+};
 
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
@@ -368,6 +373,7 @@ if('subtitles' in hls){
 
 }
 if(player.src() == ''){
+
 player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
                   player.play();
       resume();
