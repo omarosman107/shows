@@ -7,7 +7,6 @@
 // var x2js = new X2JS();
 console.log(getLastTime().start)
 var player = videojs('LS', {html5: {
-       nativeTextTracks: false,
    hlsjsConfig: {
                  startPosition: getLastTime().start,
                  maxStarvationDelay:3,
