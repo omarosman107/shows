@@ -77,15 +77,15 @@ function getLastTime(){
 }
 function resumePlayback(state) {
      console.timeEnd();
-   player.hls.xhr.beforeRequest = function(options) {
-      if(!options.uri.includes('.key') && options.uri.includes('http://hlsioscwtv.warnerbros.com/')){
-         if(options.uri.split('kbps-')[1].split('.ts')[0]  % 2 == 0){
+   //player.hls.xhr.beforeRequest = function(options) {
+     // if(!options.uri.includes('.key') && options.uri.includes('http://hlsioscwtv.warnerbros.com/')){
+      //   if(options.uri.split('kbps-')[1].split('.ts')[0]  % 2 == 0){
  // options.uri = options.uri.replace('http://hlsioscwtv.warnerbros.com/', 'http://level3-hls-segment-vod-wb.vip1-ord1.dlvr1.net/');
 
-         }
-      }
-   return options;
-};
+        // }
+      //}
+  // return options;
+//};
 
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
@@ -143,12 +143,16 @@ findName(next.link)
 var interval
 var finishDur
 function resume() {
+
+
+
+
     finishDur = player.duration() - 48
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
    }
 player.ga()
-player.currentTime(getLastTime().start)
+// player.currentTime(getLastTime().start)
 clearInterval(interval)
    var vid = document.getElementById('LS_html5_api');
 
@@ -181,6 +185,12 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
 })
   */
    vid.addEventListener('loadeddata', function () {
+       document.getElementById('LS').style.opacity = 1;
+      //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
+      document.getElementById('blockLoader').style.opacity = "0";
+      document.getElementById('blockLoader').style.display = 'absolute';
+      document.getElementById('blockLoader').style.zIndex = '-99999';
+            document.getElementById('LS').style.zIndex = '7';
           finishDur = player.duration() - 48
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
@@ -188,16 +198,10 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
                resumePlayback();
 
 
-      document.getElementById('LS').style.opacity = 1;
-      //  document.getElementsByClassName('video-duration')[0].innerHTML = "( " + Math.round(vid.duration / 60) + " min )"
-      document.getElementById('blockLoader').style.opacity = "0";
-      document.getElementById('blockLoader').style.display = 'absolute';
-      document.getElementById('blockLoader').style.zIndex = '-99999';
-            document.getElementById('LS').style.zIndex = '7';
+   
 
   
       var played = true;
-      player.play();
       endTime();
 
 
@@ -331,10 +335,10 @@ resume()
       console.log(res)
       if(res.status == 200){
          console.log('1080p available!')
-          hostcw = res.url.split('/')
-          hostcw.pop()
-          hostcw = hostcw.join('/')
-          console.log(hostcw)
+          //hostcw = res.url.split('/')
+          //hostcw.pop()
+        //  hostcw = hostcw.join('/')
+      //    console.log(hostcw)
       /*   fetch(res.url).then(function(res){
 return res.text()
          }).then(function(hls){
