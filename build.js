@@ -1649,7 +1649,8 @@ fetch('https://api.fox.com/fbc-content/v1_5/screenpanels/58261c820501880001930b2
 			if (epg.member[i].datePublished != epg.member[i].startDate) {
 				continue;
 			}
-				console.log(epg.member[i])
+		if(moment(epg.member[i].startDate).toDate() < new Date()){continue;}
+				console.log(epg.member[i],moment(epg.member[i].startDate).toDate(), new Date())
 
 
 var image = epg.member[i].images.videoList.HD.split('?')[0]
