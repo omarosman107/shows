@@ -534,6 +534,7 @@ everythingfinished(checkedShows)
 }
 
 function everythingfinished(exclude){
+
  cards = document.querySelectorAll('li')
  images = document.querySelectorAll('.lazy')
  for (var i = images.length - 1; i >= 0; i--) {
@@ -562,6 +563,16 @@ for (var i = sorted_shows.length - 1; i >= 0; i--) {
 	}
 
 }
+for(i in upnextshows){
+	try{
+console.log(i,document.querySelector('div[show="'+i+'"]'))
+document.querySelector('div[show="'+i+'"]').setAttribute('percent',upnextshows[i].percentage)
+document.querySelector('div[show="'+i+'"] div').innerHTML += '<div class="w3-progressbar"style="width: '+upnextshows[i].percentage+'%;"></div>'
+}catch(e){
+
+}
+}
+
 BackgroundLazyLoader();
 
 // document.addEventListener("scroll", function(){scrolling()});
@@ -1034,8 +1045,10 @@ episodes[i].end = episodes[i].length - endTime
 
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
-		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:null,percentage:null}
+		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:0,percentage:null}
 	}
+	upnextshows[episodes[i].show].totalEpisodes += 1
+
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < endTime) {
 		done = true;
 		episodes[i]['done'] = done
@@ -1044,7 +1057,6 @@ episodes[i].end = episodes[i].length - endTime
 			}
 		doneNum[episodes[i].show] += 1
 		//		console.log(episodes[i].show,doneNum[episodes[i].show])
-
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].latestWNum = episodes[i].episodeNumber
 		upnextshows[episodes[i].show].latestWSesN = episodes[i].seasonNumber
@@ -1066,7 +1078,8 @@ upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 
 episodes.reverse()
   for (i in episodes) {
-	upnextshows[episodes[i].show].percentage = (doneNum[episodes[i].show] / upnextshows[episodes[i].show].totalEpisodes) 
+	upnextshows[episodes[i].show].percentage = (doneNum[episodes[i].show] / upnextshows[episodes[i].show].totalEpisodes) * 100
+
 
 
 
@@ -1215,6 +1228,8 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
 
   document.getElementById('watching').innerHTML += watching;
   document.getElementById('carasoul').innerHTML += template.join('');
+
+
   console.log(upnextshows)
 
 localStorage['showData'] = JSON.stringify(upnextshows)
