@@ -367,7 +367,7 @@ console.log(URL.createObjectURL(blob))
 
       }
    }).then(function(metadata){
-      console.log(metadata)
+    //  console.log(metadata)
       var media = metadata.captions[0].src.split('The_CW')[1].split('_')
 media.splice(-4)
  player.src({"src":'https://stream-hls.cwtv.com/nosec/The_CW'+ media.join('_') + '.m3u8',"type": "application/vnd.apple.mpegurl"})
