@@ -330,7 +330,7 @@ resume()
 
    })
    
-    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u').then(function(res){
+    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=script').then(function(res){
 
       console.log(res)
       if(res.status == 200){
@@ -359,10 +359,19 @@ console.log(URL.createObjectURL(blob))
     //     resume();
          })
         */
-            player.src({"src":res.url,"type": "application/vnd.apple.mpegurl"})
+      //      player.src({"src":res.url,"type": "application/vnd.apple.mpegurl"})
 
-               resume();
+           //    resume();
+                 return res.json();
+
+
       }
+   }).then(function(metadata){
+      console.log(metadata)
+      var media = metadata.captions[0].src.split('The_CW')[1].split('_')
+media.splice(-4)
+ player.src({"src":'https://stream-hls.cwtv.com/nosec/The_CW'+ media.join('_') + '.m3u8',"type": "application/vnd.apple.mpegurl"})
+resume();
    })
          bg('https://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
 
