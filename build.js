@@ -1741,8 +1741,8 @@ if(!'images' in fullEpisodes.member[i]){
 }
 var image = fullEpisodes.member[i].images.still.HD.split('?')[0]
 var sizes = [
-'110:62',
-'304:171',
+'110:110',
+'320:180',
 '480:270',
 '528:297',
 '740:416',
@@ -1758,7 +1758,8 @@ if (webpcompatible) {
 }
 }
 for (var z = sizes.length - 1; z >= 0; z--) {
- srcset += (image + '?fit=inside|' + encodeURIComponent(sizes[z]) +  ' ' + sizes[z].split(':')[0] +'w ,')
+	//encodeURIComponent
+ srcset += (image + '?fit=inside%7C' + (sizes[z]) +  ' ' + sizes[z].split(':')[0] +'w ,')
 }
 srcset = srcset.substr(0, srcset.length - 1);
 var date = new Date(fullEpisodes.member[i].originalAirDate)
@@ -1801,8 +1802,8 @@ try{
   }catch(e){
   	console.log(e)
   }
-                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage(),'fox' )
-showswithimages[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?downsize=320.0px:*' + webpImage()
+                  tvlist(fullEpisodes.member[i].seriesName,fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?fit=inside|320:180' /*+ webpImage()*/,'fox' )
+showswithimages[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.seriesList.SD.replace('http://','https://').split('?')[0] + '?fit=inside|320:180' //+ webpImage()
 
 } 
 
