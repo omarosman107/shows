@@ -17,9 +17,10 @@ var player = videojs('LS', {  textTrackSettings: false
    },
    hls: {
       useCueTags:true,
-      bandwidth:getLastTime().bandwidth   }
+      bandwidth: 5900000,
+      enableLowInitialPlaylist:true   }
 }});
-
+// getLastTime().bandwidth
 
 player.ready(function () {
    this.hotkeys({
@@ -78,16 +79,21 @@ function getLastTime(){
 }
 function resumePlayback(state) {
      console.timeEnd();
-   //player.hls.xhr.beforeRequest = function(options) {
-     // if(!options.uri.includes('.key') && options.uri.includes('http://hlsioscwtv.warnerbros.com/')){
-      //   if(options.uri.split('kbps-')[1].split('.ts')[0]  % 2 == 0){
- // options.uri = options.uri.replace('http://hlsioscwtv.warnerbros.com/', 'http://level3-hls-segment-vod-wb.vip1-ord1.dlvr1.net/');
+     /*
+   player.hls.xhr.beforeRequest = function(options) {
+      
+      if(options.uri.includes('stream-hls.cwtv.com/nosec/The_CW/')){
+         console.log(options.uri.split('_').slice(-1)[0].split('.ts')[0])
+         if(options.uri.endsWith(".m3u8")){
+  options.uri = options.uri.replace('stream-hls.cwtv.com/nosec/The_CW/', '3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW');
 
-        // }
-      //}
-  // return options;
-//};
-
+         }
+      }
+      
+   return options;
+   
+};
+*/
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
    return;
@@ -333,9 +339,8 @@ resume()
    
     fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=script').then(function(res){
 
-      console.log(res)
+    //  console.log(res)
       if(res.status == 200){
-         console.log('1080p available!')
                  return res.json();
 
 
@@ -360,10 +365,18 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
       })
       }
    }).then(function(metadata){
-    //  console.log(metadata)
+     if(metadata == undefined){
+      return;
+     }
+              console.log('1080p available!')
+
       var media = metadata.captions[0].src.split('The_CW')[1].split('_')
+      console.log('https://'+metadata.captions[0].src.split('/')[2])
+      //'https://'+metadata.captions[0].src.split('/')[2]
+      // hostNames: https://stream-hls.cwtv.com/nosec/The_CW or https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW
+
 media.splice(-4)
- player.src({"src":'https://stream-hls.cwtv.com/nosec/The_CW'+ media.join('_') + '.m3u8',"type": "application/vnd.apple.mpegurl"})
+ player.src({"src":'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW'+ media.join('_') + '.m3u8',"type": "application/vnd.apple.mpegurl"})
 resume();
    })
          bg('https://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
@@ -1279,7 +1292,7 @@ function findName(url) {
 var oldTracks = player.textTracks();
 var i = oldTracks.length;
 while (i--) {
-  player.removeTextTrack(oldTracks[i]);
+ //  player.removeTextTrack(oldTracks[i]);
 }
 
 if (url) {

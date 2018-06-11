@@ -39,7 +39,7 @@ fetch("https://www.googleapis.com/oauth2/v4/token?code="+ urltoken +"&client_id=
 	}
 }).then(function(data){console.log(data.access_token)
 	token = data.access_token
-	url = ("https://www.googleapis.com/drive/v3/files/?&q="+encodeURIComponent("mimeType != 'image/heic' and mimeType != 'image/heif' and mimeType != 'image/jpeg' and mimeType != 'image/gif' and mimeType != 'application/vnd.google-apps.folder' and mimeType != 'image/png' and mimeType != 'application/vnd.google-apps.document'")+"&fields=*&access_token=")
+	url = ("https://www.googleapis.com/drive/v3/files/?&q="+encodeURIComponent("mimeType = 'video/x-matroska' or mimeType = 'video/webm' or mimeType = 'application/octet-stream'")+"&orderBy=name&fields=*&access_token=")
 
 fetch(url+token).then(function(res){return res.json();}).then(function(data){
 	data.files = data.files.reverse();
