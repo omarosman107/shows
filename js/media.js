@@ -78,6 +78,7 @@ function getLastTime(){
    return {start:0,bandwidth:Number(localStorage['last_bandwidth'])};
 }
 function resumePlayback(state) {
+   console.log(getLastTime())
      console.timeEnd();
      /*
    player.hls.xhr.beforeRequest = function(options) {
@@ -94,10 +95,14 @@ function resumePlayback(state) {
    
 };
 */
+if(player.playlist()){
+if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')){console.log('first intro video');return;}
+}
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
    return;
 }
+
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
 
@@ -214,7 +219,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
 
   interval = setInterval(function () {
          endTime();
-
+if(player.playlist.currentItem() == 0){ return;}
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
          if (player.duration() - player.currentTime() < player.duration() - finishDur) {
@@ -323,6 +328,7 @@ function parseHTML(html) {
 
 // CWTV Fetch 
 var hostcw
+var showPreload = []
 function fetchcwjson(value) {
    console.log(value);
    document.getElementById('progress').style.width = "35%";
@@ -336,15 +342,6 @@ function fetchcwjson(value) {
 resume()
 
    })
-   
-    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=script').then(function(res){
-
-    //  console.log(res)
-      if(res.status == 200){
-                 return res.json();
-
-
-      }else{
      fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
          method:"POST",
          headers:new Headers({
@@ -356,13 +353,37 @@ if('subtitles' in hls){
 
 }
 //if(player.src() == ''){
+   var pl  = []
+   pl.push(showPreload,{
+  sources: [{
+    src: hls.stream_manifest,
+    type: "application/vnd.apple.mpegurl"
+  }]
+})
 
-player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
-                  player.play();
+player.playlist(pl)
+player.playlist.autoadvance(-1);
+
+//player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
+  //                player.play();
       resume();
 //}
             
       })
+
+
+
+
+
+   /*
+    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=script').then(function(res){
+
+    //  console.log(res)
+      if(res.status == 200){
+                 return res.json();
+
+
+      }else{
       }
    }).then(function(metadata){
      if(metadata == undefined){
@@ -376,9 +397,29 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
       // hostNames: https://stream-hls.cwtv.com/nosec/The_CW or https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW
 
 media.splice(-4)
- player.src({"src":'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW'+ media.join('_') + '.m3u8',"type": "application/vnd.apple.mpegurl"})
-resume();
+player.playlist([{
+  sources: [{
+    src: 'http://media.cwtv.com/cwtv/Prime/Season/1213/Shows/General/CW-'+metadata['cw$seriesCode']+'-05-ShowID-2017-ComboID.mp4',
+    type: 'video/mp4'
+  }],
+},
+{
+  sources: [{
+    src: 'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW'+ media.join('_') + '.m3u8',
+    type: 'application/vnd.apple.mpegurl'
+  }],
+}])
+player.playlist.autoadvance(0);
+player.on('playlistchange', function() {
+});
+if(getLastTime().start > 10){
+   player.playlist.next();
+
+}
+ resume()
    })
+   */
+
          bg('https://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
 
 
@@ -389,8 +430,12 @@ resume();
       showdesc.innerHTML = episode_data.video.description_long;
       document.getElementById('epname').innerHTML = episode_data.video.title;
             document.title = episode_data.video.series_name + " - " + episode_data.video.title;
-
-
+showPreload = ({
+  sources: [{
+    src: 'http://media.cwtv.com/cwtv/Prime/Season/1213/Shows/General/CW-'+episode_data.video.series+'-05-ShowID-2017-ComboID.mp4',
+    type: 'video/mp4'
+  }],
+})
       })
 // Get Captions!
  fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter').then(function (res) {
