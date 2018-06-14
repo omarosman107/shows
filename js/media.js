@@ -8,6 +8,7 @@
 console.log(getLastTime().start)
 var player = videojs('LS', {  textTrackSettings: false
 ,html5: {
+
    hlsjsConfig: {
                  startPosition: getLastTime().start,
                  maxStarvationDelay:3,
@@ -847,6 +848,7 @@ function play(url,auth){
       }).then(function (response) {
            return response.json();
       }).then(function (play) {
+       
 /*
 parser = new DOMParser();
 xmlDoc = parser.parseFromString(play,"text/xml");
@@ -909,7 +911,7 @@ fetch(play.interstitialURL.replace('http://','https://')).then(function(res){ret
 xmlDoc = parser.parseFromString(ads,"text/xml");
 var adTimes = xmlDoc.querySelector('interstitialGroup').children
 var ads = []
-//var adstrack = player.addTextTrack("captions", "ads", "en");
+//var adstrack = player.addTextTrack("metadata", "ads", "en");
 //adstrack.mode = 'hidden';
 for (var i = adTimes.length - 1; i >= 0; i--) {
   ads.push({start:adTimes[i].querySelector('start').innerHTML,end:adTimes[i].querySelector('end').innerHTML})
@@ -944,14 +946,14 @@ adstrack.addEventListener('cuechange', function() {
   });
 */
 //Skip ads 
-/*
+
 player.on('timeupdate', function () {
   if (adsHandle(this.currentTime()).playing) {
           this.currentTime(adsHandle(this.currentTime()).end);
 
   }
     })
-  */
+  
 
 
 
@@ -1171,6 +1173,20 @@ currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumbe
                data.materialIDs.push(data.guid)
             }
             console.log(data.materialIDs)
+            if("videoRelease" in data ){
+               if(data.videoRelease.releaseType == 'VOD'){
+play(data.videoRelease.url)
+               }else{
+                  if (data.network == 'fx') {
+   play('https://link.theplatform.com/s/fox-dcg/media/guid/2696725017/'+data.materialIDs[0]+'?format=script')
+
+}else{
+play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materialIDs[0]+'?format=script')
+
+}
+               }
+               
+            }else{
 if (data.network == 'fx') {
    play('https://link.theplatform.com/s/fox-dcg/media/guid/2696725017/'+data.materialIDs[0]+'?format=script')
 
@@ -1178,30 +1194,14 @@ if (data.network == 'fx') {
 play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materialIDs[0]+'?format=script')
 
 }
+            }
 
-// play(data.videoRelease.url)
       window.history.replaceState('', '', '?'+data['@id']);
       document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="' + data.images.logo.FHD + '" >';
 
 }
 console.log(item)
-/*
-if (item.releaseTypesCount == 0) {
-      foxapi('https://api.fox.com/fbc-content/v1_4/video/?name='+item.headline + '&showcode=' + item.showCode)
-      console.log('zero video types')
-      return;
-}
-if (item.id == 'live-player') {
-   window.history.replaceState('', '', '?'+'https://api.fox.com/fbc-content/v1_4/video/'+item.panels.member[0].items.member[0].playerScreenUrl.split('player/')[1].split('?')[0]);
 
-   foxapi('https://api.fox.com/fbc-content/v1_4/video/'+item.panels.member[0].items.member[0].playerScreenUrl.split('player/')[1].split('?')[0])
-return;
-}
-*/
-
-if ('videoRelease' in item == 0) {
-   console.log('episode is not done airing yet')
-}
 
 handle(item)
 
