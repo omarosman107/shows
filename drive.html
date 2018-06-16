@@ -45,14 +45,14 @@ fetch(url+token).then(function(res){return res.json();}).then(function(data){
 	data.files = data.files.reverse();
 	for (var i = data.files.length - 1; i >= 0; i--) {
 		console.log(data.files[i].name,data.files[i].id)
-		document.getElementById('listFiles').innerHTML += `<li><a href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?acknowledgeAbuse=false&alt=media&access_token='+token}">${data.files[i].name}</a></li>`
+		document.getElementById('listFiles').innerHTML += `<li><a href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI&access_token='+token}">${data.files[i].name}</a> - <a style="color:green;" href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI'}">${data.files[i].id}</a></li>`
 	}
 })
 })
 	 }
 
 	 function findurl(){
-	 	document.querySelector('#link').href = ('https://www.googleapis.com/drive/v3/files/'+document.querySelector('input').value+'?acknowledgeAbuse=false&alt=media&access_token='+token);
+	 	document.querySelector('#link').href = ('https://www.googleapis.com/drive/v3/files/'+document.querySelector('input').value+'?acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI&aaccess_token='+token);
 	 	document.querySelector('#link').style.display = 'block';
 	 	document.querySelector('#link').innerHTML = 'Download Link here! #'+document.querySelector('input').value
 	 }
