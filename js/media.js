@@ -81,21 +81,7 @@ function getLastTime(){
 function resumePlayback(state) {
    console.log(getLastTime())
      console.timeEnd();
-     /*
-   player.hls.xhr.beforeRequest = function(options) {
-      
-      if(options.uri.includes('stream-hls.cwtv.com/nosec/The_CW/')){
-         console.log(options.uri.split('_').slice(-1)[0].split('.ts')[0])
-         if(options.uri.endsWith(".m3u8")){
-  options.uri = options.uri.replace('stream-hls.cwtv.com/nosec/The_CW/', '3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW');
 
-         }
-      }
-      
-   return options;
-   
-};
-*/
 if(player.playlist()){
 if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')){console.log('first intro video');return;}
 }
@@ -111,6 +97,30 @@ if (!played) {
          played = true;
       }
 }
+     
+   player.hls.xhr.beforeRequest = function(options) {
+      if(options.uri.endsWith('.key')){
+
+         return options;
+      }
+      if(options.uri.includes('hlsioscwtv.warnerbros.com') || options.uri.endsWith('.ts')){
+  //options.uri = options.uri.replace('http://hlsioscwtv.warnerbros.com', 'http://level3-hls-segment-vod-wb.vip1-ord1.dlvr1.net');
+
+
+      }
+      if(options.uri.includes('stream-hls.cwtv.com/nosec/The_CW/')){
+         console.log(options.uri.split('_').slice(-1)[0].split('.ts')[0])
+         if(options.uri.endsWith(".m3u8")){
+  options.uri = options.uri.replace('stream-hls.cwtv.com/nosec/The_CW/', '3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW');
+
+         }
+      }
+      
+   return options;
+   
+};
+
+
 }
 function pad(n) {
    return n < 10 ? "0" + n : n;
@@ -877,8 +887,9 @@ function toPaddedHexString(num, len) {
 }
 
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
-      vidPreview[`${(i*eachCount)}`] = {"width":"256","src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg',"tempsrc":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
-    if(i % 4 == 0){
+    if(i % 3 == 0){
+            vidPreview[`${(i*eachCount)}`] = {"width":"256","src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg',"tempsrc":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
+
 var img = new Image;
       img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
     }
