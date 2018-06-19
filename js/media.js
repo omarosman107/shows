@@ -31,6 +31,9 @@ player.ready(function () {
    });
 
 });
+//const v = document.createElement('video');
+
+//alert(v.canPlayType('audio/mp4; codecs="ec-3"'))
 
 
 var secondsToTimeCode = function secondsToTimeCode(timeInSeconds) {
@@ -97,8 +100,9 @@ if (!played) {
          played = true;
       }
 }
-     
+     return;
    player.hls.xhr.beforeRequest = function(options) {
+
       if(options.uri.endsWith('.key')){
 
          return options;
