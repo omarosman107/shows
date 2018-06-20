@@ -8,7 +8,6 @@
 console.log(getLastTime().start)
 var player = videojs('LS', {  textTrackSettings: false
 ,html5: {
-
    hlsjsConfig: {
                  startPosition: getLastTime().start,
                  maxStarvationDelay:3,
@@ -178,7 +177,7 @@ function resume() {
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
    }
-player.ga()
+//player.ga()
 // player.currentTime(getLastTime().start)
 clearInterval(interval)
    var vid = document.getElementById('LS_html5_api');
@@ -615,6 +614,7 @@ console.log(json)
 }
 
 // CBS Fetch
+String.prototype.toSeconds = function () { if (!this) return null; var hms = this.split(':'); return (+hms[0]) * 60 * 60 + (+hms[1]) * 60 + (+hms[2] || 0); }
 function fetchcbsjson(value) {
    document.getElementById('progress').style.width = "35%";
    if (value.includes('http')) {
@@ -626,21 +626,39 @@ function fetchcbsjson(value) {
       value = value.slice(0, -1);
    }
    console.log(searchValue);
-   $.getJSON("https://link.theplatform.com/s/dJ5BDC/media/guid/2198311517/" + searchValue + "?format=preview", function (data) {
-      document.getElementById('progress').style.width = "50%";
-      getShowinfo(data.cbs$SeriesTitle);
-      showname.innerHTML = data.title;
-      showdesc.innerHTML = data.description;
-      document.title = data.title;
-      videourl = "https://link.theplatform.com/s/dJ5BDC/media/guid/2198311517/" + searchValue + "?mbr=true&manifest=m3u&form=json";
-      document.getElementById('downloader').href = videourl;
-
-      player.src({ "type": "application/x-mpegURL", "src": videourl });
+   fetch("https://link.theplatform.com/s/dJ5BDC/media/guid/2198311517/" + searchValue + "?mbr=true&formats=m3u&format=redirect").then(function(res){
+      player.src({type:'application/x-mpegURL',src:res.url})
       resume();
-      document.getElementById('progress').style.width = "100%";
-document.getElementById('projpar').style.display = 'none'
-      isDone = true;
-   });
+   })
+
+
+   fetch("https://link.theplatform.com/s/dJ5BDC/media/guid/2198311517/" + searchValue + "?format=preview").then(function(res){return res.json()}).then(function(data){
+      document.getElementById('progress').style.width = "50%";
+        bg(data.defaultThumbnailUrl);
+
+fetch(data.cbs$ClosedCaptionURL).then(function(res){return res.text()}).then(function(text){
+
+var parser = new DOMParser();
+var htmlDoc = parser.parseFromString(text, "text/xml")
+htmlDoc = htmlDoc.getElementsByTagName('p')
+      track = player.addTextTrack("captions", "English", "en");
+
+for(i in htmlDoc){
+               track.addCue(new VTTCue(htmlDoc[i].getAttribute('begin').toSeconds(), htmlDoc[i].getAttribute('end').toSeconds(), htmlDoc[i].innerHTML));
+
+}
+
+
+})
+      getShowinfo(data.cbs$SeriesTitle);
+      showname.innerHTML = data.cbs$SeriesTitle;
+      document.getElementById('epname').innerHTML =  data.title
+      showdesc.innerHTML = data.description;
+      document.title = data.cbs$SeriesTitle + ' - '+ data.title;
+
+   })
+
+
 }
 // NBC 
 var mediaurl;
@@ -889,20 +907,21 @@ function toPaddedHexString(num, len) {
     str = num.toString(16);
     return "0".repeat(len - str.length) + str.toUpperCase();
 }
-
+/*
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
     if(i % 3 == 0){
-            vidPreview[`${(i*eachCount)}`] = {"width":"256","src":videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg',"tempsrc":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
+      //upl256
+            vidPreview[`${(i*eachCount)}`] = {"width":"256","src":videoData.thumb_prefix + '' + toPaddedHexString(i,8) + '.jpg',"tempsrc":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
 
 var img = new Image;
-      img.src = videoData.thumb_prefix + 'upl256' + toPaddedHexString(i,8) + '.jpg'
+      img.src = videoData.thumb_prefix + '' + toPaddedHexString(i,8) + '.jpg'
     }
      
 
    }
    console.log(vidPreview)
    player.thumbnails(vidPreview);
-
+*/
 
 })
 
@@ -1214,6 +1233,29 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
       window.history.replaceState('', '', '?'+data['@id']);
       document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="' + data.images.logo.FHD + '" >';
 
+
+for(i in data.documentReleases){
+
+      if(data.documentReleases[i].format == "Filmstrip" && data.documentReleases[i].width == 212){
+console.log(data.documentReleases[i].url)
+fetch(data.documentReleases[i].url).then(function(res){return res.json();}).then(function(preview){
+   var vidPreview = {}
+eachCount = (preview.endTime / preview.imageCount / 1000)
+   for (i = 0; i <  preview.thumbnails.length; i++) {
+      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
+            console.log((i*eachCount))
+
+   }
+   console.log(vidPreview)
+   player.thumbnails(vidPreview);
+
+})
+      }
+   
+}
+
+
+ 
 }
 console.log(item)
 

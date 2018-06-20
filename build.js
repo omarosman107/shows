@@ -565,7 +565,6 @@ for (var i = sorted_shows.length - 1; i >= 0; i--) {
 }
 for(i in upnextshows){
 	try{
-console.log(i,document.querySelector('div[show="'+i+'"]'))
 document.querySelector('div[show="'+i+'"]').setAttribute('percent',upnextshows[i].percentage)
 document.querySelector('div[show="'+i+'"] div').innerHTML += '<div class="w3-progressbar"style="width: '+upnextshows[i].percentage+'%;"></div>'
 }catch(e){
@@ -1312,7 +1311,7 @@ return res.json()
     if (data.videos[i].fullep == 1) {
 
 if(data.videos[i].mpx_url != ''){
-	console.log(data.videos[i].mpx_url,data.videos[i].series_name + ' '+ data.videos[i].title + ' '+ data.videos[i].airdate)
+//	console.log(data.videos[i].mpx_url,data.videos[i].series_name + ' '+ data.videos[i].title + ' '+ data.videos[i].airdate)
 }
       function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000 * 60);
@@ -1375,6 +1374,7 @@ loaders()
 			console.log(data.items)
 			data.items = data.items.reverse()
 			for (var i = data.items.length - 1; i >= 0; i--) {
+				if(data.items[i].video_fullep){continue;}
 				if(data.items[i].video_is_new){
 				var date = new Date(data.items[i].episode_date)
 			console.log(data.items[i])
@@ -1656,7 +1656,7 @@ console.log(foxshowlist.join())
 		  loaders()
 if (foxshowlist.length == 0) {loaders('remove');return;}
 loaders()
-fetch('https://api.fox.com/fbc-content/v1_5/screenpanels/58261c820501880001930b2e/items/',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
+fetch(config.apis.content.baseUrl + '/fbc-content/v1_5/screenpanels/58261c820501880001930b2e/items/',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
  // epg.panels.member["0"].items.member =  epg.panels.member["0"].items.member.concat(epg.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
 
 	for (var i = epg.member.length - 1; i >= 0; i--) {
