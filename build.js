@@ -1504,7 +1504,7 @@ function nbc(show){
 
 
 
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=5').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=20').then(function(res){return res.json()}).then(function(episode){
 				if (episode.data.length == 0) {
 					loaders('remove');
 					return;
