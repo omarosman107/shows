@@ -1060,7 +1060,8 @@ episodes[i].end = episodes[i].length - endTime
 		upnextshows[episodes[i].show].latestWNum = episodes[i].episodeNumber
 		upnextshows[episodes[i].show].latestWSesN = episodes[i].seasonNumber
 	}
-	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && upnextshows[episodes[i].show].latestWNum != null ) {
+	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && Number(episodes[i].seasonNumber) == upnextshows[episodes[i].show].latestWSesN && upnextshows[episodes[i].show].latestWNum != null) {
+		console.log(episodes[i])
 		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].upNextNum =  episodes[i].episodeNumber
 		upnextshows[episodes[i].show].upNextSeason = episodes[i].seasonNumber
@@ -1157,7 +1158,7 @@ if (json.length - tempLS["?" + json.href] < json.end) {
 	perc = 100
 }
 
-    if (json.length - tempLS["?" + json.href] > json.end && tempLS["?" + json.href] > 10 || 		upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1])) {
+    if (json.length - tempLS["?" + json.href] > json.end && tempLS["?" + json.href] > 10 || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'
