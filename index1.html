@@ -1285,6 +1285,9 @@ return response.json()
 }).then(function(json) {
 console.log(json)
         for (var i = 0; i < json.episodes.length; i++) {
+         if(new Date() >  new Date(json.episodes[i].air_date +' '+json.episodes[i].air_time)){
+            continue;
+         }
          console.log(document.querySelector('li[name*="'+json.episodes[i].show.id+'"]') == null)
          if (document.querySelector('li[name*="'+json.episodes[i].show.id+'"]') == null || true) {
             var medialink = 'https://www.tvtime.com/en/show/'+json.episodes[i].show.id+'/episode/' + json.episodes[i].id;
