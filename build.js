@@ -1613,6 +1613,13 @@ fetch('//config.foxneodigital.com/foxnow/ios/3.8/ios_info_prod.json').then(funct
 // "https://api.fox.com/fbc-content/v3_blue/screenpanels/58daf2a54672070001df1404/items?itemsPerPage=60"
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
 var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
+if(show != undefined && show != ''){
+fetch('https://api.fox.com/fbc-content/v1_5/series?_fields=name,showCode&q='+show,{headers:foxheaders}).then(function(res){return res.json();}).then(function(q){
+	console.log(q.member[0].showCode,q.member[0].name,foxshowNames)
+	foxshowNames[q.member[0].showCode] = q.member[0].name
+	foxshowlist.push(q.member[0].showCode)
+})
+}
 var showEpisodeCount = {}
 fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
@@ -1627,7 +1634,7 @@ if (show != undefined) {
 			}
 }
 		showEpisodeCount[foxshows.member[i].showCode] = foxshows.member[i].fullEpisodeCount
-		if(foxshows.member[i].network == 'fox' || skipTheseShows.includes(foxshows.member[i])){
+		if(foxshows.member[i].network == 'fox' || skipTheseShows.includes(foxshows.member[i])  ){
 			if (foxshows.member[i].showCode == 'the-x-files' || skipTheseShows.includes(foxshows.member[i].name)) continue;
 
 			foxshowlist.push(foxshows.member[i].showCode)
