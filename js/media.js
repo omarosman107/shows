@@ -887,7 +887,7 @@ xmlDoc = parser.parseFromString(play,"text/xml");
 */
 // param[name="testPlayerUrl"]
 if(play['fwivi$advertisingData'].network == 'fox'){
-   return;
+   // return;
 }
 if ('uplynk$testPlayerUrl' in play) {
 fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedcba&ray=&exp='+(new Date().getTime() + 10000000 ) / 1000
