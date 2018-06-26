@@ -1190,7 +1190,7 @@ function clone(obj) {
 }
 
 function handle(data){
-
+error('this episode is not available.')
    player.duration(data.durationInSeconds)
 currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumber}
 
