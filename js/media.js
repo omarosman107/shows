@@ -896,9 +896,9 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedc
   var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
   console.log(m3u8.split('.')[2].split('/')[1])
 console.log(m3u8)
-  //  player.src({ "type": "application/x-mpegURL", "src": m3u8 });
-    //     resume();
-    backupWay(url)
+    player.src({ "type": "application/x-mpegURL", "src": m3u8 });
+         resume();
+  //  backupWay(url)
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
    console.log(videoData)
  var vidPreview = {}
