@@ -394,10 +394,10 @@ player.playlist.autoadvance(-1);
       })
 
 
+/*
 
 
-
-   /*
+   
     fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=script').then(function(res){
 
     //  console.log(res)

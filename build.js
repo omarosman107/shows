@@ -1312,7 +1312,7 @@ return res.json()
     if (data.videos[i].fullep == 1) {
 
 if(data.videos[i].mpx_url != ''){
-//	console.log(data.videos[i].mpx_url,data.videos[i].series_name + ' '+ data.videos[i].title + ' '+ data.videos[i].airdate)
+	console.log(data.videos[i].mpx_url,data.videos[i].series_name + ' '+ data.videos[i].title + ' '+ data.videos[i].airdate)
 }
       function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000 * 60);
