@@ -895,9 +895,10 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedc
 }).then(function(m3u8){
   var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
   console.log(m3u8.split('.')[2].split('/')[1])
-
-    player.src({ "type": "application/x-mpegURL", "src": m3u8 });
-         resume();
+console.log(m3u8)
+  //  player.src({ "type": "application/x-mpegURL", "src": m3u8 });
+    //     resume();
+    backupWay(url)
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
    console.log(videoData)
  var vidPreview = {}
@@ -930,6 +931,7 @@ var img = new Image;
  backupWay(url)
 }
 function backupWay(url){
+
    console.log(play.fox$freewheelId)
 
 
@@ -995,8 +997,9 @@ player.on('timeupdate', function () {
 var pbs = play.playURL.split('?')[1]
 var id = play.playURL.replace('/preplay2/','/').split('uplynk.com')[1].split('/')[1]
 console.log(play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs)
-         player.src({ "type": "application/x-mpegURL", "src": play.playURL });
-         resume();
+console.log(play.playURL)
+      //   player.src({ "type": "application/x-mpegURL", "src": play.playURL });
+     //    resume();
 
    }).catch(function(e){
       error()
