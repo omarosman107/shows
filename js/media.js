@@ -17,7 +17,7 @@ var player = videojs('LS', {  textTrackSettings: false
    },
    hls: {
       useCueTags:true,
-      bandwidth: 5900000,
+      bandwidth: getLastTime().bandwidth,
       enableLowInitialPlaylist:true   }
 }});
 // getLastTime().bandwidth
@@ -242,7 +242,7 @@ return;
   }
             var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
             for (var i = showJson.length - 1; i >= 0; i--) {
-               console.log(showJson[i])
+           //    console.log(showJson[i])
                if (showJson[i].episode == currentEpisode.episode ) {
 
                   if (i+1 - showJson.length - 1 == -1 ) {console.log('no episode newer');return;}
@@ -368,7 +368,7 @@ if('subtitles' in hls){
 }
 //if(player.src() == ''){
    var pl  = []
-   if(true || showPreload == []){
+if(player.src() == ''){
 player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
                  player.play();
 
@@ -394,7 +394,7 @@ player.playlist.autoadvance(-1);
       })
 
 
-/*
+
 
 
    
@@ -413,21 +413,50 @@ player.playlist.autoadvance(-1);
      }
               console.log('1080p available!')
 
+
+         currentEpisode = {show:metadata['cw$seriesTitle'],episode:metadata.title,season:metadata['cw$seasonNumber']}
+ showname.innerHTML = metadata['cw$seriesTitle'];
+fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100/').then(function(res){return res.json();}).then(function(shows){
+   console.log(shows)
+   for(i in shows.items){
+      if(shows.items[i].series_code == metadata['cw$seriesCode']){
+      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="https://images.cwtv.com/images/cw/show-logo-horz/' + shows.items[i].slug + '.png">';
+
+      }
+   }
+})
+
+      showdesc.innerHTML = metadata.description;
+      document.getElementById('epname').innerHTML = metadata.title;
+
+            document.title = metadata['cw$seriesTitle'] + " - " + metadata.title;
+
+
+
+
+
+
+
+
+
       var media = metadata.captions[0].src.split('The_CW')[1].split('_')
       console.log('https://'+metadata.captions[0].src.split('/')[2])
       //'https://'+metadata.captions[0].src.split('/')[2]
       // hostNames: https://stream-hls.cwtv.com/nosec/The_CW or https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW
 
 media.splice(-4)
-player.playlist([{
+/*
+{
   sources: [{
     src: 'http://media.cwtv.com/cwtv/Prime/Season/1213/Shows/General/CW-'+metadata['cw$seriesCode']+'-05-ShowID-2017-ComboID.mp4',
     type: 'video/mp4'
   }],
 },
+*/
+player.playlist([
 {
   sources: [{
-    src: 'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW'+ media.join('_') + '.m3u8',
+    src: 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',
     type: 'application/vnd.apple.mpegurl'
   }],
 }])
@@ -440,12 +469,14 @@ if(getLastTime().start > 10){
 }
  resume()
    })
-   */
+   
 
          bg('https://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
 
 
       fetch('https://images.cwtv.com/feed/mobileapp/video-meta/apiversion_7/guid_'+stripped).then(function(res){return res.json();}).then(function(episode_data){
+      if(episode_data.result == 'error'){return;}
+
          currentEpisode = {show:episode_data.video.series_name,episode:episode_data.video.title,season:episode_data.video.availability_asset_id.split('-')[episode_data.video.availability_asset_id.split('-').length - 1].split('E')[0].split('S')[1]}
       showname.innerHTML = episode_data.video.series_name;
       document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="https://images.cwtv.com/images/cw/show-logo-horz/' + episode_data.video.show_slug + '.png">';
