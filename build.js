@@ -1485,6 +1485,7 @@ loaders('remove')
 
 function nbc(show){
 	var nbcshows = {}
+	loaders()
 	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
@@ -1548,7 +1549,10 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 			})
 		}
+	}).catch(function(e){
+		loaders('remove')
 	})
+	loaders('remove')
 }
 
 

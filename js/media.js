@@ -442,8 +442,13 @@ fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pag
       var media = metadata.captions[0].src.split('The_CW')[1].split('_')
       console.log('https://'+metadata.captions[0].src.split('/')[2])
       //'https://'+metadata.captions[0].src.split('/')[2]
-      // hostNames: https://stream-hls.cwtv.com/nosec/The_CW or https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW
-
+  /*  
+     hostNames:
+     https://stream-hls.cwtv.com/nosec/The_CW 
+     https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW 
+     https://edge.cwtv-vod.top.comcast.net/nosec/The_CW
+     https://cwtv-amd-akamai.akamaized.net/nosec/The_CW
+*/
 media.splice(-4)
 /*
 {
