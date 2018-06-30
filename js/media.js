@@ -458,16 +458,10 @@ media.splice(-4)
   }],
 },
 */
-player.playlist([
-{
-  sources: [{
+player.src({
     src: 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',
     type: 'application/vnd.apple.mpegurl'
-  }],
-}])
-player.playlist.autoadvance(0);
-player.on('playlistchange', function() {
-});
+})
 if(getLastTime().start > 10){
    player.playlist.next();
 
