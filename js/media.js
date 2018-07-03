@@ -394,6 +394,7 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
                  player.play();
 
    }else{
+      /*
    pl.push(showPreload,{
   sources: [{
     src: hls.stream_manifest,
@@ -404,6 +405,8 @@ player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}
 console.log(pl)
 player.playlist(pl)
 player.playlist.autoadvance(-1);
+   
+*/
    }
 
 
