@@ -83,9 +83,10 @@ function getLastTime(){
 function resumePlayback(state) {
    console.log(getLastTime())
      console.timeEnd();
-
+if('playlist' in player){
 if(player.playlist()){
 if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')){console.log('first intro video');return;}
+}
 }
    if (!player.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
