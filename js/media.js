@@ -484,7 +484,7 @@ player.src({
     type: 'application/vnd.apple.mpegurl'
 })
 if(getLastTime().start > 10){
-   player.playlist.next();
+  // player.playlist.next();
 
 }
  resume()
