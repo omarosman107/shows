@@ -308,11 +308,20 @@ function toTitleCase(str) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
    });
 }
+
+function openWithoutReferrer(url) {
+  var site = window.open("", "hide_referrer");
+  site.document.open();
+  site.document.writeln('<script type="text/javascript">window.location = "' + url + '";</script>');
+  site.document.close();
+}
+
 downloader.onclick = function(){
   if (downloader.href == '') {
     return;
   }
-return true;
+  openWithoutReferrer(downloader.href)
+return false;
 player.src({src:downloader.href,type:'application/x-mpegURL'})
    var vid = document.getElementById(player.el().children[0].id);
 
