@@ -234,7 +234,10 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
 
   interval = setInterval(function () {
          endTime();
+         if('playlist' in player){
 if(player.playlist.currentItem() == 0){ return;}
+
+         }
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
          if (player.duration() - player.currentTime() < player.duration() - finishDur) {
