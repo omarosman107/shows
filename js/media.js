@@ -312,6 +312,7 @@ downloader.onclick = function(){
   if (downloader.href == '') {
     return;
   }
+return true;
 player.src({src:downloader.href,type:'application/x-mpegURL'})
    var vid = document.getElementById(player.el().children[0].id);
 
@@ -340,9 +341,16 @@ function parseHTML(html) {
     return t.content.cloneNode(true);
 }
 
+
+
+
+
+
+
 // CWTV Fetch 
 var hostcw
 var showPreload = []
+
 function fetchcwjson(value) {
    console.log(value);
    document.getElementById('progress').style.width = "35%";
@@ -931,9 +939,10 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedc
   var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
   console.log(m3u8.split('.')[2].split('/')[1])
 console.log(m3u8)
+document.getElementById('downloader').href = m3u8
   ////  player.src({ "type": "application/x-mpegURL", "src": m3u8 });
   //       resume();
-    backupWay(url)
+   // backupWay(url)
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
    console.log(videoData)
  var vidPreview = {}
@@ -1031,8 +1040,8 @@ player.on('timeupdate', function () {
       });
 var pbs = play.playURL.split('?')[1]
 var id = play.playURL.replace('/preplay2/','/').split('uplynk.com')[1].split('/')[1]
-console.log(play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs)
-console.log(play.playURL)
+console.log('official way',play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs)
+//console.log(play.playURL)
       //   player.src({ "type": "application/x-mpegURL", "src": play.playURL });
      //    resume();
 
@@ -1275,13 +1284,11 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
 for(i in data.documentReleases){
 
       if(data.documentReleases[i].format == "Filmstrip" && data.documentReleases[i].width == 212){
-console.log(data.documentReleases[i].url)
 fetch(data.documentReleases[i].url).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
 eachCount = (preview.endTime / preview.imageCount / 1000)
    for (i = 0; i <  preview.thumbnails.length; i++) {
       vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
-            console.log((i*eachCount))
 
    }
    console.log(vidPreview)
