@@ -59,6 +59,17 @@
 	          @import "css/graphik-700.css";
 	</style>
 	<script type="text/javascript">
+
+fetch( 'https://api.trakt.tv/shows/the-flash-2014/seasons/4/episodes/23?extended=full',{headers:new Headers({
+  'trakt-api-key':'6067ec6abce7511112b92527d33957819b20ead1bff81c62a8fbd898d82c5c58',
+  "Accept":"application/json, text/plain, */*"
+
+})
+}).then(function(res){return res.json();}).then(function(episode_data){
+	console.log(episode_data)
+})
+
+
 var _data = {}
 
    function  request(){
