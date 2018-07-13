@@ -1558,6 +1558,97 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 
 
+//SYFY
+function syfy(){
+		var syfyshows = {}
+	loaders()
+	// quaxp2ka35k6vxkf2rg8jzdt
+	var show_endpoint =  'https://api.nbcuni.com/networks/syfy/j/shows?derivatives=landscape.widescreen.size1920.x1%2Clandscape.widescreen.size1024.x1%2Clandscape.widescreen.size640.x1%2Clandscape.widescreen.size640.x2%2Clandscape.widescreen.size350.x2%2Clandscape.fivefor.size1024.x1%2Clandscape.fivefor.size750.x1%2Clandscape.fivefor.size480.x2%2Cportrait.square.size100.x2&fields%5Bimages%5D=internalId%2CdisplayName%2CaltText%2Ccaption%2Ccopyright%2Ccredit%2Ckeywords%2Cpath%2Cderivatives&fields%5Bshows%5D=internalId%2CurlAlias%2CshortTitle%2CsortTitle%2Cdescription%2CshortDescription%2Ctype%2Cactive%2Ccategory%2Cgenre%2CtuneIn%2Cfrontends%2Csocial%2CappTuneIn%2CapplyHighlight%2CmpxGuid&filter%5Bactive%5D=1&filter%5Bfrontends%5D=tv&include=image&page%5Bnumber%5D=1&sort=sortTitle&CALLBACK=syfy_shows'
+	// https://api.nbcuni.com/networks/syfy/j/videos?derivatives=landscape.widescreen.size1920.x1%2Clandscape.widescreen.size1024.x1%2Clandscape.widescreen.size640.x1%2Clandscape.widescreen.size640.x2%2Clandscape.widescreen.size350.x2%2Clandscape.fivefor.size1024.x1%2Clandscape.fivefor.size750.x1%2Clandscape.fivefor.size480.x2%2Cportrait.square.size100.x2&fields%5Bimages%5D=internalId%2CdisplayName%2CaltText%2Ccaption%2Ccopyright%2Ccredit%2Ckeywords%2Cpath%2Cderivatives&fields%5Bvideos%5D=internalId%2Cguid%2CmediaId%2Cdescription%2CrunTime%2Centitlement%2CexternalAdId%2CshowNavigation%2CvChipRating%2CmediaUrl%2CembedUrl%2Cpermalink%2Cupdated%2CseasonNumber%2CepisodeNumber%2Ctype%2Ctitle%2CdayPart%2Cgenre%2Cavailable%2Cexpiration%2Cairdate%2Ccategories%2CnbcAuthWindow%2CtveAuthWindow&filter%5BseasonNumber%5D=4&filter%5Bshow%5D=9b83d341-1dd8-4f5c-802f-044e42b1b111&filter%5BtveAuthWindow%5D%5Boperator%5D%5Bend%5D=%3E&filter%5BtveAuthWindow%5D%5Boperator%5D%5Bstart%5D=%3C&filter%5BtveAuthWindow%5D%5Bvalue%5D%5Bend%5D=2018-07-10T18%3A20%3A00%2B00%3A00&filter%5BtveAuthWindow%5D%5Bvalue%5D%5Bstart%5D=2018-07-10T18%3A15%3A00%2B00%3A00&filter%5Btype%5D%5Bvalue%5D%5B0%5D=full%20episode&filter%5Btype%5D%5Bvalue%5D%5B1%5D=movie&include=image&page%5Bnumber%5D=1&page%5Bsize%5D=15&sort=-airdate
+	fetch(show_endpoint,
+		{headers:new Headers({
+			'api_key': 'quaxp2ka35k6vxkf2rg8jzdt',
+			'x-park-requestor': 'nbcAppIos',
+			'Accept':'application/vnd.api+json; ext="park/derivatives"',
+			'Accept-Encoding':'br, gzip, deflate'
+		}
+			)}).then(function(res){return res.json();}).then(function(shows){
+		for (var i = shows.data.length - 1; i >= 0; i--) {
+			var showId = shows.data[i].id
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
+				continue;
+			}
+			if (show == undefined && isMobile && localStorage['like']) {
+		var savedShows = JSON.parse(localStorage['like'])
+		if (!savedShows.includes(shows.data[i].attributes.shortTitle)) {
+			continue;
+		}
+	}
+
+			syfyshows[showId] = 'https://img.nbc.com/'+'//sites//'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
+
+			loaders()
+
+
+
+			fetch('https://api.nbcuni.com/networks/syfy/j/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=25').then(function(res){return res.json()}).then(function(episode){
+				if (episode.data.length == 0) {
+					loaders('remove');
+					return;
+					 }
+				for (var z = episode.data.length - 1; z >= 0; z--) {
+				//	if (new Date((episode.data[z].attributes.expiration)) < new Date()) {continue;}
+					if (episode.data[z].attributes.type != 'Full Episode') {
+						continue;
+					}
+					function nbcimg(res){
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?imwidth='+res)
+						 
+
+
+					}
+					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
+      tvlist(episode.data[z].attributes.categories[0].split('/')[1],syfyshows[episode.data[z].relationships.show.data.id],'nbc')
+showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = syfyshows[episode.data[z].relationships.show.data.id]
+					      var episodes = {
+        img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
+        rating: 'TV-14',
+        imgdyn: dyn,
+        id: makeid(),
+        href: episode.data[z].attributes.permalink,
+        show: episode.data[z].attributes.categories[0].split('/')[1],
+        episode: episode.data[z].attributes.title,
+        epiformat: epiformat(episode.data[z].attributes.seasonNumber, episode.data[z].attributes.episodeNumber),
+        episodeNumber: Number(episode.data[z].attributes.episodeNumber),
+        seasonNumber: Number(episode.data[z].attributes.seasonNumber),
+        length: episode.data[z].attributes.runTime,
+        type: "syfy",
+        bg:'',
+        time:Date.parse(new Date(episode.data[z].attributes.airdate)),
+        expires:new Date(episode.data[z].attributes.expiration).getTime()
+
+      }
+            finalObj.push(episodes)
+
+				}
+									loaders('remove')
+
+			})
+		}
+	}).catch(function(e){
+		loaders('remove')
+	})
+	loaders('remove')
+
+
+
+}
+
+
+
+
+
+
 // addJS('https://api.watchabc.go.com/vp2/ws/s/contents/2020/shows/jsonp/001/001/-1?callback=useABC')
 function fancyTimeFormat(time) {
   // Hours, minutes and seconds
@@ -1884,7 +1975,7 @@ imgdyn:""
     sConfig.split('?')[1]
     }else{
       cw()
-  //    fox()
+      fox()
       nbc()
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");

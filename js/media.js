@@ -8,6 +8,7 @@
 console.log(getLastTime().start)
 var player = videojs('LS', {  textTrackSettings: false
 ,html5: {
+   
    hlsjsConfig: {
                  startPosition: getLastTime().start,
                  maxStarvationDelay:3,
@@ -379,8 +380,23 @@ resume()
    })
      fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
          method:"POST",
+       //  body:"cust_params=osgrp%253DIOS%2526devgrp%253DTAB%2526dfp_msid%253D491730359%2526DV_TYPE%253Diphone%2526os_name%253DiPhone%20OS%2526appversion%253D3.2%2526AD_POD%253DMobile%20App%2526time%253D120%252C90%252C60%252C30%252C15%252C10%252C5%2526platform%253DMBL%2526osver%253D11.4%2526devid%253D89523F40-4515-4401-858D-2B22EC4027CD%2526optout%253D1%2526DV_SDK%253Dios%2526IDFA%253D89523F40-4515-4401-858D-2B22EC4027CD%2526device%253Diphone%2526nielsenid%253DP1F71EB62-8D87-40FE-856C-74F299710E17%2526model%253DiPhone&iu=4266%2Fcwtv.fullstream%2Fflash%2F%2Fiphone&description_url=http%3A%2F%2Fwww.cwtv.com&api-key=il5qfm01e0lq81vuck744kokf&msid=0&idtype=idfa&is_lat=1&ms=hGpy2Ib7moETSblYkr9XESHBp-SLQY8LpHVj_pXvZbr4oiVBjqNm3DO13gs0mq3PnqzIXtPUtVmtumi8cfHPsySrsHimaEgbUFEiEJ7f8FzfwjYo9qVu05SprUxAnpqrEyg86SGrQWq12fpXqcSK2l6skJmwKOdb9qQQskLSoq-YfszLjBFEBVSYHu2O7-1I-WmZ06SfAt5IcNoaxgSrYwcMQ3GkU6gmCnuGF274KdlaNBiOBSvZ1JNH2nKJJRuOsGUimyPAAHPdvQ847nZnJpRmzXeFcKdW4sPZKmgSLz1vXl0JCWiOidsjfX4oUirX1Z-TSjH3X5GzgrGa_TiBdQ&js=ima-ios.3.6.1&correlator=839407548414813&osd=2&rdid=00000000-0000-0000-0000-000000000000&sdkv=h.3.59.1%2Fn.ios.3.6.1%2Fcom.cw.fullepisodes.ios&url=http%3A%2F%2Fwww.cwtv.com&an=com.cw.fullepisodes.ios&eid=668123028&frm=0&submodel=iPhone10%2C2",
          headers:new Headers({
-            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"'
+            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"',
+                'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Accept-Encoding': 'br, gzip, deflate',
+                'Accept-Language':'en-us'
+
+/*
+POST https://dai.google.com/ondemand/hls/content/6698/vid/689230bf-a9c2-4918-9e75-459d8507dc9b/streams HTTP/1.1
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+Accept-Encoding: br, gzip, deflate
+Content-Length: 1248
+Accept-Language: en-us
+
+
+*/
+
          })
       }).then(function(res){return res.json();}).then(function(hls){
 if('subtitles' in hls){
@@ -724,6 +740,7 @@ function fetchnbcjson(value) {
    console.log(res.url.replace('3104027',value.split('/')[value.split('/').length-1]))
    player.src({type:'application/vnd.apple.mpegurl',src:res.url.replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://')})
    resume();
+   console.log('http://tkx-cable-prod.nbc.anvato.net/rest/v2/mcp/video/'+value.split('/')[value.split('/').length-1]+'?'+res.url.replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://').split('?')[1])
 })
 
 fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=script').then(function(res){return res.json()}).then(function(meta){
@@ -956,8 +973,8 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedc
   console.log(m3u8.split('.')[2].split('/')[1])
 console.log(m3u8)
 document.getElementById('downloader').href = m3u8
-  ////  player.src({ "type": "application/x-mpegURL", "src": m3u8 });
-  //       resume();
+    player.src({ "type": "application/x-mpegURL", "src": m3u8 });
+        resume();
    // backupWay(url)
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
    console.log(videoData)
@@ -1057,9 +1074,9 @@ player.on('timeupdate', function () {
 var pbs = play.playURL.split('?')[1]
 var id = play.playURL.replace('/preplay2/','/').split('uplynk.com')[1].split('/')[1]
 console.log('official way',play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs)
-//console.log(play.playURL)
-      //   player.src({ "type": "application/x-mpegURL", "src": play.playURL });
-     //    resume();
+console.log(play.playURL)
+         player.src({ "type": "application/x-mpegURL", "src": play.playURL });
+        resume();
 
    }).catch(function(e){
       error()
@@ -1250,7 +1267,7 @@ function clone(obj) {
 }
 
 function handle(data){
-error('this episode is not available.')
+// error('this episode is not available.')
    player.duration(data.durationInSeconds)
 currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumber}
 
@@ -1325,6 +1342,80 @@ handle(item)
 
  });
 }
+
+
+
+// Anvato
+function anvato(url){
+   console.log(url.split('?')[1])
+  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect').then(function(res){
+   console.log('http://tkx-cable-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+res.url.split('?')[1])
+fetch('http://tkx-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+res.url.split('?')[1]).then(function(res){return res.text();}).then(function(episode){
+  var p = episode.split('(')
+
+  p.splice(0, 1)
+   var data = (JSON.parse(p.join('').slice(0,-1)))
+     console.log(data)
+
+    bg(data.src_image_url);
+         getShowinfo(data.program_name);
+         showname.innerHTML = data.program_name;
+         showdesc.innerHTML = data.def_description;
+         document.getElementById('epname').innerHTML = data.def_title;
+
+player.src(data.published_urls[0].embed_url)
+resume();
+
+         for(i in data.captions){
+            if(data.captions[i].format != 'SMPTE-TT' || data.captions[i].language != 'en'){continue;}
+            console.log(data.captions[i])
+
+fetch(data.captions[i].url).then(function(res){return res.text()}).then(function(text){
+
+   var parser = new DOMParser();
+   var htmlDoc = parser.parseFromString(text, "text/xml")
+   htmlDoc = htmlDoc.getElementsByTagName('p')
+   track = player.addTextTrack("captions", 'English (alt)', 'en');
+   console.log(data.captions[i].language)
+   for(i in htmlDoc){
+     // if(Number(htmlDoc[i]) || htmlDoc[i] == undefined){
+          //  console.log(htmlDoc[i] == undefined)
+        // continue;
+      //}
+      console.log(htmlDoc[i].getAttribute('begin').toSeconds(),htmlDoc[i].getAttribute('begin'))
+               track.addCue(new VTTCue(htmlDoc[i].getAttribute('begin').toSeconds() + 5, htmlDoc[i].getAttribute('end').toSeconds() + 5, htmlDoc[i].innerHTML));
+}
+})
+
+         }
+
+         document.title = data.program_name + " - " + data.def_title
+})
+  console.log(res.url.replace('3104027',url.split('?')[1]))
+ //  player.src({type:'application/vnd.apple.mpegurl',src:res.url.replace('3104027',url.split('?')[1])})
+   //resume();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
 function funimation(url){
   console.log(url)
   fetch('https://cors-anywhere.herokuapp.com/' + url).then(function(res){
@@ -1342,6 +1433,8 @@ fetch(`https://prod-api-funimationnow.dadcdigital.com/api/source/catalog/video/$
     }
   }
 })
+
+
 bg(xmlDoc.querySelector('meta[property="og:image"]').content.replace('c_fill,q_60,h_630,w_1290',''))
 document.getElementById('showname').innerHTML = xmlDoc.querySelector('input[name="showTitle"]').value
 document.getElementById('epname').innerHTML = xmlDoc.querySelector('.content-episode').getAttribute('data-title')
@@ -1434,6 +1527,7 @@ var sitefunctions = {
   "nbc.com": fetchnbcjson,
   "fox.com": fetchfoxjson,
   "fxnetworks.com": fetchfxjson,
+  "anvato.com?":anvato,
 
   /* var player = videojs('LS');;
    player.ready(function() {
