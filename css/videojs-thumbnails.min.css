@@ -1,0 +1,7 @@
+/*!
+ * @name videojs-thumbnails
+ * @version 1.0.3
+ * @author Mariusz Rajczakowski <mrajczakowski@gmail.com>
+ * @license MIT
+ */.vjs-thumbnail-holder{position:absolute;left:-1000px;bottom:11px;height:86px}.vjs-thumbnail-img{max-width:none;position:absolute;left:0;bottom:16px;opacity:0;-webkit-transition:opacity .2s ease;transition:opacity .2s ease;height:86px;padding:5px 0 23px;background:hsla(0,0%,100%,.7)}.vjs-progress-control.fake-active .vjs-thumbnail-img,.vjs-progress-control.fake-active .vjs-thumbnail-time,.vjs-progress-control:active .vjs-thumbnail-img,.vjs-progress-control:active .vjs-thumbnail-time,.vjs-progress-control:hover .vjs-thumbnail-img,.vjs-progress-control:hover .vjs-thumbnail-time{opacity:1}.vjs-progress-control:active .vjs-thumbnail-holder:active,.vjs-progress-control:active .vjs-thumbnail-holder:active .vjs-thumbnail-time,.vjs-progress-control:hover .vjs-thumbnail-holder:hover,.vjs-progress-control:hover .vjs-thumbnail-holder:hover .vjs-thumbnail-time{opacity:0}.vjs-thumbnail-time{bottom:23px;opacity:0;color:#333;font-size:1.1em;width:40px;margin-left:-20px;position:absolute;z-index:1}.vjs-thumbnail-arrow{bottom:12px;position:absolute;opacity:.7;width:10px;margin-left:-5px;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid #fff}
+/*# sourceMappingURL=videojs-thumbnails.min.css.map */

@@ -1486,12 +1486,18 @@ loaders('remove')
 function nbc(show){
 	var nbcshows = {}
 	loaders()
-	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
+	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
-		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b') { // the blacklist
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b'  ) { // the blacklist
+		//		continue;
+			}
+			var genre = shows.data[i].attributes.genre
+			if(genre == 'News and Information' || genre == 'Reality' || genre == 'Family and Kids' || genre == null || genre == 'LateNight' || genre == 'Lifestyle and Fashion' || genre == 'Special'){
 				continue;
 			}
+						console.log(shows.data[i]) 
+
 			if (show == undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
 		if (!savedShows.includes(shows.data[i].attributes.shortTitle)) {
