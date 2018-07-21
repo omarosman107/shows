@@ -1344,7 +1344,12 @@ handle(item)
 }
 
 
+function smpte2vtt(timecode,add_seconds,frame_rate){
+   var tm_obj = timecode.split(':')
 
+   return tm_obj[0] + ':'+tm_obj[1] +':'+ ('0' + (Number(tm_obj[2]) + add_seconds)).slice(-2) +'.'+ ('000'+(Math.round(tm_obj[3]/frame_rate *1000))).slice(-3)
+
+}
 // Anvato
 function anvato(url){
    console.log(url.split('?')[1])
@@ -1368,23 +1373,64 @@ resume();
 
          for(i in data.captions){
             if(data.captions[i].format != 'SMPTE-TT' || data.captions[i].language != 'en'){continue;}
-            console.log(data.captions[i])
+          //  console.log(data.captions[i])
 
 fetch(data.captions[i].url).then(function(res){return res.text()}).then(function(text){
 
    var parser = new DOMParser();
    var htmlDoc = parser.parseFromString(text, "text/xml")
    htmlDoc = htmlDoc.getElementsByTagName('p')
-   track = player.addTextTrack("captions", 'English (alt)', 'en');
+  // track = player.addTextTrack("captions", 'English (alt)', 'en');
    console.log(data.captions[i].language)
+      var str =  `WEBVTT
+
+`
+
+var frameRate = Number(parser.parseFromString(text, "text/xml").querySelector('tt').getAttribute('ttp:frameRate'))
+var prevTime = ''
    for(i in htmlDoc){
-     // if(Number(htmlDoc[i]) || htmlDoc[i] == undefined){
-          //  console.log(htmlDoc[i] == undefined)
-        // continue;
-      //}
-      console.log(htmlDoc[i].getAttribute('begin').toSeconds(),htmlDoc[i].getAttribute('begin'))
-               track.addCue(new VTTCue(htmlDoc[i].getAttribute('begin').toSeconds() + 5, htmlDoc[i].getAttribute('end').toSeconds() + 5, htmlDoc[i].innerHTML));
+      if(htmlDoc[i] instanceof Element == false){continue;}
+            console.log(prevTime)
+
+if(htmlDoc[i].getAttribute('begin') + htmlDoc[i].getAttribute('end') == prevTime){
+      str += `
+         ${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}
+         `
+   continue;
 }
+
+prevTime = htmlDoc[i].getAttribute('begin') + htmlDoc[i].getAttribute('end')
+
+      //console.log(htmlDoc[i].getAttribute('begin').split(':'))
+      //console.log(htmlDoc[i].getAttribute('tts:extent').split(' ')[0])
+      //console.log(100 - Number(htmlDoc[i].getAttribute('tts:origin').split(' ')[1].split('%')[0])+ '%')
+      var position =  htmlDoc[i].getAttribute('tts:origin').split(' ')
+
+var begin = htmlDoc[i].getAttribute('begin').split(':')
+begin[2] = Number(begin[2]) + 5 
+begin.splice(-1,1)
+
+var end = htmlDoc[i].getAttribute('end').split(':')
+end[2] = Number(end[2]) + 5 
+
+end.splice(-1,1)
+smpte2vtt(htmlDoc[i].getAttribute('begin'),5,frameRate)
+// ${htmlDoc[i].getAttribute('tts:extent').split(' ')[0]}
+//console.log(htmlDoc[i].getAttribute('begin').toSeconds() + (Number(htmlDoc[i].getAttribute('begin').split(':')[3]) / 30))
+str += `
+${smpte2vtt(htmlDoc[i].getAttribute('begin'),5,frameRate)} --> ${smpte2vtt(htmlDoc[i].getAttribute('end'),5,frameRate)} position:50%  line:${Number(position[1].split('%')[0])  + '%'} size:40%  align:center
+${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}`
+
+            //   track.addCue(new VTTCue(htmlDoc[i].getAttribute('begin').toSeconds() + 5, htmlDoc[i].getAttribute('end').toSeconds() + 5, htmlDoc[i].innerHTML));
+}
+
+
+
+
+console.log('data:text/vtt;base64,' + btoa(str))
+      track = player.addRemoteTextTrack({kind:"captions",src:'data:text/vtt;base64,' + btoa(str), srclang:"English VTT"});
+
+
 })
 
          }
