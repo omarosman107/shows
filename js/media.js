@@ -1393,6 +1393,11 @@ var prevTime = ''
             console.log(prevTime)
 
 if(htmlDoc[i].getAttribute('begin') + htmlDoc[i].getAttribute('end') == prevTime){
+    /* str += `
+${smpte2vtt(htmlDoc[i].getAttribute('begin'),5,frameRate)} --> ${smpte2vtt(htmlDoc[i].getAttribute('end'),5,frameRate)} position:50%   lines:${Number(position[1].split('%')[0])   + '%'}   align:center
+${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}
+`
+*/
       str += ` ${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}
          `
    continue;
@@ -1418,8 +1423,9 @@ smpte2vtt(htmlDoc[i].getAttribute('begin'),5,frameRate)
 // ${htmlDoc[i].getAttribute('tts:extent').split(' ')[0]}
 //console.log(htmlDoc[i].getAttribute('begin').toSeconds() + (Number(htmlDoc[i].getAttribute('begin').split(':')[3]) / 30))
 str += `
-${smpte2vtt(htmlDoc[i].getAttribute('begin'),5,frameRate)} --> ${smpte2vtt(htmlDoc[i].getAttribute('end'),5,frameRate)} position:50%  scroll:up line:87% lines:${Number(position[1].split('%')[0])   + '%'} size:55%  align:center
-${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}`
+${smpte2vtt(htmlDoc[i].getAttribute('begin'),5,frameRate)} --> ${smpte2vtt(htmlDoc[i].getAttribute('end'),5,frameRate)} position:50%  scroll:up line:87% lines:${Number(position[1].split('%')[0])   + '%'} size:40%  align:center
+${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}
+`
 
             //   track.addCue(new VTTCue(htmlDoc[i].getAttribute('begin').toSeconds() + 5, htmlDoc[i].getAttribute('end').toSeconds() + 5, htmlDoc[i].innerHTML));
 }
