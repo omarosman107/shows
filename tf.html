@@ -95,12 +95,14 @@ var _data = {}
 					if ( JSON.stringify(_data[seasonNum][episodeNum - 1]) == '{}') {
 						console.log('not there')
 						console.log(data.videos[i].title)
+							 	//file:`http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+data.videos[i].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ data.videos[i].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
 						 _data[seasonNum][episodeNum] = {
 						 	title:data.videos[i].title,
-						 	file:`http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+data.videos[i].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ data.videos[i].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
-						 	,id:data.videos[i].guid
+						 	file:data.videos[i].mpx_url.split('?')[0] + '?formats=m3u,mpeg4&format=redirect',
+						 	id:data.videos[i].guid
 						 }
 
+							loadstuff();
 
 					}else{
 					}
