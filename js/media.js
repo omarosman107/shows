@@ -466,7 +466,7 @@ fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pag
    }
 })
 
-      showdesc.innerHTML = metadata.description;
+     // showdesc.innerHTML = metadata.description;
       document.getElementById('epname').innerHTML = metadata.title;
 
             document.title = metadata['cw$seriesTitle'] + " - " + metadata.title;
@@ -478,9 +478,23 @@ fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pag
 
 
 
-
+if('captions' in metadata && metadata.captions.length > 0){
       var media = metadata.captions[0].src.split('The_CW')[1].split('_')
       console.log('https://'+metadata.captions[0].src.split('/')[2])
+media.splice(-4)
+      player.src({
+    src: 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',
+    type: 'application/vnd.apple.mpegurl'
+})
+ resume()
+}else{
+       player.src({
+    src: 'https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?mbr=true&formats=m3u,mpeg4&format=redirect',
+    type: 'application/vnd.apple.mpegurl'
+})
+
+}
+
       //'https://'+metadata.captions[0].src.split('/')[2]
   /*  
      hostNames:
@@ -489,7 +503,6 @@ fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pag
      https://edge.cwtv-vod.top.comcast.net/nosec/The_CW
      https://cwtv-amd-akamai.akamaized.net/nosec/The_CW
 */
-media.splice(-4)
 /*
 {
   sources: [{
@@ -498,15 +511,7 @@ media.splice(-4)
   }],
 },
 */
-player.src({
-    src: 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',
-    type: 'application/vnd.apple.mpegurl'
-})
-if(getLastTime().start > 10){
-  // player.playlist.next();
 
-}
- resume()
    })
    
 

@@ -957,9 +957,9 @@ loadMedia(l)
 
 
 }
-var theflash = 'https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash'
-var show_hub = 'https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_hub'
-var shows = 'https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100'
+var theflash = 'https://images.cwtv.com/feed/mobileapp/videos/apiversion_8/show_the-flash'
+var show_hub = 'https://images.cwtv.com/feed/mobileapp/videos/apiversion_8/show_hub'
+var shows = 'https://images.cwtv.com/feed/mobileapp/shows/apiversion_8/channel_cwtv/pagesize_100'
 var proxy = 'https://cors-anywhere.herokuapp.com/'
 var template = "";
 if (!window.fetch) {
@@ -1280,7 +1280,7 @@ var cwTimes = {}
 function cw(show){
 	var skipTheseShows = ['Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
-fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
+fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_8/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
 	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
@@ -1304,7 +1304,7 @@ cwTimes[cwshows.items[i].title] = airtime
 
 
 
-fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
+fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_8/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
 .then(function(res){
 return res.json()
 }).then(function(data){
