@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reddit Post analytics tracker</title>
+</head>
+<body>
+<div>Input Post URL:<input type="text" name="post"></div>
+<div>Orginal upvotes:<input type="text" name="upvotes"></div>
+<div>Amount Invested:<input type="text" name="invested"></div>
+
+<button onclick="clicked()">Enter</button>
+<div id="stats">
+	
+</div>
+<script type="text/javascript">
+	function clicked(){
+		setInterval(function(){
+		var script = document.createElement('script');
+script.src = document.getElementsByName('post')[0].value.split('www.').join('pay.').split('?')[0] + '.json?limit=1&jsonp=process';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+
+		console.log(document.getElementsByName('post')[0].value.split('www.').join('pay.').split('?')[0] + '.json?limit=1&jsonp=process')
+		},1000)
+	}
+function process(data){
+	console.log(data[0].data.children[0].data.score)
+	fetch('https://memes.market/api/calculate?old='+document.getElementsByName('upvotes')[0].value+'&new='+data[0].data.children[0].data.score).then(function(res){return res.json()}).then(function(stock){
+		document.getElementById('stats').innerHTML = `
+		Score:${data[0].data.children[0].data.score}
+Percentage:${stock.factor*100+'%'}  Amount Now:${stock.factor*document.getElementsByName('invested')[0].value}
+		`
+console.log(stock.factor*100+'%',stock.factor*document.getElementsByName('invested')[0].value)
+	});
+}
+</script>
+
+</body>
+</html>
