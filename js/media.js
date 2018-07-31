@@ -373,11 +373,13 @@ function fetchcwjson(value) {
    // HLS = 154 | 206
    // MP4 = 213
    );var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
+  /*
    fetch(url).then(function(res){return res.json();}).then(function(data){
  document.getElementById('downloader').href = data.videos.variantplaylist.uri.replace('http://hlsioscwtv.warnerbros.com','https://www.cwtv.com',);
 resume()
 
    })
+   */
      fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
          method:"POST",
        //  body:"cust_params=osgrp%253DIOS%2526devgrp%253DTAB%2526dfp_msid%253D491730359%2526DV_TYPE%253Diphone%2526os_name%253DiPhone%20OS%2526appversion%253D3.2%2526AD_POD%253DMobile%20App%2526time%253D120%252C90%252C60%252C30%252C15%252C10%252C5%2526platform%253DMBL%2526osver%253D11.4%2526devid%253D89523F40-4515-4401-858D-2B22EC4027CD%2526optout%253D1%2526DV_SDK%253Dios%2526IDFA%253D89523F40-4515-4401-858D-2B22EC4027CD%2526device%253Diphone%2526nielsenid%253DP1F71EB62-8D87-40FE-856C-74F299710E17%2526model%253DiPhone&iu=4266%2Fcwtv.fullstream%2Fflash%2F%2Fiphone&description_url=http%3A%2F%2Fwww.cwtv.com&api-key=il5qfm01e0lq81vuck744kokf&msid=0&idtype=idfa&is_lat=1&ms=hGpy2Ib7moETSblYkr9XESHBp-SLQY8LpHVj_pXvZbr4oiVBjqNm3DO13gs0mq3PnqzIXtPUtVmtumi8cfHPsySrsHimaEgbUFEiEJ7f8FzfwjYo9qVu05SprUxAnpqrEyg86SGrQWq12fpXqcSK2l6skJmwKOdb9qQQskLSoq-YfszLjBFEBVSYHu2O7-1I-WmZ06SfAt5IcNoaxgSrYwcMQ3GkU6gmCnuGF274KdlaNBiOBSvZ1JNH2nKJJRuOsGUimyPAAHPdvQ847nZnJpRmzXeFcKdW4sPZKmgSLz1vXl0JCWiOidsjfX4oUirX1Z-TSjH3X5GzgrGa_TiBdQ&js=ima-ios.3.6.1&correlator=839407548414813&osd=2&rdid=00000000-0000-0000-0000-000000000000&sdkv=h.3.59.1%2Fn.ios.3.6.1%2Fcom.cw.fullepisodes.ios&url=http%3A%2F%2Fwww.cwtv.com&an=com.cw.fullepisodes.ios&eid=668123028&frm=0&submodel=iPhone10%2C2",
@@ -456,7 +458,7 @@ player.playlist.autoadvance(-1);
 
          currentEpisode = {show:metadata['cw$seriesTitle'],episode:metadata.title,season:metadata['cw$seasonNumber']}
  showname.innerHTML = metadata['cw$seriesTitle'];
-fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100/').then(function(res){return res.json();}).then(function(shows){
+fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100/').then(function(res){return res.json();}).then(function(shows){
    console.log(shows)
    for(i in shows.items){
       if(shows.items[i].series_code == metadata['cw$seriesCode']){
