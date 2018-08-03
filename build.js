@@ -1280,7 +1280,7 @@ var cwTimes = {}
 function cw(show){
 	var skipTheseShows = ['Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
-fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){return res.json()}).then(function(cwshows){
+fetch('https://images.cwtv.com/feed/mobileapp/shows/channel_cwtv/apiversion_9/channel_cwtv/device_ios/pagesize_10000').then(function(res){return res.json()}).then(function(cwshows){
 for(i in cwshows.items){
 	loaders()
 	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
@@ -1304,7 +1304,7 @@ cwTimes[cwshows.items[i].title] = airtime
 
 
 
-fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+cwshows.items[i].slug + '?bust=' + Date.now() )
+fetch('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_9/device_ios/pagesize_10000?bust=' + Date.now() )
 .then(function(res){
 return res.json()
 }).then(function(data){
@@ -1341,6 +1341,7 @@ if(data.videos[i].mpx_url != ''){
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg'
+    //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_385.jpg','cw')
 
       var episode_data = {
@@ -1370,6 +1371,7 @@ if(data.videos[i].mpx_url != ''){
   loaders('remove')
 })
 }
+/*
 loaders()
 			fetch('https://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(data){
 			console.log(data.items)
@@ -1432,6 +1434,7 @@ continue;
 							loaders('remove')
 
 		})
+			*/
 
 /*
 fetch('theflash.json').then(function(res){return res.json();}).then(function(theflash){
