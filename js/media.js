@@ -508,6 +508,7 @@ showPreload = {
 
       
 // Get Captions!
+if(window.location.protocol != 'https:'){
  fetch('http://api.digitalsmiths.tv/metaframe/65e6ee99/asset/' + stripped + '/filter').then(function (res) {
       return res.json();
    }).then(function (cap) {
@@ -521,7 +522,7 @@ showPreload = {
       }
       }
    });
-   
+   }
 console.log(url)
 return;
 
