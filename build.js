@@ -140,6 +140,8 @@ if (url.includes('cwtv.com') | url.includes('cwseed.com')) {
 var stripped = url.split('?')[1].split('=')[1]
    // HLS = 154 | 206
    // MP4 = 213
+   hls.loadSource('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
+   /*
    var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json"
    fetch(url, {
       method: 'get'
@@ -153,6 +155,7 @@ var stripped = url.split('?')[1].split('=')[1]
 
 
    })
+   */
 }
 if (url.includes('api.fox.com')) {
       var finalurl = element.getAttribute('autoplay')
@@ -1280,7 +1283,12 @@ var cwTimes = {}
 function cw(show){
 	var skipTheseShows = ['Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
-fetch('https://images.cwtv.com/feed/mobileapp/shows/channel_cwtv/apiversion_9/channel_cwtv/device_ios/pagesize_10000').then(function(res){return res.json()}).then(function(cwshows){
+	fetch('https://www.cwtv.com/images/c/headers/cacheversions.json?cb=8045022').then(function(res){return res.json();}).then(function(config){
+		console.log(config.cwtv.prod.versions['shows-grouped'])
+		// 'https://images.cwtv.com/feed/mobileapp/shows/channel_cwtv/apiversion_9/channel_cwtv/device_ios/pagesize_10000'
+loaders()
+fetch('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios/cacheversion_'+config.cwtv.prod.versions['shows-grouped']).then(function(res){return res.json()}).then(function(cwshows){
+cwshows['items'] = (cwshows.items.show_groups[0].shows.concat(cwshows.items.show_groups[2].shows))
 for(i in cwshows.items){
 	loaders()
 	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
@@ -1304,16 +1312,14 @@ cwTimes[cwshows.items[i].title] = airtime
 
 
 
-fetch('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_9/device_ios/pagesize_10000?bust=' + Date.now() )
+fetch('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_9/device_ios/cacheversion_'+config.cwtv.prod.versions.videos )
 .then(function(res){
 return res.json()
 }).then(function(data){
     for (i in data.videos) {
     if (data.videos[i].fullep == 1) {
 
-if(data.videos[i].mpx_url != ''){
-	console.log(data.videos[i].mpx_url,data.videos[i].series_name + ' '+ data.videos[i].title + ' '+ data.videos[i].airdate)
-}
+
       function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000 * 60);
         var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -1371,70 +1377,7 @@ if(data.videos[i].mpx_url != ''){
   loaders('remove')
 })
 }
-/*
-loaders()
-			fetch('https://images.cwtv.com/feed/mobileapp/schedule').then(function(res){return res.json()}).then(function(data){
-			console.log(data.items)
-			data.items = data.items.reverse()
-			for (var i = data.items.length - 1; i >= 0; i--) {
-				if(data.items[i].video_fullep){continue;}
-				if(data.items[i].video_is_new){
-				var date = new Date(data.items[i].episode_date)
-			console.log(data.items[i])
-						if (show != 'undefined' && show != undefined && data.items[i].show_title.toLowerCase().includes(show.toLowerCase()) == false){
-continue;
-}
-			      function cwdyres(resulution){
 
-      	if (webpcompatible == true) {
-// return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
-}
-      	 return 'https://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.items[i].video_guid+'.jpg'
-      }
-      var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
-      showswithimages[data.items[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.items[i].show_slug+'.v_7.w_385.jpg'
-      tvlist(data.items[i].show_title,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.items[i].show_slug+'.v_7.w_385.jpg','cw')
-
-
-  var s = (data.items[i].episode_season)
-        var e = (data.items[i].episode_number.split(data.items[i].episode_season)[1])
-        console.log(e)
-      var airdate = (moment(data.items[i].episode_date).toDate())
-      console.log(airdate)
-      if((airdate - new Date() ) / 1000 > 96768){
-      	continue;
-      }
-
-			   var episode_data = {
-        img: cwdyres('638'),
-        rating:'',
-        imgdyn: dyn,
-        id: makeid(),
-        href: 'http://cwtv.com'+data.items[i].video_share_url,
-        hidden:true,
-        show: data.items[i].show_title,
-        episode: data.items[i].episode_title + ' Trailer',
-        epiformat: epiformat(s, e),
-        episodeNumber:Number(e),
-        seasonNumber:Number(s),
-        length: data.items[i].episode_duration * 60,
-        type: "cw",
-        bg:  '',
-        time:Date.parse(airdate),
-        episode_id:data.items[i].video_guid,
-        expires:new Date(data.items[i].expire_time).getTime()
-
-      }
-            finalObj.push(episode_data)
-
-
-
-				}
-			}
-							loaders('remove')
-
-		})
-			*/
 
 /*
 fetch('theflash.json').then(function(res){return res.json();}).then(function(theflash){
@@ -1448,7 +1391,6 @@ for(z in theflash[i]){
       	 return 'http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+theflash[i][z].id+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
-
   var episode_data = {
         img: cwdyres('638'),
         rating: 'TV-14',
@@ -1468,20 +1410,20 @@ for(z in theflash[i]){
 
       }
             finalObj.push(episode_data)
-
-
-
-
 }
 }
-
-
 })
 */
 loaders('remove')
 }).catch(function(e){
 	loaders('remove')
 })
+
+
+
+loaders('remove')
+
+	})
 }
 
 
@@ -1499,7 +1441,6 @@ function nbc(show){
 			if(genre == 'News and Information' || genre == 'Reality' || genre == 'Family and Kids' || genre == null || genre == 'LateNight' || genre == 'Lifestyle and Fashion' || genre == 'Special'){
 				continue;
 			}
-						console.log(shows.data[i]) 
 
 			if (show == undefined && isMobile && localStorage['like']) {
 		var savedShows = JSON.parse(localStorage['like'])
@@ -1568,7 +1509,8 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 
 //SYFY
-function syfy(){
+
+function syfy(show){
 		var syfyshows = {}
 	loaders()
 	// quaxp2ka35k6vxkf2rg8jzdt
