@@ -92,6 +92,20 @@ var _data = {}
 				if (data.videos[i].fullep) {
 					var season = _data[seasonNum]
 					console.log(_data[seasonNum][episodeNum - 1],seasonNum + '  '+episodeNum)
+/*
+for( i in json[4]){
+fetch('http://link.theplatform.com/s/cwtv/media/guid/2703454149/'+json[4][i].id+'?formats=m3u,mpeg4&format=script').then(function(res){return res.json();}).then(function(metadata){
+     var media = metadata.captions[0].src.split('The_CW')[1].split('_')
+media.splice(-4)
+if(json[4][metadata['cw$episodeNumber'] - 1].file == 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8'){}else{
+console.log('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',metadata['cw$episodeNumber'],metadata.title)
+}
+})
+}
+*/ 
+
+//					fetch(data.videos[i].mpx_url.split('?')[0] + '?formats=m3u,mpeg4&format=redirect').then(function(res){return res.json()})
+
 					if ( JSON.stringify(_data[seasonNum][episodeNum - 1]) == '{}') {
 						console.log('not there')
 						console.log(data.videos[i].title)
@@ -101,7 +115,6 @@ var _data = {}
 						 	file:data.videos[i].mpx_url.split('?')[0] + '?formats=m3u,mpeg4&format=redirect',
 						 	id:data.videos[i].guid
 						 }
-
 							loadstuff();
 
 					}else{
