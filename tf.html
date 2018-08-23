@@ -98,7 +98,13 @@ fetch('http://link.theplatform.com/s/cwtv/media/guid/2703454149/'+json[4][i].id+
      var media = metadata.captions[0].src.split('The_CW')[1].split('_')
 media.splice(-4)
 if(json[4][metadata['cw$episodeNumber'] - 1].file == 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8'){}else{
-console.log('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',metadata['cw$episodeNumber'],metadata.title)
+console.log('https://'+'7883af314d2849b68749725ce5fdfe2b.dlvr1.net' + '/nosec/The_CW'+ media.join('_') + '.m3u8',metadata['cw$episodeNumber'],metadata.title)
+console.log('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8')
+console.log('https://'+'stream-hls.cwtv.com'+ '/nosec/The_CW'+ media.join('_') + '.m3u8')
+
+
+
+
 }
 })
 }
