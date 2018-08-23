@@ -1272,7 +1272,7 @@ function msToTime(duration) {
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
   return minutes + ":" + seconds;
-}
+} 
 var template = "";
 var obj = []
     var finalObj = []
@@ -1435,7 +1435,7 @@ function nbc(show){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b'  ) { // the blacklist
-		//		continue;
+				continue;
 			}
 			var genre = shows.data[i].attributes.genre
 			if(genre == 'News and Information' || genre == 'Reality' || genre == 'Family and Kids' || genre == null || genre == 'LateNight' || genre == 'Lifestyle and Fashion' || genre == 'Special'){
