@@ -1289,6 +1289,7 @@ function cw(show){
 loaders()
 fetch('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios/cacheversion_'+config.cwtv.prod.versions['shows-grouped']).then(function(res){return res.json()}).then(function(cwshows){
 cwshows['items'] = (cwshows.items.show_groups[0].shows.concat(cwshows.items.show_groups[2].shows))
+cwshows.items.push( {"videos_count":"13","title":"Forever","deeplink": "","airtime":"STREAM NOW","slug":"forever","series_code":"FVR","group_type":"current-shows"})
 for(i in cwshows.items){
 	loaders()
 	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
@@ -1416,6 +1417,7 @@ for(z in theflash[i]){
 */
 loaders('remove')
 }).catch(function(e){
+	console.log(e)
 	loaders('remove')
 })
 
