@@ -253,8 +253,9 @@ return;
                   if (i+1 - showJson.length - 1 == -1 ) {console.log('no episode newer');return;}
 
                next = showJson[i+1]
+               console.log(next)
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
-               document.querySelector('.episode').innerHTML = next.episode
+               document.querySelector('.episode').innerHTML = next.episode + ' ' + next.epiformat
                document.querySelector('.upnext').style.display = 'block';
 
                }
