@@ -568,6 +568,9 @@ for (var i = sorted_shows.length - 1; i >= 0; i--) {
 }
 for(i in upnextshows){
 	try{
+		if(upnextshows[i].isNew){
+	document.querySelector('div[show="'+i+'"]').getElementsByClassName('newepisodes')[0].style.display = 'block'
+		}
 document.querySelector('div[show="'+i+'"]').setAttribute('percent',upnextshows[i].percentage)
 document.querySelector('div[show="'+i+'"] div').innerHTML += '<div class="w3-progressbar"style="width: '+upnextshows[i].percentage+'%;"></div>'
 }catch(e){
@@ -885,7 +888,7 @@ if (img != undefined) {
 </div>`
 */
 showhtml.push({show:showName,html:`<div  percent="" show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
-  <div  class="background" data-background-image-url="${img}" style="background-repeat: no-repeat;    background-size: 100% 100%;"></div>
+  <div  class="background" data-background-image-url="${img}" style="background-repeat: no-repeat;    background-size: 100% 100%;"><div class="newepisodes"><div>NEW EPISODES</div></div></div>
 </div>`,img:img}); 
 return;
 }
@@ -1047,7 +1050,7 @@ episodes[i].end = episodes[i].length - endTime
 
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
-		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:0,percentage:null}
+		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},isNew:false,latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:0,percentage:null}
 	}
 	upnextshows[episodes[i].show].totalEpisodes += 1
 
@@ -1069,6 +1072,11 @@ episodes[i].end = episodes[i].length - endTime
 		upnextshows[episodes[i].show].upNextNum =  episodes[i].episodeNumber
 		upnextshows[episodes[i].show].upNextSeason = episodes[i].seasonNumber
 
+	}
+	if(upnextshows[episodes[i].show].isNew == false){
+		if(date1.getTime() - episodes[i].time < 604800000){
+			upnextshows[episodes[i].show].isNew = true
+		}
 	}
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []

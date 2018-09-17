@@ -526,6 +526,20 @@ li:nth-child(even) {
   iframe {
     max-width: 100%;
   }
+
+
+  .newepisodes {
+    position: absolute;
+    bottom: 8px;
+
+    -webkit-transition: all .23s ease-out;
+    background: red;
+        width: auto;
+    margin: auto;
+    padding: 4px;
+    opacity: .9;
+    display: none;
+  }
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
@@ -576,7 +590,7 @@ li:nth-child(even) {
         <label for="search"><span class="icon"><i class="fa fa-search"></i></span></label> <input label="Search" oninput="query(this.value)" id="search" placeholder="Search..." type="search">
       </div><span id="results"></span>
     </div>
-    <h1 id="wtcTxt">Continue Watching</h1>
+    <h1 id="wtcTxt">Continue Watching for you</h1>
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
     <h1>Shows</h1>
     <div class="shows dragscroll" id="tvShows" ></div>
