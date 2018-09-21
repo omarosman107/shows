@@ -1132,7 +1132,8 @@ if (!time > 0) {
     }
     var perc = 0;
     if (tempLS["?" + json.href]) {
-      perc = tempLS["?" + json.href] / json.length * 100;
+      perc = (tempLS["?" + json.href] / json.length) * 100;
+    //  console.log((tempLS["?" + json.href] / json.length) * 100)
      /* if (!tempLS['?'+json.href+'_duration'] == undefined) {
       	      perc = tempLS["?" + json.href] / json.length * 100;
 
@@ -1166,9 +1167,8 @@ if (!time > 0) {
   
     var done = perc > 99
 if (json.length - tempLS["?" + json.href] < json.end) {
-	perc = 100
+//	perc = 100
 }
-
     if (json.length - tempLS["?" + json.href] > json.end && tempLS["?" + json.href] > 10 || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
 
       //          <span class="episode-gradient"></span>
@@ -1370,7 +1370,7 @@ return res.json()
         epiformat: epiformat(s, e),
         episodeNumber:Number(e),
         seasonNumber:Number(s),
-        length: data.videos[i].duration_secs,
+        length: Number(data.videos[i].duration_secs),
         type: "cw",
         bg:  'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
         time:Date.parse(moment(airdate).toDate()),
