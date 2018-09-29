@@ -1217,7 +1217,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
 data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}" srcset="${json.imgdyn}"
 
 
-	></img></div><div class="episode_number">${json.episodeNumber}</div><div class="episode_details"><span>S${json.seasonNumber}:E${json.episodeNumber} ${timeofPlayback} ${FDate}</span></div>
+	></img></div><div class="episode_number">${json.episodeNumber}</div><div class="episode_details"><span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span></div>
 	<div class="episode_naming"><span class="episode_title">"${json.episode}"</span><span class="episode_show">${json.show}</span></div>
 <div class="episode-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
 </div></a>
