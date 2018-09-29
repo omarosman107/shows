@@ -40,12 +40,76 @@
   <!-- Compiled and minified JavaScript -->
 
   <style type="text/css">
+.episode_number {
+    position: absolute;
+    top: 6%;
+    right: 6%;
+    font-size: 3em;
+    padding: 3px 6px 3px 6px;
+    opacity: .9;
+    color: white;
+    text-shadow: 5px 2px 4px #232323c4;
+    border-radius: 10px;
+}
+.episode_naming {
+     position: absolute;
+    bottom: 10%;
+    padding: 3px 6px 3px 6px;
+    opacity: .9;
+    left: 4%;
+        color: #ebebeb;
+    text-shadow: 2px 1px 4px #232323c4;
+    border-radius:10px;
+}
+.episode_naming .episode_title {
+      margin-block-end: 0.20em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    font-size: 2em;
+    display: block;
+}
+.episode{
+  position: relative;
+    width: 400px;
+    height: auto;
+    display: inline-block;
+    border-radius: 10px;
+    margin: 9px;
+        box-shadow: 0px 2px 9px 4px #131313;
 
-.initialized {
 
+
+}
+  .img {
+        border-radius:10px;
+    background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+
+  }
+.episode-progressbar{
+  margin:0px 0 -7px 0;
+    background-color: #e50914;
+    line-height: inherit;
+    height: .35rem;
+    position: absolute;
+    z-index: 8;
+    bottom: 0;
   
 }
-
+.episode_img {
+      background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+}
+.episode_details {
+    position: absolute;
+    bottom: 9%;
+    right: 9%;
+    font-size: 1em;
+    padding: 3px 6px 3px 6px;
+    opacity: .9;
+    color: #bdbcbc;
+    text-shadow: 2px 2px 4px #232323c4;
+    border-radius: 10px;
+}
 
 @keyframes popin {
   0% {
@@ -534,13 +598,18 @@ li:nth-child(even) {
 
     -webkit-transition: all .23s ease-out;
     background: red;
+        background: linear-gradient(0deg,rgb(179, 11, 34) 0,#d51313fa);
+
         width: auto;
             font-weight: 700;
     margin: auto;
-    padding: 4px;
-    opacity: .9;
+    padding: 3px 6px 3px 6px;
+        opacity: .9;
     display: none;
   }
+
+
+
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
