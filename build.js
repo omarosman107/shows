@@ -1212,13 +1212,13 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
             <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
 
 `
-    template.push( `<a href="play.html?${json.href}"><div data-query="${query}" class="episode  ${con} ${json.type} ${json.id} ${json.href}"><div class="episode_img"><img class=" cover  lazy" width="100%" 
+    template.push( `<a href="play.html?${json.href}"><div data-query="${query}" class="episode  ${con} ${json.type} ${json.id} ${json.href}"><div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 
 data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}" srcset="${json.imgdyn}"
 
 
-	></img></div><div class="episode_number">${json.episodeNumber}</div><div class="episode_details"><span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span></div>
-	<div class="episode_naming"><span class="episode_title">"${json.episode}"</span><span class="episode_show">${json.show}</span></div>
+	></img></div><div class="episode_number">${json.episodeNumber}</div>
+	<div class="episode_naming"><div class="episode_details"><span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span></div><span class="episode_title">'${json.episode}'</span><span class="episode_show">${json.show}</span></div>
 <div class="episode-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
 </div></a>
 <!--
