@@ -44,8 +44,8 @@ fetch("https://www.googleapis.com/oauth2/v4/token?code="+ urltoken +"&client_id=
 fetch(url+token).then(function(res){return res.json();}).then(function(data){
 	data.files = data.files.reverse();
 	for (var i = data.files.length - 1; i >= 0; i--) {
-		console.log(data.files[i].name,data.files[i].id)
-		document.getElementById('listFiles').innerHTML += `<li><a href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?name='+data.files[i].name+'&acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI&access_token='+token}">${data.files[i].name}</a> - <a style="color:green;" href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?name='+data.files[i].name+'&acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI'}">${data.files[i].id}</a></li>`
+		console.log(data.files[i].name,data.files[i].id,data.files[i].name.split(data.files[i].fileExtension)[0])
+		document.getElementById('listFiles').innerHTML += `<li><a download="${data.files[i].name.split(data.files[i].fileExtension)[0]}" href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?name='+data.files[i].name+'&acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI&access_token='+token}">${data.files[i].name}</a> - <a style="color:green;" download="${data.files[i].name.split(data.files[i].fileExtension)[0]}" href="${'https://www.googleapis.com/drive/v3/files/'+data.files[i].id+'?name='+data.files[i].name+'&acknowledgeAbuse=false&alt=media&key=AIzaSyCXbaDTMpuBhOznlxB9zLLUGZ05ez0mxmI'}">${data.files[i].id}</a></li>`
 	}
 })
 })
