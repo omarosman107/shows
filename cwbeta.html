@@ -383,7 +383,7 @@ return;
 
  
 
- fetch('http://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
+ fetch('https://images.cwtv.com/feed/mobileapp/shows/apiversion_7/channel_cwtv/pagesize_100').then(function(res){
  	return res.json();
  }).then(function(shows){
  	console.log(shows)
@@ -421,7 +421,7 @@ document.querySelector('#all_shows').innerHTML += `<div class="Tile_tile_3qaLc M
 									</div>
 								</div>
 			 					`
- 		fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
+ 		fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_'+shows.items[i].slug + '?bust=' + (new Date).getTime() ).then(function(res){return res.json();}).then(function(videos){
  			if (videos.videos.length == 0) {return;}
  			var totalEpi = ''
 
