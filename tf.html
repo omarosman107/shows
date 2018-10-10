@@ -76,7 +76,7 @@ var _data = {}
 
  fetch('theflash.json').then(function(res){return res.json()}).then(function(_data){
 
-	fetch('http://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash?bust='+Date.now()).then(function(res){return res.json();}).then(function(data){
+	fetch('https://images.cwtv.com/feed/mobileapp/videos/apiversion_7/show_the-flash?bust='+Date.now()).then(function(res){return res.json();}).then(function(data){
 					var newones = []
 					var ids = []
 					var serverids = []
