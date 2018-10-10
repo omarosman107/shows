@@ -83,6 +83,7 @@ var _data = {}
 					var oldepi = []
 			for (var i = data.videos.length - 1; i >= 0; i--) {
 				var episodeNum = Number(data.videos[i].availability_asset_id.split('-')[data.videos[i].availability_asset_id.split('-').length - 1].split('E')[1])
+				console.log(episodeNum)
 				var seasonNum = data.videos[i].availability_asset_id.split('-S')[2].split('E')[0] + ''
 
 
@@ -113,10 +114,11 @@ console.log('https://'+'stream-hls.cwtv.com'+ '/nosec/The_CW'+ media.join('_') +
 //					fetch(data.videos[i].mpx_url.split('?')[0] + '?formats=m3u,mpeg4&format=redirect').then(function(res){return res.json()})
 
 					if ( JSON.stringify(_data[seasonNum][episodeNum - 1]) == '{}') {
+console.log(episodeNum - 1)
 						console.log('not there')
 						console.log(data.videos[i].title)
 							 	//file:`http://hlsioscwtv.warnerbros.com/ioshlskeys/videos/`+data.videos[i].thumbnail.split('thumbs/')[1].split('_')[0] +'_'+ data.videos[i].thumbnail.split('thumbs/')[1].split('_')[1]+'_dai.m3u8'
-						 _data[seasonNum][episodeNum] = {
+						 _data[seasonNum][episodeNum - 1] = {
 						 	title:data.videos[i].title,
 						 	file:data.videos[i].mpx_url.split('?')[0] + '?formats=m3u,mpeg4&format=redirect',
 						 	id:data.videos[i].guid
