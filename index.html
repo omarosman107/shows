@@ -653,17 +653,39 @@ li:nth-child(even) {
     display: none;
   }
 
+.shutting_down {
+    z-index: 100000000;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
 
+    background-color: rgba(20,20,20,0.8);
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: hidden;
+    text-align: center;
+    font-size: xx-large;
+        font-family: Graphik-Bold;
+    color: white;
+}
 
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
 <body>
+
     <div id="showsLike" style="z-index: 1000;"></div>
 
 <div class="lScreen">
 <span style="margin:  auto;text-align:  center;position:  absolute;width: 100%;height: 100%;/* display: inline-block; */vertical-align: middle;/* position: absolute; */top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(20,20,20,0.8);color: #fff;display: flex;align-items: center;justify-content: center;z-index: 1000;overflow: hidden;text-align: center;font-size:-webkit-xxx-large;/* padding-top: 100px; */font-family: Graphik-Bold;color: white;">EPISODES</span>
+  <div class="shutting_down"> TOSTREAM.ml will be shutting down on December 31st 2018.</div>
+
 <div class="progCont" style="height: 0px;    background: rgba(255, 255, 255, 0.07);"><div id="topprogress" class="" ></div>
+
 </div>
 <!--
 <div id="particles-background" class="vertical-centered-box"></div>
@@ -699,6 +721,7 @@ li:nth-child(even) {
 
     <a href="#" onclick="showAll('')">
     <h1 style="text-align:center;font-size:xx-large;padding-top: 100px;    font-family: Graphik-Bold;color: white;">EPISODES</h1></a>
+    <p style="    text-align: center;color:red;"> TOSTREAM.ml will be shutting down on December 31st 2018.</p>
     <button id="myBtn" onclick="topFunction()" style="z-index: 1;" title="Go to top"><i aria-hidden="true" class="fa fa-level-up"></i></button>
     <div class="box">
       <div class="container-1">
@@ -729,6 +752,13 @@ li:nth-child(even) {
 
   </script> 
   <script type="text/javascript">
+if((new Date() - new Date('12/31/18')) / 1000 > 0){
+window.location.href = 'https://www.google.com';
+  console.log('past')
+}else{
+console.log('time not yet')
+}
+
   /*
 function addJS(url) {
    var s = document.createElement('script'); // Create a script element
