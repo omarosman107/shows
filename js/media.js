@@ -11,8 +11,8 @@ var player = videojs('LS', {  textTrackSettings: false
    
    hlsjsConfig: {
                  startPosition: getLastTime().start,
-                 maxStarvationDelay:3,
-                  maxLoadingDelay:1,
+                 maxStarvationDelay:1,
+                  maxLoadingDelay:.5,
                   abrEwmaDefaultEstimate:getLastTime().bandwidth
 
    },
