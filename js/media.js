@@ -11,8 +11,8 @@ var player = videojs('LS', {  textTrackSettings: false
    
    hlsjsConfig: {
                  startPosition: getLastTime().start,
-                 maxStarvationDelay:.6,
-                  maxLoadingDelay:3,
+                 maxStarvationDelay:4,
+                  maxLoadingDelay:6,
                   abrEwmaDefaultEstimate:getLastTime().bandwidth
 
    },
@@ -387,32 +387,12 @@ function fetchcwjson(value) {
 
          })
       }).then(function(res){
-         return;
 console.log(res)
          if(!res.ok){
 
 
 // 2478072
-fetch(`https://dai.google.com/ondemand/hls/content/6698/vid/${stripped}/streams`,{
-         method:"POST",
-         headers:new Headers({
-            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"',
-                'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'Accept-Encoding': 'br, gzip, deflate',
-                'Accept-Language':'en-us'
-
-         })
-      }).then(function(res){return res.json();}).then(function(hls){
-
-//if(player.src() == ''){
-   var pl  = []
-if(player.src() == ''){
-player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
-                 player.play();
-      resume();
-   }
-            
-      })
+//6698
       }else{
 return res.json()
       }
@@ -424,9 +404,10 @@ return res.json()
    }).then(function(hls){
   
    var pl  = []
-player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
-                 player.play();
-      resume();
+
+//player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
+      //           player.play();
+  // resume();
             
       })
 
@@ -460,11 +441,24 @@ if('captions' in metadata && metadata.captions.length > 0){
       var media = metadata.captions[0].src.split('The_CW')[1].split('_')
       console.log('https://'+metadata.captions[0].src.split('/')[2])
 media.splice(-4)
+/*
     player.src({
     src: 'https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect',
     type: 'application/vnd.apple.mpegurl'
 })
+*/
+    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=smil').then(function(res){return res.text();}).then(function(smil){
+
+        parser = new DOMParser();
+xmlDoc = parser.parseFromString(smil,"text/xml");
+console.log(xmlDoc.querySelector('ref').getAttribute('src'))
+   player.src({
+    src:  (xmlDoc.querySelector('ref').getAttribute('src')),
+    type: 'application/vnd.apple.mpegurl'
+})
+    })
     fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect').then(function(res){return res.json();}).then(function(json){
+      
       if(json.isException){
 player.src({
     src: 'https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8',
