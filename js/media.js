@@ -481,7 +481,7 @@ player.src({
 })
    
 
-         bg('https://images.cwtv.com/thecw/img/w_720.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
+         bg('https://images.cwtv.com/thecw/img/w_1277.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg');
 
 
       fetch('https://images.cwtv.com/feed/mobileapp/video-meta/apiversion_9/guid_'+stripped).then(function(res){return res.json();}).then(function(episode_data){
