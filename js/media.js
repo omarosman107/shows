@@ -3,12 +3,7 @@
 
   console.time();
 
-
-// var x2js = new X2JS();
-console.log(getLastTime().start)
-var player = videojs('LS', {  textTrackSettings: false
-,html5: {
-   
+/*
    hlsjsConfig: {
                  startPosition: getLastTime().start,
                  maxStarvationDelay:4,
@@ -16,10 +11,16 @@ var player = videojs('LS', {  textTrackSettings: false
                   abrEwmaDefaultEstimate:getLastTime().bandwidth
 
    },
+*/
+// var x2js = new X2JS();
+console.log(getLastTime().start)
+var player = videojs('LS', {  textTrackSettings: false
+,html5: {
+   
    hls: {
-      useCueTags:true,
       bandwidth: getLastTime().bandwidth,
-      enableLowInitialPlaylist:true   }
+      limitRenditionByPlayerDimensions:false
+   }
 }});
 // getLastTime().bandwidth
 
