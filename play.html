@@ -14,6 +14,28 @@
 .video-js .vjs-volume-level:before {
     font-size: 1.6em !important;
 }
+.vjs-texttrack-settings {
+  display: none;
+}
+
+.vjs-loading-spinner{
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+font-size:7em;
+line-height:1;
+width:1em;
+height:1em;
+margin-left:-.5em;
+margin-top:-.5em;
+opacity:.75;
+/*-webkit-animation:spin 1.5s infinite linear;
+-moz-animation:spin 1.5s infinite linear;
+-o-animation:spin 1.5s infinite linear;
+animation:spin 1.5s infinite linear*/
+}
+
 	@use postcss-initial;
 	svg {
 		width: 100px;
