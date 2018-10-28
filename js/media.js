@@ -12,12 +12,14 @@
 
    },
 */
+//   nativeTextTracks: true,
 // var x2js = new X2JS();
 console.log(getLastTime().start)
 var player = videojs('LS', {  textTrackSettings: false
 ,html5: {
-   
    hls: {
+
+
       bandwidth: getLastTime().bandwidth,
       limitRenditionByPlayerDimensions:false
    }
