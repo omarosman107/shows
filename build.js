@@ -1317,8 +1317,10 @@ function cw(show){
 		// 'https://images.cwtv.com/feed/mobileapp/shows/channel_cwtv/apiversion_9/channel_cwtv/device_ios/pagesize_10000'
 loaders()
 fetch('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios/cacheversion_'+config.cwtv.prod.versions['shows-grouped']).then(function(res){return res.json()}).then(function(cwshows){
-cwshows['items'] = (cwshows.items.show_groups[0].shows.concat(cwshows.items.show_groups[2].shows))
-cwshows.items.push( {"videos_count":"13","title":"Forever","deeplink": "","airtime":"STREAM NOW","slug":"forever","series_code":"FVR","group_type":"current-shows"})
+console.log(cwshows.items.show_groups[0].shows)
+// .concat(cwshows.items.show_groups[2].shows)
+cwshows['items'] = (cwshows.items.show_groups[0].shows)
+// cwshows.items.push( {"videos_count":"13","title":"Forever","deeplink": "","airtime":"STREAM NOW","slug":"forever","series_code":"FVR","group_type":"current-shows"})
 for(i in cwshows.items){
 	loaders()
 	var airtime = cwshows.items[i].airtime.split('|')[0].split(' ')[cwshows.items[i].airtime.split('|')[0].split(' ').length - 1]
