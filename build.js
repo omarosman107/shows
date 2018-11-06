@@ -1,3 +1,8 @@
+
+alert('REDIRECTING TO A BETTER SITE')
+window.location.href = 'https://yidio.com'
+
+
 console.time('parse')
 var body = document.body,
     timer;
