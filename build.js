@@ -1,6 +1,6 @@
 
-alert('REDIRECTING TO A BETTER SITE')
-window.location.href = 'https://yidio.com'
+//alert('REDIRECTING TO A BETTER SITE')
+//window.location.href = 'https://yidio.com'
 
 
 console.time('parse')
