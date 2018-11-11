@@ -66,6 +66,8 @@ var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOK
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
+             localStorage[window.location.search] = (doc.data()[window.location.search].current);
+
     } else {
         // doc.data() will be undefined in this case
         console.log("no saved data :(");
@@ -168,33 +170,11 @@ if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
 
          player.currentTime(localStorage[window.location.search] - 5);
+
          played = true;
       }
 }
-     return;
-   player.hls.xhr.beforeRequest = function(options) {
-
-      if(options.uri.endsWith('.key')){
-
-         return options;
-      }
-      if(options.uri.includes('hlsioscwtv.warnerbros.com') || options.uri.endsWith('.ts')){
-  //options.uri = options.uri.replace('http://hlsioscwtv.warnerbros.com', 'http://level3-hls-segment-vod-wb.vip1-ord1.dlvr1.net');
-
-
-      }
-      if(options.uri.includes('stream-hls.cwtv.com/nosec/The_CW/')){
-         console.log(options.uri.split('_').slice(-1)[0].split('.ts')[0])
-         if(options.uri.endsWith(".m3u8")){
-  options.uri = options.uri.replace('stream-hls.cwtv.com/nosec/The_CW/', '3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW');
-
-         }
-      }
-      
-   return options;
-   
-};
-
+  
 
 }
 function pad(n) {
