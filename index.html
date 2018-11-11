@@ -787,19 +787,21 @@ document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart
 var fireBaseCollection = db.collection(localStorage['USER_TOKEN']);
 
  db.collection(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
-        console.log("Current data: ", atob(snapshot.docs[0].id),snapshot._snapshot.docChanges[0].doc.data.internalValue.root.key ,  snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue);
-localStorage[atob(snapshot.docs[0].id)] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue
-localStorage[atob(snapshot.docs[0].id) + '_duration'] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.value.internalValue
+        console.log("Current data: ",atob(decodeURIComponent(snapshot._snapshot.docChanges[0].doc.key.path.segments[6])),  snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue);
+        var videoURL = atob(decodeURIComponent(snapshot._snapshot.docChanges[0].doc.key.path.segments[6]))
+        console.log(videoURL)
+localStorage[videoURL] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue
+localStorage[videoURL+ '_duration'] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.value.internalValue
 
 
-for(var i = document.getElementsByClassName(atob(snapshot.docs[0].id).substr(1)).length - 1; i >= 0; i--){
-var perc = ( localStorage[atob(snapshot.docs[0].id)] / localStorage[atob(snapshot.docs[0].id) + '_duration'] * 100)
-if(localStorage[atob(snapshot.docs[0].id) + '_duration'] - localStorage[atob(snapshot.docs[0].id)] < 46){
+for(var i = document.getElementsByClassName(videoURL.substr(1)).length - 1; i >= 0; i--){
+var perc = (localStorage[videoURL] / localStorage[videoURL + '_duration'] * 100)
+if(localStorage[videoURL + '_duration'] - localStorage[videoURL] < 46){
 perc = 100
  // document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
 }
 console.log(perc )
-document.getElementsByClassName(atob(snapshot.docs[0].id).substr(1))[i].querySelector('#progress').style.width = perc + '%'
+document.getElementsByClassName(videoURL.substr(1))[i].querySelector('#progress').style.width = perc + '%'
 }
 
     }, function(error) {
