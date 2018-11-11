@@ -1389,8 +1389,9 @@ return res.json()
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
-if(airdate == '11/27/2018'){
-	airdate = '11/27/2017'
+console.log(airdate)
+if(data.videos[i].share_url == 'http://cwtv.com/shows/arrow/crisis-on-earth-x-part-2/?play=558f75d6-f35b-4eab-9bb7-34ade42bec3f'){
+	airdate = '11-27-2017'
 }
       var episode_data = {
         img: cwdyres('638'),
