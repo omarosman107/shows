@@ -65,9 +65,10 @@ var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOK
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
+        console.log("Document data:", doc.data(),doc.data());
+        if(doc.data()[window.location.search]){
              localStorage[window.location.search] = (doc.data()[window.location.search].current);
-
+}
 
     } else {
         // doc.data() will be undefined in this case
@@ -325,7 +326,7 @@ return;
          localStorage[window.location.search+'_duration'] = player.duration();
  var playbackStats = JSON.parse(`{"${window.location.search}":{"current":${player.currentTime()},"duration":${player.duration()}}}`)
 console.log(playbackStats)
-fireBaseCollection.set(playbackStats)
+fireBaseCollection.update(playbackStats)
 
     };
 
