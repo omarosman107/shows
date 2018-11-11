@@ -752,6 +752,7 @@ li:nth-child(even) {
           <path d="M4220 5530 l0 -490 590 0 590 0 0 -1630 0 -1630 590 0 590 0 0 1630 0 1630 595 0 595 0 0 490 0 490 -1775 0 -1775 0 0 -490z"></path>
         </g></svg>
         <a id="tokenplacement"></a>
+        <img id="tokenurlIMG" src="">
       <a onclick="createCloudToken()" href="javascript:">Create Token</a>
       <a onclick="localStorage.removeItem('USER_TOKEN')" href="javascript:">Delete Token</a>
     </div>
@@ -776,11 +777,12 @@ if(location.search.includes('token=')){
   localStorage['USER_TOKEN'] = location.search.split('=')[1]
   location.href = 'https://tostream.ml/'
 }
+
 if(localStorage['USER_TOKEN']){
   console.log('locally saved user token found')
   document.getElementById('tokenplacement').innerHTML = localStorage['USER_TOKEN']
   document.getElementById('tokenplacement').href = 'https://tostream.ml/?token='+localStorage['USER_TOKEN']
-
+document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=https://tostream.ml/?token="+localStorage['USER_TOKEN']
 var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOKEN']);
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
