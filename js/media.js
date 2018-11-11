@@ -61,7 +61,7 @@ db.settings({
 
 if(localStorage['USER_TOKEN']){
   console.log('locally saved user token found')
-var fireBaseCollection = db.collection(localStorage['USER_TOKEN']).doc(btoa(window.location.search));
+var fireBaseCollection = db.collection(localStorage['USER_TOKEN']).doc(encodeURIComponent(btoa(window.location.search)));
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {

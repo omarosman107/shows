@@ -809,9 +809,9 @@ document.getElementsByClassName(atob(snapshot.docs[0].id).substr(1))[i].querySel
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-        console.log(atob(doc.id), " => ", doc.data());
-             localStorage[atob(doc.id)] = doc.data().current;
-     localStorage[atob(doc.id) + '_duration'] = doc.data().duration;
+        console.log(atob(decodeURIComponent(doc.id)), " => ", doc.data());
+             localStorage[atob(decodeURIComponent(doc.id))] = doc.data().current;
+     localStorage[atob(decodeURIComponent(doc.id)) + '_duration'] = doc.data().duration;
     });
 
 }).catch(function(error) {
