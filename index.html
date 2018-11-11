@@ -784,6 +784,13 @@ if(localStorage['USER_TOKEN']){
   document.getElementById('tokenplacement').href = 'https://tostream.ml/?token='+localStorage['USER_TOKEN']
 document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=https://tostream.ml/?token="+localStorage['USER_TOKEN']
 var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOKEN']);
+
+ db.collection('user_tokens').doc(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
+        console.log("Current data: ", snapshot.data());
+    }, function(error) {
+        //...
+    });
+
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {

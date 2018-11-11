@@ -68,6 +68,7 @@ fireBaseCollection.get().then(function(doc) {
         console.log("Document data:", doc.data());
              localStorage[window.location.search] = (doc.data()[window.location.search].current);
 
+
     } else {
         // doc.data() will be undefined in this case
         console.log("no saved data :(");
@@ -75,7 +76,7 @@ fireBaseCollection.get().then(function(doc) {
 }).catch(function(error) {
     console.log("Error getting document:", error);
 });
-
+ 
 
 }
 
