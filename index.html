@@ -784,47 +784,36 @@ if(localStorage['USER_TOKEN']){
   document.getElementById('tokenplacement').innerHTML = localStorage['USER_TOKEN']
   document.getElementById('tokenplacement').href = 'https://tostream.ml/?token='+localStorage['USER_TOKEN']
 document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=https://tostream.ml/?token="+localStorage['USER_TOKEN']
-var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOKEN']);
+var fireBaseCollection = db.collection(localStorage['USER_TOKEN']);
 
- db.collection('user_tokens').doc(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
-        console.log("Current data: ", snapshot.data());
-        for( x in snapshot.data()) { 
-console.log(x,snapshot.data()[x].current)
-localStorage[x] = snapshot.data()[x].current
-localStorage[x + '_duration'] = snapshot.data()[x].duration
+ db.collection(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
+        console.log("Current data: ", atob(snapshot.docs[0].id),snapshot._snapshot.docChanges[0].doc.data.internalValue.root.key ,  snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue);
+localStorage[atob(snapshot.docs[0].id)] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue
+localStorage[atob(snapshot.docs[0].id) + '_duration'] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.value.internalValue
 
 
-for(var i = document.getElementsByClassName(x.substr(1)).length - 1; i >= 0; i--){
-  console.log( document.getElementsByClassName(x.substr(1))[i])
-var perc = ( localStorage[x] / snapshot.data()[x].duration * 100)
-if(snapshot.data()[x].duration - localStorage[x] < 46){
+for(var i = document.getElementsByClassName(atob(snapshot.docs[0].id).substr(1)).length - 1; i >= 0; i--){
+var perc = ( localStorage[atob(snapshot.docs[0].id)] / localStorage[atob(snapshot.docs[0].id) + '_duration'] * 100)
+if(localStorage[atob(snapshot.docs[0].id) + '_duration'] - localStorage[atob(snapshot.docs[0].id)] < 46){
 perc = 100
  // document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
 }
-console.log(perc)
-console.log(document.getElementsByClassName(x.substr(1))[i].querySelector('#progress').style.width = perc + "%" )
-
+console.log(perc )
+document.getElementsByClassName(atob(snapshot.docs[0].id).substr(1))[i].querySelector('#progress').style.width = perc + '%'
 }
 
-}
     }, function(error) {
         //...
     });
 
 // fireBaseCollection.set({})
-fireBaseCollection.get().then(function(doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-for( i in doc.data()) { 
-     console.log( i ,doc.data()[i] );
-     localStorage[i] = doc.data()[i].current;
-     localStorage[i + '_duration'] = doc.data()[i].duration;
-   }
- 
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("no saved data :(");
-    }
+fireBaseCollection.get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        console.log(atob(doc.id), " => ", doc.data());
+             localStorage[atob(doc.id)] = doc.data().current;
+     localStorage[atob(doc.id) + '_duration'] = doc.data().duration;
+    });
+
 }).catch(function(error) {
     console.log("Error getting document:", error);
 });

@@ -598,7 +598,7 @@ BackgroundLazyLoader();
 
 }
 
-
+/*
 
 if (window.addEventListener)
             addEventListener('storage', storage_event, false);
@@ -618,6 +618,7 @@ console.log(perc)
 console.log(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').style.width = perc + "%" )
 }
         }
+*/
 console.timeEnd();
        
 

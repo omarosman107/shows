@@ -61,13 +61,13 @@ db.settings({
 
 if(localStorage['USER_TOKEN']){
   console.log('locally saved user token found')
-var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOKEN']);
+var fireBaseCollection = db.collection(localStorage['USER_TOKEN']).doc(btoa(window.location.search));
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {
-        console.log("Document data:", doc.data(),doc.data());
-        if(doc.data()[window.location.search]){
-             localStorage[window.location.search] = (doc.data()[window.location.search].current);
+        console.log("Document data:", doc.data());
+        if(doc.data()){
+             localStorage[window.location.search] = (doc.data().current);
 }
 
     } else {
@@ -293,7 +293,7 @@ if(player.playlist.currentItem() == 0){ return;}
          }
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
-            var playbackStats = JSON.parse(`{"${window.location.search}":{"current":${player.currentTime()},"duration":${player.duration()}}}`)
+            var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
 console.log(playbackStats)
 fireBaseCollection.set(playbackStats)
 
@@ -324,10 +324,9 @@ return;
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
          localStorage[window.location.search+'_duration'] = player.duration();
- var playbackStats = JSON.parse(`{"${window.location.search}":{"current":${player.currentTime()},"duration":${player.duration()}}}`)
+            var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
 console.log(playbackStats)
-fireBaseCollection.update(playbackStats)
-
+fireBaseCollection.set(playbackStats)
     };
 
   
