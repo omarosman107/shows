@@ -38,6 +38,49 @@ document.body.appendChild(css);
 */
 //   nativeTextTracks: true,
 // var x2js = new X2JS();
+
+
+
+
+firebase.initializeApp({
+  apiKey: 'AIzaSyC5rQaFbnCg0eI-7BavdI_CGHPPuQFhuis',
+  authDomain: 'https://tv-stream-5f331.firebaseio.com',
+  projectId: 'tv-stream-5f331'
+});
+
+// Initialize Cloud Firestore through Firebase
+var db = firebase.firestore();
+
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
+
+
+
+
+if(localStorage['USER_TOKEN']){
+  console.log('locally saved user token found')
+var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOKEN']);
+// fireBaseCollection.set({})
+fireBaseCollection.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("no saved data :(");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+
+
+}
+
+
+
+
+
 console.log(getLastTime().start)
 var player = videojs('LS', {  textTrackSettings: false
 ,html5: {
@@ -268,6 +311,11 @@ if(player.playlist.currentItem() == 0){ return;}
          }
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
+            var playbackStats = JSON.parse(`{"${window.location.search}":{"current":${player.currentTime()},"duration":${player.duration()}}}`)
+console.log(playbackStats)
+fireBaseCollection.set(playbackStats)
+
+
          if (player.duration() - player.currentTime() < player.duration() - finishDur) {
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
@@ -294,7 +342,11 @@ return;
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
          localStorage[window.location.search+'_duration'] = player.duration();
-      };
+ var playbackStats = JSON.parse(`{"${window.location.search}":{"current":${player.currentTime()},"duration":${player.duration()}}}`)
+console.log(playbackStats)
+fireBaseCollection.set(playbackStats)
+
+    };
 
   
          ga('send', 'pageview');

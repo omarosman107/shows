@@ -28,7 +28,8 @@
    <meta property="og:image" content="appicon.png" />
    <link rel="shortcut icon" href="favicon.png" type="image/png" />
    <link rel="icon" href="favicon.ico">
-
+<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
       <link href="appicon.png" rel="apple-touch-icon">
 <link rel="apple-touch-startup-image" href="apploader.png">
 
@@ -750,12 +751,73 @@ li:nth-child(even) {
           <path d="M230 4980 l0 -1040 1191 0 1191 0 -4 -187 c-3 -182 -4 -190 -32 -251 -52 -112 -148 -177 -298 -202 -40 -6 -429 -10 -1055 -10 l-993 0 0 -485 0 -486 1238 4 c906 3 1258 7 1317 16 288 44 485 109 636 212 224 151 335 356 360 659 6 78 9 624 7 1465 l-3 1340 -587 3 -588 2 0 -550 0 -550 -605 0 -605 0 0 550 0 550 -585 0 -585 0 0 -1040z"></path>
           <path d="M4220 5530 l0 -490 590 0 590 0 0 -1630 0 -1630 590 0 590 0 0 1630 0 1630 595 0 595 0 0 490 0 490 -1775 0 -1775 0 0 -490z"></path>
         </g></svg>
-      </div><a href="log.txt"><span>Changelog</span></a>
+        <a id="tokenplacement"></a>
+      <a onclick="createCloudToken()" href="javascript:">Create Token</a>
+      <a onclick="localStorage.removeItem('USER_TOKEN')" href="javascript:">Delete Token</a>
     </div>
   </div>
 
   </script> 
   <script type="text/javascript">
+    firebase.initializeApp({
+  apiKey: 'AIzaSyC5rQaFbnCg0eI-7BavdI_CGHPPuQFhuis',
+  authDomain: 'https://tv-stream-5f331.firebaseio.com',
+  projectId: 'tv-stream-5f331'
+});
+
+// Initialize Cloud Firestore through Firebase
+var db = firebase.firestore();
+
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
+if(location.search.includes('token=')){
+  localStorage['USER_TOKEN'] = location.search.split('=')[1]
+  location.href = 'https://tostream.ml/'
+}
+if(localStorage['USER_TOKEN']){
+  console.log('locally saved user token found')
+  document.getElementById('tokenplacement').innerHTML = localStorage['USER_TOKEN']
+  document.getElementById('tokenplacement').href = 'https://tostream.ml/?token='+localStorage['USER_TOKEN']
+
+var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOKEN']);
+// fireBaseCollection.set({})
+fireBaseCollection.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("no saved data :(");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+
+
+}
+    function createCloudToken(){
+function makeCode(){
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 30; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+console.log(text)
+  return text;
+}
+var UserToken = makeCode();
+localStorage['USER_TOKEN'] = UserToken
+var fireBaseCollection = db.collection('user_tokens').doc(UserToken);
+// fireBaseCollection.set({Fee:11,foo:'avs'})
+}
+
+
+
+
+
+
+
 if((new Date() - new Date('12/31/18')) / 1000 > 0){
 window.location.href = 'https://www.google.com';
   console.log('past')
