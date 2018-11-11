@@ -678,6 +678,13 @@ li:nth-child(even) {
     color: white;
 }
 
+
+#progress {
+transition-property: width;
+    transition-timing-function: cubic-bezier(0.1, 0.06, 0, 0.85);
+    transition-duration: 400ms;
+
+}
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
@@ -787,6 +794,25 @@ var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOK
 
  db.collection('user_tokens').doc(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
         console.log("Current data: ", snapshot.data());
+        for( x in snapshot.data()) { 
+console.log(x,snapshot.data()[x].current)
+localStorage[x] = snapshot.data()[x].current
+localStorage[x + '_duration'] = snapshot.data()[x].duration
+
+
+for(var i = document.getElementsByClassName(x.substr(1)).length - 1; i >= 0; i--){
+  console.log( document.getElementsByClassName(x.substr(1))[i])
+var perc = ( localStorage[x] / snapshot.data()[x].duration * 100)
+if(snapshot.data()[x].duration - localStorage[x] < 46){
+perc = 100
+document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
+}
+console.log(perc)
+console.log(document.getElementsByClassName(x.substr(1))[i].querySelector('#progress').style.width = perc + "%" )
+
+}
+
+}
     }, function(error) {
         //...
     });

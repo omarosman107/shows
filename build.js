@@ -599,14 +599,16 @@ BackgroundLazyLoader();
 }
 
 
+
 if (window.addEventListener)
             addEventListener('storage', storage_event, false);
         else if (window.attachEvent)
             attachEvent('onstorage', storage_event, false);
         function storage_event(e) {
 if(e.key == 'last_bandwidth'){return;}
-            console.log( e.newValue);
+            console.log( e);
 for(var i = document.getElementsByClassName(e.key.substr(1)).length - 1; i >= 0; i--){
+	console.log(e)
 var perc = ( e.newValue / document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') * 100)
 if(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') - e.newValue < 46){
 perc = 100
@@ -1232,7 +1234,7 @@ data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-widt
 	<span class="episode_title">'${json.episode}'</span>
 	<a class="episode_show" onclick="showQuery(null,this,'${json.type}')"  show="${json.show}" href="javascript:">${json.show}</a>
 	</div>
-<div class="episode-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
+<div class="episode-progressbar" id="progress" length="${json.length}" style="width: ${perc}%;"></div>
 </div>
 </a>
 
