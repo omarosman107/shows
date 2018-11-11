@@ -776,7 +776,7 @@ db.settings({
 });
 if(location.search.includes('token=')){
   localStorage['USER_TOKEN'] = location.search.split('=')[1]
-  location.href = 'https://tostream.ml/'
+  location.href =  window.location.origin + window.location.pathname
 }
 
 if(localStorage['USER_TOKEN']){
