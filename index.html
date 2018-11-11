@@ -782,8 +782,8 @@ if(location.search.includes('token=')){
 if(localStorage['USER_TOKEN']){
   console.log('locally saved user token found')
   document.getElementById('tokenplacement').innerHTML = localStorage['USER_TOKEN']
-  document.getElementById('tokenplacement').href = 'https://tostream.ml/?token='+localStorage['USER_TOKEN']
-document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=https://tostream.ml/?token="+localStorage['USER_TOKEN']
+  document.getElementById('tokenplacement').href = window.location.origin + window.location.pathname+'?token='+localStorage['USER_TOKEN']
+document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl="+window.location.origin + window.location.pathname+"?token="+localStorage['USER_TOKEN']
 var fireBaseCollection = db.collection(localStorage['USER_TOKEN']);
 
  db.collection(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
