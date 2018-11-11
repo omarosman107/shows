@@ -805,7 +805,7 @@ for(var i = document.getElementsByClassName(x.substr(1)).length - 1; i >= 0; i--
 var perc = ( localStorage[x] / snapshot.data()[x].duration * 100)
 if(snapshot.data()[x].duration - localStorage[x] < 46){
 perc = 100
-document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
+ // document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
 }
 console.log(perc)
 console.log(document.getElementsByClassName(x.substr(1))[i].querySelector('#progress').style.width = perc + "%" )
