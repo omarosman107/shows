@@ -788,6 +788,8 @@ var fireBaseCollection = db.collection('user_tokens').doc(localStorage['USER_TOK
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
+                     localStorage[window.location.search] = (doc.data()[window.location.search].current);
+
     } else {
         // doc.data() will be undefined in this case
         console.log("no saved data :(");
