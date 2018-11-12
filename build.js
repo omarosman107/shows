@@ -1470,6 +1470,54 @@ loaders('remove')
 }
 
 
+function nbcloadnext(url){
+		var nbcshows = {}
+
+console.log(url)
+loaders()
+fetch(url).then(function(res){return res.json();}).then(function(episode){
+		if('next' in episode.links){
+					console.log(episode.links.next)
+					nbcloadnext(episode.links.next)
+				}
+				if (episode.data.length == 0) {
+					 loaders('remove');
+					return;
+					 }
+				for (var z = episode.data.length - 1; z >= 0; z--) {
+					if (episode.data[z].attributes.type != 'Full Episode') {
+						continue;
+					}
+					function nbcimg(res){
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?imwidth='+res)
+						 }
+					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
+      tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
+showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
+					      var episodes = {
+        img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
+        rating: 'TV-14',
+        imgdyn: dyn,
+        id: makeid(),
+        href: episode.data[z].attributes.permalink,
+        show: episode.data[z].attributes.categories[0].split('/')[1],
+        episode: episode.data[z].attributes.title,
+        epiformat: epiformat(episode.data[z].attributes.seasonNumber, episode.data[z].attributes.episodeNumber),
+        episodeNumber: Number(episode.data[z].attributes.episodeNumber),
+        seasonNumber: Number(episode.data[z].attributes.seasonNumber),
+        length: episode.data[z].attributes.runTime,
+        type: "nbc",
+        bg:'',
+        time:Date.parse(new Date(episode.data[z].attributes.airdate)),
+        expires:new Date(episode.data[z].attributes.expiration).getTime()
+
+      }
+            finalObj.push(episodes)
+
+				}
+									loaders('remove')
+})
+}
 
 function nbc(show){
 	var nbcshows = {}
@@ -1477,7 +1525,7 @@ function nbc(show){
 	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
-		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b'  ) { // the blacklist
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
 				continue;
 			}
 			var genre = shows.data[i].attributes.genre
@@ -1498,22 +1546,22 @@ function nbc(show){
 
 
 
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=25').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
+				if('next' in episode.links){
+					console.log(episode.links.next)
+					nbcloadnext(episode.links.next)
+				}
 				if (episode.data.length == 0) {
-					loaders('remove');
+					 loaders('remove');
 					return;
 					 }
 				for (var z = episode.data.length - 1; z >= 0; z--) {
-				//	if (new Date((episode.data[z].attributes.expiration)) < new Date()) {continue;}
 					if (episode.data[z].attributes.type != 'Full Episode') {
 						continue;
 					}
 					function nbcimg(res){
 						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?imwidth='+res)
-						 
-
-
-					}
+						 }
 					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
@@ -1542,10 +1590,11 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 			})
 		}
+			loaders('remove')
+
 	}).catch(function(e){
-		loaders('remove')
+		 loaders('remove')
 	})
-	loaders('remove')
 }
 
 
@@ -1876,7 +1925,7 @@ imgdyn:""
     }else{
       cw()
     //  fox()
-      //nbc()
+      nbc()
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
 if (hlsSupported) {
