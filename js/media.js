@@ -734,7 +734,20 @@ function fetchnbcjson(value) {
    console.log('https://tkx-cable-prod.nbc.anvato.net/rest/v2/mcp/video/'+value.split('/')[value.split('/').length-1]+'?'+res.url.replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://').split('?')[1])
 })
 */
-   fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=smil').then(function(res){return res.text();}).then(function(smil){
+  
+
+fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=script').then(function(res){return res.json()}).then(function(meta){
+   if(meta['nbcu$entitlement'] == "free"){
+ fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=smil&manifest=m3u').then(function(res){return res.text();}).then(function(smil){
+
+         parser = new DOMParser();
+xmlDoc = parser.parseFromString(smil,"text/xml");
+  player.src({type:'application/vnd.apple.mpegurl',src:xmlDoc.querySelector('video').getAttribute('src')})
+   resume();
+
+         })
+   }else{
+fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=smil').then(function(res){return res.text();}).then(function(smil){
       console.log(smil)
       parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml");
@@ -743,9 +756,7 @@ console.log(xmlDoc.querySelector('ref').getAttribute('src'))
    resume();
  //  console.log('https://tkx-cable-prod.nbc.anvato.net/rest/v2/mcp/video/'+value.split('/')[value.split('/').length-1]+'?'+res.url.replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://').split('?')[1])
 })
-
-
-fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=script').then(function(res){return res.json()}).then(function(meta){
+   }
    showname.innerHTML = (meta['nbcu$seriesShortTitle'])
 var episode_title =  (meta['title'])
 var description =  (meta['description'])
@@ -760,14 +771,7 @@ var description =  (meta['description'])
       })
    })
          console.log(meta.defaultThumbnailUrl.replace('.jpg','_1200.fs'))
-         fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=smil&manifest=m3u').then(function(res){return res.text();}).then(function(smil){
-
-         parser = new DOMParser();
-xmlDoc = parser.parseFromString(smil,"text/xml");
-console.log(xmlDoc,xmlDoc.querySelector('video').getAttribute('src'))
-  player.src({type:'application/vnd.apple.mpegurl',src:xmlDoc.querySelector('video').getAttribute('src')})
-   resume();
-         })
+        
    fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
 eachCount = (preview.endTime / preview.imageCount / 1000)
