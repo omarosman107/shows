@@ -896,7 +896,23 @@ if (img != undefined) {
 </div>`
 */
 showhtml.push({show:showName,html:`<div  percent="" show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
-  <div  class="background" data-background-image-url="${img}" style="background-repeat: no-repeat;    background-size: 100% 100%;"><div class="newepisodes"><div>NEW EPISODES</div></div></div>
+  <div  class="background" data-background-image-url="${img}" style="background-repeat: no-repeat;    background-size: 100% 100%;"><span style="
+    font-weight: bolder;
+    margin: auto;
+    position: absolute;
+    width: 100%;
+    vertical-align: -webkit-baseline-middle;
+    height: auto;
+    display: inline-grid;
+    top: 38%;
+    text-align: center;
+    font-size: 2em;
+        font-weight: bold;
+        opacity:0;
+    display: block;
+    z-index: 21;
+    font-family: Graphik-Bold;
+">`+showName+`</span><div class="newepisodes"><div>NEW EPISODES</div></div></div>
 </div>`,img:img}); 
 return;
 }
