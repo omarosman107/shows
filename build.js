@@ -1495,7 +1495,7 @@ loaders()
 fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow').then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
 				//	console.log(episode.links.next)
-				//	nbcloadnext(episode.links.next)
+					nbcloadnext(episode.links.next)
 				}
 				if (episode.data.length == 0) {
 					 loaders('remove');
