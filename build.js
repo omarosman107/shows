@@ -1190,7 +1190,7 @@ if (!time > 0) {
     }
   
     var done = perc > 99
-    console.log(tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 32 )
+ //   console.log(tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 45 )
 if (json.length - tempLS["?" + json.href] < json.end) {
 //	perc = 100
 }
@@ -1487,14 +1487,15 @@ loaders('remove')
 
 
 function nbcloadnext(url){
+	console.log(decodeURIComponent( url).split('&'),url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow')
 		var nbcshows = {}
 
 console.log(url)
 loaders()
-fetch(url).then(function(res){return res.json();}).then(function(episode){
+fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow').then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
-					console.log(episode.links.next)
-					nbcloadnext(episode.links.next)
+				//	console.log(episode.links.next)
+				//	nbcloadnext(episode.links.next)
 				}
 				if (episode.data.length == 0) {
 					 loaders('remove');
@@ -1542,7 +1543,7 @@ function nbc(show){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
-				continue;
+				 continue;
 			}
 			var genre = shows.data[i].attributes.genre
 			if(genre == 'News and Information' || genre == 'Reality' || genre == 'Family and Kids' || genre == null || genre == 'LateNight' || genre == 'Lifestyle and Fashion' || genre == 'Special'){
@@ -1564,7 +1565,7 @@ function nbc(show){
 
 			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
 				if('next' in episode.links){
-					console.log(episode.links.next)
+			//		console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
 				}
 				if (episode.data.length == 0) {
@@ -1660,9 +1661,9 @@ var apikey = ''
 
 
 loaders()
-fetch('//config.foxneodigital.com/foxnow/ios/3.8/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
-	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
+//	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
   'ApiKey':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*"
@@ -1681,7 +1682,8 @@ fetch('https://api.fox.com/fbc-content/v1_5/series?_fields=name,showCode&q='+sho
 })
 }
 var showEpisodeCount = {}
-fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
+// config.apis.content.baseUrl
+fetch('https://api.fox.com' + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
 	var skipTheseShows = ['Love Connection','Showtime at the Apollo','New Girl']
 
