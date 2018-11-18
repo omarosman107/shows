@@ -222,6 +222,7 @@ findName(next.link)
 }
 var interval
 var finishDur
+var sentPlaybackData
 function resume() {
 
 
@@ -249,7 +250,9 @@ vid.addEventListener('loadstart', function(){
 
 
    setInterval(function(){
+      if('hls' in player.tech_){
       localStorage['last_bandwidth'] = player.tech_.hls.bandwidth
+   }
    },6000)
 })
 
@@ -294,9 +297,12 @@ if(player.playlist.currentItem() == 0){ return;}
          localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
+    //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
+if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats)){
 console.log(playbackStats)
+sentPlaybackData = playbackStats
 fireBaseCollection.set(playbackStats)
-
+}
 
          if (player.duration() - player.currentTime() < player.duration() - finishDur) {
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
