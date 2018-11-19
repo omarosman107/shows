@@ -1198,12 +1198,18 @@ if (json.length - tempLS["?" + json.href] < json.end) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'
-       
+       console.log(Math.round((json.length - tempLS["?" + json.href]) / 60), 'mins left.')
+ var Timeleft = Math.round((json.length - tempLS["?" + json.href]) / 60) +  ' mins left'
+ if(Math.round((json.length - tempLS["?" + json.href]) / 60) == 0){
+ 	Timeleft = 'almost done'
+ }
         watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
             <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
          </a>
+         <span class="timeRemaining
+             ">${Timeleft}</span>
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>

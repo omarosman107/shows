@@ -1372,8 +1372,9 @@ function anvato(url){
 fetch('http://tkx-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+res.url.split('?')[1]).then(function(res){return res.text();}).then(function(episode){
   var p = episode.split('(')
 
-  p.splice(0, 1)
-   var data = (JSON.parse(p.join('').slice(0,-1)))
+  //p.splice(0, 1)
+   //var data = (JSON.parse(p.join('').slice(0,-1)))
+    var data = JSON.parse(episode)
      console.log(data)
 
     bg(data.src_image_url);
@@ -1382,7 +1383,7 @@ fetch('http://tkx-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+
          showdesc.innerHTML = data.def_description;
          document.getElementById('epname').innerHTML = data.def_title;
 
-player.src(data.published_urls[0].embed_url)
+player.src(data.stream_url)
 resume();
 
          for(i in data.captions){

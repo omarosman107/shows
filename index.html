@@ -70,7 +70,7 @@ src: url('font/Graphik-Bold-Cy-Gr-Web.woff2') format('woff'); /* Modern Browsers
     opacity: .9;
     color: #fffffff5;
     text-shadow: 0px 0px 20px #2323238f;
-    border-radius: 10px;
+    border-radius: 2px;
 }
 .episode_naming {
      position: absolute;
@@ -78,8 +78,8 @@ src: url('font/Graphik-Bold-Cy-Gr-Web.woff2') format('woff'); /* Modern Browsers
         z-index: 21;
     padding: 3px 6px 3px 6%;
         color: #ebebeb;
-text-shadow: 0px 0px 8px #d2d2d245;
-    border-radius:10px;
+    text-shadow: 0px 0px 8px #000000ba;
+        border-radius:2px;
     color: #fff;
     width: 100%;
 }
@@ -89,6 +89,16 @@ text-shadow: 0px 0px 8px #d2d2d245;
     display: block;
         z-index: 21;
         font-family: Graphik-Bold;
+            font-weight: bold;
+    font-size: 2em;
+    display: block;
+    z-index: 21;
+    font-family: Graphik-Bold;
+    text-overflow: ellipsis;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 
 }
 
@@ -110,17 +120,18 @@ text-shadow: 0px 0px 8px #d2d2d245;
     display: inline-block;
     border-radius: 10px;
     margin: 9px;
-        box-shadow: 0px 2px 9px 4px #131313;
 
+    box-shadow: 0px 2px 9px 4px #13131378;
 
 
 }
   .img {
     background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+        border-radius:2px;
 
   }
 .episode-progressbar{
-  margin:0px 0 -7px 0;
+  margin:0px 0 -8px 0;
     background-color: #e50914;
     line-height: inherit;
     height: .35rem;
@@ -135,6 +146,8 @@ text-shadow: 0px 0px 8px #d2d2d245;
     padding-bottom: 56.25%;
     overflow: hidden;
     position: inherit;
+            border-radius:2px;
+
 }
 .episode_overlay {
 background: linear-gradient(0deg,rgba(48, 48, 48, 0.38) 0,#85858514);
@@ -470,6 +483,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background: #141414;
         background: #1d1d1d;
+        background: #1d1918;
     /*      background: linear-gradient(to left top, rgb(27, 26, 26), rgb(51, 51, 51)); */
 /*
   background-image: -moz-linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
@@ -684,6 +698,13 @@ transition-property: width;
     transition-timing-function: cubic-bezier(0.1, 0.06, 0, 0.85);
     transition-duration: 400ms;
 
+}
+span.timeRemaining {
+    position: absolute;
+    z-index: 100;
+    bottom: 0px;
+    left: 0px;
+    padding: 10px;
 }
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
