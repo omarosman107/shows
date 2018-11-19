@@ -747,14 +747,13 @@ span.timeRemaining {
 
 
 
-    <p class="clear" style="display: none; padding-top: 20px; padding-left: 25px;"><a onclick="localStorage.removeItem('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
 
     
 
 
     <a href="#" onclick="showAll('')">
     <h1 style="text-align:center;font-size:xx-large;padding-top: 100px;    font-family: Graphik-Bold;color: white;">EPISODES</h1></a>
-    <p style="    text-align: center;color:red;"> TOSTREAM.ml will be shutting down on December 31st 2018.</p>
+    <p style="  display: none;  text-align: center;color:red;"> TOSTREAM.ml will be shutting down on December 31st 2018.</p>
     <button id="myBtn" onclick="topFunction()" style="z-index: 1;" title="Go to top"><i aria-hidden="true" class="fa fa-level-up"></i></button>
     <div class="box">
       <div class="container-1">
@@ -772,7 +771,13 @@ span.timeRemaining {
     <div class="header">
       <hr>
       <div class="logo">
-      
+          <p class="clear" style="    padding-top: 20px;
+    padding-left: 25px;
+    position: fixed;
+    right: 0px;
+    padding-right: 25px;
+    bottom: 0px;"><a onclick="localStorage.removeItem('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
+
         <a id="tokenplacement"></a>
         <img id="tokenurlIMG" src="">
       <a onclick="createCloudToken()" href="javascript:">Create Token</a>
@@ -866,8 +871,8 @@ var fireBaseCollection = db.collection('user_tokens').doc(UserToken);
 
 
 if((new Date() - new Date('12/31/18')) / 1000 > 0){
-window.location.href = 'https://www.google.com';
-  console.log('past')
+// window.location.href = 'https://www.google.com';
+//  console.log('past')
 }else{
 console.log('time not yet')
 }
