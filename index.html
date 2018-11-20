@@ -43,7 +43,7 @@
 
 
 body a {
-     color: inherit !important;
+     color: inherit;
 }
 
   @font-face {
@@ -83,9 +83,13 @@ src: url('font/Graphik-Bold-Cy-Gr-Web.woff2') format('woff'); /* Modern Browsers
     color: #fff;
     width: 100%;
 }
+* {
+      text-rendering: optimizeLegibility;
+}
 .episode_naming .episode_title {
     font-weight: bold;
     font-size: 2em;
+        text-rendering: optimizeLegibility;
     display: block;
         z-index: 21;
         font-family: Graphik-Bold;
@@ -758,7 +762,7 @@ span.timeRemaining {
     <h1 style="text-align:center;font-size:xx-large;padding-top: 100px;    font-family: Graphik-Bold;color: white;">EPISODES</h1></a>
     <p style="  display: none;  text-align: center;color:red;"> TOSTREAM.ml will be shutting down on December 31st 2018.</p>
     <button id="myBtn" onclick="topFunction()" style="z-index: 1;" title="Go to top"><i aria-hidden="true" class="fa fa-level-up"></i></button>
-    <div class="box">
+    <div class="box" style="display: none;">
       <div class="container-1">
         <label for="search"><span class="icon"><i class="fa fa-search"></i></span></label> <input label="Search" oninput="query(this.value)" id="search" placeholder="Search..." type="search">
       </div><span id="results"></span>

@@ -58,8 +58,8 @@ input {
 }
 .watchingTitle a {
 
-    color: hsla(0, 0%, 100%, 0.58);
-    font-family: Graphik-Bold,serif;
+    color: hsla(0, 0%, 100%, 0.8);
+        font-family: Graphik-Bold,serif;
     letter-spacing: 0;
 }
 body {
@@ -553,12 +553,6 @@ div:focus {
     outline: 0
 }
 
-h1,h2 {
-}
-
-body a {
-    color: #3282b6
-}
 
 .fanarts-list>li .fanart-details {
     text-align: center;
