@@ -157,6 +157,7 @@ background: linear-gradient(0deg,rgba(48, 48, 48, 0.38) 0,#85858514);
     bottom: 0;
     left: 0;
     right: 0;
+    box-shadow: inset 0px 0px 20px 12px #0000004a;
 }
 .episode_img img {
   position: absolute;
@@ -582,6 +583,7 @@ box-sizing:border-box;
  transition: background 0.5s cubic-bezier(0.5, 0, 0.1, 1);
       transition-duration: 400ms;
     background:  rgb(45, 45, 45);
+        box-shadow: inset 0px 0px 20px 7px #0000003b;
 }
 .show .poster {
        z-index: 6;
@@ -670,6 +672,7 @@ li:nth-child(even) {
     padding: 3px 6px 3px 6px;
         opacity: .9;
     display: none;
+
   }
 
 .shutting_down {
@@ -771,12 +774,13 @@ span.timeRemaining {
     <div class="header">
       <hr>
       <div class="logo">
-          <p class="sclear" styles="
+          <p class="clear" style="
                                   position: inherit;padding-top: 20px; 
     padding-left: 25px;
     right: 0px;
     padding-right: 25px;
-    bottom: 0px;" ><a onclick="localStorage.removeItem('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
+    bottom: 0px;" >
+    <a onclick="localStorage.removeItem('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
 
         <a id="tokenplacement"></a>
         <img id="tokenurlIMG" src="">
