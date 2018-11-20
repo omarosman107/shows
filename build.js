@@ -443,11 +443,11 @@ var maxnum = 0
 var num = 0
 
 function selectedshows(alreadySelected){
-		document.getElementsByClassName('clear')[0].style.position = 'absolute';
-		document.getElementsByClassName('clear')[0].style.right = 0;
-				document.getElementsByClassName('clear')[0].style.paddingRight = '25px';
-								document.getElementsByClassName('clear')[0].style.display = '';
-								document.getElementsByClassName('clear')[0].style.top = 0;
+	//	document.getElementsByClassName('clear')[0].style.position = 'absolute';
+	//	document.getElementsByClassName('clear')[0].style.right = 0;
+	//			document.getElementsByClassName('clear')[0].style.paddingRight = '25px';
+	//							document.getElementsByClassName('clear')[0].style.display = '';
+	//							document.getElementsByClassName('clear')[0].style.top = 0;
 	if (alreadySelected) {
 		  	document.getElementById('showsLike').style.display = 'none'
 
