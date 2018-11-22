@@ -712,6 +712,7 @@ span.timeRemaining {
     bottom: 0px;
     left: 0px;
     padding: 10px;
+    color:#ffffff94;
 }
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
@@ -821,9 +822,9 @@ document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart
 var fireBaseCollection = db.collection(localStorage['USER_TOKEN']);
 
  db.collection(localStorage['USER_TOKEN']).onSnapshot(function(snapshot) {
-        console.log("Current data: ",atob(decodeURIComponent(snapshot._snapshot.docChanges[0].doc.key.path.segments[6])),  snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue);
+      //  console.log("Current data: ",atob(decodeURIComponent(snapshot._snapshot.docChanges[0].doc.key.path.segments[6])),  snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue);
         var videoURL = atob(decodeURIComponent(snapshot._snapshot.docChanges[0].doc.key.path.segments[6]))
-        console.log(videoURL)
+    //    console.log(videoURL)
 localStorage[videoURL] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.left.value.internalValue
 localStorage[videoURL+ '_duration'] = snapshot._snapshot.docChanges[0].doc.data.internalValue.root.value.internalValue
 

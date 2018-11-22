@@ -333,12 +333,13 @@ function elementInViewport2(el) {
 var images = document.querySelectorAll('.lazy')
 var ignored = []
 function scrolling(num){
+	return;
+
 			requestAnimationFrame(function() {
 
 
 
 		for (var i = cards.length - 1; i >= 0; i--) {
-		
 			if (ignored.includes(cards[i])) continue;
 if(elementInViewport2(cards[i]) || cards[i].parentNode.id == 'watching'){
 cards[i].style.visibility = 'visible';
@@ -374,10 +375,10 @@ return element._boundingClientRect;
 
 
 function lazyLoadNew(){
-	 items = document.getElementsByClassName('initialized')
+	 items = document.getElementsByClassName('episode')
 
 var options = {
-  threshold: 0,
+  threshold: 10,
   root: null
 }
 
@@ -387,14 +388,14 @@ var options = {
 for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
-if(entries[i].isIntersecting || entries[i].intersectionRatio > 0 ){
+if(entries[i].isIntersecting){
 		io.unobserve(entries[i].target);
 
 	//requestAnimationFrame(function(time){
 	//	console.log(time)
-
+console.log(entries[i])
 	if(entries[i].target.hasAttribute('data-original-set')){
-entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
+ entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
 };
 	if(entries[i].target.hasAttribute('data-original')){
 entries[i].target.src =  entries[i].target.getAttribute('data-original');
@@ -1210,7 +1211,7 @@ if (json.length - tempLS["?" + json.href] < json.end) {
         watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
-            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" data-original="${json.img}" data-original-set="${json.imgdyn}">
+            <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" src="${json.img}" srcset="${json.imgdyn}">
          </a>
          <span class="timeRemaining
              ">${Timeleft}</span>
@@ -1276,7 +1277,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
     	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.id} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 
-data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}" srcset="${json.imgdyn}"
+data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}"
 
 
 	></img></div><div class="episode_number">${json.episodeNumber}</div>
@@ -1525,7 +1526,7 @@ function nbcloadnext(url){
 //	console.log(decodeURIComponent( url).split('&'),url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow')
 		var nbcshows = {}
 
-console.log(url)
+//console.log(url)
 loaders()
 fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow').then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
@@ -1541,11 +1542,15 @@ fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episod
 						continue;
 					}
 					function nbcimg(res){
-						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?imwidth='+res)
+						`https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=480&imdensity=1 480w,
+						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=340&imdensity=1 340w,
+						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=170&imdensity=1 170w`
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'&imdensity=1')
 						 }
-					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
+					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
+console.log(episode.included[z].attributes.path)
 					      var episodes = {
         img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
         rating: 'TV-14',
@@ -1612,9 +1617,12 @@ function nbc(show){
 						continue;
 					}
 					function nbcimg(res){
-						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?imwidth='+res)
+						`https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=480&imdensity=1 480w,
+						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=340&imdensity=1 340w,
+						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=170&imdensity=1 170w`
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'&imdensity=1')
 						 }
-					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(850) + " 850w  ,"+ nbcimg(682)+' 682w, '+nbcimg(638)+' 638w, ' +  nbcimg(341) + ' 341w '
+					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 					      var episodes = {
