@@ -1231,8 +1231,33 @@ if (json.length - tempLS["?" + json.href] < json.end) {
     
 var date2 = new Date(json.time)
     var month2 = formatter.format(date2);
-    var FDate = month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
+    var FDate = '' //month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2
+   // console.log(date1.getDate(),date1.getMonth(),date1.getFullYear(),date2.getDate(),date2.getMonth(),date2.getFullYear())
+if(date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
+	//console.log('close airdate')
+	if(date1.getDate() - date2.getDate() == 1){
+		console.log('yesterday')
+		FDate = 'a day ago'
+	}
+	for (i = 0; i < 7; i++) { 
+   // console.log(i + 1)
+   if(i + 1 == 1 || i + 1 == 7){ continue;}
+   if(date1.getDate() - date2.getDate() == i + 1){
+		FDate = (`${i + 1} days ago`)
+
+	}
+}
+/*
+	if(date1.getDate() - date2.getDate() == 2){
+		console.log('2 days ago')
+	}
+	if(date1.getDate() - date2.getDate() == 3){
+		console.log('3 days ago')
+	}
+	*/
+}
+
     function hidden(){
 if (json.hidden) {
 	return 'opacity: .3'
@@ -1497,7 +1522,7 @@ loaders('remove')
 
 
 function nbcloadnext(url){
-	console.log(decodeURIComponent( url).split('&'),url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow')
+//	console.log(decodeURIComponent( url).split('&'),url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow')
 		var nbcshows = {}
 
 console.log(url)

@@ -834,7 +834,7 @@ if(localStorage[videoURL + '_duration'] - localStorage[videoURL] < 46){
 perc = 100
  // document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
 }
-console.log(perc )
+// console.log(perc )
 document.getElementsByClassName(videoURL.substr(1))[i].querySelector('#progress').style.width = perc + '%'
 }
 
@@ -845,7 +845,7 @@ document.getElementsByClassName(videoURL.substr(1))[i].querySelector('#progress'
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-        console.log(atob(decodeURIComponent(doc.id)), " => ", doc.data());
+    //    console.log(atob(decodeURIComponent(doc.id)), " => ", doc.data());
              localStorage[atob(decodeURIComponent(doc.id))] = doc.data().current;
      localStorage[atob(decodeURIComponent(doc.id)) + '_duration'] = doc.data().duration;
     });
