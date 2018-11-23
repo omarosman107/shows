@@ -378,7 +378,7 @@ function lazyLoadNew(){
 	 items = document.getElementsByClassName('episode')
 
 var options = {
-  threshold: 10,
+  threshold: 1000,
   root: null
 }
 
@@ -388,7 +388,13 @@ var options = {
 for (i in entries){
 
 // ||  entries[i].boundingClientRect.bottom > -50 
-if(entries[i].isIntersecting){
+pos = entries[i].target.getBoundingClientRect().top - document.body.getBoundingClientRect().top;	
+var doc = document.documentElement;
+console.log(pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0) 
+)
+
+
+if(entries[i].isIntersecting || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000){
 		io.unobserve(entries[i].target);
 
 	//requestAnimationFrame(function(time){
