@@ -378,8 +378,9 @@ function lazyLoadNew(){
 	 items = document.getElementsByClassName('episode')
 
 var options = {
-  threshold: 1000,
-  root: null
+  threshold: 0,
+  root: null,
+  rootMargin:"300px 0px 0px 300px"
 }
 
 
