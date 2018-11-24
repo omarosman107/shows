@@ -241,7 +241,7 @@ function resume() {
 
 
 
-    finishDur = player.duration() - 48
+    finishDur = player.duration() - 35
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
    }
@@ -287,7 +287,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
       document.getElementById('blockLoader').style.display = 'absolute';
       document.getElementById('blockLoader').style.zIndex = '-99999';
             document.getElementById('LS').style.zIndex = '7';
-          finishDur = player.duration() - 48
+          finishDur = player.duration() - 35
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
    }
