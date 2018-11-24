@@ -170,6 +170,7 @@ if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')
 
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
+if(!isMobile){
 var config = JSON.parse(localStorage['localConfig'])
 if(localStorage['localConfig']){
    player.volume(config.volume)
@@ -183,6 +184,7 @@ break;
 
 }
    }
+}
 }
          player.currentTime(localStorage[window.location.search] - 5);
 
@@ -348,7 +350,7 @@ console.log(playbackStats)
 fireBaseCollection.set(playbackStats)
 var showcaptions = false;
 
-
+if(!isMobile){
 var tracks = player.textTracks()
 for(i = 0; i < tracks.length; i++){
 if(tracks[i].kind == "metadata"){continue;}
@@ -358,7 +360,7 @@ showcaptions =true
 }
 }
 localStorage['localConfig'] = JSON.stringify({volume:player.volume(),captions:showcaptions})
-
+}
     };
 
   
