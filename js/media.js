@@ -171,8 +171,9 @@ if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
 if(!isMobile){
-var config = JSON.parse(localStorage['localConfig'])
 if(localStorage['localConfig']){
+   var config = JSON.parse(localStorage['localConfig'])
+
    player.volume(config.volume)
    if(config.captions == true){
 var tracks = player.textTracks()
