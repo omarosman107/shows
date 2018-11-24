@@ -1070,7 +1070,7 @@ function loadMedia(episodes,arg) {
 try{
   console.time('ProcessShows')
 for(i in episodes.reverse()){
-var endTime = 48
+var endTime = 35
 if(tempLS['?'+episodes[i].href +'_end']){
 	endTime = tempLS['?'+episodes[i].href +'_end']
 }
@@ -1202,7 +1202,7 @@ if (!time > 0) {
 if (json.length - tempLS["?" + json.href] < json.end) {
 //	perc = 100
 }
-    if ((tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 32 ) || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
+    if ((tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 35 ) || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
 
       //          <span class="episode-gradient"></span>
         //  document.getElementById('watching').innerHTML += '<div tabindex="1" class="wtc '+json[i].href+'"><a onclick="loadPlayer(this)" href="player.html?'+json[i].href+'" ><img width="100%" src="'+json[i].img+'"><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: '+perc+'%;"><\/div><\/div><br> <span>'+json[i].show+'<\/span><\/a><\/div>'

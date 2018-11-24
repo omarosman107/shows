@@ -150,7 +150,7 @@ var played = 0;
 var currentEpisode = {}
 var next = {}
 function getLastTime(){
-   if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 48) {
+   if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 35) {
       return {start:localStorage[window.location.search] - 5,bandwidth:Number(localStorage['last_bandwidth'])};
       }
    return {start:0,bandwidth:Number(localStorage['last_bandwidth'])};
