@@ -170,7 +170,20 @@ if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')
 
 if (!played) {
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
+var config = JSON.parse(localStorage['localConfig'])
+if(localStorage['localConfig']){
+   player.volume(config.volume)
+   if(config.captions == true){
+var tracks = player.textTracks()
+for(i = 0; i < tracks.length; i++){
+if(tracks[i].kind == "metadata"){continue;}
+console.log(tracks[i])
+tracks[i].mode = "showing"
+break;
 
+}
+   }
+}
          player.currentTime(localStorage[window.location.search] - 5);
 
          played = true;
@@ -333,6 +346,19 @@ return;
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
 console.log(playbackStats)
 fireBaseCollection.set(playbackStats)
+var showcaptions = false;
+
+
+var tracks = player.textTracks()
+for(i = 0; i < tracks.length; i++){
+if(tracks[i].kind == "metadata"){continue;}
+if(tracks[i].mode == "showing"){
+console.log(tracks[i])
+showcaptions =true
+}
+}
+localStorage['localConfig'] = JSON.stringify({volume:player.volume(),captions:showcaptions})
+
     };
 
   
