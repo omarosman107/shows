@@ -391,8 +391,7 @@ for (i in entries){
 // ||  entries[i].boundingClientRect.bottom > -50 
 pos = entries[i].target.getBoundingClientRect().top - document.body.getBoundingClientRect().top;	
 var doc = document.documentElement;
-console.log(pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0) 
-)
+// console.log(pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0) )
 
 
 if(entries[i].isIntersecting || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000){
@@ -400,7 +399,7 @@ if(entries[i].isIntersecting || (pos - (window.pageYOffset || doc.scrollTop)  - 
 
 	//requestAnimationFrame(function(time){
 	//	console.log(time)
-console.log(entries[i])
+// console.log(entries[i])
 	if(entries[i].target.hasAttribute('data-original-set')){
  entries[i].target.srcset =  entries[i].target.getAttribute('data-original-set');
 };
@@ -1202,6 +1201,11 @@ if (!time > 0) {
 if (json.length - tempLS["?" + json.href] < json.end) {
 //	perc = 100
 }
+if(!json.episode.includes('part') && json.episode.includes(': ') && json.show != 'The Blacklist'){
+	var splittedName = json.episode.split(': ')
+	splittedName.shift()
+json.episode = splittedName.join(': ')
+}
     if ((tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 35 ) || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
 
       //          <span class="episode-gradient"></span>
@@ -1557,7 +1561,7 @@ fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episod
 					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
-console.log(episode.included[z].attributes.path)
+// console.log(episode.included[z].attributes.path)
 					      var episodes = {
         img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
         rating: 'TV-14',
