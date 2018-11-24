@@ -1201,7 +1201,7 @@ if (!time > 0) {
 if (json.length - tempLS["?" + json.href] < json.end) {
 //	perc = 100
 }
-if(!json.episode.includes('part') && json.episode.includes(': ') && json.show != 'The Blacklist'){
+if(!json.episode.toLowerCase().includes('part') && json.episode.includes(': ') && json.show != 'The Blacklist'){
 	var splittedName = json.episode.split(': ')
 	splittedName.shift()
 json.episode = splittedName.join(': ')
