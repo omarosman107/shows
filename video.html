@@ -2,8 +2,236 @@
 <html>
 <head>
 	<title>Media Player</title>
+		<meta content="width=device-width, initial-scale=1" data-react-helmet="true" name="viewport">
+	<meta content="website" data-react-helmet="true" property="og:type">
+	<meta content="text/html; charset=utf-8" data-react-helmet="true" http-equiv="Content-Type">
+	<meta content="IE=9;IE=10;IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+
+	<style type="text/css">
+		.vjs-slider-horizontal .vjs-volume-level:before {
+    top: -.5em !important;
+    right: -.5em;
+}
+.vjs-text-track-display div div {
+	background-color: inherit !important;
+}
+.vjs-text-track-display {
+    bottom: 5% !important;
+}
+.video-js .vjs-play-progress:before {
+    font-size: 1.5em !important;
+}
+.video-js .vjs-load-progress div {
+    background: rgba(162, 162, 162, 0.75) !important;
+}
+.vjs-text-track-display span, .vjs-text-track-display div div {
+	line-height:normal;
+	font-weight:normal;
+	color:#ffffff;
+	text-shadow:#000000 0px 0px 7px;
+	font-family:Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+	    line-height: normal;
+	font-weight:bolder !important;
+
+}
+.vjs-text-track-display div div {
+ /* Netflix Sans R */
+
+}
+.video-js .vjs-text-track {
+  background-color: transparent;
+}
+.vjs-tech  {
+  pointer-events: none;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+-moz-user-select: none;     /* Firefox all */
+-ms-user-select: none;      /* IE 10+ */
+-o-user-select: none;
+user-select: none;
+}
+@font-face {
+font-family: Netflix Sans R;
+src: url(font/NetflixSans-Regular-Opt.woff2);
+}
+@font-face {
+font-family: Netflix Sans M;
+src: url(font/NetflixSans-Medium-Opt.woff2);
+}
+video::cue {
+  	color:#ffffff;
+	text-shadow:#000000 0px 0px 7px;
+	font-family:Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+	font-weight:bolder !important;
+	background: none;
+	 -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+
+    line-height: normal;
+    font-weight: normal;
+    color: #ffffff;
+    text-shadow: #000000 0px 0px 7px;
+    font-family: Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica;
+    font-weight: bolder;
+
+}
+video::cue(i){
+		font-weight:normal !important;
+		color:black;
+
+}
+        body {
+padding: 0;
+            max-width: 100%;
+            margin: 0;
+        }
+        .media-container {
+            width: 100%;
+            background-color:white;
+            opacity: 80;
+            color:white;
+    display: block;
+            max-width: 100%;
+   
+                   height: 100vh;
+        width: 100vw;
+        position:fixed;
+        top:0;
+        left:0;
+        }
+        .show-episode-title {
+            font-size: 2em;
+            display: inline-block;
+        }
+        .timeEnd {
+display: inline-block;
+            font-size: 1.5em;
+ position: absolute;
+    right: 2em;            
+        }
+        .topVideoDetails {
+    background-color: #000000cc;
+box-shadow: 0px 1px 14px 4px #00000073;
+            	                        padding: 1em;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+transition-timing-function: ease-out;
+    transform: translate(0px,0%);
+    -webkit-transition:  -webkit-transform .4s;
+    transition: transform .4s;
+
+
+        }
+
+.videoContainer { 
+height: -webkit-fill-available;
+ }
+video {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+
+	</style>
+    	<link href="css/videojs.thumbnails.css" rel="stylesheet">
+	<link href="css/videojs-chromecast.css" rel="stylesheet">
+
+
+	<script type="text/javascript" src="js/video.min.js"></script>
+	<script  type="text/javascript" src="js/videojs.hotkeys.min.js"></script>
+
 </head>
 <body>
 
+    
+<div class="media-container">
+	<div class="topVideoDetails">
+		<div class="show-episode-title">The Flash - Finale</div>
+		<div class="timeEnd">done at 12:31pm</div>
+	</div>
+	<div class="videoContainer">
+        <video width="100%" style="height: 100%;width: 100%;object-fit: all;" crossorigin="anonymous" id=LS x-webkit-airplay="allow" preload="auto" autoplay="" title="" data-setup="" class="video-js vjs-default-skin vjs-big-play-centered" controls="controls">
+    </div>
+</div>
+    <script>
+    function error(e){
+	console.log(e)
+document.body.setAttribute('class',' error')
+document.querySelector('.maw').style.display = 'block'
+}
+	// https://github.com/filamentgroup/loadCSS
+
+! function(e) {
+  "use strict";
+  var n = function(n, t, o) {
+    function i(e) {
+      return f.body ? e() : void setTimeout(function() {
+        i(e)
+      })
+    }
+    var d, r, a, l, f = e.document,
+      s = f.createElement("link"),
+      u = o || "all";
+    return t ? d = t : (r = (f.body || f.getElementsByTagName("head")[0]).childNodes, d = r[r.length - 1]), a = f.styleSheets, s.rel = "stylesheet", s.href = n, s.media = "only x", i(function() {
+      d.parentNode.insertBefore(s, t ? d : d.nextSibling)
+    }), l = function(e) {
+      for (var n = s.href, t = a.length; t--;)
+        if (a[t].href === n) return e();
+      setTimeout(function() {
+        l(e)
+      })
+    }, s.addEventListener && s.addEventListener("load", function() {
+      this.media = u
+    }), s.onloadcssdefined = l, l(function() {
+      s.media !== u && (s.media = u)
+    }), s
+  };
+  "undefined" != typeof exports ? exports.loadCSS = n : e.loadCSS = n
+}("undefined" != typeof global ? global : this);
+loadCSS('css/video-js.min.css')
+loadCSS('css/videojs-sublime-skin.min.css')
+
+var timeout;
+document.onmousemove = function(){
+	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
+
+  clearTimeout(timeout);
+  timeout = setTimeout(function(){
+	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100px)";
+
+  },5000);
+}
+
+
+window.addEventListener("resize", function(){
+var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+document.getElementById('LS').style.height = h + 'px'
+
+});
+
+var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+document.getElementById('LS').style.height = h + 'px'
+  var player = videojs("LS", {
+        controls: true,
+        autoplay: false,
+        preload: 'auto'
+    });
+
+  player.ready(function () {
+   this.hotkeys({
+      volumeStep: 0.1,
+      seekStep: 5,
+      enableModifiersForNumbers: false
+   });
+
+});
+  player.src('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
+
+    </script>
 </body>
 </html>
