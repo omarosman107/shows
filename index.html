@@ -826,14 +826,15 @@ localStorage[videoURL+ '_duration'] = snapshot._snapshot.docChanges[0].doc.data.
 
 for(var i = document.getElementsByClassName(videoURL.substr(1)).length - 1; i >= 0; i--){
 var perc = (localStorage[videoURL] / localStorage[videoURL + '_duration'] * 100)
-if(localStorage[videoURL + '_duration'] - localStorage[videoURL] < 46){
+if(localStorage[videoURL + '_duration'] - localStorage[videoURL] < 35){
 perc = 100
  // document.getElementsByClassName(i.substr(1))[i].outerHTML = ''
 }
+
 // console.log(perc )
 document.getElementsByClassName(videoURL.substr(1))[i].querySelector('#progress').style.width = perc + '%'
 }
-
+refreshContinueWatching()
     }, function(error) {
         //...
     });

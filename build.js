@@ -1059,6 +1059,57 @@ return await fetch(url).then(function(res){return res.text()})
 var doneNum = {}
   var upnextshows = {}
 
+function refreshContinueWatching(){
+var continueW_DIVS = document.getElementsByClassName('card')
+for(i = 0; i <  continueW_DIVS.length; i++){
+	console.log(continueW_DIVS[i])
+	var episodeDIV = continueW_DIVS[i]
+var showSeason = upnextshows[episodeDIV.getAttribute('show')].seasons[episodeDIV.getAttribute('seasonNumber')]
+for(a in showSeason){
+if(showSeason[a].episode_number == episodeDIV.getAttribute('episodeNumber') && showSeason[a].season_number == episodeDIV.getAttribute('seasonNumber')){
+	console.log(showSeason[a])
+	if(localStorage['?' + showSeason[a].link] == undefined){continue;}
+	console.log(localStorage['?' + showSeason[a].link],localStorage['?' + showSeason[a].link + '_duration'])
+if(localStorage['?' + showSeason[a].link + '_duration'] - localStorage['?' + showSeason[a].link]  < 35){
+	console.log('finished')
+	if(Number(a) + 2 > showSeason.length){
+		continueW_DIVS[i].style.display = 'none'
+
+	}else{
+		console.log(showSeason[Number(a) + 1])
+ 
+
+
+	continueW_DIVS[i].outerHTML = `<li show="${episodeDIV.getAttribute('show')}"  seasonNumber="${showSeason[Number(a)+1].season_number}" episodeNumber="${showSeason[Number(a)+1].episode_number}"  style="margin: 11px;" class=" card forceVisible ${showSeason[Number(a)+1].link}">
+      <div class="image-crop sixteen-nine">
+         <a onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}">
+            <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${showSeason[Number(a)+1].episode}" src="${showSeason[Number(a)+1].img}" srcset="${showSeason[Number(a)+1].srcset}">
+         </a>
+         <span class="timeRemaining
+             "></span>
+         <span class="episode-gradient"></span>
+            <div id="progress" length="${showSeason[Number(a)+1].duration}" class="w3-progressbar" style="width: 0%;"></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}" class="overlay-btn zoom-btn " title="Watch ${showSeason[Number(a)+1].episode}"><i class="fa fa-play playbutton"></i></a></div>
+      </div>
+      <h2 class="watchingTitle" style="">
+<a class="episode-name" onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}">"${showSeason[Number(a)+1].episode}"</a></h2>
+</li>`
+	}
+}
+}
+}
+} 
+
+}
+
+var lastFired = new Date().getTime();
+setInterval(function() {
+    now = new Date().getTime();
+    if(now - lastFired > 5000) {//if it's been more than 5 seconds
+refreshContinueWatching()
+    }
+    lastFired = now;
+}, 500);
 function loadMedia(episodes,arg) {
 	var ids = []
 	var thisTime = date1.getTime()
@@ -1112,7 +1163,7 @@ episodes[i].end = episodes[i].length - endTime
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
-	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href})
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
 
 
 }
@@ -1219,7 +1270,7 @@ json.episode = splittedName.join(': ')
  if(Math.round((json.length - tempLS["?" + json.href]) / 60) == 0){
  	Timeleft = 'almost done'
  }
-        watching += `<li data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
+        watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
             <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" src="${json.img}" srcset="${json.imgdyn}">

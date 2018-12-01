@@ -122,8 +122,8 @@ box-shadow: 0px 1px 14px 4px #00000073;
     width: 100%;
 transition-timing-function: ease-out;
     transform: translate(0px,0%);
-    -webkit-transition:  -webkit-transform .4s;
-    transition: transform .4s;
+    -webkit-transition:  -webkit-transform .2s;
+    transition: transform .2s;
 
 
         }
@@ -197,6 +197,34 @@ loadCSS('css/video-js.min.css')
 loadCSS('css/videojs-sublime-skin.min.css')
 
 var timeout;
+
+var elem = document.getElementsByClassName("media-container")[0]; 
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) { /* Firefox */
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE/Edge */
+    document.msExitFullscreen();
+  }
+}
+
+
 document.onmousemove = function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
 

@@ -314,6 +314,13 @@ if(player.playlist.currentItem() == 0){ return;}
             localStorage[window.location.search+'_duration'] = player.duration();
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
+    window.onblur = function () {
+      if(isMobile){
+
+      }
+    // do some stuff after tab was changed e.g.
+}
+
 if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats)){
 console.log(playbackStats)
 sentPlaybackData = playbackStats
