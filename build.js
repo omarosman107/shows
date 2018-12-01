@@ -1105,7 +1105,7 @@ if(localStorage['?' + showSeason[a].link + '_duration'] - localStorage['?' + sho
 var lastFired = new Date().getTime();
 setInterval(function() {
     now = new Date().getTime();
-    if(now - lastFired > 5000) {//if it's been more than 5 seconds
+    if(now - lastFired > 1000) {//if it's been more than 5 seconds
 refreshContinueWatching()
     }
     lastFired = now;
