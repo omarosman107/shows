@@ -665,7 +665,11 @@ finalObj.sort(function(x, y) {
 loadMedia(l)
 
 everythingfinished()
+document.querySelector('.lScreen span').setAttribute('class','logotextdone')
+setTimeout(function(){
 document.body.setAttribute('class','finished');
+
+},400)
 
 
 }else{
@@ -1062,14 +1066,12 @@ var doneNum = {}
 function refreshContinueWatching(){
 var continueW_DIVS = document.getElementsByClassName('card')
 for(i = 0; i <  continueW_DIVS.length; i++){
-	console.log(continueW_DIVS[i])
+//	console.log(continueW_DIVS[i])
 	var episodeDIV = continueW_DIVS[i]
 var showSeason = upnextshows[episodeDIV.getAttribute('show')].seasons[episodeDIV.getAttribute('seasonNumber')]
 for(a in showSeason){
 if(showSeason[a].episode_number == episodeDIV.getAttribute('episodeNumber') && showSeason[a].season_number == episodeDIV.getAttribute('seasonNumber')){
-	console.log(showSeason[a])
 	if(localStorage['?' + showSeason[a].link] == undefined){continue;}
-	console.log(localStorage['?' + showSeason[a].link],localStorage['?' + showSeason[a].link + '_duration'])
 if(localStorage['?' + showSeason[a].link + '_duration'] - localStorage['?' + showSeason[a].link]  < 35){
 	console.log('finished')
 	if(Number(a) + 2 > showSeason.length){
