@@ -169,8 +169,15 @@ if(player.playlist.currentItem() == 0 && player.src().includes('media.cwtv.com')
 }
 
 if (!played) {
+
+
         if (localStorage[window.location.search] > 10 && player.duration() - localStorage[window.location.search] > player.duration() - finishDur) {
-if(!isMobile){
+
+         player.currentTime(localStorage[window.location.search] - 5);
+
+         played = true;
+      }
+      if(!isMobile){
 if(localStorage['localConfig']){
    var config = JSON.parse(localStorage['localConfig'])
 
@@ -187,10 +194,6 @@ break;
    }
 }
 }
-         player.currentTime(localStorage[window.location.search] - 5);
-
-         played = true;
-      }
 }
   
 
@@ -314,13 +317,7 @@ if(player.playlist.currentItem() == 0){ return;}
             localStorage[window.location.search+'_duration'] = player.duration();
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
-    window.onblur = function () {
-      if(isMobile){
-
-      }
-    // do some stuff after tab was changed e.g.
-}
-
+ 
 if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats)){
 console.log(playbackStats)
 sentPlaybackData = playbackStats
