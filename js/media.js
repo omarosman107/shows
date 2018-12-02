@@ -95,8 +95,16 @@ var player = videojs('LS', {  textTrackSettings: false
       limitRenditionByPlayerDimensions:false
    }
 }});
-// getLastTime().bandwidth
 
+player.on('dblclick', function() {
+  if (player.isFullscreen()) {
+    player.exitFullscreen();
+  } else {
+    player.requestFullscreen();
+  }
+});
+// getLastTime().bandwidth
+/*
 player.ready(function () {
    this.hotkeys({
       volumeStep: 0.1,
@@ -105,6 +113,8 @@ player.ready(function () {
    });
 
 });
+*/
+
 //const v = document.createElement('video');
 
 //alert(v.canPlayType('audio/mp4; codecs="ec-3"'))

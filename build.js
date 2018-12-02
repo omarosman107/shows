@@ -668,6 +668,8 @@ everythingfinished()
 document.querySelector('.lScreen span').setAttribute('class','logotextdone')
 setTimeout(function(){
 document.body.setAttribute('class','finished');
+document.querySelector('.lScreen span').setAttribute('class','')
+
 
 },400)
 
@@ -1771,7 +1773,7 @@ var apikey = ''
 
 
 loaders()
-fetch('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch('//config.foxneodigital.com/foxnow/ios/3.4/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 //	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
