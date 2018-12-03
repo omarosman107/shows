@@ -103,6 +103,13 @@ player.on('dblclick', function() {
     player.requestFullscreen();
   }
 });
+player.on('click', function() {
+  if (player.paused()) {
+    player.play();
+  } else {
+    player.pause();
+  }
+});
 // getLastTime().bandwidth
 /*
 player.ready(function () {

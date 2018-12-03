@@ -276,7 +276,7 @@ li:hover .image-crop .grayscale{
 }
 
 ::-webkit-scrollbar-thumb {
-    border: 4px solid transparent;
+    border: 4px solid #514e4e;
     border-radius: 8px;
     background-clip: content-box;
     background-color: transparent;
@@ -452,7 +452,6 @@ p {
 }
 .fanarts-list>li {
     padding: 0;
-    margin: 12px;
     position: relative;
     vertical-align: top;
     overflow: hidden;

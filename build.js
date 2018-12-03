@@ -1084,7 +1084,7 @@ if(localStorage['?' + showSeason[a].link + '_duration'] - localStorage['?' + sho
  
 
 
-	continueW_DIVS[i].outerHTML = `<li show="${episodeDIV.getAttribute('show')}"  seasonNumber="${showSeason[Number(a)+1].season_number}" episodeNumber="${showSeason[Number(a)+1].episode_number}"  style="margin: 11px;" class=" card forceVisible ${showSeason[Number(a)+1].link}">
+	continueW_DIVS[i].outerHTML = `<li show="${episodeDIV.getAttribute('show')}"  seasonNumber="${showSeason[Number(a)+1].season_number}" episodeNumber="${showSeason[Number(a)+1].episode_number}"  class=" card forceVisible ${showSeason[Number(a)+1].link}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}">
             <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${showSeason[Number(a)+1].episode}" src="${showSeason[Number(a)+1].img}" srcset="${showSeason[Number(a)+1].srcset}">
@@ -1276,7 +1276,7 @@ json.episode = splittedName.join(': ')
  if(Math.round((json.length - tempLS["?" + json.href]) / 60) == 0){
  	Timeleft = 'almost done'
  }
-        watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}" style="margin: 11px;" class=" card forceVisible ${json.href}">
+        watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}"  class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
             <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" src="${json.img}" srcset="${json.imgdyn}">

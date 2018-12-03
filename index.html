@@ -35,7 +35,9 @@
 
 <metas http-equiv="refresh" content="0; URL='https://www.yidio.com/'" />
   <style type="text/css">
-
+.card {
+      margin: 0px 11px 0px 11px;
+}
 
 body a {
      color: inherit;
@@ -473,9 +475,16 @@ lesshat-selector {
 }
 @media (max-width: 600px){
 .fanarts-list>li {
-    margin: 34px 0 30px;
+ /*   margin: 34px 0 30px; */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
 }
+}
+.sectionHead {
+      margin: 10px 0 -6px 0px;
+    font-size: 17px;
+    font-family: Graphik;
+    font-weight: bold;
+        letter-spacing: -.2px;
 }
 body {
   overflow-y: scroll;
@@ -557,8 +566,8 @@ box-sizing:border-box;
  /* border-radius:5px; */
   display:inline-block;
   z-index:5;
-    margin: 0px 0px 0px 6px;
-      cursor: pointer;
+    margin: 0px 11px 0px 11px;
+          cursor: pointer;
      /* box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12); */
 
 }
@@ -806,9 +815,9 @@ span.timeRemaining {
         <label for="search"><span class="icon"><i class="fa fa-search"></i></span></label> <input label="Search" oninput="query(this.value)" id="search" placeholder="Search..." type="search">
       </div><span id="results"></span>
     </div>
-    <h1 id="wtcTxt">Continue Watching for You</h1>
+    <h1 class="sectionHead" id="wtcTxt">Continue Watching for You</h1>
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
-    <h1>Shows</h1>
+    <h1 class="sectionHead" >Shows</h1>
     <div class="shows dragscroll" id="tvShows" ></div>
     <div class="nextContainer" style="display: none;">
       <a class="btn-floating btn-large waves-effect waves-light red" id="left-buttontv"><i class="material-icons">chevron_left</i></a> <a class="btn-floating btn-large waves-effect waves-light red" id="right-buttontv" style="float: right;"><i class="material-icons">chevron_right</i></a>
