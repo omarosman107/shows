@@ -1346,7 +1346,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
     	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.id} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 
-data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}"
+data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${json.show}"
 
 
 	></img></div><div class="episode_number">${json.episodeNumber}</div>
@@ -1366,7 +1366,7 @@ data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-widt
       <div class="image-crop sixteen-nine" url="${json.href}" autoplay="${json.autoplay}" onmouseover="playHover(this)" onmouseout="stopHover(this)">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
          ${newBanner()}
-            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 75vw, 30vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
+            <img class="grayscale cover sixteen-nine lazy" sizes="(max-width: 600px) 75vw, 45vw" alt="${json.show}" data-original="${json.img}" data-original-set="${json.imgdyn}" style="display: block;">
          </a>
          <span class="episode-gradient"></span>
             <div class="w3-progressbar" length="${json.length}" style="width: ${perc}%;"></div>
@@ -1507,6 +1507,7 @@ return res.json()
       	 return 'https://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+      var dyn = data.videos[i].large_thumbnail + ' 1920w, '+ data.videos[i].large_thumbnail + '?w=1280 1280w,  ' + data.videos[i].thumbnail + ' 720w, ' + data.videos[i].large_thumbnail + '?w=341 341w'
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
@@ -1611,12 +1612,13 @@ fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episod
 						continue;
 					}
 					function nbcimg(res){
+
 						`https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=480&imdensity=1 480w,
 						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=340&imdensity=1 340w,
 						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=170&imdensity=1 170w`
-						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'&imdensity=1')
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'')
 						 }
-					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
+					      var dyn =  nbcimg('')+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 // console.log(episode.included[z].attributes.path)
