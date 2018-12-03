@@ -1616,9 +1616,9 @@ fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episod
 						`https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=480&imdensity=1 480w,
 						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=340&imdensity=1 340w,
 						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=170&imdensity=1 170w`
-						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'')
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'&imdensity=1')
 						 }
-					      var dyn =  nbcimg('')+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
+					      var dyn =  nbcimg('')+' 1920w, ' +nbcimg(990) + " 990w  ,"+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 // console.log(episode.included[z].attributes.path)
