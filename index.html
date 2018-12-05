@@ -72,7 +72,7 @@ src: url('font/Graphik-Bold-Cy-Gr-Web.woff2') format('woff'); /* Modern Browsers
 .episode_naming {
      position: absolute;
     bottom: 10%;
-        z-index: 21;
+        z-index: 37;
     padding: 3px 6px 3px 6%;
         color: #ebebeb;
     text-shadow: 0px 0px 7px #0000006e;
@@ -111,7 +111,7 @@ src: url('font/Graphik-Bold-Cy-Gr-Web.woff2') format('woff'); /* Modern Browsers
 }
 .episode{
   position: relative;
-    width: 400px;
+    width: 384px;
     height: auto;
     display: inline-block;
     border-radius: 10px;
@@ -157,6 +157,7 @@ box-shadow: inset 0px 0px 20px 7px #0000008f;
 }
 .episode_img img {
   position: absolute;
+  z-index: 0;
 }
 .episode_details {
     position: absolute;
@@ -761,6 +762,38 @@ span.timeRemaining {
     transform: scale(1.1) skewX(0deg);
   }
 }
+
+.showTitle_image {
+    text-align: center;
+    font-size: -webkit-xxx-large;
+}
+.show_container {
+width:100%;
+}
+.seasons {
+    float: left;
+  list-style: none;
+  text-align: center;
+  line-height: 60px;
+  color:white;
+  display:block;
+      padding: 1px;
+      width: 100%;
+}
+.seasons li {
+   float: left;
+  list-style: none;
+  text-align: center;
+    background-color: #ffffff0d;
+        width: calc(100%/5);
+      line-height: 60px;
+  color:white;
+  display:inline-block;
+  border-radius:50px;
+}
+.single-episode {
+    display: inline-block;
+}
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
@@ -817,12 +850,18 @@ span.timeRemaining {
     </div>
     <h1 class="sectionHead" id="wtcTxt">Continue Watching for You</h1>
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
+<h1 class="sectionHead">New Arrivals</h1>
+    <ul class="shows dragscroll" id="carasoul"></ul>
+
     <h1 class="sectionHead" >Shows</h1>
     <div class="shows dragscroll" id="tvShows" ></div>
+
+    <div class="show_container">
+ 
+</div>
     <div class="nextContainer" style="display: none;">
       <a class="btn-floating btn-large waves-effect waves-light red" id="left-buttontv"><i class="material-icons">chevron_left</i></a> <a class="btn-floating btn-large waves-effect waves-light red" id="right-buttontv" style="float: right;"><i class="material-icons">chevron_right</i></a>
     </div>
-    <ul class="fanarts-list list-unstyled list-inline" id="carasoul"></ul>
     <div class="header">
       <hr>
       <div class="logo">

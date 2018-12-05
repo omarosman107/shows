@@ -379,10 +379,9 @@ function lazyLoadNew(){
 
 var options = {
   threshold: 0,
-  root: null,
-  rootMargin:"300px 0px 0px 300px"
+  root: null
 }
-
+//  rootMargin:"300px 0px 0px 300px"
 
     var io = new IntersectionObserver(
     entries => {
@@ -393,8 +392,9 @@ pos = entries[i].target.getBoundingClientRect().top - document.body.getBoundingC
 var doc = document.documentElement;
 // console.log(pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0) )
 
-
-if(entries[i].isIntersecting || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000){
+// || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000
+if(entries[i].isIntersecting && entries[i].intersectionRatio > 0){
+	console.log(entries[i])
 		io.unobserve(entries[i].target);
 
 	//requestAnimationFrame(function(time){
@@ -790,8 +790,8 @@ function showAll(q){
 
 
 }
-function scrollShows() {
-  element = document.getElementById("carasoul")
+function scrollShows(name) {
+  element = document.getElementById(name)
 
   function elementInViewport2(el) {
     var top = el.offsetTop;
@@ -813,12 +813,81 @@ function scrollShows() {
   }
 }
 
+function ObjectLength( object ) {
+    var length = 0;
+    for( var key in object ) {
+        if( object.hasOwnProperty(key) ) {
+            ++length;
+        }
+    }
+    return length;
+};
 function showQuery(q, o,type) {
   if (q == null) {
     q = o.getAttribute('show')
       //   document.body.style.background = 'url(' + obj.getAttribute('bg') + ") no-repeat center center fixed";
   };
+
+
+console.log(q,upnextshows[q],upnextshows[q].seasons)
+var episodes =''
+var sznLI = ''
+for(i in upnextshows[q].seasons){
+	console.log(upnextshows[q].seasons[i],i)
+	sznLI += `<a onclick="scrollShows('#season${i}')" href="#season${i}"><li  style="width:calc(100% / ${ObjectLength(upnextshows[q].seasons)})">Season ${i}</li></a>`
+episodes += `<div style="font-size: x-large;
+    padding: 8px;" id="#season${i}">Season ${i}</div>`
+for(z in upnextshows[q].seasons[i]){
+	console.log(upnextshows[q].seasons[i][z])
+
+	episodes += `<div class="single-episode">
+
+<a href="play.html?${upnextshows[q].seasons[i][z].link}">
+    	<div  class="episode   ${upnextshows[q].seasons[i][z].link}">
+    	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
+
+data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnextshows[q].seasons[i][z].srcset}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${q}"
+
+
+	></img></div><div class="episode_number">${upnextshows[q].seasons[i][z].episode_number}</div>
+	<div class="episode_naming"><div class="episode_details">
+	<span>${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
+	</div>
+	<span class="episode_title">'${upnextshows[q].seasons[i][z].episode}'</span>
+	<a class="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${q}</a>
+	</div>
+<div class="episode-progressbar" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${0}%;"></div>
+</div>
+</a>
+</div>`
+}
+
+}
+
+var showDIV = q
+if(showLogos[q]){
+	showDIV = `<div style="margin:auto;max-width:265px;    padding: 5px;"><img width="100%" src="${showLogos[q]}"></div>`
+}
+document.getElementsByClassName('show_container')[0].innerHTML = `
+ <div class="showTitle_image">${showDIV}</div>
+  <ul  class="seasons"> 
+    ${sznLI}
+  </ul>
+  <div class="show_episodes">
+    ${episodes}
+
+  </div>
+
+
+  `;
+  if(upnextshows[q].latestWSesN != null){
+  scrollShows(`#season${upnextshows[q].latestWSesN}`)
+}
+  lazyLoadNew()
+
+  return;
   document.getElementById('search').value = q
+
   var num = 0
     for (var i = 0, len = finalObj.length; i < len; i++) {
 	if(document.getElementsByClassName(finalObj[i].id).length == 0){
@@ -1153,6 +1222,7 @@ episodes[i].end = episodes[i].length - endTime
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].latestWNum = episodes[i].episodeNumber
 		upnextshows[episodes[i].show].latestWSesN = episodes[i].seasonNumber
+		
 	}
 	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && Number(episodes[i].seasonNumber) == upnextshows[episodes[i].show].latestWSesN && upnextshows[episodes[i].show].latestWNum != null) {
 		console.log(episodes[i])
@@ -1169,7 +1239,7 @@ episodes[i].end = episodes[i].length - endTime
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
-	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
 
 
 }
@@ -1304,6 +1374,16 @@ var date2 = new Date(json.time)
     var FDate = '' //month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2
    // console.log(date1.getDate(),date1.getMonth(),date1.getFullYear(),date2.getDate(),date2.getMonth(),date2.getFullYear())
+    function hidden(){
+if (json.hidden) {
+	return 'opacity: .3'
+}
+    }
+    var visible = ""
+    if (i < 30) {
+    	visible = "forceVisible"
+    }
+    var out = "'out'"
 if(date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
 	//console.log('close airdate')
 	if(date1.getDate() - date2.getDate() == 1){
@@ -1326,24 +1406,11 @@ if(date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMo
 		console.log('3 days ago')
 	}
 	*/
-}
 
-    function hidden(){
-if (json.hidden) {
-	return 'opacity: .3'
-}
-    }
-    var visible = ""
-    if (i < 30) {
-    	visible = "forceVisible"
-    }
-    var out = "'out'"
-var old = `            <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
-            <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
-
-`
-    template.push( `<a href="play.html?${json.href}">
-    	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.id} ${json.href}">
+	if(date1.getDate() - date2.getDate() < 7){
+		console.log('new')
+		   template.push( `<a href="play.html?${json.href}">
+    	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 
 data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${json.show}"
@@ -1383,6 +1450,16 @@ data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-widt
 </li>
 !-->
 `)
+	}
+}
+
+
+//json.id
+var old = `            <div class="bg" data-style=" background-image:url(${json.bg});background-size:cover;"></div>
+            <video class="sixteen-nine" style="top:0px;" playsinline="" muted="" loop="" width="100%" height="100%"></video>
+
+`
+ 
  //   wrapper.innerHTML = '<li  aired="' + json.time + '"  ShowName="' + json.show + '" class="initialized  '+con+' ' + json.type + '  ' + json.id + '" data-query="' + query + '"><div  class="piece fanart-container"><div class="image-crop sixteen-nine"url="'+json.href+'" autoplay="'+json.autoplay+'" onmouseover="playHover(this)" onmouseout="stopHover(this)">' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><video class="sixteen-nine" style="top:0px;" playsinline muted loop width="100%" height="100%"></video><\/span><div class="imageBG"><\/div><img     class="cover sixteen-nine lazy"   sizes="(max-width: 600px) 70vw, 25vw"  alt="' + json.show + '"   data-original="'+json.img +'" data-original-set="' + json.imgdyn + '" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div  class="w3-progress-container" style=""><div class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn " title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2 ><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)" show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><div class="cardBorder"></div><div class=><p>' + FDate + ' | ' + json.rating + ' | ' + timeofPlayback + ' | ' + json.epiformat + '<\/p><\/div><i style="opacity:' + showCheck() + ';color:rgb(127, 218, 99);"class="visited fa fa-check" aria-hidden="true"><\/i><\/div><div class="bottom"><div class="bar"><\/div><div class="bar"><\/div><div class="bar"><\/div><\/div><\/div><\/li>'
      
   }
@@ -1434,6 +1511,7 @@ function msToTime(duration) {
 var template = "";
 var obj = []
     var finalObj = []
+    var showLogos = []
 
 var cors_show_hub = 'https://crossorigin.me/' + show_hub
 // var show_hub = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('select * from json where url="' + show_hub + '"') + '&format=json&bust='+Date.now();
@@ -1479,7 +1557,7 @@ return res.json()
 }).then(function(data){
     for (i in data.videos) {
     if (data.videos[i].fullep == 1) {
-
+showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-logo-stacked/'+data.videos[i].show_slug+'.png'
 
       function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000 * 60);
@@ -1525,6 +1603,7 @@ if(data.videos[i].share_url == 'http://cwtv.com/shows/arrow/crisis-on-earth-x-pa
         epiformat: epiformat(s, e),
         episodeNumber:Number(e),
         seasonNumber:Number(s),
+        description:data.videos[i].description_long,
         length: Number(data.videos[i].duration_secs),
         type: "cw",
         bg:  'https://i2.wp.com/'+data.videos[i].large_thumbnail.split('tv_')[0].replace('http://','') + 'tv_141x79.jpg'+'?w=8',
@@ -1598,7 +1677,7 @@ function nbcloadnext(url){
 
 //console.log(url)
 loaders()
-fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow').then(function(res){return res.json();}).then(function(episode){
+fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,description,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow').then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
 				//	console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -1634,6 +1713,7 @@ fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episod
         epiformat: epiformat(episode.data[z].attributes.seasonNumber, episode.data[z].attributes.episodeNumber),
         episodeNumber: Number(episode.data[z].attributes.episodeNumber),
         seasonNumber: Number(episode.data[z].attributes.seasonNumber),
+        description:episode.data[z].attributes.description,
         length: episode.data[z].attributes.runTime,
         type: "nbc",
         bg:'',
@@ -1647,7 +1727,7 @@ fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episod
 									loaders('remove')
 })
 }
-
+var nbcStLogo = []
 function nbc(show){
 	var nbcshows = {}
 	loaders()
@@ -1657,6 +1737,14 @@ function nbc(show){
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
 				 continue;
 			}
+			if(shows.data[i].relationships.logo != null){
+				console.log(shows.data[i].relationships.logo.data.id)
+				nbcStLogo[shows.data[i].relationships.logo.data.id] = shows.data[i].attributes.shortTitle
+			fetch('https://api.nbc.com/v3.14/images/'+shows.data[i].relationships.logo.data.id).then(function(res){return res.json();}).then(function(img){
+				// console.log(img.data[0].attributes.shortTitle,img.included[0].attributes.path)
+				showLogos[nbcStLogo[img.data.id]] = 'https://img.nbc.com/'+ img.data.attributes.path
+			})
+		}
 			var genre = shows.data[i].attributes.genre
 			if(genre == 'News and Information' || genre == 'Reality' || genre == 'Family and Kids' || genre == null || genre == 'LateNight' || genre == 'Lifestyle and Fashion' || genre == 'Special'){
 				continue;
@@ -1670,14 +1758,14 @@ function nbc(show){
 	}
 
      // showswithimages[shows.data[i].attributes.shortTitle] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
-
+console.log(shows.data[i].relationships.logo,shows.included[i].attributes)
 			nbcshows[showId] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
 
 
 
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -1713,6 +1801,7 @@ console.log(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[epis
         episodeNumber: Number(episode.data[z].attributes.episodeNumber),
         seasonNumber: Number(episode.data[z].attributes.seasonNumber),
         length: episode.data[z].attributes.runTime,
+                description:episode.data[z].attributes.description,
         type: "nbc",
         bg:'',
         time:Date.parse(new Date(episode.data[z].attributes.airdate)),

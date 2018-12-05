@@ -103,6 +103,7 @@ player.on('dblclick', function() {
     player.requestFullscreen();
   }
 });
+/*
 player.on('click', function() {
   if (player.paused()) {
     player.play();
@@ -110,6 +111,7 @@ player.on('click', function() {
     player.pause();
   }
 });
+*/
 // getLastTime().bandwidth
 /*
 player.ready(function () {
