@@ -834,6 +834,7 @@ function showQuery(q, o,type) {
 console.log(q,upnextshows[q],upnextshows[q].seasons)
 var episodes =''
 var sznLI = ''
+var perc = 0 
 for(i in upnextshows[q].seasons){
 	console.log(upnextshows[q].seasons[i],i)
 	sznLI += `<a onclick="scrollShows('#season${i}')" href="#season${i}"><li  style="width:calc(100% / ${ObjectLength(upnextshows[q].seasons)})">Season ${i}</li></a>`
@@ -860,7 +861,7 @@ data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnexts
 	</div>
 	<a classS="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${''}</a>
 	</div>
-<div class="episode-progressbar" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${0}%;"></div>
+<div class="episode-progressbar" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${upnextshows[q].seasons[i][z].percentageDone}%;"></div>
 </div>
 </a>
 </div>`
@@ -887,6 +888,9 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
   if(upnextshows[q].latestWSesN != null){
   scrollShows(`#season${upnextshows[q].latestWSesN}`)
 }
+
+refreshContinueWatching()
+
   lazyLoadNew()
 
   return;
@@ -1254,7 +1258,7 @@ episodes[i].end = episodes[i].length - endTime
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
-	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
 
 
 }
@@ -1809,7 +1813,6 @@ console.log(shows.data[i].relationships.logo,shows.included[i].attributes)
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
-console.log(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id])
 					      var episodes = {
         img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
         rating: 'TV-14',
