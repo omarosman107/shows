@@ -852,11 +852,13 @@ data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnexts
 
 
 	></img></div><div class="episode_number">${upnextshows[q].seasons[i][z].episode_number}</div>
-	<div class="episode_naming"><div class="episode_details">
+	<div class="episode_naming">
+		<span class="episode_title">'${upnextshows[q].seasons[i][z].episode}'</span>
+
+	<div class="episode_details">
 	<span>${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
 	</div>
-	<span class="episode_title">'${upnextshows[q].seasons[i][z].episode}'</span>
-	<a class="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${q}</a>
+	<a classS="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${''}</a>
 	</div>
 <div class="episode-progressbar" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${0}%;"></div>
 </div>
@@ -1431,10 +1433,12 @@ data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-widt
 
 
 	></img></div><div class="episode_number">${json.episodeNumber}</div>
-	<div class="episode_naming"><div class="episode_details">
+	<div class="episode_naming">
+		<span class="episode_title">'${json.episode}'</span>
+
+	<div class="episode_details">
 	<span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span>
 	</div>
-	<span class="episode_title">'${json.episode}'</span>
 	<a class="episode_show" onclick="showQuery(null,this,'${json.type}')"  show="${json.show}" href="javascript:">${json.show}</a>
 	</div>
 <div class="episode-progressbar" id="progress" length="${json.length}" style="width: ${perc}%;"></div>
