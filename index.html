@@ -583,9 +583,10 @@ box-sizing:border-box;
 
 
 .loaded {
-  background: black;
 }
-
+.contain {
+  display: none;
+}
 .show .background {
 
   z-index: 4;
@@ -599,6 +600,7 @@ box-sizing:border-box;
       transition-duration: 400ms;
     background:  rgb(45, 45, 45);
         box-shadow: inset 0px 0px 20px 7px #0000003b;
+            border-radius: 8px;
 }
 .show .poster {
        z-index: 6;
@@ -629,6 +631,12 @@ box-sizing:border-box;
     width: 67px;
 
 
+  }
+  .single-episode {
+    width: 100%;
+}
+  .single-episode .episode {
+    width: 100%;
   }
 }
  .progCont {
@@ -850,7 +858,7 @@ width:100%;
     </div>
     <h1 class="sectionHead" id="wtcTxt">Continue Watching for You</h1>
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
-<h1 class="sectionHead">New Arrivals</h1>
+<h1 id="newepisodes" class="sectionHead">New Arrivals</h1>
     <ul class="shows dragscroll" id="carasoul"></ul>
 
     <h1 class="sectionHead" >Shows</h1>

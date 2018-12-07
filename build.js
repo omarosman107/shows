@@ -542,6 +542,7 @@ return;
   document.getElementById('watching').innerHTML = ''
   	document.getElementById('showsLike').style.display = 'none'
   	document.body.setAttribute('class','finished');
+  	document.getElementsByClassName('contain')[0].style.display = 'block'
 
 loadMedia(q)
 everythingfinished(checkedShows)
@@ -668,6 +669,7 @@ everythingfinished()
 document.querySelector('.lScreen span').setAttribute('class','logotextdone')
 setTimeout(function(){
 document.body.setAttribute('class','finished');
+  	document.getElementsByClassName('contain')[0].style.display = 'block'
 document.querySelector('.lScreen span').setAttribute('class','')
 
 
@@ -1116,6 +1118,17 @@ function rating(rate) {
 }
 
 
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+// a and b are javascript Date objects
+function dateDiffInDays(a, b) {
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
+
 
 function loadPlayer(url) {
   return '';
@@ -1384,16 +1397,17 @@ if (json.hidden) {
     	visible = "forceVisible"
     }
     var out = "'out'"
-if(date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
+if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
 	//console.log('close airdate')
-	if(date1.getDate() - date2.getDate() == 1){
+	if(dateDiffInDays(date2,date1) == 1){
 		console.log('yesterday')
-		FDate = 'a day ago'
+		FDate = 'yesterday'
 	}
-	for (i = 0; i < 7; i++) { 
+	for (i = 0; i < 14; i++) { 
    // console.log(i + 1)
-   if(i + 1 == 1 || i + 1 == 7){ continue;}
-   if(date1.getDate() - date2.getDate() == i + 1){
+   //|| i + 1 == 7
+    if(i + 1 == 1 ){ continue;}
+   if(dateDiffInDays(date2,date1) == i + 1){
 		FDate = (`${i + 1} days ago`)
 
 	}
@@ -1406,8 +1420,8 @@ if(date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMo
 		console.log('3 days ago')
 	}
 	*/
-
-	if(date1.getDate() - date2.getDate() < 7){
+console.log(dateDiffInDays(date2,date1))
+	if(dateDiffInDays(date2,date1) < 7|| date1.getDate() - date2.getDate() < 7){
 		console.log('new')
 		   template.push( `<a href="play.html?${json.href}">
     	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.href}">
@@ -1465,6 +1479,9 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
   }
 
   document.getElementById('watching').innerHTML += watching;
+  if(template.join('') == ''){
+  	document.getElementById('newepisodes').innerHTML = ''
+  }
   document.getElementById('carasoul').innerHTML += template.join('');
 
 
