@@ -1727,7 +1727,7 @@ function nbcloadnext(url){
 
 //console.log(url)
 loaders()
-fetch(url+'&fields[videos]=internalId,guid,runTime,permalink,seasonNumber,episodeNumber,type,title,description,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow').then(function(res){return res.json();}).then(function(episode){
+fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,description,airdate,images,categories').then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
 				//	console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -1813,9 +1813,11 @@ console.log(shows.data[i].relationships.logo,shows.included[i].attributes)
 
 			loaders()
 
+//filter[type][value][0]=full%20episode&include=image&fields[images]=internalId,path&fields[videos]=guid,description,runTime,permalink,seasonNumber,episodeNumber,type,airdate,images&filter[show]=99d3a2c1-fd98-43b9-a7a4-f7872b0eb808&sort=airdate&page%5Bsize%5D=50
+//https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50
 
 
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -2199,7 +2201,7 @@ imgdyn:""
     sConfig.split('?')[1]
     }else{
       cw()
-    //  fox()
+      fox()
       nbc()
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
