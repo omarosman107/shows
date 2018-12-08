@@ -837,12 +837,18 @@ var sznLI = ''
 var perc = 0 
 for(i in upnextshows[q].seasons){
 	console.log(upnextshows[q].seasons[i],i)
+
+
 	sznLI += `<a onclick="scrollShows('#season${i}')" href="#season${i}"><li  style="width:calc(100% / ${ObjectLength(upnextshows[q].seasons)})">Season ${i}</li></a>`
 episodes += `<div style="font-size: x-large;
     padding: 8px;" id="#season${i}">Season ${i}</div>`
 for(z in upnextshows[q].seasons[i]){
 	console.log(upnextshows[q].seasons[i][z])
-
+	if(!upnextshows[q].seasons[i][z].episode.toLowerCase().includes('part') && upnextshows[q].seasons[i][z].episode.includes(': ') && q != 'The Blacklist'){
+	var splittedName = upnextshows[q].seasons[i][z].episode.split(': ')
+	splittedName.shift()
+upnextshows[q].seasons[i][z].episode = splittedName.join(': ')
+}
 	episodes += `<div class="single-episode">
 
 <a href="play.html?${upnextshows[q].seasons[i][z].link}">
@@ -2099,8 +2105,9 @@ try{
 	if (!('autoPlayVideo' in fullEpisodes.member[i])) {
 
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
-
 	}
+	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
+
 	// rating(fullEpisodes.member[i].contentRating)
 	var this_episode = {
         img: fullEpisodes.member[i].images.still.SD,
