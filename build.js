@@ -1990,6 +1990,7 @@ continue;
 console.log(foxshowlist.join())
 		  loaders()
 if (foxshowlist.length == 0) {loaders('remove');return;}
+/*
 loaders()
 fetch(config.apis.content.baseUrl + '/fbc-content/v1_5/screenpanels/58261c820501880001930b2e/items/',{headers:foxheaders}).then(function(res){return res.json();}).then(function(epg){
  // epg.panels.member["0"].items.member =  epg.panels.member["0"].items.member.concat(epg.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
@@ -2063,7 +2064,7 @@ if (!finalObj.includes(this_episode)) {
 
 loaders('remove')
 })
-
+*/
 
 
 	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
