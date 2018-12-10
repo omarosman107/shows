@@ -654,7 +654,7 @@ finalObj =  finalObj.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;}
 
 if (!isMobile || !window.location.search == '' || window.location.search == '?') {
 
-
+console.time()
 var l = []
 finalObj.sort(function(x, y) {
    var date1 = (x.time);
@@ -671,7 +671,7 @@ setTimeout(function(){
 document.body.setAttribute('class','finished');
   	document.getElementsByClassName('contain')[0].style.display = 'block'
 document.querySelector('.lScreen span').setAttribute('class','')
-
+console.timeEnd()
 
 },400)
 
