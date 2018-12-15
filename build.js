@@ -1436,6 +1436,10 @@ if (json.hidden) {
     var out = "'out'"
 if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
 	//console.log('close airdate')
+	if(dateDiffInDays(date2,date1) == 0){
+		console.log('today')
+		FDate = 'today'
+	}
 	if(dateDiffInDays(date2,date1) == 1){
 		console.log('yesterday')
 		FDate = 'yesterday'
