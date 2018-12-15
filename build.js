@@ -849,7 +849,12 @@ for(z in upnextshows[q].seasons[i]){
 	splittedName.shift()
 upnextshows[q].seasons[i][z].episode = splittedName.join(': ')
 }
+var donecol = ''
+if(upnextshows[q].seasons[i][z].percentageDone > 99){
+
+donecol = "prog_done"; }
 	episodes += `<div class="single-episode">
+
 
 <a href="play.html?${upnextshows[q].seasons[i][z].link}">
     	<div  class="episode   ${upnextshows[q].seasons[i][z].link}">
@@ -863,11 +868,11 @@ data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnexts
 		<span class="episode_title">'${upnextshows[q].seasons[i][z].episode}'</span>
 
 	<div class="episode_details">
-	<span>${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
+	<span>S${upnextshows[q].seasons[i][z].season_number}:E${upnextshows[q].seasons[i][z].episode_number} • ${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
 	</div>
 	<a classS="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${''}</a>
 	</div>
-<div class="episode-progressbar" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${upnextshows[q].seasons[i][z].percentageDone}%;"></div>
+<div class="episode-progressbar ${donecol}" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${upnextshows[q].seasons[i][z].percentageDone}%;"></div>
 </div>
 </a>
 </div>`
@@ -1276,7 +1281,7 @@ episodes[i].end = episodes[i].length - endTime
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
-	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,original:episodes[i],percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
 
 
 }
