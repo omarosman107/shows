@@ -850,7 +850,7 @@ for(z in upnextshows[q].seasons[i]){
 upnextshows[q].seasons[i][z].episode = splittedName.join(': ')
 }
 var donecol = ''
-if(upnextshows[q].seasons[i][z].percentageDone > 99){
+if( (upnextshows[q].seasons[i][z].length - localStorage['?'+ upnextshows[q].seasons[i][z].link]) < 35){
 
 donecol = "prog_done"; }
 	episodes += `<div class="single-episode">
