@@ -1375,6 +1375,20 @@ if(!json.episode.toLowerCase().includes('part') && json.episode.includes(': ') &
 	splittedName.shift()
 json.episode = splittedName.join(': ')
 }
+ var topShow = json.show
+
+ if(showLogos[json.show] && json.show != 'Heroes'){
+ 	var extraStyles = ''
+ 	if(json.type == 'nbc'){
+extraStyles += `       transform: translate(8%,-29%);
+    margin: -6px;`
+ 	}
+ 	topShow = `<img src="${showLogos[json.show]}" width="" style="
+    width: 6em;
+        filter: brightness(0) invert(1);
+        ${extraStyles}
+">`
+ }
     if ((tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 35 ) || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
 
       //          <span class="episode-gradient"></span>
@@ -1388,19 +1402,7 @@ json.episode = splittedName.join(': ')
  if(Math.round((json.length - tempLS["?" + json.href]) / 60) == 0){
  	Timeleft = 'almost done'
  }
- var topShow = json.show
- if(showLogos[json.show] && json.show != 'Heroes'){
- 	var extraStyles = ''
- 	if(json.type == 'nbc'){
-extraStyles += `       transform: translate(8%,-29%);
-    margin: -6px;`
- 	}
- 	topShow = `<img src="${showLogos[json.show]}" width="" style="
-    width: 6em;
-        filter: brightness(0) invert(1);
-        ${extraStyles}
-">`
- }
+
         watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}"  class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
@@ -1483,7 +1485,8 @@ data-original="${json.img}" data-original-set="${json.imgdyn}" 	sizes="(max-widt
 	<div class="episode_details">
 	<span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span>
 	</div>
-	<a class="episode_show" onclick="showQuery(null,this,'${json.type}')"  show="${json.show}" href="javascript:">${json.show}</a>
+
+	<a class="episode_show" onclick="showQuery(null,this,'${json.type}')"  show="${json.show}" href="javascript:">${topShow}</a>
 	</div>
 <div class="episode-progressbar" id="progress" length="${json.length}" style="width: ${perc}%;"></div>
 </div>
