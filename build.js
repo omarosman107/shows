@@ -563,6 +563,7 @@ element.target.classList.add('loaded');
 // scrolling()
 lazyLoadNew()
 
+/*
 var sorted_shows = showhtml.sort(dynamicSort("show"));
 document.getElementById('tvShows').innerHTML = ''
 sorted_shows.reverse()
@@ -579,6 +580,8 @@ for (var i = sorted_shows.length - 1; i >= 0; i--) {
 	}
 
 }
+*/
+/*
 for(i in upnextshows){
 	try{
 		if(upnextshows[i].isNew){
@@ -590,7 +593,7 @@ document.querySelector('div[show="'+i+'"] div').innerHTML += '<div class="w3-pro
 
 }
 }
-
+*/
 BackgroundLazyLoader();
 
 // document.addEventListener("scroll", function(){scrolling()});
@@ -884,8 +887,9 @@ var showDIV = q
 if(showLogos[q]){
 	showDIV = `<div style="margin:auto;max-width:265px;    padding: 5px;"><img width="100%" src="${showLogos[q]}"></div>`
 }
+document.getElementsByClassName('show_container')[0].id = encodeURIComponent(q)
 document.getElementsByClassName('show_container')[0].innerHTML = `
- <div class="showTitle_image">${showDIV}</div>
+ <div id="${decodeURIComponent(q)}" class="showTitle_image">${showDIV}</div>
   <ul  class="seasons"> 
     ${sznLI}
   </ul>
@@ -896,8 +900,13 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
 
 
   `;
+
   if(upnextshows[q].latestWSesN != null){
   scrollShows(`#season${upnextshows[q].latestWSesN}`)
+}else{
+	document.getElementById(encodeURIComponent(q)).scrollIntoView()
+    scrollShows(`#${encodeURIComponent(q)}`)
+
 }
 
 refreshContinueWatching()
@@ -996,6 +1005,7 @@ if (img != undefined) {
   <div  class="background" style="background:url(${img});background-repeat: no-repeat;    background-size: 100% 100%;"></div>
 </div>`
 */
+/*
 showhtml.push({show:showName,html:`<div  percent="" show="${showName}" onclick="showQuery(null,this,'${type}')"  class="show">
   <div  class="background" data-background-image-url="${img}" style="background-repeat: no-repeat;    background-size: 100% 100%;"><span style="
     font-weight: bolder;
@@ -1015,8 +1025,10 @@ showhtml.push({show:showName,html:`<div  percent="" show="${showName}" onclick="
     font-family: Graphik-Bold;
 ">`+showName+`</span><div class="newepisodes"><div>NEW EPISODES</div></div></div>
 </div>`,img:img}); 
+*/
 return;
 }
+
 
  url = `http://api.tvmaze.com/search/shows?q=${showName}`
   fetch(url, {
@@ -1163,7 +1175,7 @@ return await fetch(url).then(function(res){return res.text()})
 
 var doneNum = {}
   var upnextshows = {}
-
+var showDetail = {}
 function refreshContinueWatching(){
 var continueW_DIVS = document.getElementsByClassName('card')
 for(i = 0; i <  continueW_DIVS.length; i++){
@@ -1236,6 +1248,8 @@ function loadMedia(episodes,arg) {
   var tempLS = localStorage
 try{
   console.time('ProcessShows')
+
+
 for(i in episodes.reverse()){
 var endTime = 35
 if(tempLS['?'+episodes[i].href +'_end']){
@@ -1285,6 +1299,33 @@ upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 
 
 }
+   document.getElementById('tvShows').innerHTML = ''
+  for(i in showDetail){
+if(showDetail[i].rating == undefined){
+	showDetail[i].rating = 'TV-14'
+}
+if(showDetail[i].bg == undefined){
+	showDetail[i].bg = showswithimages[i]
+}
+if(showDetail[i].genre == undefined){
+	showDetail[i].genre = ''
+}
+var sznNum = '1 Season'
+if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
+	sznNum = ObjectLength(upnextshows[showDetail[i].name].seasons) + ' Seasons'
+}
+ document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
+  <div class="showLogo">
+    <img width="100%" src="${showDetail[i].logo}">
+  </div>
+  <div style="    background-repeat: no-repeat;
+  
+    background-image: url(${showDetail[i].bg});" class="showBG"></div>
+  <div class="showDetails">
+    <span>2018 <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
+    <span class="genre">${showDetail[i].genre}</span></div></div>`
+
+  }
 
 
 episodes.reverse()
@@ -1657,6 +1698,7 @@ showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
+showDetail[data.videos[i].series_name] = {name:data.videos[i].series_name,rating:data.videos[i].rating,logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:data.videos[i].comscore_genre,year:moment(airdate).year()}
 if(data.videos[i].share_url == 'http://cwtv.com/shows/arrow/crisis-on-earth-x-part-2/?play=558f75d6-f35b-4eab-9bb7-34ade42bec3f'){
 	airdate = '2017-11-27'
 }
@@ -1810,6 +1852,8 @@ function nbc(show){
 				nbcStLogo[shows.data[i].relationships.logo.data.id] = shows.data[i].attributes.shortTitle
 			fetch('https://api.nbc.com/v3.14/images/'+shows.data[i].relationships.logo.data.id).then(function(res){return res.json();}).then(function(img){
 				// console.log(img.data[0].attributes.shortTitle,img.included[0].attributes.path)
+				showDetail[nbcStLogo[img.data.id]] = {name:nbcStLogo[img.data.id],logo:'https://img.nbc.com/'+ img.data.attributes.path}
+
 				showLogos[nbcStLogo[img.data.id]] = 'https://img.nbc.com/'+ img.data.attributes.path
 			})
 		}
@@ -2079,7 +2123,7 @@ loaders('remove')
 */
 
 
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=id,name,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=contentRating,id,name,rating,genres,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,autoPlayVideo,originalAirDate,hideVideo,releaseYear&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 for(i in fullEpisodes.member){
 
@@ -2120,6 +2164,7 @@ try{
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
 	}
 	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
+showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.season_keyart.FHD,genre:fullEpisodes.member[i].genres.join(' • '),year:fullEpisodes.member[i].releaseYear}
 
 	// rating(fullEpisodes.member[i].contentRating)
 	var this_episode = {

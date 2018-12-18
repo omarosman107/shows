@@ -637,7 +637,7 @@ box-sizing:border-box;
 .poster:hover {
     transform: scale(1.02);
 }
-@media(max-width: 400px ){
+@media(max-width: 800px ){
   .show{
     width: 208px;
     height: 117px;
@@ -649,7 +649,15 @@ box-sizing:border-box;
 
 
   }
-
+.showDiv {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 1px;
+}
 }
  .progCont {
       height: 4px;
@@ -814,6 +822,48 @@ width:100%;
 .single-episode {
     display: inline-block;
 }
+
+.showDiv {
+  width:480px;
+  height:180px;
+    position: relative;
+      border-radius:10px;
+          display: inline-block;
+    margin: 8px;
+  
+}
+.showBG {
+    width: 100%;
+  height:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+      border-radius: 14px;
+}
+.showDiv .genre{
+  display:block;
+}
+.showLogo {
+position:absolute;
+  width:200px;
+    margin: 27px 0px 0px 15px;
+}
+.showDetails {
+position:absolute;
+  bottom:0px;
+  padding:15px;
+    color: #dedede;
+  line-height:-1.8px
+}
+.rating {
+    background: #736868ba;
+  margin:6px;
+  padding:3px;
+  border-radius:4px;
+color: #d8d6d6;
+}
+.ShowSeasons {
+  font-weight:bold;
+}
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
@@ -874,7 +924,7 @@ width:100%;
     <ul class="shows dragscroll" id="carasoul"></ul>
 
     <h1 class="sectionHead" >Shows</h1>
-    <div class="shows dragscroll" id="tvShows" ></div>
+    <div class="shows" style="    white-space: normal;" id="tvShows" ></div>
 
     <div class="show_container">
  
