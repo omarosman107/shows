@@ -1850,14 +1850,25 @@ function nbc(show){
 	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
+			if(show){
+if(shows.data[i].attributes.shortTitle.toLowerCase().includes(show)){
+
+}else{
+	if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
+				 continue;
+			}
+}
+			}else{
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
 				 continue;
 			}
+		}
 			if(shows.data[i].relationships.logo != null){
 				console.log(shows.data[i].relationships.logo.data.id)
 				nbcStLogo[shows.data[i].relationships.logo.data.id] = shows.data[i].attributes.shortTitle
 			fetch('https://api.nbc.com/v3.14/images/'+shows.data[i].relationships.logo.data.id).then(function(res){return res.json();}).then(function(img){
 				// console.log(img.data[0].attributes.shortTitle,img.included[0].attributes.path)
+				console.log(show)
 				showDetail[nbcStLogo[img.data.id]] = {name:nbcStLogo[img.data.id],logo:'https://img.nbc.com/'+ img.data.attributes.path}
 
 				showLogos[nbcStLogo[img.data.id]] = 'https://img.nbc.com/'+ img.data.attributes.path
