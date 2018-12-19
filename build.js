@@ -906,8 +906,8 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
   if(upnextshows[q].latestWSesN != null){
   scrollShows(`#season${upnextshows[q].latestWSesN}`)
 }else{
+
 	document.getElementById(encodeURIComponent(q)).scrollIntoView()
-    scrollShows(`#${encodeURIComponent(q)}`)
 
 }
 
