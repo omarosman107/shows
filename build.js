@@ -819,6 +819,8 @@ function scrollShows(name) {
 }
 
 function ObjectLength( object ) {
+return Object.keys(object).length;
+	return;
     var length = 0;
     for( var key in object ) {
         if( object.hasOwnProperty(key) ) {
@@ -1301,6 +1303,8 @@ upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
    document.getElementById('tvShows').innerHTML = ''
   for(i in showDetail){
+  	if(upnextshows[showDetail[i].name]){
+
 if(showDetail[i].rating == undefined){
 	showDetail[i].rating = 'TV-14'
 }
@@ -1314,6 +1318,7 @@ var sznNum = '1 Season'
 if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
 	sznNum = ObjectLength(upnextshows[showDetail[i].name].seasons) + ' Seasons'
 }
+
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div class="showLogo">
     <img width="100%" src="${showDetail[i].logo}">
@@ -1326,6 +1331,7 @@ if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
     <span class="genre">${showDetail[i].genre}</span></div></div>`
 
   }
+}
 
 
 episodes.reverse()
