@@ -394,7 +394,7 @@ var doc = document.documentElement;
 
 // || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000
 if(entries[i].isIntersecting && entries[i].intersectionRatio > 0){
-	console.log(entries[i])
+//	console.log(entries[i])
 		io.unobserve(entries[i].target);
 
 	//requestAnimationFrame(function(time){
@@ -436,8 +436,17 @@ console.timeEnd('initImg')
 
 }
  
+function sortTV(){
+    var div = document.querySelector('#tvShows'),
+        para = document.querySelectorAll('#tvShows .showDiv');
+    var paraArr = [].slice.call(para).sort(function (a, b) {
+        return a.getAttribute('show') > b.getAttribute('show') ? 1 : -1;
+    });
+    paraArr.forEach(function (p) {
+        div.appendChild(p);
+    });
 
-
+}
 function addJS(url) {
   var s = document.createElement('script'); // Create a script element
   s.type = "text/javascript"; // optional in html5
@@ -858,6 +867,8 @@ var donecol = ''
 if( (upnextshows[q].seasons[i][z].length - localStorage['?'+ upnextshows[q].seasons[i][z].link]) < 35){
 
 donecol = "prog_done"; }
+var date = new Date(upnextshows[q].seasons[i][z].airdate)
+console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear())
 	episodes += `<div class="single-episode">
 
 
@@ -873,7 +884,7 @@ data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnexts
 		<span class="episode_title">'${upnextshows[q].seasons[i][z].episode}'</span>
 
 	<div class="episode_details">
-	<span>S${upnextshows[q].seasons[i][z].season_number}:E${upnextshows[q].seasons[i][z].episode_number} • ${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
+	<span>S${upnextshows[q].seasons[i][z].season_number}:E${upnextshows[q].seasons[i][z].episode_number} • ${(date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()} • ${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
 	</div>
 	<a classS="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${''}</a>
 	</div>
@@ -1297,7 +1308,7 @@ episodes[i].end = episodes[i].length - endTime
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
-	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,original:episodes[i],percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,airdate:episodes[i].time,original:episodes[i],percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
 
 
 }
@@ -1318,7 +1329,16 @@ var sznNum = '1 Season'
 if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
 	sznNum = ObjectLength(upnextshows[showDetail[i].name].seasons) + ' Seasons'
 }
-
+var showContButton = ''
+if(upnextshows[showDetail[i].name].upNext != null){
+showContButton = `  <a href="play.html?${(upnextshows[showDetail[i].name].upNext.link)}"><i class="fa fa-play-circle" style="    position: absolute;
+    bottom: 10px;
+    padding: 15px;
+    z-index: 100000;
+    font-size: 45px;
+        right: 14px;" class="continueFromShow">	
+</i></a>`
+}
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div class="showLogo">
     <img width="100%" src="${showDetail[i].logo}">
@@ -1326,6 +1346,7 @@ if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
   <div style="    background-repeat: no-repeat;
   
     background-image: url(${showDetail[i].bg});" class="showBG"></div>
+  ${showContButton}
   <div class="showDetails">
     <span>2018 <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
     <span class="genre">${showDetail[i].genre}</span></div></div>`
@@ -1460,7 +1481,8 @@ extraStyles += `       transform: translate(8%,-29%);
              ">${Timeleft}</span>
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
+         <div class="overlay" style="opacity: 1;
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0.42) 0,transparent);"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       <h2 class="watchingTitle" style="">
 <a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">"${json.episode}"</a></h2>
@@ -1472,13 +1494,7 @@ extraStyles += `       transform: translate(8%,-29%);
     
     var query = (json.metadata + " " + json.episode).toLowerCase();
     timeofPlayback = Math.floor(json.length / 60) + 'm'
-    
-var date2 = new Date(json.time)
-    var month2 = formatter.format(date2);
-    var FDate = '' //month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
-    FDate = month2
-   // console.log(date1.getDate(),date1.getMonth(),date1.getFullYear(),date2.getDate(),date2.getMonth(),date2.getFullYear())
-    function hidden(){
+        function hidden(){
 if (json.hidden) {
 	return 'opacity: .3'
 }
@@ -1488,6 +1504,14 @@ if (json.hidden) {
     	visible = "forceVisible"
     }
     var out = "'out'"
+
+
+var date2 = new Date(json.time)
+    var month2 = formatter.format(date2);
+    var FDate = '' //month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
+    FDate = month2
+   // console.log(date1.getDate(),date1.getMonth(),date1.getFullYear(),date2.getDate(),date2.getMonth(),date2.getFullYear())
+
 if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
 	//console.log('close airdate')
 	if(dateDiffInDays(date2,date1) == 0){
@@ -1575,7 +1599,7 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
  //   wrapper.innerHTML = '<li  aired="' + json.time + '"  ShowName="' + json.show + '" class="initialized  '+con+' ' + json.type + '  ' + json.id + '" data-query="' + query + '"><div  class="piece fanart-container"><div class="image-crop sixteen-nine"url="'+json.href+'" autoplay="'+json.autoplay+'" onmouseover="playHover(this)" onmouseout="stopHover(this)">' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><video class="sixteen-nine" style="top:0px;" playsinline muted loop width="100%" height="100%"></video><\/span><div class="imageBG"><\/div><img     class="cover sixteen-nine lazy"   sizes="(max-width: 600px) 70vw, 25vw"  alt="' + json.show + '"   data-original="'+json.img +'" data-original-set="' + json.imgdyn + '" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div  class="w3-progress-container" style=""><div class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn " title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2 ><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)" show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><div class="cardBorder"></div><div class=><p>' + FDate + ' | ' + json.rating + ' | ' + timeofPlayback + ' | ' + json.epiformat + '<\/p><\/div><i style="opacity:' + showCheck() + ';color:rgb(127, 218, 99);"class="visited fa fa-check" aria-hidden="true"><\/i><\/div><div class="bottom"><div class="bar"><\/div><div class="bar"><\/div><div class="bar"><\/div><\/div><\/div><\/li>'
      
   }
-
+sortTV()
   document.getElementById('watching').innerHTML += watching;
   if(template.join('') == ''){
   	document.getElementById('newepisodes').innerHTML = ''
