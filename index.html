@@ -500,12 +500,13 @@ lesshat-selector {
 }
 }
 .sectionHead {
-      margin: 10px 0 -6px 0px;
     font-size: 17px;
     font-family: Graphik;
-    font-weight: bold;
-    font-weight: 800;
-        letter-spacing: -.2px;
+            font-weight: normal;
+                font-family: Graphik-Bold;
+                        letter-spacing: -.2px;
+    text-align: center;
+        margin: 0px 0 5px 0px;
 }
 body {
   overflow-y: scroll;
@@ -641,6 +642,16 @@ box-sizing:border-box;
     transform: scale(1.02);
 }
 @media(max-width: 800px ){
+
+  .show_episodes {
+
+padding: 9px;
+  }
+
+.show_episodes .episode{
+  margin:0;
+      margin-bottom: 20px;
+}
   .show{
     width: 208px;
     height: 117px;
@@ -660,6 +671,7 @@ box-sizing:border-box;
     display: inline-block;
     margin-bottom: 15px;
     padding: 1px;
+
 }
 }
  .progCont {
@@ -832,7 +844,7 @@ width:100%;
     position: relative;
       border-radius:10px;
           display: inline-block;
-    margin: 8px;
+          padding: 0px 13px 6px 13px;
   
 }
 .showBG {
