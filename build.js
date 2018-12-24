@@ -395,7 +395,6 @@ var doc = document.documentElement;
 // || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000
 if(entries[i].isIntersecting && entries[i].intersectionRatio > 0){
 //	console.log(entries[i])
-		io.unobserve(entries[i].target);
 
 	//requestAnimationFrame(function(time){
 	//	console.log(time)
@@ -410,6 +409,7 @@ entries[i].target.src =  entries[i].target.getAttribute('data-original');
 
 
 	//})
+		io.unobserve(entries[i].target);
 
 
 }
@@ -915,7 +915,10 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
   `;
 
   if(upnextshows[q].latestWSesN != null){
-  scrollShows(`#season${upnextshows[q].latestWSesN}`)
+ // scrollShows(`#season${upnextshows[q].latestWSesN}`)
+  	console.log(document.getElementById(`#season${upnextshows[q].latestWSesN}`))
+  	document.getElementById(`#season${upnextshows[q].latestWSesN}`).scrollIntoView()
+
 }else{
 
 	document.getElementById(encodeURIComponent(q)).scrollIntoView()
@@ -923,8 +926,10 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
 }
 
 refreshContinueWatching()
-
-  lazyLoadNew()
+setTimeout(function(){
+lazyLoadNew()
+},0)
+  
 
   return;
   document.getElementById('search').value = q
