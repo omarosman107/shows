@@ -1350,11 +1350,12 @@ showContButton = `  <a href="play.html?${(upnextshows[showDetail[i].name].upNext
   </div>
   <div style="    background-repeat: no-repeat;
   
-    background-image: url(${showDetail[i].bg});" class="showBG"></div>
+    background-image:linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent), url(${showDetail[i].bg});" class="showBG"></div>
   ${showContButton}
   <div class="showDetails">
     <span>2018 <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
-    <span class="genre">${showDetail[i].genre}</span></div></div>`
+    <span class="genre">${showDetail[i].genre.split('•').join(' <span class="dot">•</span> ')}</span></div>
+    </div>`
 
   }
 }

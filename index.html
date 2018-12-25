@@ -38,6 +38,9 @@
 
 <metas http-equiv="refresh" content="0; URL='https://www.yidio.com/'" />
   <style type="text/css">
+  .dot{
+    color: #fbff00;
+      }
   .prog_done {
     background-color: #18c863 !important;
   }
@@ -847,6 +850,20 @@ width:100%;
           padding: 0px 13px 6px 13px;
   
 }
+.showOverlay {
+      z-index: 20;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    letter-spacing: 0;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    -webkit-transition: all .23s ease-out;
+    transition: all .23s ease-out;
+    background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
+}
 .showBG {
     width: 100%;
   height:100%;
@@ -856,6 +873,8 @@ width:100%;
 }
 .showDiv .genre{
   display:block;
+
+    color: white;
 }
 .showLogo {
 position:absolute;
@@ -866,8 +885,8 @@ position:absolute;
 position:absolute;
   bottom:0px;
   padding:15px;
-    color: #dedede;
-  line-height:-1.8px
+color: #e2e2e2e8;;
+z-index: 21;
 }
 .rating {
     background: #736868ba;
