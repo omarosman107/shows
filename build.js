@@ -1344,17 +1344,18 @@ showContButton = `  <a href="play.html?${(upnextshows[showDetail[i].name].upNext
         right: 14px;" class="continueFromShow">	
 </i></a>`
 }
+console.log(showDetail[i].genre)
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div class="showLogo">
     <img width="100%" src="${showDetail[i].logo}">
   </div>
   <div style="    background-repeat: no-repeat;
   
-    background-image:linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent), url(${showDetail[i].bg});" class="showBG"></div>
+    background-image:linear-gradient(90deg,rgba(0, 0, 0, 0.57) 36%,transparent), url(${showDetail[i].bg});" class="showBG"></div>
   ${showContButton}
   <div class="showDetails">
     <span>2018 <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
-    <span class="genre">${showDetail[i].genre.split('•').join(' <span class="dot">•</span> ')}</span></div>
+    <span class="genre">${showDetail[i].genre.join(' <span class="dot">•</span> ')}</span></div>
     </div>`
 
   }
@@ -1734,7 +1735,7 @@ showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
-showDetail[data.videos[i].series_name] = {name:data.videos[i].series_name,rating:data.videos[i].rating,logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:data.videos[i].comscore_genre,year:moment(airdate).year()}
+showDetail[data.videos[i].series_name] = {name:data.videos[i].series_name,rating:data.videos[i].rating,logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:[data.videos[i].comscore_genre],year:moment(airdate).year()}
 if(data.videos[i].share_url == 'http://cwtv.com/shows/arrow/crisis-on-earth-x-part-2/?play=558f75d6-f35b-4eab-9bb7-34ade42bec3f'){
 	airdate = '2017-11-27'
 }
@@ -1874,6 +1875,7 @@ fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,typ
 })
 }
 var nbcStLogo = []
+var nbcGenres = []
 function nbc(show){
 	var nbcshows = {}
 	loaders()
@@ -1899,11 +1901,16 @@ if(shows.data[i].attributes.shortTitle.toLowerCase().includes(show)){
 			fetch('https://api.nbc.com/v3.14/images/'+shows.data[i].relationships.logo.data.id).then(function(res){return res.json();}).then(function(img){
 				// console.log(img.data[0].attributes.shortTitle,img.included[0].attributes.path)
 				console.log(show)
-				showDetail[nbcStLogo[img.data.id]] = {name:nbcStLogo[img.data.id],logo:'https://img.nbc.com/'+ img.data.attributes.path}
+				showDetail[nbcStLogo[img.data.id]] = {name:nbcStLogo[img.data.id],
+					logo:'https://img.nbc.com/'+ img.data.attributes.path,
+					genre:[nbcGenres[nbcStLogo[img.data.id]]]
+
+				}
 
 				showLogos[nbcStLogo[img.data.id]] = 'https://img.nbc.com/'+ img.data.attributes.path
 			})
 		}
+		nbcGenres[shows.data[i].attributes.shortTitle] = shows.data[i].attributes.genre 
 			var genre = shows.data[i].attributes.genre
 			if(genre == 'News and Information' || genre == 'Reality' || genre == 'Family and Kids' || genre == null || genre == 'LateNight' || genre == 'Lifestyle and Fashion' || genre == 'Special'){
 				continue;
@@ -2211,7 +2218,7 @@ try{
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
 	}
 	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
-showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.season_keyart.FHD,genre:fullEpisodes.member[i].genres.join(' • '),year:fullEpisodes.member[i].releaseYear}
+showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.season_keyart.FHD,genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
 
 	// rating(fullEpisodes.member[i].contentRating)
 	var this_episode = {
