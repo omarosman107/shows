@@ -435,7 +435,7 @@ p {
 
 
 .fanarts-list {
-    letter-spacing: -1px;
+    letter-spacing: -.5px;
     box-sizing: border-box;
 
 }

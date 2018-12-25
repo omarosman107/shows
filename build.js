@@ -1345,9 +1345,14 @@ showContButton = `  <a href="play.html?${(upnextshows[showDetail[i].name].upNext
 </i></a>`
 }
 console.log(showDetail[i].genre)
+var logo = `<img width="100%" src="${showDetail[i].logo}">
+`
+if(i == 'Heroes'){
+	logo = `<span>${i}</span>`
+}
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div class="showLogo">
-    <img width="100%" src="${showDetail[i].logo}">
+${logo}
   </div>
   <div style="    background-repeat: no-repeat;
   
