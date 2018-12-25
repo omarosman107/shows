@@ -1487,7 +1487,7 @@ extraStyles += `       transform: translate(8%,-29%);
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay" style="opacity: 1;
-    background: linear-gradient(90deg,rgba(0, 0, 0, 0.42) 0,transparent);"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-play playbutton"></i></a></div>
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0.42) 0,transparent);"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-forward playbutton"></i></a></div>
       </div>
       <h2 class="watchingTitle" style="">
 <a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">"${json.episode}"</a></h2>
