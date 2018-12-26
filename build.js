@@ -2223,7 +2223,7 @@ try{
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
 	}
 	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
-showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.season_keyart.FHD,genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
+showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.seriesStill.FHD,genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
 
 	// rating(fullEpisodes.member[i].contentRating)
 	var this_episode = {
