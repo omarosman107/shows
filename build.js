@@ -1353,6 +1353,7 @@ if(i == 'The Blacklist'){
 if(i == 'Heroes'){
 	logo = `<span>${i}</span>`
 }
+
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div class="showLogo">
 ${logo}
@@ -1743,7 +1744,15 @@ showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-
       showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
-showDetail[data.videos[i].series_name] = {name:data.videos[i].series_name,rating:data.videos[i].rating,logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:[data.videos[i].comscore_genre],year:moment(airdate).year()}
+showDetail[data.videos[i].series_name] = {
+	name:data.videos[i].series_name,
+	rating:data.videos[i].rating,
+	logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",
+	bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:[data.videos[i].comscore_genre],
+	year:moment(airdate).year()}
+
+	// stacked
+	// horz
 if(data.videos[i].share_url == 'http://cwtv.com/shows/arrow/crisis-on-earth-x-part-2/?play=558f75d6-f35b-4eab-9bb7-34ade42bec3f'){
 	airdate = '2017-11-27'
 }
