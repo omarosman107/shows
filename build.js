@@ -1360,7 +1360,7 @@ var bgstyle = ''
 var gradient = 'linear-gradient(90deg,rgba(0, 0, 0, 0.57) 36%,transparent),'
 if('align' in showDetail[i]){
 	bgstyle = showDetail[i].align
-	gradient = 'linear-gradient(90deg,rgba(0, 0, 0, 0.94) 40%,transparent), '
+	gradient = 'linear-gradient(90deg,rgba(0, 0, 0) 29%,transparent), '
 }
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div style="${showlogodiv}" class="showLogo">
