@@ -1365,7 +1365,7 @@ ${logo}
     background-image:linear-gradient(90deg,rgba(0, 0, 0, 0.57) 36%,transparent), url(${showDetail[i].bg});" class="showBG"></div>
   ${showContButton}
   <div class="showDetails">
-    <span>2018 <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
+    <span>${showDetail[i].year} <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
     <span class="genre">${showDetail[i].genre.join(' <span class="dot">•</span> ')}</span></div>
     </div>`
 
@@ -1866,6 +1866,8 @@ fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,typ
 					//	 695 1278 660 675
 					      var dyn =  nbcimg('')+' 1920w, ' +nbcimg(1278)+' 1278w, ' + nbcimg(695)+' 695w, ' +nbcimg(675)+' 675w, '+nbcimg(660)+' 660w, '  +nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
+showDetail[episode.data[z].attributes.categories[0].split('/')[1]].year = moment(new Date(episode.data[z].attributes.airdate)).year()
+
 // showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 // console.log(episode.included[z].attributes.path)
 					      var episodes = {
@@ -1997,7 +1999,7 @@ console.log(shows.data[i].relationships.logo,shows.included[i].attributes)
 						 }
 					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
-
+showDetail[episode.data[z].attributes.categories[0].split('/')[1]].year = moment(new Date(episode.data[z].attributes.airdate)).year()
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 					      var episodes = {
         img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
@@ -2263,7 +2265,9 @@ try{
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
 	}
 	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
-showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.seriesStill.FHD,genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
+showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,
+	logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.seriesStill.FHD,
+	genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
 
 	// rating(fullEpisodes.member[i].contentRating)
 	var this_episode = {
