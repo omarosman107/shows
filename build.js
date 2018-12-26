@@ -1356,13 +1356,19 @@ if(i == 'Heroes' || showDetail[i].logo == ''){
 showlogodiv = ' line-height: 1;width:unset;'
 }
 
+var bgstyle = ''
+var gradient = 'linear-gradient(90deg,rgba(0, 0, 0, 0.57) 36%,transparent),'
+if('align' in showDetail[i]){
+	bgstyle = showDetail[i].align
+	gradient = 'linear-gradient(90deg,rgba(0, 0, 0, 0.94) 40%,transparent), '
+}
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div style="${showlogodiv}" class="showLogo">
 ${logo}
   </div>
-  <div style="    background-repeat: no-repeat;
+  <div style="  ${bgstyle}  background-repeat: no-repeat;
   
-    background-image:linear-gradient(90deg,rgba(0, 0, 0, 0.57) 36%,transparent), url(${showDetail[i].bg});" class="showBG"></div>
+    background-image:${gradient} url(${showDetail[i].bg});" class="showBG"></div>
   ${showContButton}
   <div class="showDetails">
     <span>${showDetail[i].year} <span class="rating">${showDetail[i].rating.toUpperCase()}</span> <span class="ShowSeasons">${sznNum}</span></span>
@@ -1751,7 +1757,9 @@ showDetail[data.videos[i].series_name] = {
 	rating:data.videos[i].rating,
 	logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",
 	bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:[data.videos[i].comscore_genre],
-	year:moment(airdate).year()}
+	year:moment(airdate).year(),
+	align:'background-position: right;    background-size: contain;'
+}
 
 	// stacked
 	// horz
@@ -1843,7 +1851,7 @@ function nbcloadnext(url){
 
 //console.log(url)
 loaders()
-fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,description,airdate,images,categories').then(function(res){return res.json();}).then(function(episode){
+fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,vChipRating,description,airdate,images,categories').then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
 				//	console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -1867,6 +1875,7 @@ fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,typ
 					      var dyn =  nbcimg('')+' 1920w, ' +nbcimg(1278)+' 1278w, ' + nbcimg(695)+' 695w, ' +nbcimg(675)+' 675w, '+nbcimg(660)+' 660w, '  +nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showDetail[episode.data[z].attributes.categories[0].split('/')[1]].year = moment(new Date(episode.data[z].attributes.airdate)).year()
+showDetail[episode.data[z].attributes.categories[0].split('/')[1]].rating = episode.data[z].attributes.vChipRating
 
 // showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 // console.log(episode.included[z].attributes.path)
@@ -1978,7 +1987,7 @@ console.log(shows.data[i].relationships.logo,shows.included[i].attributes)
 //https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50
 
 
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -2000,6 +2009,7 @@ console.log(shows.data[i].relationships.logo,shows.included[i].attributes)
 					      var dyn =  nbcimg(1920)+' 1920w, ' +nbcimg(990) + " 990w  ,"+ nbcimg(682)+' 682w, '+nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
       tvlist(episode.data[z].attributes.categories[0].split('/')[1],nbcshows[episode.data[z].relationships.show.data.id],'nbc')
 showDetail[episode.data[z].attributes.categories[0].split('/')[1]].year = moment(new Date(episode.data[z].attributes.airdate)).year()
+showDetail[episode.data[z].attributes.categories[0].split('/')[1]].rating = episode.data[z].attributes.vChipRating
 showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcshows[episode.data[z].relationships.show.data.id]
 					      var episodes = {
         img: 'https://img.nbc.com/'+episode.included[z].attributes.path,
