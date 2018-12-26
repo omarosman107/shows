@@ -1347,15 +1347,17 @@ showContButton = `  <a href="play.html?${(upnextshows[showDetail[i].name].upNext
 console.log(showDetail[i].genre)
 var logo = `<img width="100%" src="${showDetail[i].logo}">
 `
+var showlogodiv = ''
 if(i == 'The Blacklist'){
 	logo = `<img width="100%" style="margin-top: -25%;" src="${showDetail[i].logo}">`
 }
-if(i == 'Heroes'){
+if(i == 'Heroes' || showDetail[i].logo == ''){
 	logo = `<span>${i}</span>`
+showlogodiv = ' line-height: 1;width:unset;'
 }
 
  document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
-  <div class="showLogo">
+  <div style="${showlogodiv}" class="showLogo">
 ${logo}
   </div>
   <div style="    background-repeat: no-repeat;
@@ -1909,12 +1911,9 @@ function nbc(show){
 		for (var i = shows.data.length - 1; i >= 0; i--) {
 			var showId = shows.data[i].id
 			if(show){
-if(shows.data[i].attributes.shortTitle.toLowerCase().includes(show)){
-
-}else{
-	if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
-				 continue;
-			}
+				// console.log(show)
+if(!shows.data[i].attributes.shortTitle.toLowerCase().includes(show)){
+continue;
 }
 			}else{
 		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
@@ -1925,8 +1924,13 @@ if(shows.data[i].attributes.shortTitle.toLowerCase().includes(show)){
 	
 console.log(nbcIncludes)
 console.log(nbcIncludes[nbcIncludes[shows.data[i].relationships.iosProperties.data.id].relationships.compactImage.data.id])
+var logo = ''
+if('logo' in shows.data[i].relationships && !nbcIncludes[shows.data[i].relationships.logo.data.id].includes('logo-share')){
+	logo =  nbcIncludes[shows.data[i].relationships.logo.data.id];
+}
+
 showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes.shortTitle,
-					logo:nbcIncludes[shows.data[i].relationships.logo.data.id],
+					logo:logo,
 					genre:[shows.data[i].attributes.genre],
 					bg:nbcIncludes[nbcIncludes[shows.data[i].relationships.iosProperties.data.id].relationships.compactImage.data.id]
 				}
