@@ -795,7 +795,7 @@ function fetchnbcjson(value) {
   
 
 fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=script').then(function(res){return res.json()}).then(function(meta){
-   if(meta['nbcu$entitlement'] == "free"){
+   if(window.location.protocol == 'https:' && !isMobile){
  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=smil&manifest=m3u').then(function(res){return res.text();}).then(function(smil){
 
          parser = new DOMParser();
@@ -835,7 +835,7 @@ var description =  (meta['description'])
 eachCount = (preview.endTime / preview.imageCount / 1000)
    for (i = 0; i <  preview.thumbnails.length; i++) {
       vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
-            console.log((i*eachCount))
+    //        console.log((i*eachCount))
 
    }
    console.log(vidPreview)
