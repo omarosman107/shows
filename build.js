@@ -1298,7 +1298,27 @@ episodes[i].end = episodes[i].length - endTime
 		upnextshows[episodes[i].show].latestWSesN = episodes[i].seasonNumber
 		
 	}
-	if (upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && Number(episodes[i].seasonNumber) == upnextshows[episodes[i].show].latestWSesN && upnextshows[episodes[i].show].latestWNum != null) {
+	var seasonFirst = false
+	if(episodes[i].seasonNumber != 1 && episodes[i].seasonNumber > 1 && upnextshows[episodes[i].show].seasons != {}){
+		try{
+			if(Object.keys(upnextshows[episodes[i].show].seasons).length != 1 ){
+		
+			console.log(Object.keys(upnextshows[episodes[i].show].seasons).length,(upnextshows[episodes[i].show].seasons))
+			console.log(upnextshows[episodes[i].show])
+	var seasonLengthPrev = Object.keys(upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1]).length
+	var lastSeasonLastEpisode = upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1][seasonLengthPrev - 1 ]
+	if(lastSeasonLastEpisode.done && episodes[i].episodeNumber == 1){
+		seasonFirst = true
+	}
+
+			}
+
+}catch(e){
+	console.log(e)
+}
+	}
+
+	if (seasonFirst || upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && Number(episodes[i].seasonNumber) == upnextshows[episodes[i].show].latestWSesN && upnextshows[episodes[i].show].latestWNum != null) {
 		console.log(episodes[i])
 		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].upNextNum =  episodes[i].episodeNumber
