@@ -1869,7 +1869,7 @@ fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,typ
 						`https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=480&imdensity=1 480w,
 						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=340&imdensity=1 340w,
 						 https://img.nbc.com/sites/nbcunbc/files/files/images/2018/7/02/180611_3743190_Genesis.jpg?impolicy=nbc_com&imwidth=170&imdensity=1 170w`
-						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'')
+						return ('https://img.nbc.com'+episode.included[z].attributes.path+'?impolicy=nbc_com&imwidth='+res+'&imdensity=1')
 						 }
 					//	 695 1278 660 675
 					      var dyn =  nbcimg('')+' 1920w, ' +nbcimg(1278)+' 1278w, ' + nbcimg(695)+' 695w, ' +nbcimg(675)+' 675w, '+nbcimg(660)+' 660w, '  +nbcimg(480)+' 480w, ' +  nbcimg(340) + ' 340w, ' +  nbcimg(170) + ' 170w '
