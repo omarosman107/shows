@@ -352,9 +352,16 @@ return;
            //    console.log(showJson[i])
                if (showJson[i].episode == currentEpisode.episode ) {
 
-                  if (i+1 - showJson.length - 1 == -1 ) {console.log('no episode newer');return;}
+                  if (i+1 - showJson.length - 1 == -1 ) {
+                     console.log('no episode newer in season');
+console.log(JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0])
+next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0]
 
-               next = showJson[i+1]
+
+                  }else{
+                                    next = showJson[i+1]
+
+                  }
                console.log(next)
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
                document.querySelector('.episode').innerHTML = next.episode + ' ' + next.epiformat
