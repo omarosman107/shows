@@ -854,11 +854,15 @@ var sznLI = ''
 var perc = 0 
 for(i in upnextshows[q].seasons){
 	console.log(upnextshows[q].seasons[i],i)
-
+var horzScroll = ''
+if(Object.keys(upnextshows[q].seasons).length != 1){
+horzScroll = 'shows dragscroll'
+}
 
 	sznLI += `<a onclick="scrollShows('#season${i}')" href="#season${i}"><li  style="width:calc(100% / ${ObjectLength(upnextshows[q].seasons)})">Season ${i}</li></a>`
+
 episodes += `<div style="font-size: x-large;
-    padding: 8px;" id="#season${i}">Season ${i}</div>`
+    padding: 8px;" id="#season${i}">Season ${i}</div><div class="seasonGrouped ${horzScroll}">`
 for(z in upnextshows[q].seasons[i]){
 	console.log(upnextshows[q].seasons[i][z])
 	if(!upnextshows[q].seasons[i][z].episode.toLowerCase().includes('part') && upnextshows[q].seasons[i][z].episode.includes(': ') && q != 'The Blacklist'){
@@ -896,7 +900,7 @@ data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnexts
 </a>
 </div>`
 }
-
+episodes += '</div>'
 }
 
 var showDIV = q
@@ -927,7 +931,7 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
 	document.getElementById(encodeURIComponent(q)).scrollIntoView()
 
 }
-
+dragscroll.reset()
 refreshContinueWatching()
 setTimeout(function(){
 lazyLoadNew()
