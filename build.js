@@ -1967,7 +1967,7 @@ if('logo' in shows.data[i].relationships && !nbcIncludes[shows.data[i].relations
 showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes.shortTitle,
 					logo:logo,
 					genre:[shows.data[i].attributes.genre],
-					bg:nbcIncludes[nbcIncludes[shows.data[i].relationships.iosProperties.data.id].relationships.compactImage.data.id]
+					bg:nbcIncludes[nbcIncludes[shows.data[i].relationships.iosProperties.data.id].relationships.compactImage.data.id] +'?impolicy=nbc_com&imwidth=990&imdensity=1'
 				}
 
 
@@ -2300,7 +2300,7 @@ try{
 	}
 	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
 showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,
-	logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.seriesStill.FHD,
+	logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.seriesStill.FHD.split('?')[0]+'?fit=inside%7C720:405',
 	genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
 
 	// rating(fullEpisodes.member[i].contentRating)
