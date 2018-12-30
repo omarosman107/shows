@@ -2298,10 +2298,17 @@ try{
 
 		fullEpisodes.member[i]['autoPlayVideo'] = {"default":{"url":""}}
 	}
+	var showYear = ''
+	if('releaseYear' in fullEpisodes.member[i]){
+		showYear = fullEpisodes.member[i].releaseYear
+	}else{
+		showYear = moment(date).year()
+
+	}
 	showLogos[fullEpisodes.member[i].seriesName] = fullEpisodes.member[i].images.logoCenter.FHD
 showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].seriesName,rating:fullEpisodes.member[i].contentRating,
 	logo:fullEpisodes.member[i].images.logoCenter.FHD,bg:fullEpisodes.member[i].images.seriesStill.FHD.split('?')[0]+'?fit=inside%7C720:405',
-	genre:fullEpisodes.member[i].genres,year:fullEpisodes.member[i].releaseYear}
+	genre:fullEpisodes.member[i].genres,year:showYear}
 
 	// rating(fullEpisodes.member[i].contentRating)
 	var this_episode = {
