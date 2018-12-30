@@ -252,6 +252,8 @@ function fmtMSS(s) {
 
 
 function playNext(){
+   clearInterval(interval)
+
 document.querySelector('.upnext').style.display = 'none';
 console.log(next)
 window.history.replaceState('Object', 'Title', '?'+next.link);
