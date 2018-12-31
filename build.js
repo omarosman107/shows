@@ -1379,7 +1379,8 @@ var showlogodiv = ''
 if(i == 'The Blacklist'){
 	logo = `<img width="100%" style="margin-top: -25%;" src="${showDetail[i].logo}">`
 }
-if(i == 'Heroes' || showDetail[i].logo == ''){
+// i == 'Heroes' ||
+if( showDetail[i].logo == ''){
 	logo = `<span>${i}</span>`
 showlogodiv = ' line-height: 1;width:unset;'
 }
@@ -1496,10 +1497,10 @@ if(!json.episode.toLowerCase().includes('part') && json.episode.includes(': ') &
 json.episode = splittedName.join(': ')
 }
  var topShow = json.show
-
- if(showLogos[json.show] && json.show != 'Heroes'){
+// && json.show != 'Heroes'
+ if(showLogos[json.show]  && json.show != "Bob's Burgers"){
  	var extraStyles = ''
- 	if(json.type == 'nbc'){
+ 	if(json.show == 'The Blacklist'){
 extraStyles += `       transform: translate(8%,-29%);
     margin: -6px;`
  	}
@@ -1967,12 +1968,15 @@ var logo = ''
 if('logo' in shows.data[i].relationships && !nbcIncludes[shows.data[i].relationships.logo.data.id].includes('logo-share')){
 	logo =  nbcIncludes[shows.data[i].relationships.logo.data.id];
 }
-
+if(shows.data[i].attributes.shortTitle == 'Heroes'){
+	logo = 'showMetadata/heroes/Heroes.logo.png'
+}
 showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes.shortTitle,
 					logo:logo,
 					genre:[shows.data[i].attributes.genre],
 					bg:nbcIncludes[nbcIncludes[shows.data[i].relationships.iosProperties.data.id].relationships.compactImage.data.id] +'?impolicy=nbc_com&imwidth=990&imdensity=1'
 				}
+				showLogos[shows.data[i].attributes.shortTitle] = logo
 
 
 			if(shows.data[i].relationships.logo != null){
