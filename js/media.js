@@ -257,6 +257,8 @@ function playNext(){
 document.querySelector('.upnext').style.display = 'none';
 console.log(next)
 window.history.replaceState('Object', 'Title', '?'+next.link);
+window.location.reload();
+return;
 findName(next.link)
 
 }
