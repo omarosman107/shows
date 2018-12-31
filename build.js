@@ -1341,7 +1341,7 @@ episodes[i].end = episodes[i].length - endTime
 if (upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] == undefined) {
 upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 }
-	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,airdate:episodes[i].time,original:episodes[i],percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
+	upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber].push({episode:episodes[i].episode,thisEpisodeCount:upnextshows[episodes[i].show].totalEpisodes,airdate:episodes[i].time,original:episodes[i],percentageDone:(tempLS['?'+episodes[i].href]/episodes[i].length )*100,length:episodes[i].length,description:episodes[i].description,img:episodes[i].img,srcset:episodes[i].imgdyn,epiformat:episodes[i].epiformat,episode_number:episodes[i].episodeNumber,season_number:episodes[i].seasonNumber,done:done,link:episodes[i].href})
 
 
 }
@@ -1523,7 +1523,16 @@ extraStyles += `       transform: translate(8%,-29%);
  if(Math.round((json.length - tempLS["?" + json.href]) / 60) == 0){
  	Timeleft = 'almost done'
  }
+var episodes_left = ''
+for(p in upnextshows[json.show].seasons[json.seasonNumber]){
+	//console.log(upnextshows[json.show].seasons[json.seasonNumber][p].link,json.href)
+	if(upnextshows[json.show].seasons[json.seasonNumber][p].link == json.href){
+if(upnextshows[json.show].totalEpisodes - upnextshows[json.show].seasons[json.seasonNumber][p].thisEpisodeCount > 0){
+episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.show].seasons[json.seasonNumber][p].thisEpisodeCount)
+}
 
+	}
+}
         watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}"  class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="play.html?${json.href}">
@@ -1532,6 +1541,7 @@ extraStyles += `       transform: translate(8%,-29%);
          <span class="continShow">${topShow}</span>
          <span class="timeRemaining
              ">${Timeleft}</span>
+             <span class="episodes_left">${episodes_left}</span>
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay" style="opacity: 1;
