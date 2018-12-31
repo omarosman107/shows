@@ -261,7 +261,7 @@ db_playbackData()
 
 //window.location.reload();
 //return;
-
+played = 0
 findName(next.link)
 
 }
