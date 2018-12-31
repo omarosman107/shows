@@ -57,11 +57,11 @@ db.settings({
 });
 
 
-
-
+var fireBaseCollection = null
+function db_playbackData(){
 if(localStorage['USER_TOKEN']){
   console.log('locally saved user token found')
-var fireBaseCollection = db.collection(localStorage['USER_TOKEN']).doc(encodeURIComponent(btoa(window.location.search)));
+ fireBaseCollection = db.collection(localStorage['USER_TOKEN']).doc(encodeURIComponent(btoa(window.location.search)));
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {
@@ -80,8 +80,8 @@ fireBaseCollection.get().then(function(doc) {
  
 
 }
-
-
+}
+db_playbackData()
 
 
 
@@ -257,8 +257,11 @@ function playNext(){
 document.querySelector('.upnext').style.display = 'none';
 console.log(next)
 window.history.replaceState('Object', 'Title', '?'+next.link);
-window.location.reload();
-return;
+db_playbackData()
+
+//window.location.reload();
+//return;
+
 findName(next.link)
 
 }
