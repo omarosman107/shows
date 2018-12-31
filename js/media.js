@@ -261,13 +261,30 @@ db_playbackData()
 
 //window.location.reload();
 //return;
-played = 0
+called_autoplay = false;
+played = 0;
 findName(next.link)
 
 }
 var interval
 var finishDur
 var sentPlaybackData
+var called_autoplay = false
+function autoplay_next(){
+   if(!called_autoplay){
+for(var i = 10; i > 0; i--){
+   console.log(i)
+   setTimeout(function(a){
+   document.getElementById('timerAutoplay').innerHTML = 10 - a
+}.bind(null,i),Number(i*1000) )
+}
+
+   setTimeout(function(){
+document.getElementById('playNextEpisode').click();
+   },10000)
+   called_autoplay = true
+}
+}
 function resume() {
 
 
@@ -373,6 +390,7 @@ next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[current
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
                document.querySelector('.episode').innerHTML = next.episode + ' ' + next.epiformat
                document.querySelector('.upnext').style.display = 'block';
+               autoplay_next();
 
                }
             }
