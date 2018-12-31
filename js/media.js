@@ -836,12 +836,17 @@ var description =  (meta['description'])
       showdesc.innerHTML = description;
       document.title =  meta['nbcu$seriesShortTitle'] + ' - ' + episode_title;
       document.getElementById('epname').innerHTML = episode_title;
+if(meta['nbcu$seriesShortTitle'] == 'Heroes'){
+             document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;" src="showMetadata/heroes/Heroes.logo.png" width="100%">'
 
+}else{
    fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
       fetch('https://api.nbc.com/v3.14/images/'+showapi.data["0"].relationships.logo.data.id).then(function(res){return res.json()}).then(function(image){
+          
           document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;margin-top: -50%;margin-bottom: 2%;margin-left: -4%;" src="'+'https://img.nbc.com/'+image.data.attributes.path+'" width="100%">'
       })
    })
+}
          console.log(meta.defaultThumbnailUrl.replace('.jpg','_1200.fs'))
         
    fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
