@@ -272,16 +272,15 @@ var sentPlaybackData
 var called_autoplay = false
 function autoplay_next(){
    if(!called_autoplay){
-for(var i = 10; i > 0; i--){
-   console.log(i)
+for(var i = 21; i > 0; i--){
    setTimeout(function(a){
-   document.getElementById('timerAutoplay').innerHTML = 10 - a
+   document.getElementById('timerAutoplay').innerHTML = 20 - a
 }.bind(null,i),Number(i*1000) )
 }
 
    setTimeout(function(){
 document.getElementById('playNextEpisode').click();
-   },10000)
+   },20000)
    called_autoplay = true
 }
 }
