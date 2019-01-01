@@ -348,14 +348,8 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
       var played = true;
       endTime();
 
-
-  interval = setInterval(function () {
-         endTime();
-         if('playlist' in player){
-if(player.playlist.currentItem() == 0){ return;}
-
-         }
-         localStorage[window.location.search] = player.currentTime();
+setInterval(function(){
+       localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
@@ -365,8 +359,16 @@ console.log(playbackStats)
 sentPlaybackData = playbackStats
 fireBaseCollection.set(playbackStats)
 }
+},5000)
 
-         if (player.duration() - player.currentTime() < player.duration() - finishDur) {
+
+  interval = setInterval(function () {
+         endTime();
+         if('playlist' in player){
+if(player.playlist.currentItem() == 0){ return;}
+
+         }
+ if (player.duration() - player.currentTime() < player.duration() - finishDur) {
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
   }
@@ -377,7 +379,7 @@ return;
 
                   if (i+1 - showJson.length - 1 == -1 ) {
                      console.log('no episode newer in season');
-console.log(JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0])
+//console.log(JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0])
 next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0]
 
 
@@ -385,7 +387,7 @@ next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[current
                                     next = showJson[i+1]
 
                   }
-               console.log(next)
+           //    console.log(next)
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
                document.querySelector('.episode').innerHTML = next.episode + ' ' + next.epiformat
                document.querySelector('.upnext').style.display = 'block';
@@ -395,7 +397,7 @@ next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[current
             }
          }
        
-      }, 2000);
+      }, 100);
 
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
