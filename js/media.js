@@ -293,7 +293,7 @@ function sendPlaybackInfo(){
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
  
-if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats)){
+if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) && sentPlaybackData.current - playbackStats.current > 1){
 console.log(playbackStats)
 sentPlaybackData = playbackStats
 fireBaseCollection.set(playbackStats)
