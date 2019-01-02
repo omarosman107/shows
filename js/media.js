@@ -296,7 +296,9 @@ function sendPlaybackInfo(){
 if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) && sentPlaybackData.current - playbackStats.current > 1){
 console.log(playbackStats)
 sentPlaybackData = playbackStats
+if(fireBaseCollection){
 fireBaseCollection.set(playbackStats)
+}
 }
 }
 function completedEpisode(){
