@@ -293,8 +293,12 @@ function sendPlaybackInfo(){
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
  var diff = 0
- if('current' in sentPlaybackData){
+ if(sentPlaybackData  == undefined){
+ }else{
+   if('current' in sentPlaybackData){
 diff = playbackStats.current - sentPlaybackData.current  
+
+   }
  }
 if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) && diff > 1){
 console.log(playbackStats)
