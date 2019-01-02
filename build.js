@@ -2283,6 +2283,7 @@ loaders('remove')
 
 	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=contentRating,id,name,rating,genres,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,originalAirDate,hideVideo,releaseYear&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
+	fullEpisodes.member.reverse()
 for(i in fullEpisodes.member){
 
   // !json.member[i].requiresAuth &&
