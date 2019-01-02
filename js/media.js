@@ -380,10 +380,11 @@ return;
                if (showJson[i].episode == currentEpisode.episode ) {
 
                   if (i+1 - showJson.length - 1 == -1 ) {
-                     console.log('no episode newer in season');
+       //              console.log('no episode newer in season');
 //console.log(JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0])
+if(currentEpisode.season + 1 in JSON.parse(localStorage['showData'])[currentEpisode.show].seasons){
 next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0]
-
+}
 
                   }else{
                                     next = showJson[i+1]
@@ -1082,6 +1083,7 @@ document.getElementById('downloader').href = m3u8
     player.src({ "type": "application/x-mpegURL", "src": m3u8 });
         resume();
    // backupWay(url)
+   /*
 fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
    console.log(videoData)
  var vidPreview = {}
@@ -1108,7 +1110,7 @@ var img = new Image;
 
 
 })
-
+*/
 })
 }else{
  backupWay(url)
@@ -1393,7 +1395,7 @@ currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumbe
                data.materialIDs.push(data.guid)
             }
             console.log(data.materialIDs)
-            if("videoRelease" in data ){
+            if("SvideoRelease" in data ){
                if(data.videoRelease.releaseType == 'VOD'){
 play(data.videoRelease.url)
                }else{

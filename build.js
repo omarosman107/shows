@@ -1306,17 +1306,20 @@ episodes[i].end = episodes[i].length - endTime
 		
 	}
 	var seasonFirst = false
-	if(episodes[i].seasonNumber != 1 && episodes[i].seasonNumber > 1 && upnextshows[episodes[i].show].seasons != {}){
+	if(episodes[i].seasonNumber != 1 && episodes[i].seasonNumber > 1 && episodes[i].episodeNumber == 1 && upnextshows[episodes[i].show].seasons != {}){
 		try{
-			if(Object.keys(upnextshows[episodes[i].show].seasons).length != 1 && `${episodes[i].seasonNumber - 1}` in upnextshows[episodes[i].show].seasons ){
+			console.log(episodes[i])
+			console.log(Object.keys(upnextshows[episodes[i].show].seasons).length != 1 )
+if(''+(Number(episodes[i].seasonNumber) - 1)+'' in upnextshows[episodes[i].show].seasons ){
 		
-//			console.log(Object.keys(upnextshows[episodes[i].show].seasons).length,(upnextshows[episodes[i].show].seasons))
-//			console.log(upnextshows[episodes[i].show])
+			console.log(Object.keys(upnextshows[episodes[i].show].seasons).length,(upnextshows[episodes[i].show].seasons)[episodes[i].seasonNumber - 1])
+//			console.log(episodes[i])
 
 	var seasonLengthPrev = Object.keys(upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1]).length
 	var lastSeasonLastEpisode = upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1][seasonLengthPrev - 1 ]
 	if(lastSeasonLastEpisode.done && episodes[i].episodeNumber == 1){
 		seasonFirst = true
+		console.log(episodes[i])
 	}
 
 			}
@@ -1510,6 +1513,8 @@ extraStyles += `       transform: translate(8%,-29%);
         ${extraStyles}
 ">`
  }
+
+
     if ((tempLS["?" + json.href] > 10 && json.length - tempLS["?" + json.href] > 35 ) || (upnextshows[json.show].upNextNum ==  Number(json.epiformat.split('E')[1]) && upnextshows[json.show].upNextSeason == Number(json.epiformat.split('S')[1].split('E')[0]))  ) {
 
       //          <span class="episode-gradient"></span>
