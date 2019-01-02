@@ -253,7 +253,7 @@ function fmtMSS(s) {
 
 function playNext(){
    clearInterval(interval)
-
+clearInterval(trackData)
 document.querySelector('.upnext').style.display = 'none';
 console.log(next)
 window.history.replaceState('Object', 'Title', '?'+next.link);
@@ -267,6 +267,7 @@ findName(next.link)
 
 }
 var interval
+var trackData
 var finishDur
 var sentPlaybackData
 var called_autoplay = false
@@ -296,6 +297,7 @@ function resume() {
 //player.ga()
 // player.currentTime(getLastTime().start)
 clearInterval(interval)
+clearInterval(trackData)
    var vid = document.getElementById('LS_html5_api');
 
    var vid = document.getElementById(player.el().children[0].id);
@@ -348,7 +350,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
       var played = true;
       endTime();
 
-setInterval(function(){
+interval = setInterval(function(){
        localStorage[window.location.search] = player.currentTime();
             localStorage[window.location.search+'_duration'] = player.duration();
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
@@ -362,7 +364,7 @@ fireBaseCollection.set(playbackStats)
 },5000)
 
 
-  interval = setInterval(function () {
+ trackData = setInterval(function () {
          endTime();
          if('playlist' in player){
 if(player.playlist.currentItem() == 0){ return;}
@@ -1089,7 +1091,7 @@ function toPaddedHexString(num, len) {
     str = num.toString(16);
     return "0".repeat(len - str.length) + str.toUpperCase();
 }
-/*
+
    for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
     if(i % 3 == 0){
       //upl256
@@ -1103,7 +1105,7 @@ var img = new Image;
    }
    console.log(vidPreview)
    player.thumbnails(vidPreview);
-*/
+
 
 })
 
