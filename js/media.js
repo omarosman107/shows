@@ -103,6 +103,13 @@ player.on('dblclick', function() {
     player.requestFullscreen();
   }
 });
+document.getElementById('blockLoader').ondblclick = function(){
+    if (player.isFullscreen()) {
+    player.exitFullscreen();
+  } else {
+    player.requestFullscreen();
+  }
+}
 /*
 player.on('click', function() {
   if (player.paused()) {
@@ -293,14 +300,15 @@ function sendPlaybackInfo(){
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
  var diff = 0
- if(sentPlaybackData  == undefined){
+/* if(sentPlaybackData  == undefined){
  }else{
    if('current' in sentPlaybackData){
 diff = playbackStats.current - sentPlaybackData.current  
-
+console.log(diff)
    }
  }
-if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) && diff > 1){
+ */
+if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) ){
 console.log(playbackStats)
 sentPlaybackData = playbackStats
 if(fireBaseCollection){
