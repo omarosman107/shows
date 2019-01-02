@@ -292,8 +292,11 @@ function sendPlaybackInfo(){
             localStorage[window.location.search+'_duration'] = player.duration();
             var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
     //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
- 
-if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) && sentPlaybackData.current - playbackStats.current > 1){
+ var diff = 0
+ if('current' in sentPlaybackData){
+diff = playbackStats.current - sentPlaybackData.current  
+ }
+if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) && diff > 1){
 console.log(playbackStats)
 sentPlaybackData = playbackStats
 if(fireBaseCollection){
