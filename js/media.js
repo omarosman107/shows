@@ -271,6 +271,7 @@ var trackData
 var finishDur
 var sentPlaybackData
 var called_autoplay = false
+var episodeDone = false
 function autoplay_next(){
    if(!called_autoplay){
 for(var i = 21; i > 0; i--){
@@ -284,6 +285,25 @@ document.getElementById('playNextEpisode').click();
    },20000)
    called_autoplay = true
 }
+}
+
+function sendPlaybackInfo(){
+       localStorage[window.location.search] = player.currentTime();
+            localStorage[window.location.search+'_duration'] = player.duration();
+            var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
+    //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
+ 
+if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats)){
+console.log(playbackStats)
+sentPlaybackData = playbackStats
+fireBaseCollection.set(playbackStats)
+}
+}
+function completedEpisode(){
+   if(!episodeDone){
+      sendPlaybackInfo()
+      episodeDone = true
+   }
 }
 function resume() {
 
@@ -349,19 +369,9 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
   
       var played = true;
       endTime();
+      episodeDone = false
 
-interval = setInterval(function(){
-       localStorage[window.location.search] = player.currentTime();
-            localStorage[window.location.search+'_duration'] = player.duration();
-            var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
-    //        console.log(JSON.stringify(sentPlaybackData) == JSON.stringify(playbackStats))
- 
-if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats)){
-console.log(playbackStats)
-sentPlaybackData = playbackStats
-fireBaseCollection.set(playbackStats)
-}
-},5000)
+interval = setInterval(sendPlaybackInfo,5000)
 
 
  trackData = setInterval(function () {
@@ -371,9 +381,12 @@ if(player.playlist.currentItem() == 0){ return;}
 
          }
  if (player.duration() - player.currentTime() < player.duration() - finishDur) {
+   completedEpisode()
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
   }
+
+
             var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
             for (var i = showJson.length - 1; i >= 0; i--) {
            //    console.log(showJson[i])
@@ -405,9 +418,6 @@ next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[current
       document.body.onunload = function () {
          localStorage[window.location.search] = player.currentTime();
          localStorage[window.location.search+'_duration'] = player.duration();
-            var playbackStats = JSON.parse(`{"current":${player.currentTime()},"duration":${player.duration()}}`)
-console.log(playbackStats)
-fireBaseCollection.set(playbackStats)
 var showcaptions = false;
 
 if(!isMobile){
