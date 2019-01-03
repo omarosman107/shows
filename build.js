@@ -1227,7 +1227,7 @@ extraStyles += `       transform: translate(8%,-29%);
  	}
  	topShow = `<img src="${showLogos[episodeDIV.getAttribute('show')]}" width="" style="
     width: 6em;
-        filter: brightness(0) invert(1);
+      /*  filter: brightness(0) invert(1); */
         ${extraStyles}
 ">`
  }
@@ -1509,7 +1509,7 @@ extraStyles += `       transform: translate(8%,-29%);
  	}
  	topShow = `<img src="${showLogos[json.show]}" width="" style="
     width: 6em;
-        filter: brightness(0) invert(1);
+       /* filter: brightness(0) invert(1); */
         ${extraStyles}
 ">`
  }
