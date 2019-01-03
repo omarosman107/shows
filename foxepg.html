@@ -551,7 +551,7 @@ moreshows()
 
 })
     fetch('https://api.fox.com/fbc-content/v1_4/screens/live?dateRange=2018-01-01..2020-01-27&geoLatitude=42.7042484&geoLongitude=-84.5982427&premiumPackage=true',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
-      console.log(data.panels.member["0"].items.member)
+ //     console.log(data.panels.member["0"].items.member)
    data.panels.member["0"].items.member = data.panels.member["0"].items.member.reverse(); 
 try{
   document.querySelector('ul').innerHTML = ''
@@ -580,6 +580,7 @@ Playable = `<span class="expiring
   continue;
   data.panels.member["0"].items.member[i]['playerScreenUrl']=  'https://api.fox.com/fbc-content/v1_4/screens/live-player/5836e01e3f93d90001ab6614?epgListingId='+ data.panels.member["0"].items.member[i].id
 }
+if(data.panels.member["0"].items.member[i].network != 'fox'){continue;}
 
 
 var perc = ((((new Date()  - date) / (new Date(data.panels.member["0"].items.member[i].endDate) - new Date(data.panels.member["0"].items.member[i].startDate))) * 100) );
