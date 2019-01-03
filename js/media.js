@@ -387,7 +387,7 @@ if (!vid.canPlayType('application/vnd.apple.mpegURL')) {
       var played = true;
       endTime();
       episodeDone = false
-
+clearInterval(interval)
 interval = setInterval(sendPlaybackInfo,5000)
 
 
@@ -398,7 +398,7 @@ if(player.playlist.currentItem() == 0){ return;}
 
          }
  if (player.duration() - player.currentTime() < player.duration() - finishDur) {
-   completedEpisode()
+//   completedEpisode()
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
   }
