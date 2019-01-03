@@ -2434,7 +2434,7 @@ imgdyn:""
     sConfig.split('?')[1]
     }else{
     cw()
-      fox()
+  //    fox()
       nbc()
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");

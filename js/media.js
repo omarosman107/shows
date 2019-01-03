@@ -413,18 +413,25 @@ return;
        //              console.log('no episode newer in season');
 //console.log(JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0])
 if(currentEpisode.season + 1 in JSON.parse(localStorage['showData'])[currentEpisode.show].seasons){
+   //console.log('next season first episdeo')
 next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0]
 }
 
                   }else{
+                //     console.log('next episdoe in season')
                                     next = showJson[i+1]
 
                   }
-           //    console.log(next)
+              // console.log(next)
+               if('episode' in next){
+               
                document.querySelector('.showTitle').innerHTML = currentEpisode.show
                document.querySelector('.episode').innerHTML = next.episode + ' ' + next.epiformat
                document.querySelector('.upnext').style.display = 'block';
                autoplay_next();
+
+
+               }
 
                }
             }
