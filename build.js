@@ -880,7 +880,7 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 
 
 <a href="play.html?${upnextshows[q].seasons[i][z].link}">
-    	<div  class="episode   ${upnextshows[q].seasons[i][z].link}">
+    	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 
 data-original="${upnextshows[q].seasons[i][z].img}" data-original-set="${upnextshows[q].seasons[i][z].srcset}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${q}"
@@ -910,7 +910,7 @@ if(showLogos[q]){
 document.getElementsByClassName('show_container')[0].id = encodeURIComponent(q)
 document.getElementsByClassName('show_container')[0].innerHTML = `
  <div id="${decodeURIComponent(q)}" class="showTitle_image">${showDIV}</div>
-  <ul  class="seasons"> 
+  <ul  style="display:none;" class="seasons"> 
     ${sznLI}
   </ul>
   <div class="show_episodes">
@@ -920,6 +920,11 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
 
 
   `;
+if(upnextshows[q].upNext != null){
+console.log(upnextshows[q].upNext.link)
+document.getElementById(`${upnextshows[q].upNext.link}_showEpisode`).scrollIntoView()
+
+}else{
 
   if(upnextshows[q].latestWSesN != null){
  // scrollShows(`#season${upnextshows[q].latestWSesN}`)
@@ -929,6 +934,8 @@ document.getElementsByClassName('show_container')[0].innerHTML = `
 }else{
 
 	document.getElementById(encodeURIComponent(q)).scrollIntoView()
+
+}
 
 }
 dragscroll.reset()

@@ -143,7 +143,10 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     border-radius: 50px;
 }
 
-
+.loaded {
+      transition: opacity 300ms cubic-bezier(0.74, 0.14, 0.25, 1);
+    transform: translate3d(0, 0, 0);
+}
 .responsive-16by9 {
     display: block;
     height: 0;
@@ -184,6 +187,7 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     overflow: hidden;
     position: inherit;
             border-radius:2px;
+                overflow: hidden;
 
 }
 .episode_overlay {
@@ -194,7 +198,7 @@ background: linear-gradient(0deg,rgba(48, 48, 48, 0.38) 0,#85858514);
     bottom: 0;
     left: 0;
     right: 0;
-box-shadow: inset 0px 0px 20px 7px #0000008f;
+box-shadow: inset 0px 0px 20px 2px #0000002b;
 }
 .episode_img img {
   position: absolute;
