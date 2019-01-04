@@ -1310,18 +1310,18 @@ isLatest = true
 	var seasonFirst = false
 	if(episodes[i].seasonNumber != 1 && episodes[i].seasonNumber > 1 && episodes[i].episodeNumber == 1 && upnextshows[episodes[i].show].seasons != {}){
 		try{
-			console.log(episodes[i])
-			console.log(Object.keys(upnextshows[episodes[i].show].seasons).length != 1 )
+	//		console.log(episodes[i])
+	//		console.log(Object.keys(upnextshows[episodes[i].show].seasons).length != 1 )
 if(''+(Number(episodes[i].seasonNumber) - 1)+'' in upnextshows[episodes[i].show].seasons ){
 		
-			console.log(Object.keys(upnextshows[episodes[i].show].seasons).length,(upnextshows[episodes[i].show].seasons)[episodes[i].seasonNumber - 1])
+	//		console.log(Object.keys(upnextshows[episodes[i].show].seasons).length,(upnextshows[episodes[i].show].seasons)[episodes[i].seasonNumber - 1])
 //			console.log(episodes[i])
 
 	var seasonLengthPrev = Object.keys(upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1]).length
 	var lastSeasonLastEpisode = upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1][seasonLengthPrev - 1 ]
 	if(lastSeasonLastEpisode.done && episodes[i].episodeNumber == 1){
 		seasonFirst = true
-		console.log(episodes[i])
+	//	console.log(episodes[i])
 	}
 
 			}
