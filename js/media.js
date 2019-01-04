@@ -1458,12 +1458,12 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
 
 for(i in data.documentReleases){
 
-      if(data.documentReleases[i].format == "Filmstrip" && data.documentReleases[i].width == 212){
+      if(data.documentReleases[i].format == "Filmstrip" && data.documentReleases[i].width == 470){
 fetch(data.documentReleases[i].url).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
 eachCount = (preview.endTime / preview.imageCount / 1000)
    for (i = 0; i <  preview.thumbnails.length; i++) {
-      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i]}
+      vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i],width:'256px'}
 
    }
    console.log(vidPreview)

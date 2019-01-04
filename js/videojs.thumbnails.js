@@ -106,7 +106,7 @@
     // center the thumbnail over the cursor if an offset wasn't provided
     if (!img.style.left && !img.style.right) {
       img.onload = function() {
-        img.style.left = -(img.naturalWidth / 2) + 'px';
+        img.style.left = -(img.width / 2) + 'px';
       };
     }
 

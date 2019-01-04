@@ -176,7 +176,7 @@ var ThumbnailHelpers = function () {
       // center the thumbnail over the cursor if an offset wasn't provided
       if (!thumbnailImg.style.left && !thumbnailImg.style.right) {
         thumbnailImg.onload = function () {
-          var thumbnailWidth = { width: -(thumbnailImg.naturalWidth / 2) };
+          var thumbnailWidth = { width: -(thumbnailImg.width / 2) };
 
           thumbnailImg.style.left = thumbnailWidth + 'px';
         };

@@ -1291,7 +1291,7 @@ episodes[i].end = episodes[i].length - endTime
 		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},isNew:false,latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:0,percentage:null}
 	}
 	upnextshows[episodes[i].show].totalEpisodes += 1
-
+var isLatest = false
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < endTime) {
 		done = true;
 		episodes[i]['done'] = done
@@ -1300,6 +1300,8 @@ episodes[i].end = episodes[i].length - endTime
 			}
 		doneNum[episodes[i].show] += 1
 		//		console.log(episodes[i].show,doneNum[episodes[i].show])
+isLatest = true
+//console.log(isLatest,episodes[i])
 		upnextshows[episodes[i].show].latestWatched = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].latestWNum = episodes[i].episodeNumber
 		upnextshows[episodes[i].show].latestWSesN = episodes[i].seasonNumber
@@ -1328,7 +1330,9 @@ if(''+(Number(episodes[i].seasonNumber) - 1)+'' in upnextshows[episodes[i].show]
 	console.log(e)
 }
 	}
-
+if(isLatest){
+	seasonFirst = false;
+}
 	if (seasonFirst || upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && Number(episodes[i].seasonNumber) == upnextshows[episodes[i].show].latestWSesN && upnextshows[episodes[i].show].latestWNum != null) {
 	//	console.log(episodes[i])
 		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
