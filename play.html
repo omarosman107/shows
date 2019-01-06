@@ -27,7 +27,7 @@
 
 .video-js .vjs-slider {
 
-    height: 3.5px !important;
+    height: 4.6px !important;
 
 }
 .video-js .vjs-volume-level:before {
@@ -61,6 +61,27 @@ opacity:.75;
 -moz-animation:spin 1.5s infinite linear;
 -o-animation:spin 1.5s infinite linear;
 animation:spin 1.5s infinite linear*/
+}
+
+
+.video-js .vjs-progress-control {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 0 4em 0 0.4em;
+  }
+  .vjs-has-started .vjs-control-bar {
+    padding: 0em 1em 4em 1em;}
+.video-js.vjs-user-inactive.vjs-playing .vjs-text-track-display {
+  transform: translateY(0em) !important;
+}
+.video-js .vjs-text-track {
+  font-size: 1.4em;
+  text-align: center;
+  margin-bottom: 0.1em;
+  bottom: 0em;
+  transform: translateY(3.1em) !important;
 }
 
 	@use postcss-initial;
@@ -545,7 +566,7 @@ button {
 	background-color: inherit !important;
 }
 .vjs-text-track-display {
-    bottom: 5% !important;
+    
 }
 .video-js .vjs-play-progress:before {
     font-size: 1.5em !important;
