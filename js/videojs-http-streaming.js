@@ -4000,6 +4000,8 @@
 	 * @param {Array} metadataArray an array of meta data
 	 * @private
 	 */
+	   let VTTCue = window.VTTCue || window.TextTrackCue;
+
 	var addTextTrackData = function addTextTrackData(sourceHandler, captionArray, metadataArray) {
 	  var Cue = window_1.WebKitDataCue || window_1.VTTCue;
 
@@ -4007,8 +4009,10 @@
 	    captionArray.forEach(function (caption) {
 	      var track = caption.stream;
 console.log(caption)
-	      this.inbandTextTracks_[track].addCue(new Cue(caption.startTime + this.timestampOffset, caption.endTime + this.timestampOffset, caption.text));
-	    }, sourceHandler);
+var cue = new VTTCue(caption.startTime + this.timestampOffset, caption.endTime + this.timestampOffset, caption.text)
+		  console.log(cue)
+	  this.inbandTextTracks_[track].addCue(cue);
+		  	    }, sourceHandler);
 	  }
 
 	  if (metadataArray) {

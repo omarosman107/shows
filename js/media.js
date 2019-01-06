@@ -15,13 +15,26 @@ video::cue {
    font-family:Typewriter,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
    font-weight:normal !important;
    background: none;
-   font-size:.7em;
-   padding:10px !important;
-   line-height:-10px !important;
+   font-size:.75em;
+   padding:0px !important;
 
 }
-video::-webkit-media-text-track-display{padding:0px !important;} 
 
+video::-webkit-media-text-track-display-backdrop {
+  overflow: visible !important;
+  padding:0px !important;
+  padding-top:0px !important;
+}
+
+ video::-webkit-media-text-track-display {
+     overflow: visible !important;
+     -webkit-box-sizing: border-box;
+   }
+
+   video::-webkit-media-text-track-container {
+     overflow: visible !important;
+     position: absolute;
+   }
 `;
 document.body.appendChild(css);
 }
