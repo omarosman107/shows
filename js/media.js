@@ -116,6 +116,8 @@ player.on('dblclick', function() {
     player.requestFullscreen();
   }
 });
+
+
 document.getElementById('blockLoader').ondblclick = function(){
     if (player.isFullscreen()) {
     player.exitFullscreen();

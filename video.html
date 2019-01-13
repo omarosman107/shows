@@ -260,6 +260,17 @@ document.getElementById('LS').style.height = h + 'px'
 });
   player.src('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
 
+
+document.querySelector('.vjs-fullscreen-control').addEventListener('click', function(a){
+   console.log(a)
+   if(document.fullscreen){
+closeFullscreen()
+   }else{
+openFullscreen()
+   }
+   player.exitFullscreen()
+   return 0;
+})
     </script>
 </body>
 </html>
