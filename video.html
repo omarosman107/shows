@@ -8,47 +8,7 @@
 	<meta content="IE=9;IE=10;IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
 
 	<style type="text/css">
-		.vjs-slider-horizontal .vjs-volume-level:before {
-    top: -.5em !important;
-    right: -.5em;
-}
-.vjs-text-track-display div div {
-	background-color: inherit !important;
-}
-.vjs-text-track-display {
-    bottom: 5% !important;
-}
-.video-js .vjs-play-progress:before {
-    font-size: 1.5em !important;
-}
-.video-js .vjs-load-progress div {
-    background: rgba(162, 162, 162, 0.75) !important;
-}
-.vjs-text-track-display span, .vjs-text-track-display div div {
-	line-height:normal;
-	font-weight:normal;
-	color:#ffffff;
-	text-shadow:#000000 0px 0px 7px;
-	font-family:Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
-	    line-height: normal;
-	font-weight:bolder !important;
 
-}
-.vjs-text-track-display div div {
- /* Netflix Sans R */
-
-}
-.video-js .vjs-text-track {
-  background-color: transparent;
-}
-.vjs-tech  {
-  pointer-events: none;
-  -webkit-user-select: none;  /* Chrome all / Safari all */
--moz-user-select: none;     /* Firefox all */
--ms-user-select: none;      /* IE 10+ */
--o-user-select: none;
-user-select: none;
-}
 @font-face {
 font-family: Netflix Sans R;
 src: url(font/NetflixSans-Regular-Opt.woff2);
@@ -61,7 +21,6 @@ video::cue {
   	color:#ffffff;
 	text-shadow:#000000 0px 0px 7px;
 	font-family:Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
-	font-weight:bolder !important;
 	background: none;
 	 -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -72,11 +31,11 @@ video::cue {
                                   supported by Chrome and Opera */
 
     line-height: normal;
-    font-weight: normal;
     color: #ffffff;
     text-shadow: #000000 0px 0px 7px;
     font-family: Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica;
-    font-weight: bolder;
+    font-weight: bolder !important;
+
 
 }
 video::cue(i){
@@ -104,7 +63,7 @@ padding: 0;
         left:0;
         }
         .show-episode-title {
-            font-size: 2em;
+            font-size: 2.5em;
             display: inline-block;
         }
         .timeEnd {
@@ -114,18 +73,17 @@ display: inline-block;
     right: 2em;            
         }
         .topVideoDetails {
-    background-color: #000000cc;
-box-shadow: 0px 1px 14px 4px #00000073;
-            	                        padding: 1em;
+    padding: 2em 0 0px 0px;
     position: absolute;
     z-index: 1;
     width: 100%;
-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
     transform: translate(0px,0%);
-    -webkit-transition:  -webkit-transform .2s;
+    -webkit-transition: -webkit-transform .2s;
     transition: transform .2s;
-
-
+    margin: auto;
+    text-align: center;
+}
         }
 
 .videoContainer { 
@@ -135,15 +93,240 @@ video {
 	width: 100% !important;
 	height: 100% !important;
 }
+#media-video {
+	background: black;
+}
+#media-controls {
+	       position: absolute;
+    bottom: 36px;
+    width: -webkit-fill-available;
+    padding: 0 50px 10px;
+    z-index: 11;
+}
+.centerControls {
+     margin: auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    margin: 0 auto;
+    -webkit-perspective: 400px;
+    perspective: 400px;
+    vertical-align: -webkit-baseline-middle;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+        transition: opacity .2s;
+}
+#media-controls  {
+	        transition: opacity .2s;
+
+}
+.centerControls .buttons{
+	    margin: 0 auto;
+	    z-index: 11;
+    -webkit-perspective: 400px;
+    perspective: 400px;
+}
+.volume,#progress-bar {
+    display: inline-block;
+}
+#progress-bar {
+  flex:10;
+  position: relative;
+  display:flex;
+  flex-basis:100%;
+  height:5px;
+  transition:height 0.3s;
+    background: #ddd;
+      background:#ffc600;
+
+      cursor:pointer;
+  width: 100%;
+}
+#progress-bar::-webkit-progress-value {
+	background: #ddd;
+}
+
+.progress__filled {
+  width:0%;
+  background:#ffc600;
+  flex:0;
+  flex-basis:0%;
+}
+.centerControls .buttons button{
+	    border-style: solid;
+    border-color: transparent; 
+    border-width: 20px;
+    opacity: .25;
+    background: transparent;
+      cursor:pointer;
+
+}
+.centerControls .buttons button:hover {
+opacity: 0.85;
+}
+button:focus {outline:0;}
+.seekTime {
+    text-align: center;
+    height: 20px;
+    /* width: 49px; */
+    color: white;
+    font-size: 25px;
+}
+.svgBackground {
+
+}
+
+.videoOverlay{
+z-index: 3;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+background: linear-gradient(180deg,rgba(0, 0, 0, 0) 0,#000000d4);
+}
+.player-slider{
+
+}
+/*customised range*/ input[type="range"].range 
+{ 
+     cursor: pointer;
+     width: 100px !important;
+     -webkit-appearance: none; 
+     z-index: 200; 
+     width:50px; 
+     background-color: #b9b9b9; 
+
+}
+
+/*customised range when focusing on input */ input[type="range"].range:focus
+{
+     border: 0 !imporant; 
+outline: none !important; 
+}
+
+/*customised range slider icon*/ input[type="range"].range::-webkit-slider-thumb 
+{
+     -webkit-appearance: none; 
+     width: 10px; 
+     height: 10px; 
+background-color: #f8f8f8; 
+
+}
+
+/*setting round corners to the range */ input[type="range"].round {
+     -webkit-border-radius: 20px; 
+     -moz-border-radius: 20px; 
+     border-radius: 20px; 
+}
+
+/*setting round corners to the range slider icon*/ input[type="range"].round::-webkit-slider-thumb {
+     -webkit-border-radius: 5px; 
+-moz-border-radius: 5px; 
+-o-border-radius: 5px; 
+}
+
+/* set range from 0 - 1 horizontal as by default */ .horizontal-lowest-first
+{
+     -webkit-transform:rotate(0deg); 
+     -moz-transform:rotate(0deg); 
+     -o-transform:rotate(0deg); 
+     -ms-transform:rotate(0deg); 
+     transform:rotate(0deg); 
+}
+
+/* set range from 1 - 0 horizontal (highest first) */ .horizontal-highest-first
+{
+     -webkit-transform:rotate(180deg); 
+     -moz-transform:rotate(180deg); 
+     -o-transform:rotate(180deg); 
+     -ms-transform:rotate(180deg); 
+     transform:rotate(180deg); 
+}
+
+/* set range from 0 - 1 vertically (lowest on top) */ .vertical-lowest-first
+{
+     -webkit-transform:rotate(90deg); 
+     -moz-transform:rotate(90deg); 
+     -o-transform:rotate(90deg); 
+     -ms-transform:rotate(90deg); 
+     transform:rotate(90deg); 
+}
+
+/* set range from 1 - 0 vertically (highest on top) */ .vertical-heighest-first
+{
+     -webkit-transform:rotate(270deg); 
+     -moz-transform:rotate(270deg); 
+     -o-transform:rotate(270deg); 
+     -ms-transform:rotate(270deg); 
+     transform:rotate(270deg); 
+}
+.topRightControls{
+	    /* width: -webkit-fill-available; */
+    /* height: 100%; */
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 13;
+    padding: 3em 2em 0px 0px;
+}
+.show-episode-title{
+	font-family: Helvetica,Ariel;
+}
+.show-episode-title .showName{
+	font-weight: 700;
+}
+.show-episode-title .showName,.show-episode-title .EpisodeName{
+display: block;
+}
+.time {
+	    font-size: 26px;
+    font-family: Helvetica;
+    padding-top: 11px;
+}
+.hdIndicator {
+    display: inline-block;
+    padding-left: 16px;
+}
+.spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+@-webkit-keyframes spinner{from{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes spinner{from{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+.volume{
+	margin-right: 20px;
+}
+
+.currenttime {
+       bottom: 19px;
+    position: relative;
+    left: 0%;
+    visibility: hidden;
+    padding: 7px 11px 7px 11px;
+    border-radius: 20px;
+    background: #50505063;
+    font-family: Helvetica;
+
+}
 
 
 	</style>
-    	<link href="css/videojs.thumbnails.css" rel="stylesheet">
-	<link href="css/videojs-chromecast.css" rel="stylesheet">
 
 
-	<script type="text/javascript" src="js/video.min.js"></script>
-	<script  type="text/javascript" src="js/videojs.hotkeys.min.js"></script>
+
+
+
+
+
+
+
 
 </head>
 <body>
@@ -151,13 +334,55 @@ video {
     
 <div class="media-container">
 	<div class="topVideoDetails">
-		<div class="show-episode-title">The Flash - Finale</div>
-		<div class="timeEnd">done at 12:31pm</div>
+		<div class="show-episode-title"><span class="showName">The Flash</span> <span class="EpisodeName">Episode 5:10, Crossover on Earth-X </span></div>
 	</div>
 	<div class="videoContainer">
-        <video width="100%" style="height: 100%;width: 100%;object-fit: all;" crossorigin="anonymous" id=LS x-webkit-airplay="allow" preload="auto" autoplay="" title="" data-setup="" class="video-js vjs-default-skin vjs-big-play-centered" controls="controls">
+            <div id='media-player'>
+            	       <div class="centerControls">
+            	       	<div class="buttons">
+            	       		         	 
+
+    <button data-skip="-10" onclick="mediaPlayer.currentTime = mediaPlayer.currentTime + Number(this.getAttribute('data-skip'));updateProgressBar()" class="player-btn"><div class="fastSeekBack hide"><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODUiIHZpZXdCb3g9IjAgMCA4MCA4NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+MTBzIGJhY2s8L3RpdGxlPjxwYXRoIGQ9Ik0xNS4xOTcgMTQuNDc4bDMuMjY4IDEuNzUzQzkuNDk1IDIyLjc5IDMuNjYyIDMzLjM4OCAzLjY2MiA0NS4zNTNjMCAxOS45MTMgMTYuMTQzIDM2LjA1NiAzNi4wNTYgMzYuMDU2IDE5LjkxNCAwIDM2LjA1Ny0xNi4xNDMgMzYuMDU3LTM2LjA1NiAwLTE4LjI0LTEzLjU0Ny0zMy4zMDgtMzEuMTI3LTM1LjcxM3Y0Ljg2N3MuMDA4Ljk2OC0uMzA1IDEuMTAzYy0uNDI1LjE4My0xLjA0LS4yMjQtMS4wNC0uMjI0TDMxLjQyOCA5LjA1cy0uODE4LS4zODctLjgxOC0uNzRjMC0uNDIzLjgxNi0uNzk4LjgxNi0uNzk4TDQzLjYuODk4cy4zNjgtLjI2NC43NzItLjA0OGMuMjkuMTU0LjI3Ni44MjMuMjc2LjgyM1Y2LjI0YzE5LjQ1IDIuNDI2IDM0LjUwNyAxOS4wMDMgMzQuNTA3IDM5LjExMiAwIDIxLjc4LTE3LjY1NiAzOS40MzctMzkuNDM3IDM5LjQzN0MxNy45MzggODQuNzkuMjgyIDY3LjEzLjI4MiA0NS4zNWMwLTEyLjUxIDUuODMtMjMuNjUgMTQuOTE1LTMwLjg3NCIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt=""><div class="seekTime">10</div></div>
+
+    </button>
+  <button id='play-pause-button' class='play' title='play'
+onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDkwIDkwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNODguMTY0IDQyLjc2YzIuNDQ3IDEuMjM4IDIuNDQ3IDMuMjQyIDAgNC40OEw0LjQzNCA4OS41MTNDMS45ODQgOTAuNzUgMCA4OS41NDcgMCA4Ni44M1YzLjE3QzAgLjQ1IDEuOTg1LS43NSA0LjQzNC40ODVsODMuNzMgNDIuMjc1eiIvPjwvc3ZnPg==" alt=""></button>
+
+    <button data-skip="10" onclick="mediaPlayer.currentTime = mediaPlayer.currentTime + Number(this.getAttribute('data-skip'));updateProgressBar()" class="player-btn"><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODUiIHZpZXdCb3g9IjAgMCA4MCA4NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+MTBzIGZvcndhcmQ8L3RpdGxlPjxwYXRoIGQ9Ik02NC4yNCAxNC40NzhsLTMuMjcgMS43NTNjOC45NzMgNi41NiAxNC44MDUgMTcuMTU3IDE0LjgwNSAyOS4xMjIgMCAxOS45MTMtMTYuMTQzIDM2LjA1Ni0zNi4wNTcgMzYuMDU2LTE5LjkxMyAwLTM2LjA1Ni0xNi4xNDMtMzYuMDU2LTM2LjA1NiAwLTE4LjI0IDEzLjU0Ny0zMy4zMDggMzEuMTI3LTM1LjcxM3Y0Ljg2N3MtLjAxLjk2OC4zMDQgMS4xMDNjLjQyNS4xODMgMS4wNC0uMjI0IDEuMDQtLjIyNEw0OC4wMSA5LjA1cy44MTctLjM4Ny44MTctLjc0YzAtLjQyMy0uODE3LS43OTgtLjgxNy0uNzk4TDM1LjgzNy44OThzLS4zNy0uMjY0LS43NzItLjA0OGMtLjI5LjE1NC0uMjc2LjgyMy0uMjc2LjgyM1Y2LjI0QzE1LjMzNiA4LjY2NS4yOCAyNS4yNDIuMjggNDUuMzVjMCAyMS43OCAxNy42NTYgMzkuNDM3IDM5LjQzNiAzOS40MzdTNzkuMTU1IDY3LjEzIDc5LjE1NSA0NS4zNWMwLTEyLjUxLTUuODMtMjMuNjUtMTQuOTE1LTMwLjg3NCIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt=""><div class="seekTime">10</div></button>
+
+            	       	</div>
+            	       	<div class="topRightControls">	<div class="volume">
+         		    <input type="range" oninput="mediaPlayer.volume = this.value" name="volume" orient="vertical" class="player-slider range  round" min="0" max="1" step="0.05" value="1">
+
+         	</div>
+<div onclick="fullscreen()" class="fullscreenButton" style="
+    display: inline-block;
+    cursor: pointer;
+"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAyNSAyNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+ZnVsbHNjcmVlbjwvdGl0bGU+PGcgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMjQuOTcuMDAyVjBoLTN2LjAwMmwtNi0uMDAydjNoMy43NTNsLTUuODcgNS44NyAyLjEyIDIuMTIyIDUuOTk2LTUuOTk2VjloM1YuMDAyek05IDIySDUuMjQ2bDUuODctNS44Ny0yLjEyLTIuMTIyTDMgMjAuMDA0VjE2SDB2OWg5di0zeiIvPjwvZz48L3N2Zz4=" alt=""></div>
+         </div>
+            	       	            	<div class="videoOverlay"><div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt=""></div></div>
+
+
+</div>
+         <video id='media-video' controls>
+      
+         </video>
+  
+
+
+         <div id='media-controls'>
+      <span class="currenttime"></span>
+
+         	<progress  id='progress-bar' min='0' max='100' value='0'>
+
+         	</progress>
+<div class="time" 
+></div>
+         </div>
+      </div>
     </div>
 </div>
+<script type="text/javascript" src="js/hls.min.js"></script>
     <script>
     function error(e){
 	console.log(e)
@@ -166,35 +391,7 @@ document.querySelector('.maw').style.display = 'block'
 }
 	// https://github.com/filamentgroup/loadCSS
 
-! function(e) {
-  "use strict";
-  var n = function(n, t, o) {
-    function i(e) {
-      return f.body ? e() : void setTimeout(function() {
-        i(e)
-      })
-    }
-    var d, r, a, l, f = e.document,
-      s = f.createElement("link"),
-      u = o || "all";
-    return t ? d = t : (r = (f.body || f.getElementsByTagName("head")[0]).childNodes, d = r[r.length - 1]), a = f.styleSheets, s.rel = "stylesheet", s.href = n, s.media = "only x", i(function() {
-      d.parentNode.insertBefore(s, t ? d : d.nextSibling)
-    }), l = function(e) {
-      for (var n = s.href, t = a.length; t--;)
-        if (a[t].href === n) return e();
-      setTimeout(function() {
-        l(e)
-      })
-    }, s.addEventListener && s.addEventListener("load", function() {
-      this.media = u
-    }), s.onloadcssdefined = l, l(function() {
-      s.media !== u && (s.media = u)
-    }), s
-  };
-  "undefined" != typeof exports ? exports.loadCSS = n : e.loadCSS = n
-}("undefined" != typeof global ? global : this);
-loadCSS('css/video-js.min.css')
-loadCSS('css/videojs-sublime-skin.min.css')
+
 
 var timeout;
 
@@ -223,14 +420,25 @@ function closeFullscreen() {
     document.msExitFullscreen();
   }
 }
-
+function fullscreen(){
+	if(document.fullscreen){
+closeFullscreen();
+	}else{
+openFullscreen();
+	}
+}
 
 document.onmousemove = function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
+document.querySelector('.centerControls').style.opacity = 1
+document.querySelector('#media-controls').style.opacity = 1
+
 
   clearTimeout(timeout);
   timeout = setTimeout(function(){
-	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100px)";
+	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100%)";
+document.querySelector('.centerControls').style.opacity = 0
+document.querySelector('#media-controls').style.opacity = 0
 
   },5000);
 }
@@ -238,29 +446,175 @@ document.onmousemove = function(){
 
 window.addEventListener("resize", function(){
 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-document.getElementById('LS').style.height = h + 'px'
+document.getElementById('media-player').style.height = h + 'px'
 
 });
 
 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-document.getElementById('LS').style.height = h + 'px'
-  var player = videojs("LS", {
-        controls: true,
-        autoplay: false,
-        preload: 'auto'
-    });
+document.getElementById('media-player').style.height = h + 'px'
+var mediaPlayer;
+function initialiseMediaPlayer() {
+   mediaPlayer = document.getElementById('media-video');
+   mediaPlayer.controls = false;
+}
+initialiseMediaPlayer();
+function togglePlayPause() {
+   var btn = document.getElementById('play-pause-button');
+   if (mediaPlayer.paused || mediaPlayer.ended) {
+      btn.title = 'pause';
+      btn.innerHTML = '<img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSI5NSIgdmlld0JveD0iMCAwIDc1IDk1Ij48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMCAwaDI1djk1SDB6TTUwIDBoMjV2OTVINTB6Ii8+PC9zdmc+" alt="">';
+      btn.className = 'pause';
+      mediaPlayer.play();
+   }
+   else {
+      btn.title = 'play';
+      btn.innerHTML = '<img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDkwIDkwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNODguMTY0IDQyLjc2YzIuNDQ3IDEuMjM4IDIuNDQ3IDMuMjQyIDAgNC40OEw0LjQzNCA4OS41MTNDMS45ODQgOTAuNzUgMCA4OS41NDcgMCA4Ni44M1YzLjE3QzAgLjQ1IDEuOTg1LS43NSA0LjQzNC40ODVsODMuNzMgNDIuMjc1eiIvPjwvc3ZnPg==" alt="">';
+      btn.className = 'play';
+      mediaPlayer.pause();
+   }
+}
+function changeButtonType(btn, value) {
+   btn.title = value;
+   btn.innerHTML = value;
+   btn.className = value;
+}
+Number.prototype.toHHMMSS = function () {
+if(this == 0 || isNaN(this)){
+	return '00:00';
+}
 
-  player.ready(function () {
-   this.hotkeys({
-      volumeStep: 0.1,
-      seekStep: 5,
-      enableModifiersForNumbers: false
-   });
 
+    var seconds = Math.floor(this),
+        hours = Math.floor(seconds / 3600);
+    seconds -= hours*3600;
+    var minutes = Math.floor(seconds / 60);
+    seconds -= minutes*60;
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    if(hours == '00'){
+    	    return minutes+':'+seconds;
+
+    }else{
+    return hours+':'+minutes+':'+seconds;
+}
+}
+function updateProgressBar() {
+   var progressBar = document.getElementById('progress-bar');
+   var percentage = ((100 / mediaPlayer.duration) *
+   mediaPlayer.currentTime);
+   progressBar.value = percentage;
+   quality = ''
+   var res = mediaPlayer.videoHeight;
+   if(res < 720){
+quality = '<div   class="hdIndicator"><div class="hdIcon"><img  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNi44NTkiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgLTMgMzYuODU5IDIwIj48ZyBvcGFjaXR5PSIuMjUiIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0xNiAxN1YtM2gtNHY4SDR2LThIMHYyMGg0VjloOHY4aDR6TTI3LjYyNSAxN2MyLjkzOCAwIDUuMjAzLS44NzUgNi44MjgtMi42MjUgMS42MS0xLjc1IDIuNDIyLTQuMjIgMi40MjItNy40MzhzLS44MTItNS42MS0yLjQyMi03LjM0NEMzMi44MjgtMi4xMjUgMzAuNTMtMyAyNy41NDctM0gyMHYyMGg3LjYyNXptLS44OS0xN0MzMC4yMzQgMCAzMyAyLjM5IDMzIDYuNjR2Ljk1NEMzMyAxMS44NzQgMzAuMjUgMTQgMjYuNzUgMTRIMjRWMGgyLjczNHoiLz48L2c+PC9zdmc+" alt=""></div></div>'
+   }else{
+quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNi44NTkiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgLTMgMzYuODU5IDIwIj48ZyBmaWxsPSIjRkZGIj48cGF0aCBkPSJNMTYgMTdWLTNoLTR2OEg0di04SDB2MjBoNFY5aDh2OGg0ek0yNy42MjUgMTdjMi45MzggMCA1LjIwMy0uODc1IDYuODI4LTIuNjI1IDEuNjEtMS43NSAyLjQyMi00LjIyIDIuNDIyLTcuNDM4cy0uODEyLTUuNjEtMi40MjItNy4zNDRDMzIuODI4LTIuMTI1IDMwLjUzLTMgMjcuNTQ3LTNIMjB2MjBoNy42MjV6bS0uODktMTdDMzAuMjM0IDAgMzMgMi4zOSAzMyA2LjY0di45NTRDMzMgMTEuODc0IDMwLjI1IDE0IDI2Ljc1IDE0SDI0VjBoMi43MzR6Ii8+PC9nPjwvc3ZnPg==" alt=""></div></div>'
+   }
+   if(res > 720){
+   	quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNi44NTkiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgLTMgMzYuODU5IDIwIj48ZyBmaWxsPSIjRkZGIj48cGF0aCBkPSJNMTYgMTdWLTNoLTR2OEg0di04SDB2MjBoNFY5aDh2OGg0ek0yNy42MjUgMTdjMi45MzggMCA1LjIwMy0uODc1IDYuODI4LTIuNjI1IDEuNjEtMS43NSAyLjQyMi00LjIyIDIuNDIyLTcuNDM4cy0uODEyLTUuNjEtMi40MjItNy4zNDRDMzIuODI4LTIuMTI1IDMwLjUzLTMgMjcuNTQ3LTNIMjB2MjBoNy42MjV6bS0uODktMTdDMzAuMjM0IDAgMzMgMi4zOSAzMyA2LjY0di45NTRDMzMgMTEuODc0IDMwLjI1IDE0IDI2Ljc1IDE0SDI0VjBoMi43MzR6Ii8+PC9nPjwvc3ZnPg==" alt=""></div></div>'+ res
+   }
+ //  console.log(res,quality)
+   	document.querySelector('.time').innerHTML = (mediaPlayer.currentTime).toHHMMSS()+'<span style="opacity:.4;"> / '+ mediaPlayer.duration.toHHMMSS()+'</span>'+quality
+
+ //  console.log(quality)
+}
+mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
+
+mediaPlayer.onwaiting = function() {
+   console.log("buffering");
+   document.querySelector('.loadingSpinner').style.display = 'block'
+
+};
+mediaPlayer.oncanplay = function(){
+	   document.querySelector('.loadingSpinner').style.display = 'none'
+
+}
+
+mediaPlayer.addEventListener('play', function() {
+   var btn = document.getElementById('play-pause-button');
+   changeButtonType(btn, '<img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSI5NSIgdmlld0JveD0iMCAwIDc1IDk1Ij48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMCAwaDI1djk1SDB6TTUwIDBoMjV2OTVINTB6Ii8+PC9zdmc+" alt="">');
+}, false);
+mediaPlayer.addEventListener('pause', function() {
+   var btn = document.getElementById('play-pause-button');
+  // changeButtonType(btn, play);
+}, false);
+function canPlayVideo(ext) {
+   var ableToPlay = mediaPlayer.canPlayType('video/' + ext);
+   if (ableToPlay == '') return false;
+   else return true;
+}
+function loadVideo() {
+   for (var i = 0; i < arguments.length; i++) {
+      var file = arguments[i].split('.');
+      var ext = file[file.length - 1];
+      if (canPlayVideo(ext)) {
+         mediaPlayer.src = arguments[i];
+         mediaPlayer.load();
+         break;
+      }
+   }
+}
+const slideDuration = (slideNode, videoNode) => ({offsetX}) => {
+    mediaPlayer.currentTime  = (offsetX / slideNode.offsetWidth) * mediaPlayer.duration;slideNode.value =((offsetX / slideNode.offsetWidth)*100); } 
+
+    var progress = document.getElementById('progress-bar')
+    progress.addEventListener('click', slideDuration(progress, mediaPlayer));
+
+        progress.addEventListener('drag', slideDuration(progress, mediaPlayer));
+
+     
+progress.addEventListener('mousemove',function(e){
+console.log((e.offsetX / progress.offsetWidth) * 100)
+document.querySelector('.currenttime').style.visibility = 'visible'
+
+document.querySelector('.currenttime').innerHTML = ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration).toHHMMSS()
+console.log((document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2)
+var halfCurrent = (document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2;
+document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offsetWidth) * 100) -halfCurrent  + '%'
+	console.log((e.offsetX / progress.offsetWidth) * mediaPlayer.duration)
+
+})
+
+progress.addEventListener('mouseleave',function(e){
+document.querySelector('.currenttime').style.visibility = 'hidden'
 });
-  player.src('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
 
 
+document.querySelector('.videoOverlay').addEventListener('click',function(e){
+	console.log(e);
+	if(e.toElement.class == 'svgBackground'){
+
+	}else{
+		togglePlayPause()
+	}
+});
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+togglePlayPause()
+    }
+}
+//loadVideo('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
+
+ if (Hls.isSupported()) {
+      var hls = new Hls();
+      // bind them together
+      hls.attachMedia(mediaPlayer);
+      // MEDIA_ATTACHED event is fired by hls object once MediaSource is ready
+      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+  console.log("video and hls.js are now bound together !");
+        hls.loadSource("https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8");
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        	console.log(event,data)
+          console.log("manifest loaded, found " + data.levels.length + " quality level");
+        });
+      });
+    }
+
+//  player.src('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
+
+/*
 document.querySelector('.vjs-fullscreen-control').addEventListener('click', function(a){
    console.log(a)
    if(document.fullscreen){
@@ -271,6 +625,7 @@ openFullscreen()
    player.exitFullscreen()
    return 0;
 })
+*/
     </script>
 </body>
 </html>
