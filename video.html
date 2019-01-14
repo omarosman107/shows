@@ -102,6 +102,7 @@ video {
     width: -webkit-fill-available;
     padding: 0 50px 10px;
     z-index: 11;
+    padding: 0 4.16667vw 2.08333vw;
 }
 .centerControls {
      margin: auto;
@@ -331,8 +332,12 @@ display: block;
     z-index: 3;
 }
 
-
+.subswitch{
+	        transition: opacity .2s;
+}
 	</style>
+
+
 
 
 
@@ -370,6 +375,12 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
          		    <input type="range" oninput="mediaPlayer.volume = this.value" name="volume" orient="vertical" class="player-slider range  round" min="0" max="1" step="0.05" value="1">
 
          	</div>
+
+         	<div onclick="toggleSubtitles()" id="subswitch" style="     display: inline-block;
+    cursor: pointer;
+    margin-right: 17px;" class="imageButtonWrapper subtitlesAndAudioButtonWrapper"><div class="imageButton subtitlesAndAudioButton"><img  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCAzMCAyNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHRpdGxlPlBhZ2UgMTwvdGl0bGU+PGRlZnM+PHBhdGggZD0iTTAgM2MwLTEuNjg4IDEuMjM2LTMgMy0zaDI0YzEuNzY0IDAgMyAxLjMxMiAzIDN2MTZjMCAxLjY4OC0xLjIzNiAzLTMgM0gzYy0xLjc2NCAwLTMtMS4zMTItMy0zVjN6IiBpZD0iYSIvPjxtYXNrIGlkPSJiIiB4PSIwIiB5PSIwIiB3aWR0aD0iMzAiIGhlaWdodD0iMjIiIGZpbGw9IiNmZmYiPjx1c2UgeGxpbms6aHJlZj0iI2EiLz48L21hc2s+PC9kZWZzPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHVzZSBzdHJva2U9IiNGRkYiIG1hc2s9InVybCgjYikiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgeGxpbms6aHJlZj0iI2EiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMjMgMjdsLTUtNWg1ek01IDEzaDIwdjFINXpNNyAxNmgxNnYxSDd6Ii8+PC9nPjwvc3ZnPg==" alt=""></div><div class="imageButtonTooltipWrapper"></div></div>
+
+
 <div onclick="fullscreen()" class="fullscreenButton" style="
     display: inline-block;
     cursor: pointer;
@@ -605,6 +616,19 @@ document.querySelector('.videoOverlay').addEventListener('click',function(e){
 		togglePlayPause()
 	}
 });
+
+function toggleSubtitles(){
+	if(mediaPlayer.textTracks[0].mode == 'hidden'){
+		mediaPlayer.textTracks[0].mode = 'showing'
+		document.getElementById('subswitch').style.opacity = '1'
+	}else{
+		mediaPlayer.textTracks[0].mode = 'hidden'
+				document.getElementById('subswitch').style.opacity = '.4'
+
+	}
+}
+
+
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
 togglePlayPause()
