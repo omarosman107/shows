@@ -314,7 +314,7 @@ display: block;
 }
 
 .currenttime {
-       bottom: 19px;
+       bottom: 10px;
     position: relative;
     left: 0%;
     visibility: hidden;
@@ -343,6 +343,13 @@ display: block;
 .subswitch{
 	        transition: opacity .2s;
 }
+.seekBar{
+padding: 10px 0px 10px 0;
+      cursor:pointer;
+
+	}
+
+
 	</style>
 
 
@@ -405,11 +412,15 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 
 
          <div id='media-controls'>
-      <span class="currenttime"></span>
+         	         	     <span class="currenttime"></span>
+
+         	<div class="seekBar">
 
          	<progress  id='progress-bar' min='0' max='100' value='0'>
 
-         	</progress>
+         	</progress>	
+         	</div>
+ 
 <div class="time" 
 ></div>
          </div>
@@ -482,16 +493,20 @@ window.addEventListener("resize", function(){
 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 document.getElementById('media-player').style.height = h + 'px'
 
+
 });
 
 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 document.getElementById('media-player').style.height = h + 'px'
 var mediaPlayer;
+
 function initialiseMediaPlayer() {
    mediaPlayer = document.getElementById('media-video');
-   mediaPlayer.controls = false;
 }
+
 initialiseMediaPlayer();
+   mediaPlayer.controls = false;
+
 function togglePlayPause() {
    var btn = document.getElementById('play-pause-button');
    if (mediaPlayer.paused || mediaPlayer.ended) {
@@ -535,10 +550,10 @@ if(this == 0 || isNaN(this)){
 }
 }
 function updateProgressBar() {
-   var progressBar = document.getElementById('progress-bar');
+//   var progress = document.getElementById('progress-bar');
    var percentage = ((100 / mediaPlayer.duration) *
    mediaPlayer.currentTime);
-   progressBar.value = percentage;
+   progressContainer.value = percentage;
    quality = ''
    var res = mediaPlayer.videoHeight;
    if(res < 720){
@@ -591,23 +606,22 @@ function loadVideo() {
    }
 }
 const slideDuration = (slideNode, videoNode) => ({offsetX}) => {
-    mediaPlayer.currentTime  = (offsetX / slideNode.offsetWidth) * mediaPlayer.duration;slideNode.value =((offsetX / slideNode.offsetWidth)*100); } 
+    mediaPlayer.currentTime  = (offsetX / progressContainer.offsetWidth) * mediaPlayer.duration;
+    document.getElementById('progress-bar').value =((offsetX / progress.offsetWidth)*100); } 
 
-    var progress = document.getElementById('progress-bar')
+var progressContainer = document.getElementById('progress-bar')
+
+    var progress = document.querySelector('.seekBar')
     progress.addEventListener('click', slideDuration(progress, mediaPlayer));
-
-        progress.addEventListener('drag', slideDuration(progress, mediaPlayer));
 
      
 progress.addEventListener('mousemove',function(e){
-console.log((e.offsetX / progress.offsetWidth) * 100)
-document.querySelector('.currenttime').style.visibility = 'visible'
 
+document.querySelector('.currenttime').style.visibility = 'visible'
+console.log(e)
 document.querySelector('.currenttime').innerHTML = ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration).toHHMMSS()
-console.log((document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2)
 var halfCurrent = (document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2;
 document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offsetWidth) * 100) -halfCurrent  + '%'
-	console.log((e.offsetX / progress.offsetWidth) * mediaPlayer.duration)
 
 })
 
@@ -653,11 +667,47 @@ togglePlayPause()
         	document.querySelector('#media-controls').style.display = 'none'
         	document.querySelector('.topRightControls').style.display = 'none'
         	        	document.querySelector('.centerControls').style.display = 'none'
+var css = document.createElement("style");
+css.type = "text/css";
+css.innerHTML = ` 
+video::cue {
+   color:#ffffff;
+   text-shadow:none;
+   font-family:Typewriter,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+   font-weight:normal !important;
+   background: none;
+   font-size:.75em;
+   padding:0px !important;
 
+}
+
+video::-webkit-media-text-track-display-backdrop {
+  overflow: visible !important;
+  padding:0px !important;
+  padding-top:0px !important;
+}
+
+ video::-webkit-media-text-track-display {
+     overflow: visible !important;
+     -webkit-box-sizing: border-box;
+   }
+
+   video::-webkit-media-text-track-container {
+     overflow: visible !important;
+     position: absolute;
+   }
+   .topVideoDetails {
+   	z-index:unset;
+   }
+`;
+document.body.appendChild(css);
         	mediaPlayer.controls = true
         }
+
+
+        var videoURL = 'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8'
 if (hlsSupported) {
-        loadVideo("https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8");
+        mediaPlayer.src = videoURL
 
 }else{
 
@@ -666,7 +716,7 @@ if (hlsSupported) {
       hls.attachMedia(mediaPlayer);
       hls.on(Hls.Events.MEDIA_ATTACHED, function () {
   console.log("video and hls.js are now bound together !");
-        hls.loadSource("https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8");
+        hls.loadSource(videoURL);
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
         	console.log(event,data)
           console.log("manifest loaded, found " + data.levels.length + " quality level");
