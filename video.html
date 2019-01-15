@@ -468,7 +468,7 @@ color:white;
     
 <div class="media-container">
 	<div class="topVideoDetails">
-		<div class="show-episode-title"><span class="showName">The Flash</span> <span class="EpisodeName">S5 E10, Crossover on Earth-X </span></div>
+		<div class="show-episode-title"><span class="showName"></span> <span class="EpisodeName"></span></div>
 	</div>
 	<div class="videoContainer">
             <div id='media-player'>
@@ -604,6 +604,8 @@ document.onmousemove = function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
 document.querySelector('.centerControls').style.opacity = 1
 document.querySelector('#media-controls').style.opacity = 1
+document.querySelector('.videoOverlay').style.cursor = 'pointer'
+
 
 
   clearTimeout(timeout);
@@ -611,6 +613,7 @@ document.querySelector('#media-controls').style.opacity = 1
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100%)";
 document.querySelector('.centerControls').style.opacity = 0
 document.querySelector('#media-controls').style.opacity = 0
+document.querySelector('.videoOverlay').style.cursor = 'none'
 
   },5000);
 }
@@ -749,7 +752,7 @@ var progressContainer = document.getElementById('progress-bar')
 progress.addEventListener('mousemove',function(e){
 
 document.querySelector('.currenttime').style.visibility = 'visible'
-console.log(e)
+//console.log(e)
 document.querySelector('.currenttime').innerHTML = ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration).toHHMMSS()
 var halfCurrent = (document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2;
 document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offsetWidth) * 100) -halfCurrent  + '%'
@@ -762,7 +765,9 @@ document.querySelector('.currenttime').style.visibility = 'hidden'
 
 
 document.querySelector('.videoOverlay').addEventListener('click',function(e){
-	console.log(e);
+	//console.log(e); 
+	          document.querySelector('.qualitySection').style.display = 'none'
+
 	if(e.toElement.class == 'svgBackground'){
 
 	}else{
@@ -836,30 +841,7 @@ document.body.appendChild(css);
         }
 
 
-        var videoURL = 'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8'
 
-        var quality = []
-if (hlsSupported) {
-        mediaPlayer.src = videoURL
-
-}else{
-
- if (Hls.isSupported()) {
-      var hls = new Hls();
-      hls.attachMedia(mediaPlayer);
-      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-  console.log("video and hls.js are now bound together !");
-        hls.loadSource(videoURL);
-        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-        	console.log(event,data)
-          console.log("manifest loaded, found " + data.levels.length + " quality level");
-          quality = data.levels
-          document.getElementById('qualityChange').style.display = 'inline-block'
-        });
-      });
-    }
-
-}
 
 function limitQuality(type,obj){
 	quality = hls.levels
@@ -913,20 +895,63 @@ document.querySelector('.qualitySection').style.display = 'block'
 document.querySelector('.qualitySection').style.display = 'none'
 	}
 }
-//  player.src('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
 
-/*
-document.querySelector('.vjs-fullscreen-control').addEventListener('click', function(a){
-   console.log(a)
-   if(document.fullscreen){
-closeFullscreen()
-   }else{
-openFullscreen()
-   }
-   player.exitFullscreen()
-   return 0;
-})
-*/
+
+
+      var hls;
+
+function playVideo(url){
+	        var videoURL = url
+
+        var quality = []
+if (hlsSupported) {
+        mediaPlayer.src = videoURL
+
+}else{
+
+ if (Hls.isSupported()) {
+       hls = new Hls();
+      hls.attachMedia(mediaPlayer);
+      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+  console.log("video and hls.js are now bound together !");
+        hls.loadSource(videoURL);
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        	console.log(event,data)
+          console.log("manifest loaded, found " + data.levels.length + " quality level");
+          quality = data.levels
+          document.getElementById('qualityChange').style.display = 'inline-block'
+        });
+      });
+    }
+
+}
+}
+
+
+var currentVideo = {}
+function metaData(data){
+	currentVideo = data
+	console.log(data)
+ document.querySelector('.showName').innerHTML = data.show
+	data.episodeNumber
+	data.seasonNumber
+	            document.title = `S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`;
+
+	 document.querySelector('.EpisodeName').innerHTML = `S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`
+}
+
+
+//metaData({show:'Arrow',episodeNumber:13,seasonNumber:5,title:'EpisodeName'})
+//playVideo('https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8')
+
+
+
+
+
+
     </script>
+    	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+<script type="text/javascript" src="js/videoPlayer.js"></script>
 </body>
 </html>
