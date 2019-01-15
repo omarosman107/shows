@@ -17,6 +17,14 @@ src: url(font/NetflixSans-Regular-Opt.woff2);
 font-family: Netflix Sans M;
 src: url(font/NetflixSans-Medium-Opt.woff2);
 }
+@font-face {
+font-family: AMZN-LT;
+src: url(font/AmazonEmber_Lt.woff);
+}
+@font-face {
+font-family: AMZN;
+src: url(font/AmazonEmber_Rg.woff);
+}
 video::cue {
   	color:#ffffff;
 	text-shadow:#000000 0px 0px 7px;
@@ -47,6 +55,7 @@ video::cue(i){
 padding: 0;
             max-width: 100%;
             margin: 0;
+            font-family: AMZN
         }
         .media-container {
             width: 100%;
@@ -165,6 +174,7 @@ video {
       cursor:pointer;
       width: 116px;
     height: 116px;
+    margin: 0px 6px 0 6px;
 
 }
 .centerControls .buttons button:hover {
@@ -284,7 +294,29 @@ background-color: #f8f8f8;
     padding: 3em 2em 0px 0px;
 }
 .show-episode-title{
-	font-family: Helvetica,Ariel;
+	font-family: AMZN,Ariel;
+	font-size: 24px;
+}
+.EpisodeName {
+	font-family: AMZN-LT;
+	font-size: 21px;
+	padding-top: 3px;
+}
+@media (min-width: 1200px){
+.show-episode-title {
+    font-size: 2vw;
+}
+.EpisodeName{
+	    font-size: 1.75vw;
+    padding-top: .25vw;
+}
+.seekBar {
+	padding-bottom: .41667vw;
+}
+#progress-bar {
+	
+    height: .25vw;
+}
 }
 .show-episode-title .showName{
 	font-weight: 700;
@@ -294,7 +326,7 @@ display: block;
 }
 .time {
 	    font-size: 26px;
-    font-family: Helvetica;
+    font-family: AMZN;
     padding-top: 11px;
 }
 .hdIndicator {
@@ -311,6 +343,9 @@ display: block;
 @-webkit-keyframes spinner{from{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes spinner{from{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
 .volume{
 	margin-right: 20px;
+	position: relative;
+    top: -6px;
+
 }
 
 .currenttime {
@@ -345,12 +380,60 @@ display: block;
 }
 .seekBar{
 padding: 10px 0px 10px 0;
+padding-bottom: 5px;
       cursor:pointer;
 
 	}
 
+.qualitySection {
+    width: 189px;
+        background-color: #454545;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 9;
+    bottom: -205%;
+    left: 38%;
+    margin-left: -60px;
+    display: none;
+    transition: opacity 0.3s;
+}
+.qualitySection::after {
+      content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #454545 transparent transparent transparent;
+    transform: rotate(180deg);
+}
+
+.qualitySection table td {
+	    font-size: 27px;
+    	color: #b9b9b9;
+    	    	    text-align: initial;
+padding-left: 25px;
+    }
+    .qualitySection table th {
+    	    text-align: initial;
+    padding-left: 17px;
+    }
+.qualitySection table td:hover {
+color:white;
+}
+
+
+#qualityChange{
+	display: none;
+}
+
 
 	</style>
+
 
 
 
@@ -390,6 +473,34 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
          		    <input type="range" oninput="mediaPlayer.volume = this.value" name="volume" orient="vertical" class="player-slider range  round" min="0" max="1" step="0.05" value="1">
 
          	</div>
+
+      
+
+         	<div id="qualityChange" onclick="openQualitySelector()" style="  
+    cursor: pointer;
+    margin-right: 17px;">
+         		<div class="imageButtonWrapper optionsButtonWrapper"><div class="imageButton optionsButton"><img  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjciIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCAyNyAyNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R3JvdXAgNTwvdGl0bGU+PGcgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTMuNSAyNEMxOS4zIDI0IDI0IDE5LjMgMjQgMTMuNVMxOS4zIDMgMTMuNSAzIDMgNy43IDMgMTMuNSA3LjcgMjQgMTMuNSAyNHptMC0zYTcuNSA3LjUgMCAxIDAgMC0xNSA3LjUgNy41IDAgMCAwIDAgMTV6Ii8+PHBhdGggZD0iTTExLjg4IDBoMy4yNGwxLjA4IDQuMzJoLTUuNHpNMjcgMTEuODh2My4yNGwtNC4zMiAxLjA4di01LjR6TTAgMTEuODh2My4yNGw0LjMyIDEuMDh2LTUuNHpNNS41MTIgMi43MzRsLTIuMjUgMi4zMyAyLjM1NiAzLjc4IDMuNzUtMy44ODZ6TTIxLjQ4OCAyLjczNGwyLjI1IDIuMzMtMi4zNTYgMy43OC0zLjc1LTMuODg2ek01LjUxMiAyNC4yNjZsLTIuMjUtMi4zMyAyLjM1Ni0zLjc4IDMuNzUgMy44ODZ6TTIxLjQ4OCAyNC4yNjZsMi4yNS0yLjMzLTIuMzU2LTMuNzgtMy43NSAzLjg4NnpNMTEuODggMjdoMy4yNGwxLjA4LTQuMzJoLTUuNHoiLz48L2c+PC9zdmc+" alt=""></div><div class="imageButtonTooltipWrapper"></div></div>
+  <span class="qualitySection"><table style="width:100%">
+  <tr>
+    <th>Video Quality</th>
+ 
+  </tr>
+  <tr>
+    <td onclick="limitQuality('low',this)">Low</td>
+
+  </tr>
+  <tr>
+    <td onclick="limitQuality('medium',this)">Medium</td>
+
+  </tr>
+  <tr>
+    <td style="color:white;" onclick="limitQuality('best',this)">Best</td>
+
+  </tr>
+</table></span>
+
+         	</div>
+
 
          	<div onclick="toggleSubtitles()" id="subswitch" style="     display: inline-block;
     cursor: pointer;
@@ -580,6 +691,10 @@ mediaPlayer.oncanplay = function(){
 	   document.querySelector('.loadingSpinner').style.display = 'none'
 
 }
+mediaPlayer.onloadstart = function() {
+    mediaPlayer.play();
+};
+	   document.querySelector('.loadingSpinner').style.display = 'block'
 
 mediaPlayer.addEventListener('play', function() {
    var btn = document.getElementById('play-pause-button');
@@ -706,6 +821,8 @@ document.body.appendChild(css);
 
 
         var videoURL = 'https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8'
+
+        var quality = []
 if (hlsSupported) {
         mediaPlayer.src = videoURL
 
@@ -720,14 +837,66 @@ if (hlsSupported) {
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
         	console.log(event,data)
           console.log("manifest loaded, found " + data.levels.length + " quality level");
+          quality = data.levels
+          document.getElementById('qualityChange').style.display = 'inline-block'
         });
       });
     }
 
 }
 
+function limitQuality(type,obj){
+	quality = hls.levels
+	const orderedQ = {};
+	if(obj){
+		console.log(obj)
+var all_qualities = document.querySelectorAll('.qualitySection table tbody tr td')
+for(var i=0;i<all_qualities.length; i++){
+	all_qualities[i].style.color = '#b9b9b9'
+}
+		obj.style.color = 'white'
+	}
+Object.keys(quality).sort().forEach(function(key) {
+	if(quality[key].height < 720){
+		  orderedQ['low'] = key
 
+	}
+	if(quality[key].height == 720){
+		  orderedQ['medium'] = key
 
+	}
+	if(quality[key].height > 720){
+		  orderedQ['best'] = key
+
+	}
+});
+console.log(orderedQ)
+if(type == 'low'){
+		hls.nextLoadLevel = orderedQ['low']
+		//hls.currentLevel = orderedQ['low']
+
+		hls.autoLevelCapping = orderedQ['low']
+
+}
+if(type == 'medium'){
+			hls.nextLoadLevel = orderedQ['medium']
+		//	hls.currentLevel =orderedQ['medium']
+
+		hls.autoLevelCapping = orderedQ['medium']
+
+}
+if(type == 'best' || type == undefined){
+	hls.autoLevelCapping = -1 
+}
+
+}
+function openQualitySelector(){
+	if(document.querySelector('.qualitySection').style.display == 'none'){
+document.querySelector('.qualitySection').style.display = 'block'
+	}else{
+document.querySelector('.qualitySection').style.display = 'none'
+	}
+}
 //  player.src('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
 
 /*
