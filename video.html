@@ -28,7 +28,7 @@ src: url(font/AmazonEmber_Rg.woff);
 video::cue {
   	color:#ffffff;
 	text-shadow:#000000 0px 0px 7px;
-	font-family:Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+	font-family:Netflix Sans M,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
 	background: none;
 	 -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -824,14 +824,23 @@ document.querySelector('.videoOverlay').addEventListener('click',function(e){
 });
 
 function toggleSubtitles(){
-	if(mediaPlayer.textTracks[0].mode == 'hidden'){
-		mediaPlayer.textTracks[0].mode = 'showing'
+	var tracks = mediaPlayer.textTracks
+for(i = 0; i < tracks.length; i++){
+if(tracks[i].kind == "metadata"){continue;}
+console.log(tracks[i])
+	if(mediaPlayer.textTracks[i].mode == 'hidden'){
+		mediaPlayer.textTracks[i].mode = 'showing'
 		document.getElementById('subswitch').style.opacity = '1'
 	}else{
-		mediaPlayer.textTracks[0].mode = 'hidden'
+		mediaPlayer.textTracks[i].mode = 'hidden'
 				document.getElementById('subswitch').style.opacity = '.4'
 
 	}
+break;
+
+}
+
+
 }
 var isMobile = false; //initiate as false
 // device detection

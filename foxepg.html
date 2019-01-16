@@ -588,15 +588,15 @@ var perc = ((((new Date()  - date) / (new Date(data.panels.member["0"].items.mem
 str +=`<li   class=" card">
       <div class="image-crop sixteen-nine">
       ${Playable}
-         <a onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">
+         <a onclick="loadPlayer(this)" href="video.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">
             <img class=" cover sixteen-nine loaded "  src="${data.panels.member["0"].items.member[i].images.videoList.raw + '?fit=inside%7C1920:1020'}"">
          </a>
          <span class="episode-gradient"></span>
             <div id="progress" class="w3-progressbar" starts="${data.panels.member["0"].items.member[i].startDate}" ends="${data.panels.member["0"].items.member[i].endDate}" style="width: ${perc}%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}" class="overlay-btn zoom-btn " title="Watch ${data.panels.member["0"].items.member[i].secondaryTitle}"><i class="fa fa-play playbutton"></i></a></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="video.html?${data.panels.member["0"].items.member[i].playerScreenUrl}" class="overlay-btn zoom-btn " title="Watch ${data.panels.member["0"].items.member[i].secondaryTitle}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       <div class="fanart-details">
-         <h2><a class="episode-name" onclick="loadPlayer(this)" href="play.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">${data.panels.member["0"].items.member[i].secondaryTitle}</a></h2>
+         <h2><a class="episode-name" onclick="loadPlayer(this)" href="video.html?${data.panels.member["0"].items.member[i].playerScreenUrl}">${data.panels.member["0"].items.member[i].secondaryTitle}</a></h2>
          <a  href="./?fox:${data.panels.member["0"].items.member[i].seriesName}" class="secondary-link show-name">${data.panels.member["0"].items.member[i].seriesName}</a>
                <div class="cardBorder"></div>
             <p>${date} | ${data.panels.member["0"].items.member[i].durationInSeconds / 60 + 'm'} | ${data.panels.member["0"].items.member[i].contentRating} | ${'S'+data.panels.member["0"].items.member[i].seasonNumber+'E'+data.panels.member["0"].items.member[i].episodeNumber}</p>
