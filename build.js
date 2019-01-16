@@ -879,7 +879,7 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 	episodes += `<div class="single-episode">
 
 
-<a href="play.html?${upnextshows[q].seasons[i][z].link}">
+<a href="video.html?${upnextshows[q].seasons[i][z].link}">
     	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 
@@ -1241,7 +1241,7 @@ extraStyles += `       transform: translate(8%,-29%);
 
 	continueW_DIVS[i].outerHTML = `<li show="${episodeDIV.getAttribute('show')}"  seasonNumber="${showSeason[Number(a)+1].season_number}" episodeNumber="${showSeason[Number(a)+1].episode_number}"  class=" card forceVisible ${showSeason[Number(a)+1].link}">
       <div class="image-crop sixteen-nine">
-         <a onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}">
+         <a onclick="loadPlayer(this)" href="video.html?${showSeason[Number(a)+1].link}">
             <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${showSeason[Number(a)+1].episode}" src="${showSeason[Number(a)+1].img}" srcset="${showSeason[Number(a)+1].srcset}">
          </a>
                   <span class="continShow">${topShow}</span>
@@ -1250,10 +1250,10 @@ extraStyles += `       transform: translate(8%,-29%);
              "></span>
          <span class="episode-gradient"></span>
             <div id="progress" length="${showSeason[Number(a)+1].duration}" class="w3-progressbar" style="width: 0%;"></div>
-         <div class="overlay"><a onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}" class="overlay-btn zoom-btn " title="Watch ${showSeason[Number(a)+1].episode}"><i class="fa fa-play playbutton"></i></a></div>
+         <div class="overlay"><a onclick="loadPlayer(this)" href="video.html?${showSeason[Number(a)+1].link}" class="overlay-btn zoom-btn " title="Watch ${showSeason[Number(a)+1].episode}"><i class="fa fa-play playbutton"></i></a></div>
       </div>
       <h2 class="watchingTitle" style="">
-<a class="episode-name" onclick="loadPlayer(this)" href="play.html?${showSeason[Number(a)+1].link}">"${showSeason[Number(a)+1].episode}"</a></h2>
+<a class="episode-name" onclick="loadPlayer(this)" href="video.html?${showSeason[Number(a)+1].link}">"${showSeason[Number(a)+1].episode}"</a></h2>
 </li>`
 	}
 }
@@ -1378,7 +1378,7 @@ if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
 }
 var showContButton = ''
 if(upnextshows[showDetail[i].name].upNext != null){
-showContButton = `  <a href="play.html?${(upnextshows[showDetail[i].name].upNext.link)}"><i class="fa fa-play-circle" style="    position: absolute;
+showContButton = `  <a href="video.html?${(upnextshows[showDetail[i].name].upNext.link)}"><i class="fa fa-play-circle" style="    position: absolute;
     bottom: 10px;
     padding: 15px;
     z-index: 100000;
@@ -1551,7 +1551,7 @@ episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.s
 }
         watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}"  class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
-         <a onclick="loadPlayer(this)" href="play.html?${json.href}">
+         <a onclick="loadPlayer(this)" href="video.html?${json.href}">
             <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" src="${json.img}" srcset="${json.imgdyn}">
          </a>
          <span class="continShow">${topShow}</span>
@@ -1561,10 +1561,10 @@ episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.s
          <span class="episode-gradient"></span>
             <div id="progress" length="${json.length}" class="w3-progressbar" style="width: ${perc}%;"></div>
          <div class="overlay" style="opacity: 1;
-    background: linear-gradient(90deg,rgba(0, 0, 0, 0.42) 0,transparent);"><a onclick="loadPlayer(this)" href="play.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-forward playbutton"></i></a></div>
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0.42) 0,transparent);"><a onclick="loadPlayer(this)" href="video.html?${json.href}" class="overlay-btn zoom-btn " title="Watch ${json.episode}"><i class="fa fa-forward playbutton"></i></a></div>
       </div>
       <h2 class="watchingTitle" style="">
-<a class="episode-name" onclick="loadPlayer(this)" href="play.html?${json.href}">"${json.episode}"</a></h2>
+<a class="episode-name" onclick="loadPlayer(this)" href="video.html?${json.href}">"${json.episode}"</a></h2>
 </li>`
 
 //        watching.innerHTML =  '<li style="margin: 11px;" class=" card  ' + json.href + '"><a href="#"><div style="   " class="piece fanart-container"><div class="image-crop sixteen-nine" >' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><\/span><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><div class="imageBG"><\/div><img    class="cover sixteen-nine lazy "    sizes="(max-width: 600px) 80vw, 460px"    alt="' + json.episode + '" data-original-set="' + json.imgdyn + '" class"" class="cover" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn "  title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)"  show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><a href="javascript:"><i style="    /* opacity: ' + showCheck() + '; */color: rgb(127, 218, 99);position: absolute;right: 10px;bottom: 10px;display:none;" class="visited fa fa-check" aria-hidden="true"><\/i><\/a><\/div><div class="bottom"><\/div><\/div><\/a><\/li>'
@@ -1621,7 +1621,7 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 // console.log(dateDiffInDays(date2,date1))
 	if(dateDiffInDays(date2,date1) < 7|| date1.getDate() - date2.getDate() < 7){
 		console.log('new')
-		   template.push( `<a href="play.html?${json.href}">
+		   template.push( `<a href="video.html?${json.href}">
     	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
 

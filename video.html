@@ -41,7 +41,6 @@ video::cue {
     line-height: normal;
     color: #ffffff;
     text-shadow: #000000 0px 0px 7px;
-    font-family: Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica;
     font-weight: bolder !important;
 
 
@@ -365,7 +364,7 @@ display: block;
 }
 
 .currenttime {
-       bottom: 10px;
+       bottom: 0px;
     position: relative;
     left: 0%;
     visibility: hidden;
@@ -395,9 +394,10 @@ display: block;
 	        transition: opacity .2s;
 }
 .seekBar{
-padding: 10px 0px 10px 0;
+padding: 2vw 0px 2vw 0;
 padding-bottom: 5px;
       cursor:pointer;
+
 
 	}
 
@@ -446,7 +446,13 @@ color:white;
 #qualityChange{
 	display: none;
 }
-
+.thumbnail-holder {
+	position: absolute;
+    top: -111px;
+        width: 230px;
+    height: 137px;
+    visibility: hidden;
+}
 
 	</style>
 
@@ -752,7 +758,46 @@ var progressContainer = document.getElementById('progress-bar')
 progress.addEventListener('mousemove',function(e){
 
 document.querySelector('.currenttime').style.visibility = 'visible'
+if(tn.length != 0 ){
+	document.querySelector('.thumbnail-holder').style.visibility = 'visible'
+}
+
+
 //console.log(e)
+
+if(tn.length != 0){
+var thumbsObject = []
+		for(i in tn){
+thumbsObject.push({src:tn[i].src,t:i})
+		}
+
+
+
+	var closest = {distance:mediaPlayer.duration +1,sec:0}
+closest = thumbsObject.sort(function(a, b) {
+    return a.t - b.t;
+}).find(function(n){
+	return n.t >= ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration)
+})
+
+var halfTN = (document.querySelector('.thumbnail-holder').offsetWidth / progress.offsetWidth *100) / 2;
+console.log(closest)
+	document.querySelector('.thumbnail-holder img').src = closest.src
+
+	var TNleft = ((e.offsetX / progress.offsetWidth) * 100)-halfTN
+//console.log(((e.offsetX / progress.offsetWidth) * 100))
+	   if ( (TNleft) > progress.offsetWidth ) {
+        TNleft -= (TNleft +halfTN);
+      } else if (TNleft < halfTN) {
+        TNleft = 'unset';
+      }
+if(TNleft != 'unset'){
+document.querySelector('.thumbnail-holder').style.left = TNleft  + '%'
+}else{
+	document.querySelector('.thumbnail-holder').style.left = TNleft
+
+}
+}
 document.querySelector('.currenttime').innerHTML = ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration).toHHMMSS()
 var halfCurrent = (document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2;
 document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offsetWidth) * 100) -halfCurrent  + '%'
@@ -761,6 +806,9 @@ document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offse
 
 progress.addEventListener('mouseleave',function(e){
 document.querySelector('.currenttime').style.visibility = 'hidden'
+if(tn.length != 0)
+	document.querySelector('.thumbnail-holder').style.visibility = 'hidden'
+
 });
 
 
@@ -939,8 +987,48 @@ function metaData(data){
 
 	 document.querySelector('.EpisodeName').innerHTML = `S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`
 }
+var tn = []
+var progressControl = document.querySelector('#media-controls')
+
+function thumbnails(data){
+progressControl.class = progressControl.class + ' thumbnail' 
+	tn = data
+    div = document.createElement('div');
+    div.className = 'thumbnail-holder';
+    img = document.createElement('img');
+    div.appendChild(img);
+    img.src = '';
+    img.style.width='100%'
+    img.style.height='100%'
+    img.className = 'thumbnail';
+    // center the thumbnail over the cursor if an offset wasn't provided
+    if (!img.style.left && !img.style.right) {
+      img.onload = function() {
+        img.style.left = -(img.width / 2) + 'px';
+      };
+    }
+
+    // keep track of the duration to calculate correct thumbnail to display
+    duration = mediaPlayer.duration;
+    
+    // when the container is MP4
+    mediaPlayer.addEventListener('durationchange', function(event) {
+      duration = mediaPlayer.duration;
+    });
+
+    // when the container is HLS
+    mediaPlayer.addEventListener('loadedmetadata', function(event) {
+      duration = mediaPlayer.duration;
+    });
+
+    // add the thumbnail to the player
+    console.log(div)
+    progressControl.appendChild(div);
+
+    
 
 
+}
 //metaData({show:'Arrow',episodeNumber:13,seasonNumber:5,title:'EpisodeName'})
 //playVideo('https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8')
 

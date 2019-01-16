@@ -577,7 +577,7 @@ fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split
 
          parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml");
-  player.src({type:'application/vnd.apple.mpegurl',src:xmlDoc.querySelector('video').getAttribute('src')})
+playVideo(xmlDoc.querySelector('video').getAttribute('src'))
    resume();
 
          })
@@ -587,29 +587,18 @@ fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&
       parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml");
 console.log(xmlDoc.querySelector('ref').getAttribute('src'))
-  player.src({type:'application/vnd.apple.mpegurl',src:xmlDoc.querySelector('ref').getAttribute('src').replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://')})
-   resume();
- //  console.log('https://tkx-cable-prod.nbc.anvato.net/rest/v2/mcp/video/'+value.split('/')[value.split('/').length-1]+'?'+res.url.replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://').split('?')[1])
+   playVideo(xmlDoc.querySelector('ref').getAttribute('src').replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://'))
+ resume();
 })
    }
-   showname.innerHTML = (meta['nbcu$seriesShortTitle'])
-var episode_title =  (meta['title'])
-var description =  (meta['description'])
-   currentEpisode = {show:meta['nbcu$seriesShortTitle'],episode:episode_title,season:meta['nbcu$seasonNumber']}
-      showdesc.innerHTML = description;
-      document.title =  meta['nbcu$seriesShortTitle'] + ' - ' + episode_title;
-      document.getElementById('epname').innerHTML = episode_title;
-if(meta['nbcu$seriesShortTitle'] == 'Heroes'){
-             document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;" src="showMetadata/heroes/Heroes.logo.png" width="100%">'
+        metaData({show:meta['nbcu$seriesShortTitle'],episodeNumber:meta['nbcu$airOrder'],seasonNumber:meta['nbcu$seasonNumber'],title:meta['title']})
 
-}else{
-   fetch('https://api.nbc.com/v3.14/shows?filter[shortTitle]='+meta['nbcu$seriesShortTitle']).then(function(res){return res.json()}).then(function(showapi){
-      fetch('https://api.nbc.com/v3.14/images/'+showapi.data["0"].relationships.logo.data.id).then(function(res){return res.json()}).then(function(image){
-          
-          document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;margin-top: -50%;margin-bottom: 2%;margin-left: -4%;" src="'+'https://img.nbc.com/'+image.data.attributes.path+'" width="100%">'
-      })
-   })
+if(meta['nbcu$seriesShortTitle'] == 'Heroes'){
+
+      //       document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;" src="showMetadata/heroes/Heroes.logo.png" width="100%">'
+
 }
+
          console.log(meta.defaultThumbnailUrl.replace('.jpg','_1200.fs'))
         
    fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
@@ -621,7 +610,7 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
 
    }
    console.log(vidPreview)
-   player.thumbnails(vidPreview);
+   thumbnails(vidPreview);
 })
 
 
@@ -687,52 +676,15 @@ fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedc
 }
 }).then(function(m3u8){
   var m3u8 = parser.parseFromString(m3u8,"text/html").body.querySelector('script').innerHTML.split("';")[0].split("'")[1]
-  console.log(m3u8.split('.')[2].split('/')[1])
-console.log(m3u8)
-document.getElementById('downloader').href = m3u8
-    player.src({ "type": "application/x-mpegURL", "src": m3u8 });
+playVideo(m3u8)
         resume();
-   // backupWay(url)
-   /*
-fetch('https://content-ause3.uplynk.com/player/assetinfo/'+m3u8.split('.')[2].split('/')[1]+'.json').then(function(res){return res.json();}).then(function(videoData){
-   console.log(videoData)
- var vidPreview = {}
-eachCount = videoData.slice_dur
-console.log(Math.ceil(videoData.duration / videoData.slice_dur))
-function toPaddedHexString(num, len) {
-    str = num.toString(16);
-    return "0".repeat(len - str.length) + str.toUpperCase();
-}
 
-   for (i = 0; i <  Math.ceil(videoData.duration / videoData.slice_dur); i++) {
-    if(i % 3 == 0){
-      //upl256
-            vidPreview[`${(i*eachCount)}`] = {"width":"256","src":videoData.thumb_prefix + '' + toPaddedHexString(i,8) + '.jpg',"tempsrc":videoData.thumb_prefix + toPaddedHexString(i,8) + '.jpg'}
-
-var img = new Image;
-      img.src = videoData.thumb_prefix + '' + toPaddedHexString(i,8) + '.jpg'
-    }
-     
-
-   }
-   console.log(vidPreview)
-   player.thumbnails(vidPreview);
-
-
-})
-*/
 })
 }else{
  backupWay(url)
 }
 function backupWay(url){
 
-   console.log(play.fox$freewheelId)
-
-
-     // &sitesection=app.dcg-foxnow%2Fios%2Ffxn%2Flive
-   // app.dcg-foxnow%2Fiphone%2Ffxn%2Flive
-   // app.dcg-foxnow%2Fappletv%2Ffox
    fetch(url.split('?')[0] + '?formats=m3u&assetTypes=uplynk-clean%3Auplynk-ivod-west%3Auplynk-ivod-mountain%3Auplynk-ivod-east%3Auplynk-ivod&sitesection=app.dcg-foxnow%2Fiphone%2Ffxn&auth='+auth).then(function(res){if(res.status != 200){
 return;
 }else{return res.json();}}).then(function(play){
@@ -742,12 +694,9 @@ fetch(play.interstitialURL.replace('http://','https://')).then(function(res){ret
 xmlDoc = parser.parseFromString(ads,"text/xml");
 var adTimes = xmlDoc.querySelector('interstitialGroup').children
 var ads = []
-//var adstrack = player.addTextTrack("metadata", "ads", "en");
-//adstrack.mode = 'hidden';
 for (var i = adTimes.length - 1; i >= 0; i--) {
   ads.push({start:adTimes[i].querySelector('start').innerHTML,end:adTimes[i].querySelector('end').innerHTML})
   console.log({start:adTimes[i].querySelector('start').innerHTML,end:adTimes[i].querySelector('end').innerHTML})
-  //         adstrack.addCue(new VTTCue(adTimes[i].querySelector('start').innerHTML,adTimes[i].querySelector('end').innerHTML, ''));
 }
 
 function adsHandle(time){
@@ -791,9 +740,8 @@ player.on('timeupdate', function () {
       });
 var pbs = play.playURL.split('?')[1]
 var id = play.playURL.replace('/preplay2/','/').split('uplynk.com')[1].split('/')[1]
-console.log('official way',play.playURL.split('uplynk.com')[0]+'uplynk.com'+'/'+id+'.m3u8?'+pbs)
-console.log(play.playURL)
-         player.src({ "type": "application/x-mpegURL", "src": play.playURL });
+playVideo( play.playURL)
+
         resume();
 
    }).catch(function(e){
@@ -986,20 +934,15 @@ function clone(obj) {
 
 function handle(data){
 // error('this episode is not available.')
-   player.duration(data.durationInSeconds)
-currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumber}
+//   player.duration(data.durationInSeconds)
+//currentEpisode = {show:data.seriesName,episode:data.name,season:data.seasonNumber}
 
-      bg(data.images.still.HD);
-            showname.innerHTML = data.seriesName;
 
-      getShowinfo(data.seriesName);
-
-      showdesc.innerHTML = data.description;
       if(data.name == data.seriesName){
          data.name = data.headline;
       }
-      document.getElementById('epname').innerHTML = data.name;
-            document.title = data.seriesName + " - " + data.name;
+      metaData({show:data.seriesName,episodeNumber:data.episodeNumber,seasonNumber:data.seasonNumber,title:data.name})
+
             if (!data.materialIDs) {
                data['materialIDs'] = []
                data.materialIDs.push(data.guid)
@@ -1029,7 +972,6 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
             }
 
       window.history.replaceState('', '', '?'+data['@id']);
-      document.getElementById('showname').innerHTML = '<img style="    margin-bottom:-5px;height: 4.0em;display:inline-block;" src="' + data.images.logo.FHD + '" >';
 
 
 for(i in data.documentReleases){
@@ -1043,7 +985,7 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
 
    }
    console.log(vidPreview)
-   player.thumbnails(vidPreview);
+   thumbnails(vidPreview);
 
 })
       }
