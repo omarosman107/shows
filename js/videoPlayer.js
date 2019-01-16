@@ -76,12 +76,12 @@ function getLastTime(){
 function resumePlayback(state) {
    console.log(getLastTime())
      console.timeEnd();
-
+/*
    if (mediaPlayer.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
    return;
 }
-
+*/
 if (!played) {
 
 
