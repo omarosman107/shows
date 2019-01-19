@@ -111,6 +111,8 @@ video {
     padding: 0 50px 10px;
     z-index: 11;
     padding: 0 4.16667vw 2.08333vw;
+    transform: scale(1) translate(0px, 0%);
+    transition: transform .2s;
 }
 .centerControls {
      margin: auto;
@@ -129,7 +131,7 @@ video {
         transition: opacity .2s;
 }
 #media-controls  {
-	        transition: opacity .2s;
+	     /*   transition: opacity .2s;*/
 
 }
 .centerControls .buttons{
@@ -453,6 +455,17 @@ color:white;
     height: 137px;
     visibility: hidden;
 }
+.spinnerContainer {
+	    z-index: 3;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    cursor: none;
+
+}
+
 
 	</style>
 
@@ -478,6 +491,9 @@ color:white;
 	</div>
 	<div class="videoContainer">
             <div id='media-player'>
+            		<div class="spinnerContainer">
+            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt=""></div>
+            	       	            	</div>
             	       <div class="centerControls">
             	       	<div class="buttons">
             	       		         	 
@@ -534,7 +550,8 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
     cursor: pointer;
 "><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAyNSAyNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+ZnVsbHNjcmVlbjwvdGl0bGU+PGcgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMjQuOTcuMDAyVjBoLTN2LjAwMmwtNi0uMDAydjNoMy43NTNsLTUuODcgNS44NyAyLjEyIDIuMTIyIDUuOTk2LTUuOTk2VjloM1YuMDAyek05IDIySDUuMjQ2bDUuODctNS44Ny0yLjEyLTIuMTIyTDMgMjAuMDA0VjE2SDB2OWg5di0zeiIvPjwvZz48L3N2Zz4=" alt=""></div>
          </div>
-            	       	            	<div class="videoOverlay"><div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt=""></div></div>
+            	       	            	<div class="videoOverlay"></div>
+            	       	            
 
 
 </div>
@@ -606,22 +623,34 @@ openFullscreen();
 	}
 }
 
+function startTimeoutControls(){
+  timeout = setTimeout(function(){
+	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100%)";
+document.querySelector('.centerControls').style.opacity = 0
+document.querySelector('.centerControls').style.cursor = 'none'
+
+document.querySelector('#media-controls').style.transform = "scale(1) translate(0px, 133%)"
+document.querySelector('.videoOverlay').style.cursor = 'none'
+document.querySelector('.topRightControls').style.display = 'none'
+
+
+  },3000);
+}
+startTimeoutControls()
 document.onmousemove = function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
 document.querySelector('.centerControls').style.opacity = 1
-document.querySelector('#media-controls').style.opacity = 1
+document.querySelector('.centerControls').style.cursor = 'pointer'
+document.querySelector('#media-controls').style.transform = "scale(1) translate(0px,0%)";
 document.querySelector('.videoOverlay').style.cursor = 'pointer'
+document.querySelector('.topRightControls').style.display = 'block'
+
+
 
 
 
   clearTimeout(timeout);
-  timeout = setTimeout(function(){
-	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100%)";
-document.querySelector('.centerControls').style.opacity = 0
-document.querySelector('#media-controls').style.opacity = 0
-document.querySelector('.videoOverlay').style.cursor = 'none'
-
-  },5000);
+startTimeoutControls()
 }
 
 
@@ -956,6 +985,7 @@ document.querySelector('.qualitySection').style.display = 'none'
 
 
       var hls;
+ 	var startTime = -1
 
 function playVideo(url){
 	        var videoURL = url
@@ -967,7 +997,61 @@ if (hlsSupported) {
 }else{
 
  if (Hls.isSupported()) {
-       hls = new Hls();
+ 	if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 35) {
+      startTime = Number(localStorage[window.location.search]);
+      }
+
+ 	var config = {
+
+ 		 autoStartLoad: true,
+  	  startPosition : startTime,
+      capLevelToPlayerSize: false,
+      debug: false,
+      defaultAudioCodec: undefined,
+      initialLiveManifestSize: 1,
+      maxBufferLength: 30,
+      maxMaxBufferLength: 600,
+      maxBufferSize: 60*1000*1000,
+      maxBufferHole: 0.5,
+      lowBufferWatchdogPeriod: 0.5,
+      highBufferWatchdogPeriod: 3,
+      nudgeOffset: 0.1,
+      nudgeMaxRetry : 3,
+      maxFragLookUpTolerance: 0.2,
+      liveSyncDurationCount: 3,
+      liveMaxLatencyDurationCount: 10,
+      enableWorker: true,
+      enableSoftwareAES: true,
+      manifestLoadingTimeOut: 10000,
+      manifestLoadingMaxRetry: 1,
+      manifestLoadingRetryDelay: 500,
+      manifestLoadingMaxRetryTimeout : 64000,
+      startLevel: undefined,
+      levelLoadingTimeOut: 10000,
+      levelLoadingMaxRetry: 4,
+      levelLoadingRetryDelay: 500,
+      levelLoadingMaxRetryTimeout: 64000,
+      fragLoadingTimeOut: 20000,
+      fragLoadingMaxRetry: 6,
+      fragLoadingRetryDelay: 500,
+      fragLoadingMaxRetryTimeout: 64000,
+      startFragPrefetch: false,
+      appendErrorMaxRetry: 3,
+      enableWebVTT: true,
+      enableCEA708Captions: true,
+      stretchShortVideoTrack: false,
+      maxAudioFramesDrift : 1,
+      forceKeyFrameOnDiscontinuity: true,
+      abrEwmaFastLive: 5.0,
+      abrEwmaSlowLive: 9.0,
+      abrEwmaFastVoD: 4.0,
+      abrEwmaSlowVoD: 15.0,
+      abrEwmaDefaultEstimate: 500000,
+      abrBandWidthFactor: 0.95,
+      abrBandWidthUpFactor: 0.7,
+      minAutoBitrate: 0
+ 	}
+       hls = new Hls(config);
       hls.attachMedia(mediaPlayer);
       hls.on(Hls.Events.MEDIA_ATTACHED, function () {
   console.log("video and hls.js are now bound together !");
