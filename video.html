@@ -107,6 +107,7 @@ video {
 #media-controls {
 	       position: absolute;
     bottom: 36px;
+    width: -moz-available;
     width: -webkit-fill-available;
     padding: 0 50px 10px;
     z-index: 11;
@@ -151,8 +152,7 @@ video {
   height:6px;
   transition:height 0.3s;
     background: #ddd;
-      background:#ffc600;
-
+border: 0;
       cursor:pointer;
   width: 100%;
 }
@@ -844,7 +844,7 @@ if(tn.length != 0)
 document.querySelector('.videoOverlay').addEventListener('click',function(e){
 	//console.log(e); 
 	          document.querySelector('.qualitySection').style.display = 'none'
-
+console.log(e)
 	if(e.toElement.class == 'svgBackground'){
 
 	}else{
@@ -888,6 +888,7 @@ togglePlayPause()
             if(isMobile){
         	document.querySelector('#media-controls').style.display = 'none'
         	document.querySelector('.topRightControls').style.display = 'none'
+        	document.querySelector('.spinnerContainer').style.display = 'none'
         	        	document.querySelector('.centerControls').style.display = 'none'
 var css = document.createElement("style");
 css.type = "text/css";
