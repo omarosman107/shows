@@ -1967,6 +1967,9 @@ showDetail[episode.data[z].attributes.categories[0].split('/')[1]].rating = epis
 
 				}
 									loaders('remove')
+}).catch(function(e){
+	console.log(e)
+	loaders('remove')
 })
 }
 var nbcStLogo = []
@@ -1992,7 +1995,7 @@ if(!shows.data[i].attributes.shortTitle.toLowerCase().includes(show)){
 continue;
 }
 			}else{
-		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
+		if (showId != '1033f650-03ff-405e-a3b9-adfbea0dd669' && showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  ) { // the blacklist && heroes
 				 continue;
 			}
 		}
@@ -2103,6 +2106,9 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 				}
 									loaders('remove')
 
+			}).catch(function(e){
+				console.log(e)
+				loaders('remove')
 			})
 		}
 
