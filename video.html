@@ -1145,7 +1145,7 @@ sendPlaybackInfo()
                if (showJson[i].episode_number == currentVideo.episodeNumber ) {
 
                   if (i+1 - showJson.length - 1 == -1 ) {
-
+console.log('last episode in season')
 if(currentVideo.seasonNumber + 1 in JSON.parse(localStorage['showData'])[currentVideo.show].seasons){
 next = JSON.parse(localStorage['showData'])[currentVideo.show].seasons[currentVideo.seasonNumber + 1][0]
 }
@@ -1180,7 +1180,10 @@ document.querySelector('.nextEpisode').style.transform = 'translate(105%)'
 window.history.replaceState('Object', 'Title', '?'+nextEpisodeJSON.link);
 findName(nextEpisodeJSON.link)
 nextEpisodeCalled = false;
+tn = []
 db_playbackData()
+nextEpisodeJSON = {}
+
 
 }
 function metaData(data){

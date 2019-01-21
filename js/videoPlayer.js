@@ -186,8 +186,12 @@ document.getElementById('playNextEpisode').click();
 
 function sendPlaybackInfo(){
        localStorage[window.location.search] = mediaPlayer.currentTime;
-            localStorage[window.location.search+'_duration'] = mediaPlayer.duration;
-            var playbackStats = JSON.parse(`{"current":${mediaPlayer.currentTime},"duration":${mediaPlayer.duration}}`)
+       var d = mediaPlayer.duration
+       if('end' in currentVideo){
+        d = currentVideo.end
+       }
+            localStorage[window.location.search+'_duration'] = d;
+            var playbackStats = JSON.parse(`{"current":${mediaPlayer.currentTime},"duration":${d}}`)
  var diff = 0
 
 if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) ){
@@ -208,8 +212,12 @@ function resume() {
 
 
 
-
+ if('end' in currentVideo){
+        finishDur = mediaPlayer.duration - currentVideo.end
+       }else{
     finishDur = mediaPlayer.duration - 35
+
+       }
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
    }
@@ -219,7 +227,6 @@ clearInterval(trackData)
 
 
    vid.addEventListener('loadeddata', function () {
-          finishDur = mediaPlayer.duration - 35
    if(localStorage[window.location.search + '_end']){
       finishDur = localStorage[window.location.search + '_end']
    }
@@ -465,7 +472,7 @@ playVideo('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ m
 
       }
     }).catch(function(){
-      
+
     })
   /*    
 */
@@ -594,7 +601,9 @@ console.log(xmlDoc.querySelector('ref').getAttribute('src'))
 })
    }
         metaData({show:meta['nbcu$seriesShortTitle'],episodeNumber:meta['nbcu$airOrder'],seasonNumber:meta['nbcu$seasonNumber'],title:meta['title']})
-
+fetch('https://friendship.nbc.co/v1/end-cards/episode/-6031016734070054488/'+value.split('/')[value.split('/').length-1]+'?_platform=all&_version=v1').then(function(res){return res.json();}).then(function(metad){
+  currentVideo.end = (metad.data.episodeEndCard.currentVideoCreditCuePoint)
+})
 if(meta['nbcu$seriesShortTitle'] == 'Heroes'){
 
       //       document.getElementById('showname').innerHTML =    '<img style="margin-bottom:-5px;width: 11.0em;display:inline-block;" src="showMetadata/heroes/Heroes.logo.png" width="100%">'
@@ -944,6 +953,7 @@ function handle(data){
          data.name = data.headline;
       }
       metaData({show:data.seriesName,episodeNumber:data.episodeNumber,seasonNumber:data.seasonNumber,title:data.name})
+  currentVideo.end = (data.creditCuePoint - 10)
 
             if (!data.materialIDs) {
                data['materialIDs'] = []
