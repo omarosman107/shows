@@ -455,8 +455,8 @@ xmlDoc = parser.parseFromString(smil,"text/xml");
    playVideo((xmlDoc.querySelector('ref').getAttribute('src')))
 
     })
-    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect').then(function(res){return res.json();}).then(function(json){
-      
+    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect').then(function(res){return res.text();}).then(function(t){
+      var json = JSON.parse(t)
       if(json.isException){
 
 playVideo('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8')
@@ -464,6 +464,8 @@ playVideo('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ m
  resume()
 
       }
+    }).catch(function(){
+      
     })
   /*    
 */

@@ -465,6 +465,40 @@ color:white;
     cursor: none;
 
 }
+.nextEpisode {
+	position: absolute;
+    bottom: 100%;
+    right: 0px;
+    z-index: 10;
+    transform: translate(105%);
+    transition: transform .3s;
+    width: 180px;
+    padding: 0 4.16667vw 2.08333vw;
+}
+.nextOverlay{
+	    z-index: 20;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    letter-spacing: 0;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    -webkit-transition: all .23s ease-out;
+    transition: all .23s ease-out;
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0.42) 0,transparent);
+        cursor: pointer;
+}
+
+.nextImageDIV {
+	    width: 100%;
+    position: relative;
+    overflow: visible;
+    background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
+    background: -webkit-radial-gradient(50% 50% farthest-corner,rgba(50,50,50,.5) 0,#323232 100%);
+    background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
+}
 
 
 	</style>
@@ -562,6 +596,15 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 
 
          <div id='media-controls'>
+         	<div class="nextEpisode">
+	<div class="nextImageDIV">
+		<img width="100%" src="">
+		<div onclick="nextEpisode()" class="nextOverlay"><div class="playbutton">
+			
+		</div></div>
+	</div>
+	<div class="nextEpisodeMetadata"></div>
+</div>
          	         	     <span class="currenttime"></span>
 
          	<div class="seekBar">
@@ -739,16 +782,20 @@ mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
 mediaPlayer.onwaiting = function() {
    console.log("buffering");
    document.querySelector('.loadingSpinner').style.display = 'block'
+   	   	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
+
 
 };
 mediaPlayer.oncanplay = function(){
 	   document.querySelector('.loadingSpinner').style.display = 'none'
+	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
 
 }
 mediaPlayer.onloadstart = function() {
     mediaPlayer.play();
 };
 	   document.querySelector('.loadingSpinner').style.display = 'block'
+	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
 
 mediaPlayer.addEventListener('play', function() {
    var btn = document.getElementById('play-pause-button');
@@ -1071,6 +1118,71 @@ if (hlsSupported) {
 
 
 var currentVideo = {}
+var nextEpisodeCalled = false
+var finishDur
+var nextEpisodeJSON = {}
+mediaPlayer.addEventListener("timeupdate",function(e){
+	if('end' in currentVideo){
+		finishDur = mediaPlayer.duration -  (currentVideo.end - 2)
+	}else{
+finishDur = 35
+	}
+
+	
+//	console.log(mediaPlayer.duration - mediaPlayer.currentTime)
+ if ( nextEpisodeCalled == false && (mediaPlayer.duration - mediaPlayer.currentTime) < finishDur) {
+
+if(!JSON.parse(localStorage['showData'])[currentVideo.show]){
+return;
+  }
+console.log((mediaPlayer.duration - mediaPlayer.currentTime) < finishDur)
+sendPlaybackInfo()
+      nextEpisodeCalled = true
+
+            var showJson = JSON.parse(localStorage['showData'])[currentVideo.show].seasons[currentVideo.seasonNumber]
+            console.log(showJson)
+            for (var i = showJson.length - 1; i >= 0; i--) {
+               if (showJson[i].episode_number == currentVideo.episodeNumber ) {
+
+                  if (i+1 - showJson.length - 1 == -1 ) {
+
+if(currentVideo.seasonNumber + 1 in JSON.parse(localStorage['showData'])[currentVideo.show].seasons){
+next = JSON.parse(localStorage['showData'])[currentVideo.show].seasons[currentVideo.seasonNumber + 1][0]
+}
+
+                  }else{
+                                    next = showJson[i+1]
+
+                  }
+               if('episode' in next){
+               console.log(next)
+ nextEpisodeJSON = next
+
+               document.querySelector('.nextEpisodeMetadata').innerHTML = 'S'+next.season_number+' E'+next.episode_number+', '+next.episode
+document.querySelector('.nextImageDIV img').src = next.img
+               document.querySelector('.nextEpisode').style.transform = 'translate(0%)'
+
+               }
+
+               }
+            }
+         }else{
+      //   document.querySelector('.nextEpisode').style.transform = 'translate(105%)'
+        // nextEpisodeCalled = false
+         }
+       
+})
+function nextEpisode(){
+console.log(nextEpisodeJSON)
+mediaPlayer.pause()
+currentVideo = {}
+document.querySelector('.nextEpisode').style.transform = 'translate(105%)'
+window.history.replaceState('Object', 'Title', '?'+nextEpisodeJSON.link);
+findName(nextEpisodeJSON.link)
+nextEpisodeCalled = false;
+db_playbackData()
+
+}
 function metaData(data){
 	currentVideo = data
 	console.log(data)
@@ -1123,6 +1235,8 @@ progressControl.class = progressControl.class + ' thumbnail'
 
 
 }
+
+
 //metaData({show:'Arrow',episodeNumber:13,seasonNumber:5,title:'EpisodeName'})
 //playVideo('https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/436/861/46627909770/Arrow-709-ElseworldsPart2-T2713659-CW-V2.m3u8')
 
