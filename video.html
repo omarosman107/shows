@@ -173,9 +173,10 @@ border: 0;
     opacity: .25;
     background: transparent;
       cursor:pointer;
-      width: 116px;
-    height: 116px;
+      width: 100px;
+      height: 100px;
     margin: 0px 6px 0 6px;
+        position: relative;
 
 }
 .centerControls .buttons button:hover {
@@ -183,16 +184,25 @@ opacity: 0.85;
 }
 button:focus {outline:0;}
 .seekTime {
-       text-align: center;
+      text-align: center;
     height: 20px;
     color: white;
-    font-size: 25px;
+    font-size: 1.3em;
     text-align: center;
     height: 32px;
     color: white;
-    font-size: 25px;
-    position: relative;
-    top: -49px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: box;
+    box-pack: center;
+    box-align: center;
+    height: 100%;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
 }
 .svgBackground {
 width: 100%;
