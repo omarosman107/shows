@@ -390,39 +390,6 @@ function fetchcwjson(value) {
 
 
 
- fetch(`https://dai.google.com/ondemand/hls/content/2478072/vid/${stripped}/streams`,{
-         method:"POST",
-         headers:new Headers({
-            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"',
-                'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
-                'Accept-Encoding': 'br, gzip, deflate',
-                'Accept-Language':'en-us'
-
-         })
-      }).then(function(res){
-//console.log(res)
-         if(!res.ok){
-
-
-// 2478072
-//6698
-      }else{
-return res.json()
-      }
-         
-  
-
-
-
-   }).then(function(hls){
-  
-   var pl  = []
-
-//player.src([{"src":hls.stream_manifest, "type": "application/vnd.apple.mpegurl"}]);
-      //           player.play();
-  // resume();
-            
-      })
 
 
 
@@ -466,9 +433,35 @@ xmlDoc = parser.parseFromString(smil,"text/xml");
       var json = JSON.parse(t)
       if(json.isException){
 
-playVideo('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8')
+ fetch(`https://dai.google.com/ondemand/hls/content/2478072/vid/${stripped}/streams`,{
+         method:"POST",
+         headers:new Headers({
+            Authorization:'DCLKDAI key="il5qfm01e0lq81vuck744kokf"',
+                'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Accept-Encoding': 'br, gzip, deflate',
+                'Accept-Language':'en-us'
 
- resume()
+         })
+      }).then(function(res){
+//console.log(res)
+         if(!res.ok){
+// 2478072
+//6698
+      }else{
+return res.json()
+      }
+   }).then(function(hls){
+     var pl  = []
+
+playVideo(hls.stream_manifest);
+      //           player.play();
+   resume();
+            
+      })
+
+//playVideo('https://'+metadata.captions[0].src.split('/')[2] + '/nosec/The_CW'+ media.join('_') + '.m3u8')
+
+ //resume()
 
       }
     }).catch(function(){
