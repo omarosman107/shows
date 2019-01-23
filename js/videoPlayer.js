@@ -471,10 +471,9 @@ playVideo(hls.stream_manifest);
 */
  resume()
 }else{
-       player.src({
-    src: 'https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?mbr=true&formats=m3u,mpeg4&format=redirect',
-    type: 'application/vnd.apple.mpegurl'
-})
+  playVideo(
+   'https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?mbr=true&formats=m3u,mpeg4&format=redirect'
+)
 }
 
 })
