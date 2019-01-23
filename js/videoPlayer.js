@@ -426,10 +426,15 @@ media.splice(-4)
 
         parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml"); 
-   playVideo((xmlDoc.querySelector('ref').getAttribute('src')))
+ //  playVideo((xmlDoc.querySelector('ref').getAttribute('src')))
 
     })
-    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect').then(function(res){return res.text();}).then(function(t){
+    fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect').then(function(res){
+if(res.ok){
+          playVideo('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
+resume();
+}
+      return res.text();}).then(function(t){
       var json = JSON.parse(t)
       if(json.isException){
 
@@ -463,6 +468,8 @@ playVideo(hls.stream_manifest);
 
  //resume()
 
+      }else{
+        playVideo('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
       }
     }).catch(function(){
 
