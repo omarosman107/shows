@@ -881,7 +881,7 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 
 <a href="video.html?${upnextshows[q].seasons[i][z].link}">
     	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
-    	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
+    	<div class="episode_img"><div class="episode_overlay"></div><img class="hoverEpisode cover  lazy" width="100%" 
 
 data-original="${upnextshows[q].seasons[i][z].img}" onerror="if (this.src != '${showDetail[q].bg}') this.src = '${showDetail[q].bg}';this.srcset = '';"  data-original-set="${upnextshows[q].seasons[i][z].srcset}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${q}"
 
@@ -1623,7 +1623,7 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 		console.log('new')
 		   template.push( `<a href="video.html?${json.href}">
     	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.href}">
-    	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover  lazy" width="100%" 
+    	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover hoverEpisode lazy" width="100%" 
 
 data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';"  data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${json.show}"
 

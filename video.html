@@ -1199,6 +1199,12 @@ nextEpisodeJSON = {}
 function metaData(data){
 	currentVideo = data
 	console.log(data)
+	if(!data.title.toLowerCase().includes('part') && data.title.includes(': ') && data.show != 'The Blacklist'){
+	var splittedName = data.title.split(': ')
+	splittedName.shift()
+data.title = splittedName.join(': ')
+}
+
  document.querySelector('.showName').innerHTML = data.show
 	data.episodeNumber
 	data.seasonNumber

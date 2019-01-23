@@ -188,6 +188,7 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     position: inherit;
             border-radius:2px;
                 overflow: hidden;
+                position: relative;
 
 }
 .episode_overlay {
@@ -882,6 +883,7 @@ width:100%;
       border-radius:10px;
           display: inline-block;
           padding: 0px 13px 6px 13px;
+          cursor: pointer;
   
 }
 .showOverlay {
@@ -938,6 +940,21 @@ color: #d8d6d6;
 
  /* font-family: 'Graphik-Medium';*/
 }
+.hoverEpisode {
+     transition-delay: .2s;
+    transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), opacity .5s cubic-bezier(0.6, -0.28, 0.74, 0.05) !important;
+}
+/*.episode:hover .hoverEpisode {
+  position: absolute;
+    transform: scale(1.04);
+
+}
+.episode:hover{
+      border-style: solid;
+    border-width: 3px;
+    border-radius: 0;
+}
+*/
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
@@ -994,7 +1011,7 @@ color: #d8d6d6;
     </div>
     <h1 class="sectionHead" id="wtcTxt">Up next</h1>
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
-<h1 id="newepisodes" class="sectionHead">New Arrivals</h1>
+<h1 id="newepisodes" class="sectionHead">New Releases</h1>
     <ul class="shows dragscroll" id="carasoul"></ul>
 
     <h1 class="sectionHead" >Shows</h1>
