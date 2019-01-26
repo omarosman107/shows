@@ -13,23 +13,19 @@ db.settings({
 var fireBaseCollection = null
 function db_playbackData(){
 if(localStorage['USER_TOKEN']){
-  console.log('locally saved user token found')
-  if(window.location.search == ''){console.log('no url');return;}
+  if(window.location.search == ''){return;}
  fireBaseCollection = db.collection(localStorage['USER_TOKEN']).doc(encodeURIComponent(btoa(window.location.search)));
 // fireBaseCollection.set({})
 fireBaseCollection.get().then(function(doc) {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
         if(doc.data()){
              localStorage[window.location.search] = (doc.data().current);
 }
 
     } else {
         // doc.data() will be undefined in this case
-        console.log("no saved data :(");
     }
 }).catch(function(error) {
-    console.log("Error getting document:", error);
 });
  
 
@@ -39,7 +35,6 @@ db_playbackData()
 
 
 
-console.log(getLastTime().start)
 
 
 
@@ -74,8 +69,6 @@ function getLastTime(){
    return {start:0,bandwidth:Number(localStorage['last_bandwidth'])};
 }
 function resumePlayback(state) {
-   console.log(getLastTime())
-     console.timeEnd();
 /*
    if (mediaPlayer.canPlayType('application/vnd.apple.mpegURL')) {
       played = true;
@@ -101,15 +94,14 @@ if(localStorage['localConfig']){
 var tracks = mediaPlayer.textTracks
 for(i = 0; i < tracks.length; i++){
 if(tracks[i].kind == "metadata"){continue;}
-console.log(tracks[i])
+
 for(z in tracks[i].cues){
-  var region = new window.VTTRegion(0, 200, "I'm a region.");
-  region.width = 80
+/* // var region = new window.VTTRegion(0, 200, "I'm a region.");
+  //region.width = 80
   region.lines = 10
   region.viewportAnchorY = 60
   console.log(region)
-
-  console.log(tracks[i].cues[z].region = region)
+*/
 }
 tracks[i].mode = "showing"
 break;
@@ -204,7 +196,6 @@ function sendPlaybackInfo(){
  var diff = 0
 
 if(JSON.stringify(sentPlaybackData) != JSON.stringify(playbackStats) ){
-console.log(playbackStats)
 sentPlaybackData = playbackStats
 if(fireBaseCollection){
 fireBaseCollection.set(playbackStats)
@@ -301,7 +292,6 @@ var tracks = mediaPlayer.textTracks
 for(i = 0; i < tracks.length; i++){
 if(tracks[i].kind == "metadata"){continue;}
 if(tracks[i].mode == "showing"){
-console.log(tracks[i])
 showcaptions =true
 }
 }
@@ -320,7 +310,6 @@ localStorage['localConfig'] = JSON.stringify({volume:mediaPlayer.volume,captions
   
 
 if (localStorage[window.location.search] == '' || localStorage[window.location.search] == 'undefined') {
-   console.log("No cookie for position found");
    var currentPosition = 0;
 } else {
    if (localStorage[window.location.search] == "null") {
@@ -328,7 +317,6 @@ if (localStorage[window.location.search] == '' || localStorage[window.location.s
    } else {
       var currentPosition = localStorage[window.location.search];
    }
-   console.log("Position cookie found: " + localStorage[window.location.search]);
 }
 
 var foxwholescript;
@@ -390,12 +378,8 @@ var hostcw
 var showPreload = []
 
 function fetchcwjson(value) {
-   console.log(value);
    var stripped = value.split('?')[1].split('=')[1].split('/')[0];
-   console.log(stripped
-   // HLS = 154 | 206
-   // MP4 = 213
-   );var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
+  var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json";
 
 
 
@@ -495,7 +479,6 @@ playVideo(hls.stream_manifest);
 })
    
 
-console.log(url)
 return;
 
 }
@@ -510,7 +493,7 @@ return;
     'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
   })
   }).then(function(res){return res.json();}).then(function(json){
-console.log(json)
+
   bg(json.images.still.HD);
          getShowinfo(json.seriesName);
          showname.innerHTML = json.seriesName;
@@ -537,7 +520,6 @@ function fetchcbsjson(value) {
    if (value.slice(-1) == "/") {
       value = value.slice(0, -1);
    }
-   console.log(searchValue);
    fetch("https://link.theplatform.com/s/dJ5BDC/media/guid/2198311517/" + searchValue + "?mbr=true&formats=m3u&format=redirect").then(function(res){
       player.src({type:'application/x-mpegURL',src:res.url})
       resume();
@@ -600,10 +582,8 @@ playVideo(xmlDoc.querySelector('video').getAttribute('src'))
          })
    }else{
 fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=smil').then(function(res){return res.text();}).then(function(smil){
-      console.log(smil)
       parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml");
-console.log(xmlDoc.querySelector('ref').getAttribute('src'))
    playVideo(xmlDoc.querySelector('ref').getAttribute('src').replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://'))
  resume();
 })
@@ -618,7 +598,6 @@ if(meta['nbcu$seriesShortTitle'] == 'Heroes'){
 
 }
 
-         console.log(meta.defaultThumbnailUrl.replace('.jpg','_1200.fs'))
         
    fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
@@ -650,7 +629,6 @@ function fetchfxjson(value) {
     'apikey': 'rm7dzFLzucfbXAVkZi8e1P34PWEN4GoR'
   })
   }).then(function(res){return res.json();}).then(function(json){
-console.log(json)
   bg(json.member["0"].images.still.HD);
          getShowinfo(json.member["0"].seriesName);
          showname.innerHTML = json.member["0"].seriesName;
@@ -1004,7 +982,6 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
       vidPreview[`${(i*eachCount)}`] = {"src":preview.thumbnails[i],width:'256px'}
 
    }
-   console.log(vidPreview)
    thumbnails(vidPreview);
 
 })
@@ -1015,7 +992,6 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
 
  
 }
-console.log(item)
 
 
 handle(item)
@@ -1032,16 +1008,13 @@ function smpte2vtt(timecode,add_seconds,frame_rate){
 }
 // Anvato
 function anvato(url){
-   console.log(url.split('?')[1])
   fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect').then(function(res){
-   console.log('http://tkx-cable-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+res.url.split('?')[1])
 fetch('http://tkx-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+res.url.split('?')[1]).then(function(res){return res.text();}).then(function(episode){
   var p = episode.split('(')
 
   //p.splice(0, 1)
    //var data = (JSON.parse(p.join('').slice(0,-1)))
     var data = JSON.parse(episode)
-     console.log(data)
 
     bg(data.src_image_url);
          getShowinfo(data.program_name);
@@ -1062,7 +1035,6 @@ fetch(data.captions[i].url).then(function(res){return res.text()}).then(function
    var htmlDoc = parser.parseFromString(text, "text/xml")
    htmlDoc = htmlDoc.getElementsByTagName('p')
   // track = player.addTextTrack("captions", 'English (alt)', 'en');
-   console.log(data.captions[i].language)
       var str =  `WEBVTT
 
 `
@@ -1114,7 +1086,6 @@ ${(unescape(encodeURIComponent(htmlDoc[i].innerHTML))).trim()}
 
 
 
-console.log('data:text/vtt;base64,' + btoa(str))
       track = player.addRemoteTextTrack({kind:"captions",src:'data:text/vtt;base64,' + btoa(str), srclang:"English VTT"});
 
 
@@ -1124,7 +1095,6 @@ console.log('data:text/vtt;base64,' + btoa(str))
 
          document.title = data.program_name + " - " + data.def_title
 })
-  console.log(res.url.replace('3104027',url.split('?')[1]))
  //  player.src({type:'application/vnd.apple.mpegurl',src:res.url.replace('3104027',url.split('?')[1])})
    //resume();
 })
@@ -1258,7 +1228,6 @@ if (url) {
   for (tv in sitefunctions) {
 
     if (currenturl.includes(tv)) {
-      console.log(tv + " detected");
       url = currenturl;
       sitefunctions[tv](url
       );isDone = true;
@@ -1270,5 +1239,4 @@ if (url) {
 findName();
 
 if (isDone == false) {
-console.log('not found')
 }

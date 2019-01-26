@@ -795,7 +795,6 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
 mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
 
 mediaPlayer.onwaiting = function() {
-   console.log("buffering");
    document.querySelector('.loadingSpinner').style.display = 'block'
    	   	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
 
@@ -837,6 +836,9 @@ function loadVideo() {
    }
 }
 const slideDuration = (slideNode, videoNode) => ({offsetX}) => {
+	 document.querySelector('.loadingSpinner').style.display = 'block'
+	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
+
     mediaPlayer.currentTime  = (offsetX / progressContainer.offsetWidth) * mediaPlayer.duration;
     document.getElementById('progress-bar').value =((offsetX / progress.offsetWidth)*100); } 
 
@@ -1117,11 +1119,8 @@ if (hlsSupported) {
        hls = new Hls(config);
       hls.attachMedia(mediaPlayer);
       hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-  console.log("video and hls.js are now bound together !");
         hls.loadSource(videoURL);
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-        	console.log(event,data)
-          console.log("manifest loaded, found " + data.levels.length + " quality level");
           quality = data.levels
           document.getElementById('qualityChange').style.display = 'inline-block'
         });
@@ -1150,7 +1149,7 @@ finishDur = 35
 if(!JSON.parse(localStorage['showData'])[currentVideo.show]){
 return;
   }
-console.log((mediaPlayer.duration - mediaPlayer.currentTime) < finishDur)
+console.log('Marked as done')
 sendPlaybackInfo()
       nextEpisodeCalled = true
 
@@ -1272,7 +1271,6 @@ progressControl.class = progressControl.class + ' thumbnail'
     </script>
     	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
-<script type="text/javascript" src="js/svtt.min.js"></script>
 <script type="text/javascript" src="js/videoPlayer.js"></script>
 </body>
 </html>
