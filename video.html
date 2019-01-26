@@ -40,6 +40,8 @@ video::cue {
 
     line-height: normal;
     color: #ffffff;
+    font-size: .7em;
+    line-height: 0;
     text-shadow: #000000 0px 0px 7px;
     font-weight: bolder !important;
 
@@ -177,6 +179,9 @@ border: 0;
       height: 100px;
     margin: 0px 6px 0 6px;
         position: relative;
+    display: -webkit-inline-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
 
 }
 .centerControls .buttons button:hover {
@@ -192,7 +197,7 @@ button:focus {outline:0;}
     height: 32px;
     color: white;
     position: absolute;
-    top: 0;
+    top: 1px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -542,7 +547,7 @@ color:white;
             	       	<div class="buttons">
             	       		         	 
 
-    <button data-skip="-10" onclick="mediaPlayer.currentTime = mediaPlayer.currentTime + Number(this.getAttribute('data-skip'));updateProgressBar()" class="player-btn"><div class="fastSeekBack hide"><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODUiIHZpZXdCb3g9IjAgMCA4MCA4NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+MTBzIGJhY2s8L3RpdGxlPjxwYXRoIGQ9Ik0xNS4xOTcgMTQuNDc4bDMuMjY4IDEuNzUzQzkuNDk1IDIyLjc5IDMuNjYyIDMzLjM4OCAzLjY2MiA0NS4zNTNjMCAxOS45MTMgMTYuMTQzIDM2LjA1NiAzNi4wNTYgMzYuMDU2IDE5LjkxNCAwIDM2LjA1Ny0xNi4xNDMgMzYuMDU3LTM2LjA1NiAwLTE4LjI0LTEzLjU0Ny0zMy4zMDgtMzEuMTI3LTM1LjcxM3Y0Ljg2N3MuMDA4Ljk2OC0uMzA1IDEuMTAzYy0uNDI1LjE4My0xLjA0LS4yMjQtMS4wNC0uMjI0TDMxLjQyOCA5LjA1cy0uODE4LS4zODctLjgxOC0uNzRjMC0uNDIzLjgxNi0uNzk4LjgxNi0uNzk4TDQzLjYuODk4cy4zNjgtLjI2NC43NzItLjA0OGMuMjkuMTU0LjI3Ni44MjMuMjc2LjgyM1Y2LjI0YzE5LjQ1IDIuNDI2IDM0LjUwNyAxOS4wMDMgMzQuNTA3IDM5LjExMiAwIDIxLjc4LTE3LjY1NiAzOS40MzctMzkuNDM3IDM5LjQzN0MxNy45MzggODQuNzkuMjgyIDY3LjEzLjI4MiA0NS4zNWMwLTEyLjUxIDUuODMtMjMuNjUgMTQuOTE1LTMwLjg3NCIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt=""><div class="seekTime">10</div></div>
+    <button data-skip="-10" onclick="mediaPlayer.currentTime = mediaPlayer.currentTime + Number(this.getAttribute('data-skip'));updateProgressBar()" class="player-btn"><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODUiIHZpZXdCb3g9IjAgMCA4MCA4NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+MTBzIGJhY2s8L3RpdGxlPjxwYXRoIGQ9Ik0xNS4xOTcgMTQuNDc4bDMuMjY4IDEuNzUzQzkuNDk1IDIyLjc5IDMuNjYyIDMzLjM4OCAzLjY2MiA0NS4zNTNjMCAxOS45MTMgMTYuMTQzIDM2LjA1NiAzNi4wNTYgMzYuMDU2IDE5LjkxNCAwIDM2LjA1Ny0xNi4xNDMgMzYuMDU3LTM2LjA1NiAwLTE4LjI0LTEzLjU0Ny0zMy4zMDgtMzEuMTI3LTM1LjcxM3Y0Ljg2N3MuMDA4Ljk2OC0uMzA1IDEuMTAzYy0uNDI1LjE4My0xLjA0LS4yMjQtMS4wNC0uMjI0TDMxLjQyOCA5LjA1cy0uODE4LS4zODctLjgxOC0uNzRjMC0uNDIzLjgxNi0uNzk4LjgxNi0uNzk4TDQzLjYuODk4cy4zNjgtLjI2NC43NzItLjA0OGMuMjkuMTU0LjI3Ni44MjMuMjc2LjgyM1Y2LjI0YzE5LjQ1IDIuNDI2IDM0LjUwNyAxOS4wMDMgMzQuNTA3IDM5LjExMiAwIDIxLjc4LTE3LjY1NiAzOS40MzctMzkuNDM3IDM5LjQzN0MxNy45MzggODQuNzkuMjgyIDY3LjEzLjI4MiA0NS4zNWMwLTEyLjUxIDUuODMtMjMuNjUgMTQuOTE1LTMwLjg3NCIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt=""><div class="seekTime">10</div>
 
     </button>
   <button id='play-pause-button' class='play' title='play'
@@ -1267,6 +1272,7 @@ progressControl.class = progressControl.class + ' thumbnail'
     </script>
     	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+<script type="text/javascript" src="js/svtt.min.js"></script>
 <script type="text/javascript" src="js/videoPlayer.js"></script>
 </body>
 </html>

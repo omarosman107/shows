@@ -102,6 +102,15 @@ var tracks = mediaPlayer.textTracks
 for(i = 0; i < tracks.length; i++){
 if(tracks[i].kind == "metadata"){continue;}
 console.log(tracks[i])
+for(z in tracks[i].cues){
+  var region = new window.VTTRegion(0, 200, "I'm a region.");
+  region.width = 80
+  region.lines = 10
+  region.viewportAnchorY = 60
+  console.log(region)
+
+  console.log(tracks[i].cues[z].region = region)
+}
 tracks[i].mode = "showing"
 break;
 
