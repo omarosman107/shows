@@ -208,6 +208,14 @@ function completedEpisode(){
       episodeDone = true
    }
 }
+function resumeVideo(){
+  played = false;
+mediaPlayer.play();
+resumePlayback()
+  document.querySelector('.playMobile').style.display = 'none'
+
+
+}
 function resume() {
 
 
@@ -228,6 +236,11 @@ clearInterval(trackData)
 vid.addEventListener('oncanplay',function(){
             //     resumePlayback();
 
+})
+vid.addEventListener('loadedmetadata',function(e){
+
+  played = false;
+resumePlayback()
 })
    vid.addEventListener('loadeddata', function () {
    if(localStorage[window.location.search + '_end']){
