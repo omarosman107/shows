@@ -617,8 +617,8 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
 		<div class="show-episode-title"><span class="showName"></span> <span class="EpisodeName"></span></div>
 	</div>
 	<div class="notification"><div><span>Marked as done</span></div></div>
-	<div class="playMobile">  <button 
-onclick='resumeVideo();'><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDkwIDkwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNODguMTY0IDQyLjc2YzIuNDQ3IDEuMjM4IDIuNDQ3IDMuMjQyIDAgNC40OEw0LjQzNCA4OS41MTNDMS45ODQgOTAuNzUgMCA4OS41NDcgMCA4Ni44M1YzLjE3QzAgLjQ1IDEuOTg1LS43NSA0LjQzNC40ODVsODMuNzMgNDIuMjc1eiIvPjwvc3ZnPg==" alt=""></button>
+	<div class="playMobile">  <button id="playButton" 
+><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDkwIDkwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNODguMTY0IDQyLjc2YzIuNDQ3IDEuMjM4IDIuNDQ3IDMuMjQyIDAgNC40OEw0LjQzNCA4OS41MTNDMS45ODQgOTAuNzUgMCA4OS41NDcgMCA4Ni44M1YzLjE3QzAgLjQ1IDEuOTg1LS43NSA0LjQzNC40ODVsODMuNzMgNDIuMjc1eiIvPjwvc3ZnPg==" alt=""></button>
 
 </div>
 	<div class="videoContainer">
@@ -1225,7 +1225,7 @@ if (hlsSupported) {
 
 var currentVideo = {}
 var nextEpisodeCalled = false
-var finishDur
+var finishDur = 35
 var nextEpisodeJSON = {}
 mediaPlayer.addEventListener("timeupdate",function(e){
 	if('end' in currentVideo){
@@ -1259,6 +1259,9 @@ sendPlaybackInfo()
 
                   if (i+1 - showJson.length - 1 == -1 ) {
 console.log('last episode in season')
+nextEpisodeJSON = {}
+next = {}
+
 if(currentVideo.seasonNumber + 1 in JSON.parse(localStorage['showData'])[currentVideo.show].seasons){
 next = JSON.parse(localStorage['showData'])[currentVideo.show].seasons[currentVideo.seasonNumber + 1][0]
 }

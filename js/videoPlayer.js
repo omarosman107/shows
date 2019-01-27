@@ -104,10 +104,10 @@ for(z in tracks[i].cues){
 */
 }
 tracks[i].addEventListener("cuechange", function(c){
-  console.log(c.currentTarget)
+//  console.log(c.currentTarget)
 for(i = 0; i < c.currentTarget.cues.length; i++){
 
-console.log(c.currentTarget.cues[i])
+//console.log(c.currentTarget.cues[i])
 }
 }, false);
 
@@ -175,7 +175,6 @@ findName(next.link)
 }
 var interval
 var trackData
-var finishDur
 var sentPlaybackData
 var called_autoplay = false
 var episodeDone = false
@@ -218,13 +217,21 @@ function completedEpisode(){
    }
 }
 function resumeVideo(){
-  played = false;
-mediaPlayer.play();
-resumePlayback()
-  document.querySelector('.playMobile').style.display = 'none'
+ if (localStorage[window.location.search] > 10 && mediaPlayer.duration - localStorage[window.location.search] > mediaPlayer.duration - finishDur) {
+mediaPlayer.play()
+alert((localStorage[window.location.search] - 5))
+         mediaPlayer.currentTime = (localStorage[window.location.search] - 5);
+      }
+              document.querySelector('.playMobile').style.display = 'none'
 
 
 }
+
+document.getElementById('playButton').addEventListener("click", function(e){
+  mediaPlayer.play()
+  resumeVideo();
+});
+
 function resume() {
 
 
@@ -236,29 +243,21 @@ function resume() {
 
        }
    if(localStorage[window.location.search + '_end']){
-      finishDur = localStorage[window.location.search + '_end']
+     // finishDur = localStorage[window.location.search + '_end']
    }
 clearInterval(interval)
 clearInterval(trackData)
    var vid = mediaPlayer;
 
-vid.addEventListener('oncanplay',function(){
-            //     resumePlayback();
 
-})
-vid.addEventListener('loadedmetadata',function(e){
-
-  played = false;
-resumePlayback()
-})
    vid.addEventListener('loadeddata', function () {
    if(localStorage[window.location.search + '_end']){
-  finishDur = localStorage[window.location.search + '_end']
+//  finishDur = localStorage[window.location.search + '_end']
    }
    if(!isMobile){
     resumePlayback()
    }else{
-               resumePlayback();
+              // resumePlayback();
 }
 
    
