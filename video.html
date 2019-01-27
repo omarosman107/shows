@@ -41,7 +41,7 @@ video::cue {
     line-height: normal;
     color: #ffffff;
     font-size: .7em;
-    line-height: 0;
+    line-height: 0 !important;
     text-shadow: #000000 0px 0px 7px;
     font-weight: bolder !important;
 
@@ -49,7 +49,15 @@ video::cue {
 }
 video::cue(i){
 		font-weight:normal !important;
-		color:black;
+
+}
+video::-webkit-media-text-track-container {
+    padding-bottom: : 40px !important;
+    transform: translateY(-5%) !important; 
+}
+
+video::-webkit-media-text-track-region {
+    line-height: 1.33vh !important;
 
 }
         body {
@@ -413,7 +421,7 @@ display: block;
 }
 .seekBar{
 padding: 2vw 0px 2vw 0;
-padding-bottom: 5px;
+padding-bottom: 1.5vh;
       cursor:pointer;
 
 
@@ -539,8 +547,21 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
     -webkit-box-pack: center;
     -webkit-box-align: center;
 }
+*{
+	  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+
 
 	</style>
+
 
 
 
@@ -622,6 +643,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 <div onclick="fullscreen()" class="fullscreenButton" style="
     display: inline-block;
     cursor: pointer;
+        padding: 5px;
 "><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAyNSAyNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+ZnVsbHNjcmVlbjwvdGl0bGU+PGcgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMjQuOTcuMDAyVjBoLTN2LjAwMmwtNi0uMDAydjNoMy43NTNsLTUuODcgNS44NyAyLjEyIDIuMTIyIDUuOTk2LTUuOTk2VjloM1YuMDAyek05IDIySDUuMjQ2bDUuODctNS44Ny0yLjEyLTIuMTIyTDMgMjAuMDA0VjE2SDB2OWg5di0zeiIvPjwvZz48L3N2Zz4=" alt=""></div>
          </div>
             	       	            	<div class="videoOverlay"></div>
@@ -629,7 +651,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 
 
 </div>
-         <video id='media-video' controls>
+         <video id='media-video' preload="auto" autoplay="" controls>
       
          </video>
   

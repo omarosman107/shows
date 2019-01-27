@@ -79,7 +79,7 @@ if (!played) {
 
 
         if (localStorage[window.location.search] > 10 && mediaPlayer.duration - localStorage[window.location.search] > mediaPlayer.duration - finishDur) {
-
+mediaPlayer.play()
          mediaPlayer.currentTime = (localStorage[window.location.search] - 5);
 
          played = true;
@@ -225,13 +225,19 @@ clearInterval(interval)
 clearInterval(trackData)
    var vid = mediaPlayer;
 
+vid.addEventListener('oncanplay',function(){
+            //     resumePlayback();
 
+})
    vid.addEventListener('loadeddata', function () {
    if(localStorage[window.location.search + '_end']){
-      finishDur = localStorage[window.location.search + '_end']
+  finishDur = localStorage[window.location.search + '_end']
    }
+   if(!isMobile){
+    resumePlayback()
+   }else{
                resumePlayback();
-
+}
 
    
 
