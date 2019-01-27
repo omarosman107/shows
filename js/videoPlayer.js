@@ -247,10 +247,12 @@ interval = setInterval(sendPlaybackInfo,5000)
          endTime();
 
  if (mediaPlayer.duration - mediaPlayer.currentTime < mediaPlayer.duration - finishDur) {
+  return;
+  /*
 if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
 return;
   }
-
+*/
 
             var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
             for (var i = showJson.length - 1; i >= 0; i--) {
