@@ -103,6 +103,15 @@ for(z in tracks[i].cues){
   console.log(region)
 */
 }
+tracks[i].addEventListener("cuechange", function(c){
+  console.log(c.currentTarget)
+for(i = 0; i < c.currentTarget.cues.length; i++){
+
+console.log(c.currentTarget.cues[i])
+}
+}, false);
+
+
 tracks[i].mode = "showing"
 break;
 
@@ -1037,13 +1046,8 @@ fetch('http://tkx-prod.nbc.anvato.net/rest/v2/mcp/video/'+url.split('?')[1]+'?'+
    //var data = (JSON.parse(p.join('').slice(0,-1)))
     var data = JSON.parse(episode)
 
-    bg(data.src_image_url);
-         getShowinfo(data.program_name);
-         showname.innerHTML = data.program_name;
-         showdesc.innerHTML = data.def_description;
-         document.getElementById('epname').innerHTML = data.def_title;
 
-player.src(data.stream_url)
+playVideo(data.stream_url)
 resume();
 
          for(i in data.captions){

@@ -51,10 +51,7 @@ video::cue(i){
 		font-weight:normal !important;
 
 }
-video::-webkit-media-text-track-container {
-    padding-bottom: : 40px !important;
-    transform: translateY(-5%) !important; 
-}
+
 
 video::-webkit-media-text-track-region {
     line-height: 1.33vh !important;
@@ -1077,6 +1074,10 @@ video::-webkit-media-text-track-display-backdrop {
    .topVideoDetails {
    	z-index:unset;
    }
+   video::-webkit-media-text-track-container {
+    padding-bottom: : 40px !important;
+    transform: translateY(-5%) !important; 
+}
 `;
 document.body.appendChild(css);
         	mediaPlayer.controls = true
