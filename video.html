@@ -515,7 +515,30 @@ color:white;
     background: -webkit-radial-gradient(50% 50% farthest-corner,rgba(50,50,50,.5) 0,#323232 100%);
     background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
 }
+.notification{
+	      width: 100%;
+padding: 31px 0 0 0;
+    position: absolute;
+    margin: auto;
+    z-index: 10;
+    -webkit-transition: -webkit-transform .2s;
+transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
+        transform: translateY(-111%);
 
+}
+.notification div{
+    width: 263px;
+    background: #272727b0;
+    border-radius: 0px;
+    margin: auto;
+    text-align: center;
+    height: 57px;
+    color: white;
+    position: relative;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
 
 	</style>
 
@@ -539,6 +562,7 @@ color:white;
 	<div class="topVideoDetails">
 		<div class="show-episode-title"><span class="showName"></span> <span class="EpisodeName"></span></div>
 	</div>
+	<div class="notification"><div><span>Marked as done</span></div></div>
 	<div class="videoContainer">
             <div id='media-player'>
             		<div class="spinnerContainer">
@@ -1148,11 +1172,18 @@ finishDur = 35
 	
 //	console.log(mediaPlayer.duration - mediaPlayer.currentTime)
  if ( nextEpisodeCalled == false && (mediaPlayer.duration - mediaPlayer.currentTime) < finishDur) {
-
+if('showData' in localStorage){}else{
+	return;
+}
 if(!JSON.parse(localStorage['showData'])[currentVideo.show]){
 return;
   }
+  document.querySelector('.notification').style.transform = 'translateY(0)'
 console.log('Marked as done')
+setTimeout(function(){
+  document.querySelector('.notification').style.transform = 'translateY(-110%)'
+
+},2000)
 sendPlaybackInfo()
       nextEpisodeCalled = true
 
