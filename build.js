@@ -1977,8 +1977,7 @@ var nbcGenres = []
 var nbcIncludes = []
 function nbc(show){
 	var nbcshows = {}
-	loaders()
-	fetch('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&page[number]=1&sort=sortTitle').then(function(res){return res.json();}).then(function(shows){
+	function nbcShowHandle(shows){
 		for (var z = shows.included.length - 1; z >= 0; z--) {
 			//if(shows.included[z].attributes.path == undefined){continue;}
 			if(shows.included[z].type == 'images'){
@@ -1997,11 +1996,12 @@ continue;
 			}else{
 				// showId != '1033f650-03ff-405e-a3b9-adfbea0dd669' &&
 				//&& showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  
-		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' ) { // the blacklist && heroes
+				console.log(shows.data[i].attributes.name)
+
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '2dad10ef-8a32-4591-80df-fab41a6cb8b3') { // the blacklist && heroes
 				 continue;
 			}
 		}
-
 	
 // console.log(nbcIncludes)
 // console.log(nbcIncludes[nbcIncludes[shows.data[i].relationships.iosProperties.data.id].relationships.compactImage.data.id])
@@ -2021,21 +2021,7 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 
 
 			if(shows.data[i].relationships.logo != null){
-/*
-				console.log(shows.data[i].relationships.logo.data.id)
-				nbcStLogo[shows.data[i].relationships.logo.data.id] = shows.data[i].attributes.shortTitle
-			fetch('https://api.nbc.com/v3.14/images/'+shows.data[i].relationships.logo.data.id).then(function(res){return res.json();}).then(function(img){
-				// console.log(img.data[0].attributes.shortTitle,img.included[0].attributes.path)
-				console.log(show)
-				showDetail[nbcStLogo[img.data.id]] = {name:nbcStLogo[img.data.id],
-					logo:'https://img.nbc.com/'+ img.data.attributes.path,
-					genre:[nbcGenres[nbcStLogo[img.data.id]]]
 
-				}
-
-				showLogos[nbcStLogo[img.data.id]] = 'https://img.nbc.com/'+ img.data.attributes.path
-			})
-			*/
 		}
 		nbcGenres[shows.data[i].attributes.shortTitle] = shows.data[i].attributes.genre 
 			var genre = shows.data[i].attributes.genre
@@ -2055,12 +2041,8 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			nbcshows[showId] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
-
-//filter[type][value][0]=full%20episode&include=image&fields[images]=internalId,path&fields[videos]=guid,description,runTime,permalink,seasonNumber,episodeNumber,type,airdate,images&filter[show]=99d3a2c1-fd98-43b9-a7a4-f7872b0eb808&sort=airdate&page%5Bsize%5D=50
-//https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=internalId,guid,description,runTime,permalink,seasonNumber,episodeNumber,type,title,available,expiration,airdate,images,categories,nbcAuthWindow,tveAuthWindow&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50
-
-
 			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
+				console.log(episode)
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -2114,12 +2096,25 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 			})
 		}
 
-			loaders('remove')
+			//loaders('remove')
+	}
 
+	function nbcLoadShow(url){
+		loaders()
+fetch(url ).then(function(res){return res.json();}).then(function(shows){
+		nbcShowHandle(shows)
+
+if('next' in shows.links){
+nbcLoadShow(shows.links.next)
+}
+loaders('remove')
 	}).catch(function(e){
 		console.log(e)
 		 loaders('remove')
 	})
+	}
+nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist:%20Redemption&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
+nbcLoadShow('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 }
 
 
@@ -2420,6 +2415,9 @@ loaders('remove')
 
 
 
+}).catch(function(e){
+console.log(e)
+loaders('remove')
 })
 
 })
