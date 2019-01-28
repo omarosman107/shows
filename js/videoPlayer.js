@@ -217,6 +217,8 @@ function completedEpisode(){
    }
 }
 function resumeVideo(){
+           mediaPlayer.currentTime = (localStorage[window.location.search] - 5);
+
  if (localStorage[window.location.search] > 10 && mediaPlayer.duration - localStorage[window.location.search] > mediaPlayer.duration - finishDur) {
 mediaPlayer.play()
 alert((localStorage[window.location.search] - 5))
@@ -257,7 +259,9 @@ clearInterval(trackData)
    if(!isMobile){
     resumePlayback()
    }else{
-              // resumePlayback();
+    mediaPlayer.pause()
+    document.querySelector('#playButton').innerHTML = `<img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDkwIDkwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNODguMTY0IDQyLjc2YzIuNDQ3IDEuMjM4IDIuNDQ3IDMuMjQyIDAgNC40OEw0LjQzNCA4OS41MTNDMS45ODQgOTAuNzUgMCA4OS41NDcgMCA4Ni44M1YzLjE3QzAgLjQ1IDEuOTg1LS43NSA0LjQzNC40ODVsODMuNzMgNDIuMjc1eiIvPjwvc3ZnPg==" alt="">` 
+                  // resumePlayback();
 }
 
    
