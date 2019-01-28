@@ -927,7 +927,7 @@ function loadVideo() {
 const slideDuration = (slideNode, videoNode) => ({offsetX}) => {
 	 document.querySelector('.loadingSpinner').style.display = 'block'
 	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
-
+mediaPlayer.play();
     mediaPlayer.currentTime  = (offsetX / progressContainer.offsetWidth) * mediaPlayer.duration;
     document.getElementById('progress-bar').value =((offsetX / progress.offsetWidth)*100);
 updateProgressBar()
