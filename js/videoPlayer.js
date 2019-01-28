@@ -194,6 +194,7 @@ document.getElementById('playNextEpisode').click();
 }
 
 function sendPlaybackInfo(){
+    lastSentTimeAPI = mediaPlayer.currentTime;
        localStorage[window.location.search] = mediaPlayer.currentTime;
        var d = mediaPlayer.duration
        if('end' in currentVideo){
@@ -236,7 +237,7 @@ document.getElementById('playButton').addEventListener("click", function(e){
   mediaPlayer.play()
   resumeVideo();
 });
-
+var lastSentTimeAPI = 0
 function resume() {
 
 
@@ -274,49 +275,26 @@ clearInterval(trackData)
       endTime();
       episodeDone = false
 clearInterval(interval)
-interval = setInterval(sendPlaybackInfo,5000)
+interval = setInterval(function(){
+  sendPlaybackInfo();
+},5000)
 
 
  trackData = setInterval(function () {
-         endTime();
-
- if (mediaPlayer.duration - mediaPlayer.currentTime < mediaPlayer.duration - finishDur) {
-  return;
-  /*
-if(!JSON.parse(localStorage['showData'])[currentEpisode.show]){
-return;
+  var difference = lastSentTimeAPI
+  console.log()
+  if(difference < 0){
+    difference = difference*-1;
   }
-*/
+  console.log(mediaPlayer.currentTime - difference)
+  if(mediaPlayer.currentTime - difference > 30){
+sendPlaybackInfo()
+console.log('big difference')
+  }
+ 
 
-            var showJson = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season]
-            for (var i = showJson.length - 1; i >= 0; i--) {
-               if (showJson[i].episode == currentEpisode.episode ) {
-
-                  if (i+1 - showJson.length - 1 == -1 ) {
-
-if(currentEpisode.season + 1 in JSON.parse(localStorage['showData'])[currentEpisode.show].seasons){
-next = JSON.parse(localStorage['showData'])[currentEpisode.show].seasons[currentEpisode.season + 1][0]
-}
-
-                  }else{
-                                    next = showJson[i+1]
-
-                  }
-               if('episode' in next){
-               
-               document.querySelector('.showTitle').innerHTML = currentEpisode.show
-               document.querySelector('.episode').innerHTML = next.episode + ' ' + next.epiformat
-               document.querySelector('.upnext').style.display = 'block';
-               autoplay_next();
-
-
-               }
-
-               }
-            }
-         }
        
-      }, 100);
+      }, 500);
 
       document.body.onunload = function () {
          localStorage[window.location.search] = mediaPlayer.currentTime;
