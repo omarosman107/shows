@@ -2113,7 +2113,7 @@ loaders('remove')
 		 loaders('remove')
 	})
 	}
-nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist:%20Redemption&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
+//nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist:%20Redemption&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 nbcLoadShow('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 }
 
