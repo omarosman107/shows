@@ -286,7 +286,7 @@ interval = setInterval(function(){
   if(difference < 0){
     difference = difference*-1;
   }
-  console.log(mediaPlayer.currentTime - difference)
+ // console.log(mediaPlayer.currentTime - difference)
   if(mediaPlayer.currentTime - difference > 30){
 sendPlaybackInfo()
 console.log('big difference')

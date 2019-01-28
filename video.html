@@ -965,16 +965,23 @@ closest = thumbsObject.sort(function(a, b) {
 })
 
 var halfTN = (document.querySelector('.thumbnail-holder').offsetWidth / progress.offsetWidth *100) / 2;
-console.log(closest)
+//console.log(halfTN)
+//console.log(closest)
 	document.querySelector('.thumbnail-holder img').src = closest.src
 
 	var TNleft = ((e.offsetX / progress.offsetWidth) * 100)-halfTN
+var pastHalf = TNleft + halfTN
+      console.log(TNleft > 0, halfTN )
+
+	//console.log(TNleft)
 //console.log(((e.offsetX / progress.offsetWidth) * 100))
 	   if ( (TNleft) > progress.offsetWidth ) {
-        TNleft -= (TNleft +halfTN);
-      } else if (TNleft < halfTN) {
+        TNleft -= (TNleft );
+
+      } else if ((TNleft) < halfTN) {
         TNleft = 'unset';
       }
+
 if(TNleft != 'unset'){
 document.querySelector('.thumbnail-holder').style.left = TNleft  + '%'
 }else{
