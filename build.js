@@ -2041,11 +2041,11 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			nbcshows[showId] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=airdate&page%5Bsize%5D=50').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=10').then(function(res){return res.json()}).then(function(episode){
 				console.log(episode)
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
-					nbcloadnext(episode.links.next)
+			//		nbcloadnext(episode.links.next)
 				}
 				if (episode.data.length == 0) {
 					 loaders('remove');
@@ -2113,8 +2113,10 @@ loaders('remove')
 		 loaders('remove')
 	})
 	}
+	nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
+
 //nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist:%20Redemption&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
-nbcLoadShow('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
+//nbcLoadShow('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 }
 
 
