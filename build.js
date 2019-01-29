@@ -2164,11 +2164,11 @@ var apikey = ''
 
 
 loaders()
-fetch('//config.foxneodigital.com/foxnow/ios/3.4/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 //	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
-  'ApiKey':'abdcbed02c124d393b39e818a4312055',
+  'x-api-key':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*"
 
 })
@@ -2178,7 +2178,7 @@ fetch('//config.foxneodigital.com/foxnow/ios/3.4/ios_info_prod.json').then(funct
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
 var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 if(show != undefined && show != ''){
-fetch('https://api.fox.com/fbc-content/v1_5/series?_fields=name,showCode&q='+show,{headers:foxheaders}).then(function(res){return res.json();}).then(function(q){
+fetch('https://api2.fox.com/fbc-content/v2.0/series?_fields=name,showCode&q='+show,{headers:foxheaders}).then(function(res){return res.json();}).then(function(q){
 	console.log(q.member[0].showCode,q.member[0].name,foxshowNames)
 	foxshowNames[q.member[0].showCode] = q.member[0].name
 	foxshowlist.push(q.member[0].showCode)
@@ -2186,7 +2186,7 @@ fetch('https://api.fox.com/fbc-content/v1_5/series?_fields=name,showCode&q='+sho
 }
 var showEpisodeCount = {}
 // config.apis.content.baseUrl
-fetch('https://api.fox.com' + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
+fetch('https://api2.fox.com' + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
 	var skipTheseShows = ['Love Connection','Showtime at the Apollo','New Girl']
 
@@ -2362,7 +2362,7 @@ showDetail[fullEpisodes.member[i].seriesName] = {name:fullEpisodes.member[i].ser
 	var this_episode = {
         img: fullEpisodes.member[i].images.still.SD,
         rating: '',
-        href: 'https://api.fox.com/fbc-content/v1_5/video/'+fullEpisodes.member[i].id,
+        href: 'https://api.fox.com/fbc-content/v2.0/video/'+fullEpisodes.member[i].id,
         show: fullEpisodes.member[i].seriesName,
         episode: fullEpisodes.member[i].name,
         id: fullEpisodes.member[i].id,

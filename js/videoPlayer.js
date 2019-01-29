@@ -680,8 +680,16 @@ function play(url,auth){
      fetch(url.split('?')[0] + '?format=script', {
          method: 'get'
       }).then(function (response) {
-           return response.json();
+        if(response.ok){
+ return response.json();
+        }else{
+console.log('video not in system')
+return null;
+        }  
       }).then(function (play) {
+        if(play == null){
+          return;
+        }
        
 /*
 parser = new DOMParser();
@@ -998,7 +1006,11 @@ play('https://link.theplatform.com/s/fox-dcg/media/guid/2696724497/'+data.materi
             }
 
       window.history.replaceState('', '', '?'+data['@id']);
+if('sameAs' in data){
+      window.history.replaceState('', '', '?'+data.sameAs);
+      db_playbackData()
 
+}
 
 for(i in data.documentReleases){
 

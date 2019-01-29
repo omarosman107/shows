@@ -964,7 +964,7 @@ closest = thumbsObject.sort(function(a, b) {
 	return n.t >= ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration)
 })
 
-var halfTN = (document.querySelector('.thumbnail-holder').offsetWidth / progress.offsetWidth *100) / 2;
+var halfTN = (document.querySelector('.thumbnail-holder').offsetWidth / progress.offsetWidth *100) / 4;
 //console.log(halfTN)
 //console.log(closest)
 	document.querySelector('.thumbnail-holder img').src = closest.src
@@ -1311,6 +1311,11 @@ nextEpisodeCalled = false;
 tn = []
 db_playbackData()
 nextEpisodeJSON = {}
+for(i in mediaPlayer.textTracks){
+	for(z in mediaPlayer.textTracks.cues){
+		mediaPlayer.textTracks[i].removeCue(mediaPlayer.textTracks[i].cues[z])
+	}
+}
 
 
 }

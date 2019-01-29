@@ -492,15 +492,13 @@ width: 100%;
 }
 }
 span.expiring {
-    text-transform: uppercase;
+   text-transform: uppercase;
     font-weight: 900;
     border: 1px solid rgb(255, 255, 255);
-    padding: .1875rem .25rem .125rem;
-    font-size: 1.195rem;
+    padding: 1.1875rem 1.25rem 1.125rem;
+    font-size: 1.395rem;
     color: rgb(0, 0, 0);
     opacity: 1;
-    /* display: block; */
-    /* width: fit-content; */
     position: absolute;
     top: 5px;
     z-index: 50;
@@ -509,6 +507,7 @@ span.expiring {
     letter-spacing: 0.04rem;
     background: rgb(255, 255, 255);
     box-shadow: -1px 0px 13px 7px rgba(0, 0, 0, 0.16);
+    font-weight: 900;
 }
 	</style>
 	<title>FOX EPG</title>
@@ -518,9 +517,10 @@ span.expiring {
 </head>
 <body>
 <ul class="fanarts-list list-unstyled list-inline"></ul>
+<script type="text/javascript" src="js/moment.js"></script>
 <script type="text/javascript">
 
-	fetch('https://config.foxdcg.com/foxnow/ios/3.9/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+	fetch('https://config.foxdcg.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 	// apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
@@ -551,18 +551,23 @@ moreshows()
 
 })
      // https://api2.fox.com/v2.0/screens/live?geoLatitude=42.707284099999995&geoLongitude=-84.595563&dateRange=2019-01-01T05:00:00.000Z..2030-01-01T17:00:00.000Z&geoLatitude=38.707284099999995&geoLongitude=-82.1
-    fetch('https://api2.fox.com/v2.0/screens/live?geoLatitude=42.707284099999995&geoLongitude=-84.595563&dateRange=2019-01-01T05:00:00.000Z..2030-01-01T17:00:00.000Z&geoLatitude=38.707284099999995&geoLongitude=-82.1',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
+    fetch('https://api2.fox.com/v2.0/screens/live?geoLatitude=42.707284099999995&geoLongitude=-84.595563&dateRange=2019-01-01T05:00:00.000Z..2024-01-01T17:00:00.000Z&geoLatitude=38.707284099999995&geoLongitude=-82.1',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
  //     console.log(data.panels.member["0"].items.member)
    data.panels.member["0"].items.member = data.panels.member["0"].items.member.reverse(); 
 try{
   document.querySelector('ul').innerHTML = ''
   var str = ''
- data.panels.member["0"].items.member =  data.panels.member["0"].items.member.concat(data.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
- data.panels.member["0"].items.member.reverse()
-      console.log(data.panels.member["0"].items.member)
+ //data.panels.member["0"].items.member =  data.panels.member["0"].items.member.concat(data.panels.member["4"].items.member).sort(function(a, b){return new Date(a.startDate) - new Date(b.startDate)});
+// data.panels.member["0"].items.member.reverse()
+//      console.log(data.panels.member["0"].items.member)
 for (var i = data.panels.member["0"].items.member.length - 1; i >= 0; i--) {
 var date = new Date(data.panels.member["0"].items.member[i].startDate);
-if (Date.parse(new Date(data.panels.member[0].items.member[i].originalAirDate))+ 4320000000 < Date.now()) {
+
+var a = moment(data.panels.member[0].items.member[i].originalAirDate);
+var b = moment( Date.now());
+a.diff(b, 'days')   // =1
+console.log(a.diff(b, 'days') > -2)
+if (a.diff(b, 'days') < -3) {
   continue;
 }
 if (data.panels.member[0].items.member[i].seriesType != 'series') {continue;}
@@ -573,15 +578,21 @@ var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((
 date = new Date(output)
 var Playable = ''
 if ('playerScreenUrl' in data.panels.member["0"].items.member[i]) {
-data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api2.fox.com/fbc-content/v2.0/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7]
-Playable = `<span class="expiring
-             ">Fully Playable!</span>`
+data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api2.fox.com/v2.0/epglistings/'+data.panels.member["0"].items.member[i].id
+
 }else{
-  //
-  continue;
-  data.panels.member["0"].items.member[i]['playerScreenUrl']=  'https://api.fox.com/fbc-content/v1_4/screens/live-player/5836e01e3f93d90001ab6614?epgListingId='+ data.panels.member["0"].items.member[i].id
+
+  data.panels.member["0"].items.member[i]['playerScreenUrl']=  'https://api2.fox.com/v2.0/epglistings/'+data.panels.member["0"].items.member[i].id
+
+}
+if(data.panels.member[0].items.member[i].contentAdType == 'CLEAN'){
+Playable = `<span class="expiring
+             ">Video rendered on server</span>`
 }
 if(data.panels.member["0"].items.member[i].network != 'fox'){continue;}
+      console.log(data.panels.member["0"].items.member[i])
+
+//data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api2.fox.com/fbc-content/v2.0/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7]
 
 
 var perc = ((((new Date()  - date) / (new Date(data.panels.member["0"].items.member[i].endDate) - new Date(data.panels.member["0"].items.member[i].startDate))) * 100) );
