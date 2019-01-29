@@ -520,9 +520,9 @@ span.expiring {
 <ul class="fanarts-list list-unstyled list-inline"></ul>
 <script type="text/javascript">
 
-	fetch('https://config.foxdcg.com/foxnow/ios/3.5/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+	fetch('https://config.foxdcg.com/foxnow/ios/3.9/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
-	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
+	// apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
   'ApiKey':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*",
@@ -543,14 +543,15 @@ moreshows()
 })
  function moreshows(){
      foxheaders = new Headers({
-  'ApiKey':'abdcbed02c124d393b39e818a4312055',
+  'x-api-key':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*",
   "Connection":"keep-alive",
     "Accept-language":"en-US,en;q=0.9"
 
 
 })
-    fetch('https://api.fox.com/fbc-content/v1_4/screens/live?dateRange=2018-01-01..2020-01-27&geoLatitude=42.7042484&geoLongitude=-84.5982427&premiumPackage=true',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
+     // https://api2.fox.com/v2.0/screens/live?geoLatitude=42.707284099999995&geoLongitude=-84.595563&dateRange=2019-01-01T05:00:00.000Z..2030-01-01T17:00:00.000Z&geoLatitude=38.707284099999995&geoLongitude=-82.1
+    fetch('https://api2.fox.com/v2.0/screens/live?geoLatitude=42.707284099999995&geoLongitude=-84.595563&dateRange=2019-01-01T05:00:00.000Z..2030-01-01T17:00:00.000Z&geoLatitude=38.707284099999995&geoLongitude=-82.1',{headers:foxheaders}).then(function(res){return res.json();}).then(function(data){
  //     console.log(data.panels.member["0"].items.member)
    data.panels.member["0"].items.member = data.panels.member["0"].items.member.reverse(); 
 try{
@@ -572,7 +573,7 @@ var output = date.toISOString().substring(0, date.toISOString().length - 1) + ((
 date = new Date(output)
 var Playable = ''
 if ('playerScreenUrl' in data.panels.member["0"].items.member[i]) {
-data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api.fox.com/fbc-content/'+apiver+'/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7]
+data.panels.member["0"].items.member[i].playerScreenUrl = 'https://api2.fox.com/fbc-content/v2.0/video/'+data.panels.member["0"].items.member[i].playerScreenUrl.split('?')[0].split('/')[7]
 Playable = `<span class="expiring
              ">Fully Playable!</span>`
 }else{

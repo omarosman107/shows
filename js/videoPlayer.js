@@ -238,6 +238,8 @@ document.getElementById('playButton').addEventListener("click", function(e){
   resumeVideo();
 });
 var lastSentTimeAPI = 0
+var savedTime = 0
+var loadedCount = 0
 function resume() {
 
 
@@ -256,23 +258,35 @@ clearInterval(trackData)
    var vid = mediaPlayer;
 
 
-   vid.addEventListener('loadeddata', function () {
-   if(localStorage[window.location.search + '_end']){
-//  finishDur = localStorage[window.location.search + '_end']
-   }
-   if(!isMobile){
-    resumePlayback()
-   }else{
-    mediaPlayer.pause()
+   vid.addEventListener('loadeddata', function (e) {
+    console.log(mediaPlayer.readyState)
+if(isMobile){
+if(loadedCount > 0){
+  // video loaded multiple times
+//alert(mediaPlayer.currentTime + '  ,  '+ savedTime)
+}else{
+  mediaPlayer.pause()
     document.querySelector('#playButton').innerHTML = `<img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDkwIDkwIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNODguMTY0IDQyLjc2YzIuNDQ3IDEuMjM4IDIuNDQ3IDMuMjQyIDAgNC40OEw0LjQzNCA4OS41MTNDMS45ODQgOTAuNzUgMCA4OS41NDcgMCA4Ni44M1YzLjE3QzAgLjQ1IDEuOTg1LS43NSA0LjQzNC40ODVsODMuNzMgNDIuMjc1eiIvPjwvc3ZnPg==" alt="">` 
-                  // resumePlayback();
+   
+}
+}
+if(isMobile){
+loadedCount = loadedCount +1;
+}
+ 
+   if(localStorage[window.location.search + '_end']){
+   }
+
+   if(!isMobile){
+   }else{
+                 // resumePlayback();
 }
 
    
 
   
       var played = true;
-      endTime();
+   //   endTime();
       episodeDone = false
 clearInterval(interval)
 interval = setInterval(function(){
@@ -292,7 +306,7 @@ sendPlaybackInfo()
 console.log('big difference')
   }
  
-
+savedTime = mediaPlayer.currentTime;
        
       }, 500);
 
@@ -822,7 +836,7 @@ function foxapi(url) {
    var request = {
       method: 'GET',
       headers: {
-         'ApiKey':'abdcbed02c124d393b39e818a4312055',
+  'x-api-key':'abdcbed02c124d393b39e818a4312055',
   "Accept":"application/json, text/plain, */*",
   "Connection":"keep-alive",
   "Accept-language":"en-US,en;q=0.9"
@@ -1212,7 +1226,7 @@ var isDone = false;
 
 var sitefunctions = {
   "rawFile": raw,
-  "api.fox.com": foxapi,
+  "api2.fox.com": foxapi,
   "cwtv.com": fetchcwjson,
   "cwseed.com": fetchcwjson,
   "cbs.com": fetchcbsjson,
