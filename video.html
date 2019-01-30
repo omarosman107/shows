@@ -30,17 +30,17 @@ video::cue {
 	text-shadow:#000000 0px 0px 7px;
 	font-family:Netflix Sans M,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
 	background: none;
-	 -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+	 -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none;
+        -ms-user-select: none; 
+            user-select: none; 
 
-    line-height: normal;
+margin: 0 !important;
+padding: 0 !important;
     color: #ffffff;
-    font-size: .7em;
+   /* font-size: .7em;*/
     line-height: 0 !important;
     text-shadow: #000000 0px 0px 7px;
     font-weight: bolder !important;
@@ -51,10 +51,30 @@ video::cue(i){
 		font-weight:normal !important;
 
 }
+video::-webkit-media-text-track-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 0px !important;
+    font: 22px sans-serif;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0;
+    text-decoration: none;
+    pointer-events: none;
+    -webkit-user-select: none;
+    word-break: break-word;
+    flex: 1 1;
+        transform: translateY(-5%) !important; 
 
+}
 
 video::-webkit-media-text-track-region {
     line-height: 1.33vh !important;
+
 
 }
         body {
@@ -88,7 +108,7 @@ display: inline-block;
     right: 2em;            
         }
         .topVideoDetails {
-    padding: 2em 0 0px 0px;
+    padding: 2.5em 0 0px 0px;
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -113,7 +133,7 @@ video {
 }
 #media-controls {
 	       position: absolute;
-    bottom: 36px;
+    bottom: 10px;
     width: -moz-available;
     width: -webkit-fill-available;
     padding: 0 50px 10px;
@@ -313,8 +333,9 @@ background-color: #f8f8f8;
     right: 0;
     top: 0;
     z-index: 13;
-    padding: 3em 2em 0px 0px;
+    margin: 3em 3em 0px 0px;
 }
+
 .show-episode-title{
 	font-family: AMZN,Ariel;
 	font-size: 24px;
@@ -331,7 +352,7 @@ background-color: #f8f8f8;
 }
 .hdIndicator {
     display: inline-block;
-    padding-left: 16px;
+    padding-left: 30px;
         width: 36px;
 }
 .hdIcon img{
@@ -365,7 +386,6 @@ background-color: #f8f8f8;
 }
 }
 .show-episode-title .showName{
-	font-weight: 700;
 }
 .show-episode-title .showName,.show-episode-title .EpisodeName{
 display: block;
