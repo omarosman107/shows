@@ -2244,13 +2244,14 @@ var externalToApi = 'https://api.fox.com/fbc-content/v3/video?externalId=8531722
 var shows = 'https://api.fox.com/fbc-content/v3/screens/find'
 var newest = 'https://api.fox.com/fbc-content/v3/screenpanels/58d57fd0880f910001a9fb82/items' 
 var data = null;
-var apiver = 'v1_4'
+var apiver = 'v2.0'
 var apikey = ''
 
 
 loaders()
 fetch('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
+
 //	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
 	var foxheaders = new Headers({
   'x-api-key':'abdcbed02c124d393b39e818a4312055',
