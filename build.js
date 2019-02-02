@@ -857,6 +857,9 @@ for(i in upnextshows[q].seasons){
 var horzScroll = ''
 if(Object.keys(upnextshows[q].seasons).length != 1){
 horzScroll = 'horizontal-episodes shows dragscroll'
+}else{
+	console.log('not multiple season')
+	horzScroll = 'one_season'
 }
 
 	sznLI += `<a onclick="scrollShows('#season${i}')" href="#season${i}"><li  style="width:calc(100% / ${ObjectLength(upnextshows[q].seasons)})">Season ${i}</li></a>`
