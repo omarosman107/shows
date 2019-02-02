@@ -44,26 +44,46 @@
     -webkit-touch-callout: none;
   }
 .filled {
-display: none;
-opacity: 1;
+/*display: none;*/
+opacity: 0;
+transition: opacity .2s ease-in;
+}
+li.card:active {
+    transform: scale(.98);
+    transition: transform .2s ease;
 }
 .partially_filled{
-opacity: 1;
-display: block;
+opacity: 0;
+display: none;
 }
 .playbutton{
 width: 50px;
 }
-  .image-crop .overlay:hover .partially_filled  {
 
-display: none;
-opacity: 0;
+  .image-crop .overlay:hover .filled  {
+
+display: block;
+opacity: 1;
   }
+/*
+.partially_filled:hover > .filled{
+opacity: 1;
+display: block;
+}
+
+  .partially_filled:hover{
+    opacity: 0;
+    display: none;
+  }
+
+
+*/
+  /*
   .image-crop .overlay:hover .filled  {
 opacity: 1;
 display: block;
   }
-
+*/
   .dot{
     color: #ffffff6b;
           }
