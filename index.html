@@ -1045,6 +1045,31 @@ color: #d8d6d6;
     border-radius: 0;
 }
 */
+hr.divider {
+    border: 1px solid #00000026;
+    /* padding: 10px; */
+    margin: 30px 7px 0px 7px;
+}
+
+button#showConfig {
+    padding: 20px;
+    background:#ffffff14;
+    border: 1px;
+    border-radius: 47px;
+    color: #ffffffba;
+    border: 2px solid rgba(0,0,0,.1);
+    margin-top: 25px; 
+    cursor: pointer;
+    margin-bottom: 25px;
+    transition: all .121s ease-out;
+}
+#showConfig:hover {
+  color: white;
+    background: #ffffff29;
+}
+.settings {
+  display: none;
+}
   </style>
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
@@ -1105,9 +1130,10 @@ color: #d8d6d6;
     </div>
     <h1 class="sectionHead" id="wtcTxt">Up next</h1>
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
+    <hr class="divider">
 <h1 id="newepisodes" class="sectionHead">New Releases</h1>
     <ul class="shows dragscroll" id="carasoul"></ul>
-
+<hr class="divider">
     <h1 class="sectionHead" >Shows</h1>
     <div class="" style="    white-space: normal;" id="tvShows" ></div>
 
@@ -1118,20 +1144,23 @@ color: #d8d6d6;
       <a class="btn-floating btn-large waves-effect waves-light red" id="left-buttontv"><i class="material-icons">chevron_left</i></a> <a class="btn-floating btn-large waves-effect waves-light red" id="right-buttontv" style="float: right;"><i class="material-icons">chevron_right</i></a>
     </div>
     <div class="header">
-      <hr>
-      <div class="logo">
+      <hr class="divider">
+      <button onclick="this.style.display = 'none';document.querySelector('.settings').style.display = 'block';" id="showConfig">Show settings</button>
+      <div class="logo settings">
           <p class="clear" style="
                                   position: inherit;padding-top: 20px; 
     padding-left: 25px;
     right: 0px;
     padding-right: 25px;
     bottom: 0px;" >
-    <a onclick="localStorage.removeItem('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
 
         <a id="tokenplacement"></a>
         <img id="tokenurlIMG" src="">
-      <a onclick="createCloudToken()" href="javascript:">Create Token</a>
-      <a onclick="localStorage.removeItem('USER_TOKEN')" href="javascript:">Delete Token</a>
+      <a id="createToken" onclick="createCloudToken()" href="javascript:">Create Token</a>
+
+      <a id="deleteToken" onclick="localStorage.removeItem('USER_TOKEN')" href="javascript:">Delete Token</a>
+    <a id="clearToken" style="display: none;" onclick="localStorage.removeItem('like');this.parentNode.style.display = 'none';">Clear Data</a></p>
+
     </div>
   </div>
 
@@ -1157,6 +1186,12 @@ if(location.search.includes('token=')){
 
 if(localStorage['USER_TOKEN']){
   console.log('locally saved user token found')
+  // found token
+document.getElementById('createToken').style.display = 'none'
+document.getElementById('clearToken').style.display = 'block'
+
+
+
   document.getElementById('tokenplacement').innerHTML = localStorage['USER_TOKEN']
   document.getElementById('tokenplacement').href = window.location.origin + window.location.pathname+'?token='+localStorage['USER_TOKEN']
 document.getElementById('tokenurlIMG').src = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl="+window.location.origin + window.location.pathname+"?token="+localStorage['USER_TOKEN']
