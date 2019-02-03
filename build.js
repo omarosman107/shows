@@ -569,43 +569,11 @@ element.target.classList.add('loaded');
 }
 }
 }
-// scrolling()
 lazyLoadNew()
 
-/*
-var sorted_shows = showhtml.sort(dynamicSort("show"));
-document.getElementById('tvShows').innerHTML = ''
-sorted_shows.reverse()
-for (var i = sorted_shows.length - 1; i >= 0; i--) {
-	if (exclude) {
-			if(exclude.includes(sorted_shows[i].show)){
-	document.getElementById('tvShows').innerHTML += sorted_shows[i].html;
 
-			}
-
-	}else{
-	document.getElementById('tvShows').innerHTML += sorted_shows[i].html;
-
-	}
-
-}
-*/
-/*
-for(i in upnextshows){
-	try{
-		if(upnextshows[i].isNew){
-	document.querySelector('div[show="'+i+'"]').getElementsByClassName('newepisodes')[0].style.display = 'block'
-		}
-document.querySelector('div[show="'+i+'"]').setAttribute('percent',upnextshows[i].percentage)
-document.querySelector('div[show="'+i+'"] div').innerHTML += '<div class="w3-progressbar"style="width: '+upnextshows[i].percentage+'%;"></div>'
-}catch(e){
-
-}
-}
-*/
 BackgroundLazyLoader();
 
-// document.addEventListener("scroll", function(){scrolling()});
 
 
    if (!document.getElementById('search').value == '') {
@@ -618,47 +586,16 @@ BackgroundLazyLoader();
 
 }
 
-/*
-
-if (window.addEventListener)
-            addEventListener('storage', storage_event, false);
-        else if (window.attachEvent)
-            attachEvent('onstorage', storage_event, false);
-        function storage_event(e) {
-if(e.key == 'last_bandwidth'){return;}
-            console.log( e);
-for(var i = document.getElementsByClassName(e.key.substr(1)).length - 1; i >= 0; i--){
-	console.log(e)
-var perc = ( e.newValue / document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') * 100)
-if(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').getAttribute('length') - e.newValue < 46){
-perc = 100
-document.getElementsByClassName(e.key.substr(1))[i].outerHTML = ''
-}
-console.log(perc)
-console.log(document.getElementsByClassName(e.key.substr(1))[i].querySelector('.w3-progressbar').style.width = perc + "%" )
-}
-        }
-*/
 console.timeEnd();
        
 
-  
-
-/*
-var head = document.getElementsByTagName('head')[0];
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-head.appendChild(script);
-*/
+ 
 }
 console.log('started downloading data')
 console.time('download_data')
 function loaders(atr) {
   if (atr == 'remove') {
-
-    num--
- // document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
+  num--
     if (num == 0) {
     	console.time()
 console.log('finished downloading data')
@@ -758,7 +695,7 @@ allshowdata += '</ul>'
   if (num > maxnum) {
 maxnum = num
   }
-
+console.log(num/maxnum)
   document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
 }
 
@@ -855,7 +792,7 @@ var perc = 0
 for(i in upnextshows[q].seasons){
 	console.log(upnextshows[q].seasons[i],i)
 var horzScroll = ''
-if(Object.keys(upnextshows[q].seasons).length != 1){
+if(upnextshows[q].seasonCount() != 1){
 horzScroll = 'horizontal-episodes shows dragscroll'
 }else{
 	console.log('not multiple season')
@@ -1298,7 +1235,10 @@ episodes[i].end = episodes[i].length - endTime
 
 	var done = false;
 	if(!upnextshows[episodes[i].show]){
-		upnextshows[episodes[i].show] = {show:episodes[i].show,seasons:{},isNew:false,latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:0,percentage:null}
+		upnextshows[episodes[i].show] = {show:episodes[i].show,seasonCount:function(){
+return Object.keys(this.seasons).length;
+
+		},seasons:{},isNew:false,latestWatched:null,latestWNum:null,latestWSesN:null,upNext:null,upNextSeason:null,upNextNum:null,totalEpisodes:0,percentage:null}
 	}
 	upnextshows[episodes[i].show].totalEpisodes += 1
 var isLatest = false
@@ -1320,13 +1260,8 @@ isLatest = true
 	var seasonFirst = false
 	if(episodes[i].seasonNumber != 1 && episodes[i].seasonNumber > 1 && episodes[i].episodeNumber == 1 && upnextshows[episodes[i].show].seasons != {}){
 		try{
-	//		console.log(episodes[i])
-	//		console.log(Object.keys(upnextshows[episodes[i].show].seasons).length != 1 )
 if(''+(Number(episodes[i].seasonNumber) - 1)+'' in upnextshows[episodes[i].show].seasons ){
 		
-	//		console.log(Object.keys(upnextshows[episodes[i].show].seasons).length,(upnextshows[episodes[i].show].seasons)[episodes[i].seasonNumber - 1])
-//			console.log(episodes[i])
-
 	var seasonLengthPrev = Object.keys(upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1]).length
 	var lastSeasonLastEpisode = upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber - 1][seasonLengthPrev - 1 ]
 	if(lastSeasonLastEpisode.done && episodes[i].episodeNumber == 1){

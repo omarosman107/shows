@@ -179,6 +179,7 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
+    transition: all .12s ease-out;
 
 }
 
@@ -208,8 +209,10 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     height: auto;
     display: inline-block;
     border-radius: 10px;
-    margin: 9px;
+    margin: 0px 9px 0px 13px;
     margin-bottom: 20px;
+    top: 0;
+        transition: all .12s ease-out;
  /*   box-shadow: 0px 2px 9px 4px #13131378;*/
 
 
@@ -219,6 +222,9 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
           -webkit-box-shadow: 0 4px 14px 0 rgba(0,0,0,.4);
     box-shadow: 0 4px 14px 0 rgba(0,0,0,.4);
 
+}
+.episode:hover .episode_title{
+color: white;
 }
   .img {
     background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
@@ -259,6 +265,9 @@ box-shadow: inset 0px 0px 20px 2px #0000002b;
 .episode_img img {
   position: absolute;
   z-index: 0;
+}
+.episode_title {
+  color: #dbdbdb
 }
 .episode_details {
   /*  position: absolute;*/
@@ -337,8 +346,8 @@ box-shadow: inset 0px 0px 20px 2px #0000002b;
     right: 0;
     overflow: hidden;
     letter-spacing: 0;
-    -webkit-transition: opacity .33s linear;
-    transition: opacity .33s linear;
+    -webkit-transition: opacity .13s linear;
+    transition: opacity .13s linear;
     /*
           -webkit-filter: blur(36px);
   -moz-filter: blur(36px);
@@ -460,7 +469,7 @@ box-shadow: inset 0px 0px 20px 2px #0000002b;
         z-index: 99999;
 
     background: #1d1918;
-              transition:opacity 0.6s ease, width 0.6s ease, z-index 0.6s;  
+              transition:opacity 0.3s ease, width 0.3s ease, z-index 0.3s;  
 
 }
 .contain{
@@ -594,7 +603,7 @@ lesshat-selector {
 }
 }
 .sectionHead {
-    font-size: 25px;
+    font-size: 30px;
     font-family: Graphik;
             font-weight: normal;
                 font-family: Graphik-Bold;
@@ -653,8 +662,8 @@ body {
     letter-spacing: 0;
     opacity: 0;
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-    -webkit-transition: all .23s ease-out;
-    transition: all .23s ease-out;
+    -webkit-transition: all .13s ease-out;
+    transition: all .13s ease-out;
     background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
 }
 .tvshow:hover .overlay{
@@ -713,7 +722,7 @@ box-sizing:border-box;
     letter-spacing: 0;
     background-repeat: no-repeat;
  background-size: cover;
- transition: background 0.5s cubic-bezier(0.5, 0, 0.1, 1);
+ transition: background 0.2s cubic-bezier(0.5, 0, 0.1, 1);
       transition-duration: 400ms;
     background:  rgb(45, 45, 45);
         box-shadow: inset 0px 0px 20px 7px #0000003b;
@@ -766,7 +775,8 @@ padding: 9px;
     border-radius: 10px;
     display: inline-block;
     margin-bottom: 3px;
-padding: 0px 9px 9px 9px !important;
+padding: 0px 9px 9px 13px !important;
+top: 0;
 }
 }
  .progCont {
@@ -945,6 +955,7 @@ width:100%;
                   transition: all .12s ease-out;
                       box-sizing: content-box;
     background-color: #1e1e20;
+    top: 0;
   
 }
 @media(min-width:600px ){
@@ -958,6 +969,11 @@ width:100%;
   .showDiv{
         box-sizing: border-box;
         margin: 0;
+        border: 0;
+        background-color: transparent;
+  }
+  .episode{
+    width: 360px;
   }
 }
 .showOverlay {
@@ -1075,7 +1091,11 @@ color: #d8d6d6;
 
 
     <a href="#" onclick="showAll('')">
-    <h1 style="text-align:center;font-size:xx-large;padding: 20px;    font-family: Graphik-Bold;color: white;">EPISODES</h1></a>
+    <h1 style="    /* text-align: center; */
+        font-size: 57px;
+    padding: 0 0 30px 11px;
+    font-family: Graphik-Bold;
+    color: white;">ToStream</h1></a>
     <p style="  display: none;  text-align: center;color:red;"> TOSTREAM.ml will be shutting down on December 31st 2018.</p>
     <button id="myBtn" onclick="topFunction()" style="z-index: 1;" title="Go to top"><i aria-hidden="true" class="fa fa-level-up"></i></button>
     <div class="box" style="display: none;">
