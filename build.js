@@ -581,8 +581,13 @@ BackgroundLazyLoader();
       }
        if (document.getElementById('watching').children.length === 0) {
         document.getElementById('wtcTxt').style.display = 'none'
+        document.getElementById('upNextDivider').style.display = 'none'
+
+        
       }else{
         document.getElementById('wtcTxt').style.display = 'block'
+        document.getElementById('upNextDivider').style.display = 'block'
+
 
 }
 
