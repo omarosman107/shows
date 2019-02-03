@@ -854,6 +854,7 @@ if(showLogos[q]){
 }
 document.getElementsByClassName('show_container')[0].id = encodeURIComponent(q)
 document.getElementsByClassName('show_container')[0].innerHTML = `
+ <hr class="divider">
  <div id="${decodeURIComponent(q)}" class="showTitle_image">${showDIV}</div>
   <ul  style="display:none;" class="seasons"> 
     ${sznLI}
