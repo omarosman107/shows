@@ -393,7 +393,8 @@ var doc = document.documentElement;
 // console.log(pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0) )
 
 // || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000
-if(entries[i].isIntersecting && entries[i].intersectionRatio > 0){
+console.log()
+if(entries[i].isIntersecting && entries[i].intersectionRatio > 0 || entries[i].target.classList[0] == 'new_release'){
 //	console.log(entries[i])
 
 	//requestAnimationFrame(function(time){
@@ -1617,7 +1618,6 @@ var date2 = new Date(json.time)
     var FDate = '' //month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2
    // console.log(date1.getDate(),date1.getMonth(),date1.getFullYear(),date2.getDate(),date2.getMonth(),date2.getFullYear())
-
 if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
 	//console.log('close airdate')
 	if(dateDiffInDays(date2,date1) == 0){
@@ -1649,8 +1649,8 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 	if(dateDiffInDays(date2,date1) < 7|| date1.getDate() - date2.getDate() < 7){
 		console.log('new')
 		   template.push( `<a href="video.html?${json.href}">
-    	<div data-query="${query}" class="episode  ${con} ${json.type} ${json.href}">
-    	<div class="episode_img"><div class="episode_overlay"></div><img class=" cover hoverEpisode lazy" width="100%" 
+    	<div data-query="${query}" class=" episode  ${con} ${json.type} ${json.href}">
+    	<div class="episode_img"><div class="episode_overlay"></div><img class="new_release cover hoverEpisode lazy" width="100%" 
 
 data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';"  data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${json.show}"
 
