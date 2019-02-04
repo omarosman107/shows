@@ -194,6 +194,17 @@ video.currentTime = 0;
 
 
   }
+
+
+// code for click to go next
+function scroll(d,el){
+	console.log(d,el)
+}
+
+
+
+
+
 var textInput = document.getElementById('search');
 
 function addJS(url) {
@@ -592,6 +603,12 @@ BackgroundLazyLoader();
 
 }
 
+if(!isMobile){
+
+for(var i = document.querySelectorAll('.shows').length - 1; i >= 0; i--){
+	document.querySelectorAll('.shows')[i].style.overflowY = 'initial'
+}
+}
 console.timeEnd();
        
 
