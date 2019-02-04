@@ -606,7 +606,7 @@ BackgroundLazyLoader();
 if(!isMobile){
 
 for(var i = document.querySelectorAll('.shows').length - 1; i >= 0; i--){
-	document.querySelectorAll('.shows')[i].style.overflowY = 'initial'
+	// document.querySelectorAll('.shows')[i].style.overflowY = 'initial'
 }
 }
 console.timeEnd();
