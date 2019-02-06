@@ -1826,7 +1826,7 @@ cwTimes[cwshows.items[i].title] = airtime
 
 
 
-fetch('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_8' )
+fetch('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_8',{cache:'no-store'} )
 .then(function(res){
 return res.json()
 }).then(function(data){
@@ -1963,7 +1963,7 @@ function nbcloadnext(url){
 
 //console.log(url)
 loaders()
-fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,vChipRating,description,airdate,images,categories&fields[images]=path,internalId').then(function(res){return res.json();}).then(function(episode){
+fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,vChipRating,description,airdate,images,categories&fields[images]=path,internalId',{cache:'no-store'}).then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
 				//	console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -2088,7 +2088,7 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			nbcshows[showId] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=10').then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=10',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
 				console.log(episode)
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
@@ -2148,7 +2148,7 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 	function nbcLoadShow(url){
 		loaders()
-fetch(url ).then(function(res){return res.json();}).then(function(shows){
+fetch(url ,{cache:'no-store'}).then(function(res){return res.json();}).then(function(shows){
 		nbcShowHandle(shows)
 
 if('next' in shows.links){
