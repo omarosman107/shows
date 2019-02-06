@@ -1792,15 +1792,27 @@ fetch('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apivers
 // console.log(cwshows.items.show_groups[0].shows)
 // .concat(cwshows.items.show_groups[2].shows)
 //cwshows['items'] = (cwshows.items.show_groups[0].shows)
-
+var cwcomb = []
 for(i in cwshows.items.show_groups){
-	console.log(cwshows.items.show_groups[i])
+	if(cwshows.items.show_groups[i].slug == 'also-on-the-cw'){
+		for(z in cwshows.items.show_groups[i].shows){
+			cwcomb.push(cwshows.items.show_groups[i].shows[z])
+		}
+}
+}
+for(i in cwshows.items.show_groups){
+	//console.log(cwshows.items.show_groups[i])
 	if(cwshows.items.show_groups[i].slug == 'current-shows'){
-		cwshows['items'] = (cwshows.items.show_groups[i].shows)
+	console.log(cwshows.items.show_groups[i].shows)
+		for(z in cwshows.items.show_groups[i].shows){
+			cwcomb.push(cwshows.items.show_groups[i].shows[z])
+		}
+//		cwshows['items'] = (cwshows.items.show_groups[i].shows)
 		break;
 
 	}
 }
+cwshows['items'] = cwcomb
 console.log(cwshows)
 // cwshows.items.push( {"videos_count":"13","title":"Forever","deeplink": "","airtime":"STREAM NOW","slug":"forever","series_code":"FVR","group_type":"current-shows"})
 for(i in cwshows.items){
