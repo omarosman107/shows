@@ -366,10 +366,25 @@ box-shadow: inset 0px 0px 20px 2px #0000002b;
 .loading {
   opacity: 0;
 }
-
-  @media (min-width:500px) {
+.fallback_showImg {
+  display: none;
+}
+  @media (min-width:600px) {
      .box {
          width: 650px
+     }
+     .showBG {
+      display: none;
+     }
+     .showLogo {
+      display: none;
+     }
+     .showDiv {
+      width: 250px;
+          width: 20%;
+     }
+     .fallback_showImg{
+      display: block;
      }
   }
 
@@ -945,8 +960,8 @@ width:100%;
 }
 
 .showDiv {
-  width:480px;
-  height:180px;
+     width: 320px;
+    height: 179px;
     position: relative;
       border-radius:10px;
           display: inline-block;

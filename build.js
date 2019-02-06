@@ -1371,6 +1371,9 @@ if('align' in showDetail[i]){
   <div style="${showlogodiv}" class="showLogo">
 ${logo}
   </div>
+  <img width="100%" class="fallback_showImg" src="${showswithimages[i]}" style="
+    border-radius: 10px;
+">
   <div style="  ${bgstyle}  background-repeat: no-repeat;
   
     background-image:${gradient} url(${showDetail[i].bg});" class="showBG"></div>
