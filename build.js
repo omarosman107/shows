@@ -452,7 +452,7 @@ function sortTV(){
     var div = document.querySelector('#tvShows'),
         para = document.querySelectorAll('#tvShows .showDiv');
     var paraArr = [].slice.call(para).sort(function (a, b) {
-        return a.getAttribute('show') > b.getAttribute('show') ? 1 : -1;
+        return a.getAttribute('show').toLowerCase() > b.getAttribute('show').toLowerCase() ? 1 : -1;
     });
     paraArr.forEach(function (p) {
         div.appendChild(p);
