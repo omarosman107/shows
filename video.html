@@ -446,15 +446,15 @@ padding-bottom: 1.5vh;
 
 .qualitySection {
     width: 189px;
-        background-color: #454545;
+    background-color: #454545;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
     z-index: 9;
-    bottom: -205%;
-    left: 38%;
+    top: 3em;
+    left: 108px;
     margin-left: -60px;
     display: none;
     transition: opacity 0.3s;
@@ -680,18 +680,21 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
     <th>Video Quality</th>
  
   </tr>
-  <tr>
-    <td onclick="limitQuality('low',this)">Low</td>
-
+   <tr>
+    <td  onclick="limitQuality('always_max',this)">Maximum</td>
   </tr>
   <tr>
     <td onclick="limitQuality('medium',this)">Medium</td>
-
-  </tr>
+</tr>
   <tr>
-    <td style="color:white;" onclick="limitQuality('best',this)">Best</td>
+    <td onclick="limitQuality('low',this)">Low</td>
+ </tr>
 
-  </tr>
+ 
+ 
+   <tr>
+    <td  style="color: white;" onclick="limitQuality('auto',this)">Auto</td>
+ </tr>
 </table></span>
 
          	</div>
@@ -855,9 +858,15 @@ function togglePlayPause() {
    }
 }
 function changeButtonType(btn, value) {
-   btn.title = value;
+if(mediaPlayer.paused || mediaPlayer.ended){
+	 btn.title = 'play';
    btn.innerHTML = value;
    btn.className = value;
+}else{
+   btn.title = 'pause';
+   btn.innerHTML = value;
+   btn.className = value;
+}
 }
 Number.prototype.toHHMMSS = function () {
 if(this == 0 || isNaN(this)){
@@ -1139,7 +1148,7 @@ Object.keys(quality).sort().forEach(function(key) {
 
 	}
 	if(quality[key].height > 720){
-		  orderedQ['best'] = key
+		  orderedQ['auto'] = key
 
 	}
 });
@@ -1158,10 +1167,13 @@ if(type == 'medium'){
 		hls.autoLevelCapping = orderedQ['medium']
 
 }
-if(type == 'best' || type == undefined){
+if(type == 'auto' || type == undefined){
 	hls.autoLevelCapping = -1 
 }
-
+if(type == 'always_best'){
+	console.log(type,obj,orderedQ)
+	hls.loadLevel = orderedQ['auto']
+}
 }
 function openQualitySelector(){
 	if(document.querySelector('.qualitySection').style.display == 'none'){

@@ -1470,10 +1470,11 @@ if (!time > 0) {
 if (json.length - tempLS["?" + json.href] < json.end) {
 //	perc = 100
 }
+json['truncated'] = json.episode
 if(!json.episode.toLowerCase().includes('part') && json.episode.includes(': ') && json.show != 'The Blacklist'){
 	var splittedName = json.episode.split(': ')
 	splittedName.shift()
-json.episode = splittedName.join(': ')
+json['truncated'] = splittedName.join(': ')
 }
  var topShow = json.show
 // && json.show != 'Heroes'
@@ -1612,7 +1613,7 @@ episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.s
     </a></div>
       </div>
       <h2 class="watchingTitle" style="">
-<a class="episode-name" onclick="loadPlayer(this)" href="video.html?${json.href}">"${json.episode}"</a></h2>
+<a title="${json.episode}" class="episode-name" onclick="loadPlayer(this)" href="video.html?${json.href}">"${json.truncated}"</a></h2>
 </li>`
 
 //        watching.innerHTML =  '<li style="margin: 11px;" class=" card  ' + json.href + '"><a href="#"><div style="   " class="piece fanart-container"><div class="image-crop sixteen-nine" >' + newBanner() + '<a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '"><\/span><div class="bg"  style=" background-image:url('+json.bg+');background-size:cover;" ></div><div class="imageBG"><\/div><img    class="cover sixteen-nine lazy "    sizes="(max-width: 600px) 80vw, 460px"    alt="' + json.episode + '" data-original-set="' + json.imgdyn + '" class"" class="cover" ><i class="fa fa-play-circle-o" aria-hidden="true"><\/i><\/a><span class="episode-gradient"><\/span><div id="projpar" class="w3-progress-container" style=""><div id="progress" class="w3-progressbar" style="width: ' + perc + '%;"><\/div><\/div><div class="overlay"><a onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '" class="overlay-btn zoom-btn "  title="Watch ' + json.episode + '"><i class="fa fa-play playbutton"><\/i><\/a><\/div><\/div><div class="episode-details fanart-details"><h2><a class="episode-name" onclick="loadPlayer(this)" href="newplayer.html?' + json.href + '">' + json.episode + '<\/a><\/h2><a onclick="showQuery(null,this)"  show="' + json.show + '" href="javascript:" class="secondary-link show-name">' + json.show + '<\/a><a href="javascript:"><i style="    /* opacity: ' + showCheck() + '; */color: rgb(127, 218, 99);position: absolute;right: 10px;bottom: 10px;display:none;" class="visited fa fa-check" aria-hidden="true"><\/i><\/a><\/div><div class="bottom"><\/div><\/div><\/a><\/li>'
@@ -1677,7 +1678,7 @@ data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg
 
 	></img></div><div class="episode_number">${json.episodeNumber}</div>
 	<div class="episode_naming">
-		<span class="episode_title">'${json.episode}'</span>
+		<span title="${json.episode}" class="episode_title">'${json.truncated}'</span>
 
 	<div class="episode_details">
 	<span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span>
