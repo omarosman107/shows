@@ -171,21 +171,7 @@ video {
 .volume,#progress-bar {
     display: inline-block;
 }
-#progress-bar {
-  flex:10;
-  position: relative;
-  display:flex;
-  flex-basis:100%;
-  height:6px;
-  transition:height 0.3s;
-    background: #ddd;
-border: 0;
-      cursor:pointer;
-  width: 100%;
-}
-#progress-bar::-webkit-progress-value {
-	background: #ddd;
-}
+
 
 .progress__filled {
   width:0%;
@@ -370,7 +356,7 @@ background-color: #f8f8f8;
 .seekBar {
 	padding-bottom: .41667vw;
 }
-#progress-bar {
+.progress_container {
 	
     height: .25vw;
 }
@@ -610,9 +596,34 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+.progress_container {
+	flex: 10;
+    position: relative;
+    height: 6px;
+    background: rgba(255,255,255,.2);
+    cursor: pointer;
+    width: 100%;
+    transition: all .12s ease;
+}
+.progress_bar {
+	position: absolute;
+    height: 100%;
+    background: #ddd;
+    cursor: pointer;
+      height:100%;
+  transition: all .05s ease;
+  z-index: 2;
+}
 
-
-
+#buffer_bar {
+		position: absolute;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.27);
+    cursor: pointer;
+      height:100%;
+  transition: all .05s ease;
+  z-index: 1;
+}
 
 	</style>
 
@@ -681,7 +692,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
  
   </tr>
    <tr>
-    <td  onclick="limitQuality('always_max',this)">Maximum</td>
+    <td  onclick="limitQuality('always_best',this)">Maximum</td>
   </tr>
   <tr>
     <td onclick="limitQuality('medium',this)">Medium</td>
@@ -735,10 +746,11 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
          	         	     <span class="currenttime"></span>
 
          	<div class="seekBar">
-
-         	<progress  id='progress-bar' min='0' max='100' value='0'>
-
-         	</progress>	
+         		<div class="progress_container">
+         			<div class="progress_bar" id='progress-bar' style="width: 0%;"></div>
+<div id="buffer_bar" style="width: 0;"></div>
+         		</div>
+      
          	</div>
  
 <div class="time" 
@@ -890,11 +902,16 @@ if(this == 0 || isNaN(this)){
     return hours+':'+minutes+':'+seconds;
 }
 }
+mediaPlayer.addEventListener('progress',function(){
+//document.getElementById('buffer_bar').style.width =( (mediaPlayer.buffered.end(mediaPlayer.buffered.length -1) / mediaPlayer.duration * 100 + '%'));
+
+},false)
 function updateProgressBar() {
 //   var progress = document.getElementById('progress-bar');
+
    var percentage = ((100 / mediaPlayer.duration) *
    mediaPlayer.currentTime);
-   progressContainer.value = percentage;
+   document.getElementById('progress-bar').style.width = percentage + '%';
    quality = ''
    var res = mediaPlayer.videoHeight;
    if(res < 720){
@@ -953,16 +970,17 @@ function loadVideo() {
       }
    }
 }
+var progressContainer = document.querySelector('.progress_container')
+
 const slideDuration = (slideNode, videoNode) => ({offsetX}) => {
 	 document.querySelector('.loadingSpinner').style.display = 'block'
 	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
 mediaPlayer.play();
     mediaPlayer.currentTime  = (offsetX / progressContainer.offsetWidth) * mediaPlayer.duration;
-    document.getElementById('progress-bar').value =((offsetX / progress.offsetWidth)*100);
+    document.getElementById('progress-bar').style.width =((offsetX / progressContainer.offsetWidth)*100) + '%';
 updateProgressBar()
 
      } 
-var progressContainer = document.getElementById('progress-bar')
 
     var progress = document.querySelector('.seekBar')
     progress.addEventListener('click', slideDuration(progress, mediaPlayer));
@@ -1126,6 +1144,10 @@ document.body.appendChild(css);
 
 
 
+function buffering(){
+	  document.querySelector('.loadingSpinner').style.display = 'block'
+   	   	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
+}
 
 function limitQuality(type,obj){
 	quality = hls.levels
@@ -1154,25 +1176,30 @@ Object.keys(quality).sort().forEach(function(key) {
 });
 console.log(orderedQ)
 if(type == 'low'){
-		hls.nextLoadLevel = orderedQ['low']
-		//hls.currentLevel = orderedQ['low']
+		// hls.nextLoadLevel = orderedQ['low']
+		hls.currentLevel = orderedQ['low']
 
 		hls.autoLevelCapping = orderedQ['low']
-
+buffering()
 }
 if(type == 'medium'){
-			hls.nextLoadLevel = orderedQ['medium']
-		//	hls.currentLevel =orderedQ['medium']
+		//	hls.nextLoadLevel = orderedQ['medium']
+			hls.currentLevel =orderedQ['medium']
 
 		hls.autoLevelCapping = orderedQ['medium']
-
+buffering()
 }
 if(type == 'auto' || type == undefined){
+		hls.currentLevel = -1
 	hls.autoLevelCapping = -1 
+//	buffering()
 }
 if(type == 'always_best'){
 	console.log(type,obj,orderedQ)
-	hls.loadLevel = orderedQ['auto']
+	hls.autoLevelCapping = -1 
+	hls.currentLevel = orderedQ['auto']
+
+buffering()
 }
 }
 function openQualitySelector(){
