@@ -615,17 +615,31 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
   z-index: 2;
 }
 
-#buffer_bar {
-		position: absolute;
+#scrobble {
+	    position: absolute;
     height: 100%;
-    background: rgba(255, 255, 255, 0.27);
+    background: rgba(255, 255, 255, 0.55);
     cursor: pointer;
-      height:100%;
-  transition: all .05s ease;
-  z-index: 1;
+    z-index: 5;
+  display: none;
 }
-
+#scrobble::after{
+         content: '';
+    display: none;
+    width: 14px;
+    height: 14px;
+    -moz-border-radius: 7.5px;
+    -webkit-border-radius: 7.5px;
+    border-radius: 7.5px;
+    background: rgba(255, 255, 255, 1);
+        right: -7px;
+    position: absolute;
+    top: -3.5px;
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.55);
+    z-index: 
+    }
 	</style>
+
 
 
 
@@ -748,7 +762,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
          	<div class="seekBar">
          		<div class="progress_container">
          			<div class="progress_bar" id='progress-bar' style="width: 0%;"></div>
-<div id="buffer_bar" style="width: 0;"></div>
+<div id="scrobble" style="width: 0;"></div>
          		</div>
       
          	</div>
@@ -1036,6 +1050,9 @@ document.querySelector('.thumbnail-holder').style.left = TNleft  + '%'
 
 }
 }
+document.getElementById('scrobble').style.display = 'block'
+document.getElementById('scrobble').style.width =(((e.offsetX / progress.offsetWidth) * mediaPlayer.duration) / mediaPlayer.duration*100) + '%'
+
 document.querySelector('.currenttime').innerHTML = ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration).toHHMMSS()
 var halfCurrent = (document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2;
 document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offsetWidth) * 100) -halfCurrent  + '%'
@@ -1043,6 +1060,7 @@ document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offse
 })
 
 progress.addEventListener('mouseleave',function(e){
+	document.getElementById('scrobble').style.display = 'none'
 document.querySelector('.currenttime').style.visibility = 'hidden'
 if(tn.length != 0)
 	document.querySelector('.thumbnail-holder').style.visibility = 'hidden'
