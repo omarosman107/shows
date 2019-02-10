@@ -599,12 +599,16 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
 .progress_container {
 	flex: 10;
     position: relative;
-    height: 6px;
+height: 6px;
     background: rgba(255,255,255,.2);
     cursor: pointer;
     width: 100%;
     transition: all .12s ease;
+
 }
+.seekBar:hover .progress_container {
+}
+
 .progress_bar {
 	position: absolute;
     height: 100%;
@@ -625,7 +629,7 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
 }
 .progress_bar::after{
          content: '';
-    display: block;
+    display: none;
     width: 14px;
     height: 14px;
     -moz-border-radius: 7.5px;
@@ -636,8 +640,12 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
     position: absolute;
     top: -3.5px;
     box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.35);
-    z-index: 
+    transform: scale(.5);
     }
+    .seekBar:hover .progress_bar::after {
+	display: block;
+	transform: scale(1);
+}
 	</style>
 
 
