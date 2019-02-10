@@ -612,7 +612,7 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
     cursor: pointer;
       height:100%;
   transition: all .05s ease;
-  z-index: 2;
+  z-index: 8;
 }
 
 #scrobble {
@@ -623,9 +623,9 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
     z-index: 5;
   display: none;
 }
-#scrobble::after{
+.progress_bar::after{
          content: '';
-    display: none;
+    display: block;
     width: 14px;
     height: 14px;
     -moz-border-radius: 7.5px;
@@ -635,7 +635,7 @@ transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
         right: -7px;
     position: absolute;
     top: -3.5px;
-    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.55);
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.35);
     z-index: 
     }
 	</style>
@@ -926,6 +926,7 @@ function updateProgressBar() {
    var percentage = ((100 / mediaPlayer.duration) *
    mediaPlayer.currentTime);
    document.getElementById('progress-bar').style.width = percentage + '%';
+
    quality = ''
    var res = mediaPlayer.videoHeight;
    if(res < 720){
@@ -992,6 +993,7 @@ const slideDuration = (slideNode, videoNode) => ({offsetX}) => {
 mediaPlayer.play();
     mediaPlayer.currentTime  = (offsetX / progressContainer.offsetWidth) * mediaPlayer.duration;
     document.getElementById('progress-bar').style.width =((offsetX / progressContainer.offsetWidth)*100) + '%';
+
 updateProgressBar()
 
      } 
@@ -1050,8 +1052,16 @@ document.querySelector('.thumbnail-holder').style.left = TNleft  + '%'
 
 }
 }
+console.log((((e.offsetX / progress.offsetWidth) * mediaPlayer.duration) / mediaPlayer.duration*100),((100 / mediaPlayer.duration) *
+   mediaPlayer.currentTime))
+
 document.getElementById('scrobble').style.display = 'block'
-document.getElementById('scrobble').style.width =(((e.offsetX / progress.offsetWidth) * mediaPlayer.duration) / mediaPlayer.duration*100) + '%'
+   document.getElementById('scrobble').style.left = 0+/*((100 / mediaPlayer.duration) *
+   mediaPlayer.currentTime) + */'%'
+
+document.getElementById('scrobble').style.width =(((e.offsetX / progress.offsetWidth) * mediaPlayer.duration) / mediaPlayer.duration*100)  + '%'
+
+
 
 document.querySelector('.currenttime').innerHTML = ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration).toHHMMSS()
 var halfCurrent = (document.querySelector('.currenttime').offsetWidth / progress.offsetWidth *100) / 2;
