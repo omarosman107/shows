@@ -781,6 +781,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
       </div>
     </div>
 </div>
+
 <script type="text/javascript" src="js/hls.min.js"></script>
     <script>
     function error(e){
@@ -1034,22 +1035,21 @@ closest = thumbsObject.sort(function(a, b) {
 }).find(function(n){
 	return n.t >= ((e.offsetX / progress.offsetWidth) * mediaPlayer.duration)
 })
-
-var halfTN = (document.querySelector('.thumbnail-holder').offsetWidth / progress.offsetWidth *100) / 4;
+var halfTN = ((document.querySelector('.thumbnail-holder').offsetWidth / progress.offsetWidth )*100) /2;
 //console.log(halfTN)
 //console.log(closest)
 	document.querySelector('.thumbnail-holder img').src = closest.src
 
-	var TNleft = ((e.offsetX / progress.offsetWidth) * 100)-halfTN
+	var TNleft = ((e.offsetX / progress.offsetWidth) * 100) - halfTN
 var pastHalf = TNleft + halfTN
-      console.log(TNleft > 0, halfTN )
+  //    console.log(TNleft > 0, halfTN )
 
-	//console.log(TNleft)
+//	console.log(TNleft < 0)
 //console.log(((e.offsetX / progress.offsetWidth) * 100))
-	   if ( (TNleft) > progress.offsetWidth ) {
+	   if ( (TNleft ) > progress.offsetWidth ) {
         TNleft -= (TNleft );
 
-      } else if ((TNleft) < halfTN) {
+      } else if ((TNleft ) < halfTN) {
         TNleft = 'unset';
       }
 
