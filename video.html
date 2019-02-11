@@ -52,23 +52,8 @@ video::cue(i){
 
 }
 video::-webkit-media-text-track-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    padding-bottom: 0px !important;
-    font: 22px sans-serif;
-    text-align: center;
-    color: rgba(255, 255, 255, 1);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0;
-    text-decoration: none;
-    pointer-events: none;
-    -webkit-user-select: none;
-    word-break: break-word;
-    flex: 1 1;
-        transform: translateY(-5%) !important; 
+
+        transform: translateY(-16px) !important; 
 
 }
 
@@ -646,7 +631,20 @@ height: 6px;
 	display: block;
 	transform: scale(1);
 }
+
+video::-webkit-media-text-track-display{
+	    position: absolute;
+    unicode-bidi: -webkit-plaintext;
+    direction: ltr;
+    -webkit-writing-mode: horizontal-tb;
+    top: 0%;
+    /* left: 28.125%; */
+    width: 100%;
+    height: auto;
+    /* text-align: left; */
+}
 	</style>
+
 
 
 
@@ -1060,9 +1058,9 @@ document.querySelector('.thumbnail-holder').style.left = TNleft  + '%'
 
 }
 }
-console.log((((e.offsetX / progress.offsetWidth) * mediaPlayer.duration) / mediaPlayer.duration*100),((100 / mediaPlayer.duration) *
-   mediaPlayer.currentTime))
-
+/*console.log((((e.offsetX / progress.offsetWidth) * mediaPlayer.duration) / mediaPlayer.duration*100),((100 / mediaPlayer.duration) *
+  mediaPlayer.currentTime))
+*/
 document.getElementById('scrobble').style.display = 'block'
    document.getElementById('scrobble').style.left = 0+/*((100 / mediaPlayer.duration) *
    mediaPlayer.currentTime) + */'%'
