@@ -215,35 +215,7 @@ function addJS(url) {
   var fs = document.getElementsByTagName('script')[0]; // Get the first script
   fs.parentNode.insertBefore(s, fs);
 };
-// https://github.com/filamentgroup/loadCSS
-! function(e) {
-  "use strict";
-  var n = function(n, t, o) {
-    function i(e) {
-      return f.body ? e() : void setTimeout(function() {
-        i(e)
-      })
-    }
-    var d, r, a, l, f = e.document,
-      s = f.createElement("link"),
-      u = o || "all";
-    return t ? d = t : (r = (f.body || f.getElementsByTagName("head")[0]).childNodes, d = r[r.length - 1]), a = f.styleSheets, s.rel = "stylesheet", s.href = n, s.media = "only x", i(function() {
-      d.parentNode.insertBefore(s, t ? d : d.nextSibling)
-    }), l = function(e) {
-      for (var n = s.href, t = a.length; t--;)
-        if (a[t].href === n) return e();
-      setTimeout(function() {
-        l(e)
-      })
-    }, s.addEventListener && s.addEventListener("load", function() {
-      this.media = u
-    }), s.onloadcssdefined = l, l(function() {
-      s.media !== u && (s.media = u)
-    }), s
-  };
-  "undefined" != typeof exports ? exports.loadCSS = n : e.loadCSS = n
-}("undefined" != typeof global ? global : this);
-loadCSS('css/feed.css')
+
 
 function logIn(u, p) {
   firebase.auth().signInWithEmailAndPassword(u, p).catch(function(error) {
@@ -1322,6 +1294,7 @@ upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 
 }
    document.getElementById('tvShows').innerHTML = ''
+   var showHTML = ''
   for(i in showDetail){
   	if(upnextshows[showDetail[i].name]){
 
@@ -1367,7 +1340,7 @@ if('align' in showDetail[i]){
 	bgstyle = showDetail[i].align
 	 gradient = 'linear-gradient(270deg, transparent 35%, black 68%),'
 }
- document.getElementById('tvShows').innerHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
+ showHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
   <div style="${showlogodiv}" class="showLogo">
 ${logo}
   </div>
@@ -1385,7 +1358,7 @@ ${logo}
 
   }
 }
-
+document.getElementById('tvShows').innerHTML = showHTML
 
 episodes.reverse()
   for (i in episodes) {
@@ -1727,11 +1700,11 @@ var old = `            <div class="bg" data-style=" background-image:url(${json.
      
   }
 sortTV()
-  document.getElementById('watching').innerHTML += watching;
+  document.getElementById('watching').innerHTML = watching;
   if(template.join('') == ''){
   	document.getElementById('newepisodes').innerHTML = ''
   }
-  document.getElementById('carasoul').innerHTML += template.join('');
+  document.getElementById('carasoul').innerHTML = template.join('');
 
 
   console.log(upnextshows)

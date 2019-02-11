@@ -1141,14 +1141,16 @@ button#showConfig {
 .settings {
   display: none;
 }
+ 
   </style>
+  <link rel="stylesheet" type="text/css" href="css/feed.css">
   <title>EPISODES - We provide the best streaming site.</title>
 </head>
 <body>
 
     <div id="showsLike" style="z-index: 1000;"></div>
 
-<div class="lScreen">
+<div class="lScreen" style="display: none;">
 <span style="margin:  auto;text-align:  center;position:  absolute;width: 100%;height: 100%;/* display: inline-block; */vertical-align: middle;/* position: absolute; */top: 0;left: 0;right: 0;bottom: 0;color: #fff;display: flex;align-items: center;justify-content: center;z-index: 1000;overflow: hidden;text-align: center;font-size:-webkit-xxx-large;/* padding-top: 100px; */font-family: Graphik-Bold;color: white;">EPISODES</span>
   <div style="display: none;" class="shutting_down"> TOSTREAM.ml will be shutting down on December 31st 2018.</div>
 
@@ -1178,7 +1180,7 @@ button#showConfig {
 <!-->
 </div>
 
-  <div class="contain">
+  <div class="contain" style="display: block;">
 
 
 
@@ -1201,16 +1203,240 @@ button#showConfig {
     </div>
     <h1 class="sectionHead" id="wtcTxt">Up next</h1>
     <div class="scrollContainer">
-    <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;"></div>
+    <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;">
+ <li class="card">
+   <div class="image-crop sixteen-nine">
+      <div class="overlay" style="
+         opacity: 1;
+         background: linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent);
+         "></div>
+   </div>
+   <h2 class="watchingTitle" style="">
+      <a title="" class="episode-name" onclick="loadPlayer(this)">&nbsp;</a>
+   </h2>
+</li><li class="card">
+   <div class="image-crop sixteen-nine">
+      <div class="overlay" style="
+         opacity: 1;
+         background: linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent);
+         "></div>
+   </div>
+   <h2 class="watchingTitle" style="">
+      <a title="" class="episode-name" onclick="loadPlayer(this)">&nbsp;</a>
+   </h2>
+</li>
+    </div>
     </div>
     <hr id="upNextDivider" class="divider">
 <h1 id="newepisodes" class="sectionHead">New Releases</h1>
 <div class="scrollContainer">
-    <ul class="shows dragscroll" id="carasoul"></ul>
+    <ul class="shows dragscroll" id="carasoul">
+      <div class=" episode">
+   <a>
+      <div class="episode_img">
+         <div class="episode_overlay" style="
+            background: linear-gradient(0deg,rgba(24, 24, 24, 0.35) 0,#1a1a1a14);
+            "></div>
+      </div>
+      <div class="episode_number"></div>
+   </a>
+   <div class="episode_naming" style="
+      /* background: black; */
+      ">
+      <a>
+         <span class="episode_title" style="
+            background: #ffffff17;
+            height: 22px;
+            padding: 28px;
+            width: 80%;
+            "></span>
+         <div class="episode_details">
+            <span></span>
+         </div>
+      </a>
+      <a class="episode_show" href="javascript:" style="
+         width: 6em;
+         "><img src="" width="" style="
+         /* width: 6em; */
+         /* filter: brightness(0) invert(1); */
+         /* transform: translate(8%,-29%); */
+         /* margin: -6px; */
+         "></a>
+   </div>
+</div>
+<div class=" episode">
+   <a>
+      <div class="episode_img">
+         <div class="episode_overlay" style="
+            background: linear-gradient(0deg,rgba(24, 24, 24, 0.35) 0,#1a1a1a14);
+            "></div>
+      </div>
+      <div class="episode_number"></div>
+   </a>
+   <div class="episode_naming" style="
+      /* background: black; */
+      ">
+      <a>
+         <span class="episode_title" style="
+            background: #ffffff17;
+            height: 22px;
+            padding: 28px;
+            width: 80%;
+            "></span>
+         <div class="episode_details">
+            <span></span>
+         </div>
+      </a>
+      <a class="episode_show"  href="javascript:" style="
+         width: 6em;
+         "><img src="" width="" style="
+         /* width: 6em; */
+         /* filter: brightness(0) invert(1); */
+         /* transform: translate(8%,-29%); */
+         /* margin: -6px; */
+         "></a>
+   </div>
+</div>
+<div class=" episode">
+   <a>
+      <div class="episode_img">
+         <div class="episode_overlay" style="
+            background: linear-gradient(0deg,rgba(24, 24, 24, 0.35) 0,#1a1a1a14);
+            "></div>
+      </div>
+      <div class="episode_number"></div>
+   </a>
+   <div class="episode_naming" style="
+      /* background: black; */
+      ">
+      <a>
+         <span class="episode_title" style="
+            background: #ffffff17;
+            height: 22px;
+            padding: 28px;
+            width: 80%;
+            "></span>
+         <div class="episode_details">
+            <span></span>
+         </div>
+      </a>
+      <a class="episode_show" href="javascript:" style="
+         width: 6em;
+         "><img src="" width="" style="
+         /* width: 6em; */
+         /* filter: brightness(0) invert(1); */
+         /* transform: translate(8%,-29%); */
+         /* margin: -6px; */
+         "></a>
+   </div>
+</div>
+<div class=" episode">
+   <a>
+      <div class="episode_img">
+         <div class="episode_overlay" style="
+            background: linear-gradient(0deg,rgba(24, 24, 24, 0.35) 0,#1a1a1a14);
+            "></div>
+      </div>
+      <div class="episode_number"></div>
+   </a>
+   <div class="episode_naming" style="
+      /* background: black; */
+      ">
+      <a>
+         <span class="episode_title" style="
+            background: #ffffff17;
+            height: 22px;
+            padding: 28px;
+            width: 80%;
+            "></span>
+         <div class="episode_details">
+            <span></span>
+         </div>
+      </a>
+      <a class="episode_show"  href="javascript:" style="
+         width: 6em;
+         "><img src="" width="" style="
+         /* width: 6em; */
+         /* filter: brightness(0) invert(1); */
+         /* transform: translate(8%,-29%); */
+         /* margin: -6px; */
+         "></a>
+   </div>
+</div>
+<div class=" episode">
+   <a>
+      <div class="episode_img">
+         <div class="episode_overlay" style="
+            background: linear-gradient(0deg,rgba(24, 24, 24, 0.35) 0,#1a1a1a14);
+            "></div>
+      </div>
+      <div class="episode_number"></div>
+   </a>
+   <div class="episode_naming" style="
+      /* background: black; */
+      ">
+      <a>
+         <span class="episode_title" style="
+            background: #ffffff17;
+            height: 22px;
+            padding: 28px;
+            width: 80%;
+            "></span>
+         <div class="episode_details">
+            <span></span>
+         </div>
+      </a>
+      <a class="episode_show"  href="javascript:" style="
+         width: 6em;
+         "><img src="" width="" style="
+         /* width: 6em; */
+         /* filter: brightness(0) invert(1); */
+         /* transform: translate(8%,-29%); */
+         /* margin: -6px; */
+         "></a>
+   </div>
+</div>
+<div class=" episode">
+   <a>
+      <div class="episode_img">
+         <div class="episode_overlay" style="
+            background: linear-gradient(0deg,rgba(24, 24, 24, 0.35) 0,#1a1a1a14);
+            "></div>
+      </div>
+      <div class="episode_number"></div>
+   </a>
+   <div class="episode_naming" style="
+      /* background: black; */
+      ">
+      <a>
+         <span class="episode_title" style="
+            background: #ffffff17;
+            height: 22px;
+            padding: 28px;
+            width: 80%;
+            "></span>
+         <div class="episode_details">
+            <span></span>
+         </div>
+      </a>
+      <a class="episode_show" href="javascript:" style="
+         width: 6em;
+         "><img src="" width="" style="
+         /* width: 6em; */
+         /* filter: brightness(0) invert(1); */
+         /* transform: translate(8%,-29%); */
+         /* margin: -6px; */
+         "></a>
+   </div>
+</div>
+    </ul>
 </div>
 <hr class="divider">
     <h1 class="sectionHead" >Shows</h1>
-    <div class="" style="    white-space: normal;" id="tvShows" ></div>
+    <div class="" style="    white-space: normal;" id="tvShows" >
+      
+
+    </div>
 
     <div class="show_container">
  
@@ -1241,6 +1467,35 @@ button#showConfig {
 
   </script> 
   <script type="text/javascript">
+
+for(i = 0; i < 12; i++){
+document.getElementById('tvShows').innerHTML += `<div onclick="showQuery(null,this)" class="showDiv">
+   <div style="
+      background: #69696938;
+      height: 38px;
+      " class="showLogo">
+      <img width="100%" src="">
+   </div>
+   <img width="100%" class="fallback_showImg" src="" style="
+      border-radius: 10px;
+      background: transparent;
+      height: calc(100% / 2);
+      height: 0;
+      padding-top: 56.25%;
+      ">
+   <div style="
+      background-position: right;
+      background-size: contain;
+      background-repeat: no-repeat;
+    background-image: linear-gradient(270deg, transparent 1%, black 99%), url();
+          " class="showBG"></div>
+   <div class="showDetails">
+      <span> </span>
+      <span class="genre"></span>
+   </div>
+</div>`
+}
+
     firebase.initializeApp({
   apiKey: 'AIzaSyC5rQaFbnCg0eI-7BavdI_CGHPPuQFhuis',
   authDomain: 'https://tv-stream-5f331.firebaseio.com',
