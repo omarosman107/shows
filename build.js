@@ -823,7 +823,7 @@ data-original="${upnextshows[q].seasons[i][z].img}" onerror="if (this.src != '${
 
 	></img></div><div class="episode_number">${upnextshows[q].seasons[i][z].episode_number}</div>
 	<div class="episode_naming">
-		<span class="episode_title">'${upnextshows[q].seasons[i][z].episode}'</span>
+		<span class="episode_title">${upnextshows[q].seasons[i][z].episode}</span>
 
 	<div class="episode_details">
 	<span>S${upnextshows[q].seasons[i][z].season_number}:E${upnextshows[q].seasons[i][z].episode_number} • ${(date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()} • ${Math.round(upnextshows[q].seasons[i][z].length / 60)}m</span>
@@ -1651,7 +1651,7 @@ data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg
 
 	></img></div><div class="episode_number">${json.episodeNumber}</div>
 	<div class="episode_naming">
-		<span title="${json.episode}" class="episode_title">'${json.truncated}'</span>
+		<span title="${json.episode}" class="episode_title">${json.truncated}</span>
 
 	<div class="episode_details">
 	<span>S${json.seasonNumber}:E${json.episodeNumber} • ${timeofPlayback} • ${FDate}</span>
