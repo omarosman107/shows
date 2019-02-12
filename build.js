@@ -377,7 +377,7 @@ var doc = document.documentElement;
 
 // || (pos - (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0)) < 2000
 console.log()
-if(entries[i].isIntersecting && entries[i].intersectionRatio > 0 || entries[i].target.classList[0] == 'new_release'){
+if(entries[i].isIntersecting && entries[i].intersectionRatio > 0 || entries[i].target.classList[0] == 'new_release' || entries[i].target.classList[0] == 'currentlyWatching'){
 //	console.log(entries[i])
 
 	//requestAnimationFrame(function(time){
@@ -816,7 +816,8 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 
 <a href="video.html?${upnextshows[q].seasons[i][z].link}">
     	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
-    	<div class="episode_img"><div class="episode_overlay"></div><img class="hoverEpisode cover  lazy" width="100%" 
+    	<div class="episode_img"><div class="episode_overlay"></div>
+    	<img class="hoverEpisode cover  lazy" width="100%" 
 
 data-original="${upnextshows[q].seasons[i][z].img}" onerror="if (this.src != '${showDetail[q].bg}') this.src = '${showDetail[q].bg}';this.srcset = '';"  data-original-set="${upnextshows[q].seasons[i][z].srcset}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${q}"
 
@@ -1491,7 +1492,7 @@ episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.s
         watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}"  class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="video.html?${json.href}">
-            <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';" src="${json.img}" srcset="${json.imgdyn }">
+            <img class=" currentlyWatching cover  sixteen-nine lazy" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';" data-original="${json.img}" data-original-set="${json.imgdyn }">
          </a>
          <span class="continShow">${topShow}</span>
          <span class="timeRemaining
