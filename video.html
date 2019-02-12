@@ -1317,7 +1317,10 @@ if (hlsSupported) {
       	if(url.includes('.ts')){
  	xhr.addEventListener('progress', function(event) {
  		if(Math.floor((event.loaded / event.total)*100) == 100){
+ 				   document.querySelector('.loadingSpinner').style.display = 'none'
+	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
 document.getElementById('dwnProg').innerHTML = 99 + '%'
+
 
  		}else{
 document.getElementById('dwnProg').innerHTML = Math.floor((event.loaded / event.total)*100) + '%'

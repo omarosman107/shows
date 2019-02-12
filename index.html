@@ -38,6 +38,28 @@
 
 <metas http-equiv="refresh" content="0; URL='https://www.yidio.com/'" />
   <style type="text/css">
+  @keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
+.animated-background {
+        animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #2c2f33ab 8%, #28292b9e 18%, #2c2f33b5 33%) !important;
+    background-size: 800px 104px !important;
+        /* height: 96px; */
+    position: relative;
+}
+
   body{
     -webkit-user-select: none;
     -webkit-tap-highlight-color:transparent;
@@ -1204,7 +1226,7 @@ button#showConfig {
     <h1 class="sectionHead" id="wtcTxt">Up next</h1>
     <div class="scrollContainer">
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;">
- <li class="card">
+ <li class="card animated-background">
    <div class="image-crop sixteen-nine">
       <div class="overlay" style="
          opacity: 1;
@@ -1214,7 +1236,7 @@ button#showConfig {
    <h2 class="watchingTitle" style="">
       <a title="" class="episode-name" onclick="loadPlayer(this)">&nbsp;</a>
    </h2>
-</li><li class="card">
+</li><li class="card animated-background">
    <div class="image-crop sixteen-nine">
       <div class="overlay" style="
          opacity: 1;
@@ -1244,7 +1266,7 @@ button#showConfig {
       /* background: black; */
       ">
       <a>
-         <span class="episode_title" style="
+         <span class="episode_title  animated-background" style="
             background: #ffffff17;
             height: 22px;
             padding: 28px;
@@ -1277,7 +1299,7 @@ button#showConfig {
       /* background: black; */
       ">
       <a>
-         <span class="episode_title" style="
+         <span class="episode_title  animated-background" style="
             background: #ffffff17;
             height: 22px;
             padding: 28px;
@@ -1310,7 +1332,7 @@ button#showConfig {
       /* background: black; */
       ">
       <a>
-         <span class="episode_title" style="
+         <span class="episode_title  animated-background" style="
             background: #ffffff17;
             height: 22px;
             padding: 28px;
@@ -1343,7 +1365,7 @@ button#showConfig {
       /* background: black; */
       ">
       <a>
-         <span class="episode_title" style="
+         <span class="episode_title  animated-background" style="
             background: #ffffff17;
             height: 22px;
             padding: 28px;
@@ -1376,7 +1398,7 @@ button#showConfig {
       /* background: black; */
       ">
       <a>
-         <span class="episode_title" style="
+         <span class="episode_title  animated-background" style="
             background: #ffffff17;
             height: 22px;
             padding: 28px;
@@ -1409,7 +1431,7 @@ button#showConfig {
       /* background: black; */
       ">
       <a>
-         <span class="episode_title" style="
+         <span class="episode_title  animated-background" style="
             background: #ffffff17;
             height: 22px;
             padding: 28px;
