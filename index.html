@@ -1490,7 +1490,10 @@ if('localconfig' in localStorage){
     numWatching =  JSON.parse(localStorage['localconfig']).curWT
     }
     console.log(numWatching)
-  
+  if(numWatching == 0){
+        document.getElementById('wtcTxt').style.display = 'none'
+        document.getElementById('upNextDivider').style.display = 'none'
+  }
 for(i = 0; i < numWatching; i++){
   document.getElementById('watching').innerHTML += `<li class="card animated-background">
    <div class="image-crop sixteen-nine">
