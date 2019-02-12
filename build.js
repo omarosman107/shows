@@ -1208,6 +1208,7 @@ refreshContinueWatching()
     }
     lastFired = now;
 }, 500);
+var localconfig = {curWT:0}
 function loadMedia(episodes,arg) {
 	var ids = []
 	var thisTime = date1.getTime()
@@ -1277,6 +1278,7 @@ if(isLatest){
 }
 	if (seasonFirst || upnextshows[episodes[i].show].latestWNum + 1 == Number(episodes[i].episodeNumber) && Number(episodes[i].seasonNumber) == upnextshows[episodes[i].show].latestWSesN && upnextshows[episodes[i].show].latestWNum != null) {
 	//	console.log(episodes[i])
+	localconfig['curWT'] = localconfig['curWT'] + 1 
 		upnextshows[episodes[i].show].upNext = {episode:episodes[i].episode,epiformat:episodes[i].epiformat,done:done,link:episodes[i].href}
 		upnextshows[episodes[i].show].upNextNum =  episodes[i].episodeNumber
 		upnextshows[episodes[i].show].upNextSeason = episodes[i].seasonNumber
@@ -1294,6 +1296,8 @@ upnextshows[episodes[i].show].seasons[episodes[i].seasonNumber] = []
 
 
 }
+
+localStorage['localconfig'] = JSON.stringify(localconfig);
    document.getElementById('tvShows').innerHTML = ''
    var showHTML = ''
   for(i in showDetail){

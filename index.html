@@ -1226,27 +1226,7 @@ button#showConfig {
     <h1 class="sectionHead" id="wtcTxt">Up next</h1>
     <div class="scrollContainer">
     <div  class=" fanarts-list list-unstyled list-inline shows dragscroll" id="watching" style="height: auto;">
- <li class="card animated-background">
-   <div class="image-crop sixteen-nine">
-      <div class="overlay" style="
-         opacity: 1;
-         background: linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent);
-         "></div>
-   </div>
-   <h2 class="watchingTitle" style="">
-      <a title="" class="episode-name" onclick="loadPlayer(this)">&nbsp;</a>
-   </h2>
-</li><li class="card animated-background">
-   <div class="image-crop sixteen-nine">
-      <div class="overlay" style="
-         opacity: 1;
-         background: linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent);
-         "></div>
-   </div>
-   <h2 class="watchingTitle" style="">
-      <a title="" class="episode-name" onclick="loadPlayer(this)">&nbsp;</a>
-   </h2>
-</li>
+ 
     </div>
     </div>
     <hr id="upNextDivider" class="divider">
@@ -1489,7 +1469,42 @@ button#showConfig {
 
   </script> 
   <script type="text/javascript">
-
+    var numWatching = 0
+    /*
+    for( i in localStorage){
+      if(i.includes('_duration')){continue;}
+      if(i.includes('http') == false){continue;}
+if(localStorage[i + '_duration'] - localStorage[i] > 35 && localStorage[i] > 10){
+  // still watching
+  console.log(i)
+numWatching ++
+}
+    }
+    */
+        numWatching = 2
+        /*  if(numWatching != 0){
+      if(numWatching > 3){
+        numWatching = 3
+      }*/
+if('localconfig' in localStorage){
+    numWatching =  JSON.parse(localStorage['localconfig']).curWT
+    }
+    console.log(numWatching)
+  
+for(i = 0; i < numWatching; i++){
+  document.getElementById('watching').innerHTML += `<li class="card animated-background">
+   <div class="image-crop sixteen-nine">
+      <div class="overlay" style="
+         opacity: 1;
+         background: linear-gradient(90deg,rgba(0, 0, 0, 0.36) 0,transparent);
+         "></div>
+   </div>
+   <h2 class="watchingTitle" style="">
+      <a title="" class="episode-name" onclick="loadPlayer(this)">&nbsp;</a>
+   </h2>
+</li>`
+}
+   
 for(i = 0; i < 12; i++){
 document.getElementById('tvShows').innerHTML += `<div onclick="showQuery(null,this)" class="showDiv">
    <div style="
