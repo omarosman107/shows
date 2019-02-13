@@ -680,7 +680,7 @@ video::-webkit-media-text-track-display{
 	<div class="videoContainer">
             <div id='media-player'>
             		<div class="spinnerContainer">
-            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" id="dwnProg"></div>
+            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" style="    font-size: 2.3em;font-family: AMZN-LT,Helvetica;opacity: .7;" id="dwnProg"></div>
 </div>
             	       	            	</div>
             	       <div class="centerControls">
@@ -1280,7 +1280,7 @@ if (hlsSupported) {
       highBufferWatchdogPeriod: 3,
       nudgeOffset: 0.1,
       nudgeMaxRetry : 3,
-      maxFragLookUpTolerance: 0.2,
+      maxFragLookUpTolerance: .2,
       liveSyncDurationCount: 3,
       liveMaxLatencyDurationCount: 10,
       enableWorker: true,
@@ -1319,11 +1319,11 @@ if (hlsSupported) {
  		if(Math.floor((event.loaded / event.total)*100) == 100){
  				   document.querySelector('.loadingSpinner').style.display = 'none'
 	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
-document.getElementById('dwnProg').innerHTML = 99 + '%'
+document.getElementById('dwnProg').innerHTML = 99 
 
 
  		}else{
-document.getElementById('dwnProg').innerHTML = Math.floor((event.loaded / event.total)*100) + '%'
+document.getElementById('dwnProg').innerHTML = Math.floor((event.loaded / event.total)*100) 
     }
     console.log(event.currentTarget.responseURL,Math.floor((event.loaded / event.total)*100) + '%');
 },
