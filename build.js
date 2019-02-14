@@ -1318,13 +1318,12 @@ if(ObjectLength(upnextshows[showDetail[i].name].seasons) > 1){
 }
 var showContButton = ''
 if(upnextshows[showDetail[i].name].upNext != null){
-showContButton = `  <a href="video.html?${(upnextshows[showDetail[i].name].upNext.link)}"><i class="fa fa-play-circle" style="    position: absolute;
-    bottom: 10px;
-    padding: 15px;
-    z-index: 100000;
-    font-size: 45px;
-        right: 14px;" class="continueFromShow">	
-</i></a>`
+showContButton = `  <a href="video.html?${(upnextshows[showDetail[i].name].upNext.link)}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="
+    position: absolute;
+    bottom: 21px;
+    right: 24px;
+    width: 39px;
+" fill="white" class="contShowBTN"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 18v-12l10 6-10 6z"></path></svg></a>`
 }
 // console.log(showDetail[i].genre)
 var logo = `<img width="100%" src="${showDetail[i].logo}">
