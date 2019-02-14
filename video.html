@@ -643,6 +643,12 @@ video::-webkit-media-text-track-display{
     height: auto;
     /* text-align: left; */
 }
+.optionSelectors{
+	transition: transform .12s ease;
+}
+.optionSelectors:hover {
+transform: scale(1.2);
+}
 	</style>
 
 
@@ -680,10 +686,21 @@ video::-webkit-media-text-track-display{
 	<div class="videoContainer">
             <div id='media-player'>
             		<div class="spinnerContainer">
-            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" style="    font-size: 1.32em;font-family: AMZN-LT,Helvetica;opacity: .7;" id="dwnProg"></div>
+            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" style="    font-size: 1.23em;font-family: AMZN-LT,Helvetica;opacity: .85;" id="dwnProg"></div>
 </div>
             	       	            	</div>
             	       <div class="centerControls">
+            	       	<div onclick="leaveVideo()" class="optionSelectors exitButton" style="
+    display: inline;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    margin: 24px 34px 0 22px;
+    z-index: 22;
+    width: 38px;
+
+"><svg id="nfplayerBack" fill="white" viewBox="0 0 28 28" width="100%" height="100%"><g transform="translate(0.000000, 2.000000)"><polygon points="8 11 23 11 23 13 8 13.0032349 13.4439 19.5297864 11.643033 21.0733867 3.86584444 12 11.643033 2.92661331 13.4439 4.47021357"></polygon></g></svg></div>
             	       	<div class="buttons">
             	       		         	 
 
@@ -703,10 +720,10 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 
       
 
-         	<div id="qualityChange" onclick="openQualitySelector()" style="  
+         	<div id="qualityChange" onclick="openQualitySelector()" class="" style="  
     cursor: pointer;
     margin-right: 17px;">
-         		<div class="imageButtonWrapper optionsButtonWrapper"><div class="imageButton optionsButton"><img  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjciIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCAyNyAyNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R3JvdXAgNTwvdGl0bGU+PGcgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTMuNSAyNEMxOS4zIDI0IDI0IDE5LjMgMjQgMTMuNVMxOS4zIDMgMTMuNSAzIDMgNy43IDMgMTMuNSA3LjcgMjQgMTMuNSAyNHptMC0zYTcuNSA3LjUgMCAxIDAgMC0xNSA3LjUgNy41IDAgMCAwIDAgMTV6Ii8+PHBhdGggZD0iTTExLjg4IDBoMy4yNGwxLjA4IDQuMzJoLTUuNHpNMjcgMTEuODh2My4yNGwtNC4zMiAxLjA4di01LjR6TTAgMTEuODh2My4yNGw0LjMyIDEuMDh2LTUuNHpNNS41MTIgMi43MzRsLTIuMjUgMi4zMyAyLjM1NiAzLjc4IDMuNzUtMy44ODZ6TTIxLjQ4OCAyLjczNGwyLjI1IDIuMzMtMi4zNTYgMy43OC0zLjc1LTMuODg2ek01LjUxMiAyNC4yNjZsLTIuMjUtMi4zMyAyLjM1Ni0zLjc4IDMuNzUgMy44ODZ6TTIxLjQ4OCAyNC4yNjZsMi4yNS0yLjMzLTIuMzU2LTMuNzgtMy43NSAzLjg4NnpNMTEuODggMjdoMy4yNGwxLjA4LTQuMzJoLTUuNHoiLz48L2c+PC9zdmc+" alt=""></div><div class="imageButtonTooltipWrapper"></div></div>
+         		<div class="imageButtonWrapper optionsButtonWrapper optionSelectors"><div class="imageButton optionsButton"><img  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjciIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCAyNyAyNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+R3JvdXAgNTwvdGl0bGU+PGcgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTMuNSAyNEMxOS4zIDI0IDI0IDE5LjMgMjQgMTMuNVMxOS4zIDMgMTMuNSAzIDMgNy43IDMgMTMuNSA3LjcgMjQgMTMuNSAyNHptMC0zYTcuNSA3LjUgMCAxIDAgMC0xNSA3LjUgNy41IDAgMCAwIDAgMTV6Ii8+PHBhdGggZD0iTTExLjg4IDBoMy4yNGwxLjA4IDQuMzJoLTUuNHpNMjcgMTEuODh2My4yNGwtNC4zMiAxLjA4di01LjR6TTAgMTEuODh2My4yNGw0LjMyIDEuMDh2LTUuNHpNNS41MTIgMi43MzRsLTIuMjUgMi4zMyAyLjM1NiAzLjc4IDMuNzUtMy44ODZ6TTIxLjQ4OCAyLjczNGwyLjI1IDIuMzMtMi4zNTYgMy43OC0zLjc1LTMuODg2ek01LjUxMiAyNC4yNjZsLTIuMjUtMi4zMyAyLjM1Ni0zLjc4IDMuNzUgMy44ODZ6TTIxLjQ4OCAyNC4yNjZsMi4yNS0yLjMzLTIuMzU2LTMuNzgtMy43NSAzLjg4NnpNMTEuODggMjdoMy4yNGwxLjA4LTQuMzJoLTUuNHoiLz48L2c+PC9zdmc+" alt=""></div><div class="imageButtonTooltipWrapper"></div></div>
   <span class="qualitySection"><table style="width:100%">
   <tr>
     <th>Video Quality</th>
@@ -732,12 +749,12 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
          	</div>
 
 
-         	<div onclick="toggleSubtitles()" id="subswitch" style="     display: inline-block;
+         	<div onclick="toggleSubtitles()" id="subswitch " class="optionSelectors" style="     display: inline-block;
     cursor: pointer;
     margin-right: 17px;" class="imageButtonWrapper subtitlesAndAudioButtonWrapper"><div class="imageButton subtitlesAndAudioButton"><img  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMjciIHZpZXdCb3g9IjAgMCAzMCAyNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHRpdGxlPlBhZ2UgMTwvdGl0bGU+PGRlZnM+PHBhdGggZD0iTTAgM2MwLTEuNjg4IDEuMjM2LTMgMy0zaDI0YzEuNzY0IDAgMyAxLjMxMiAzIDN2MTZjMCAxLjY4OC0xLjIzNiAzLTMgM0gzYy0xLjc2NCAwLTMtMS4zMTItMy0zVjN6IiBpZD0iYSIvPjxtYXNrIGlkPSJiIiB4PSIwIiB5PSIwIiB3aWR0aD0iMzAiIGhlaWdodD0iMjIiIGZpbGw9IiNmZmYiPjx1c2UgeGxpbms6aHJlZj0iI2EiLz48L21hc2s+PC9kZWZzPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHVzZSBzdHJva2U9IiNGRkYiIG1hc2s9InVybCgjYikiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgeGxpbms6aHJlZj0iI2EiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMjMgMjdsLTUtNWg1ek01IDEzaDIwdjFINXpNNyAxNmgxNnYxSDd6Ii8+PC9nPjwvc3ZnPg==" alt=""></div><div class="imageButtonTooltipWrapper"></div></div>
 
 
-<div onclick="fullscreen()" class="fullscreenButton" style="
+<div onclick="fullscreen()" class="fullscreenButton optionSelectors" style="
     display: inline-block;
     cursor: pointer;
         padding: 5px;
@@ -826,7 +843,10 @@ closeFullscreen();
 openFullscreen();
 	}
 }
-
+function leaveVideo(){
+	closeFullscreen();
+	window.location.href = document.referrer
+}
 function startTimeoutControls(){
   timeout = setTimeout(function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100%)";
