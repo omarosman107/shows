@@ -626,7 +626,7 @@ if(meta['nbcu$seriesShortTitle'] == 'Heroes'){
 
 }
 
-        
+       /* 
    fetch(  meta.defaultThumbnailUrl.replace('.jpg','_1200.fs')).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
 eachCount = (preview.endTime / preview.imageCount / 1000)
@@ -639,6 +639,7 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
    thumbnails(vidPreview);
 })
 
+*/
 
    bg(meta.defaultThumbnailUrl+'?impolicy=nbc_com&imwidth=720')
 })
@@ -1013,7 +1014,7 @@ if('sameAs' in data){
 }
 
 for(i in data.documentReleases){
-
+/*
       if(data.documentReleases[i].format == "Filmstrip" && data.documentReleases[i].width == 470){
 fetch(data.documentReleases[i].url).then(function(res){return res.json();}).then(function(preview){
    var vidPreview = {}
@@ -1026,7 +1027,7 @@ eachCount = (preview.endTime / preview.imageCount / 1000)
 
 })
       }
-   
+ */  
 }
 
 
