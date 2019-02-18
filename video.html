@@ -604,7 +604,6 @@ height: 6px;
     background: #ddd;
     cursor: pointer;
       height:100%;
-  transition: all .05s ease;
   z-index: 8;
 }
 
@@ -803,6 +802,12 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
          		<div class="progress_container">
          			<div class="progress_bar" id='progress-bar' style="width: 0%;"></div>
 <div id="scrobble" style="width: 0;"></div>
+<div id="buffered" style="width: 0;    position: absolute;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    z-index: 5;
+"></div>
          		</div>
       
          	</div>
@@ -963,7 +968,20 @@ if(this == 0 || isNaN(this)){
 }
 }
 mediaPlayer.addEventListener('progress',function(){
-//document.getElementById('buffer_bar').style.width =( (mediaPlayer.buffered.end(mediaPlayer.buffered.length -1) / mediaPlayer.duration * 100 + '%'));
+	var closeBuf = []
+	for(var i=0;i<mediaPlayer.buffered.length; i++){
+if(mediaPlayer.currentTime > mediaPlayer.buffered.end(i)){continue;}
+console.log(mediaPlayer.buffered.end(i),mediaPlayer.currentTime)
+
+closeBuf.push({end:mediaPlayer.buffered.end(i),num:i})
+}
+console.log(closeBuf)
+var goal = mediaPlayer.currentTime
+var closest = closeBuf.reduce(function(prev, curr) {
+  return (Math.abs(curr.end - goal) < Math.abs(prev.end - goal) ? curr.end : prev.end);
+});
+//console.log(closest.num)
+document.getElementById('buffered').style.width =( (mediaPlayer.buffered.end(closeBuf[0].num) / mediaPlayer.duration * 100 + '%'));
 
 },false)
 function updateProgressBar() {
