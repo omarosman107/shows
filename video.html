@@ -251,7 +251,11 @@ outline: none !important;
      width: 10px; 
      height: 10px; 
 background-color: #f8f8f8; 
+transform: scale(1.6);
 
+}
+input[type="range"].range::-webkit-slider-thumb::hover{
+color: white;
 }
 
 /*setting round corners to the range */ input[type="range"].round {
@@ -643,8 +647,9 @@ height: 6px;
     transform: scale(.5);
     }
     .seekBar:hover .progress_bar::after {
-	display: block;
+	/*display: block;
 	transform: scale(1);
+*/
 }
 
 video::-webkit-media-text-track-display{
@@ -673,7 +678,25 @@ video::-webkit-media-text-track-display{
 .optionSelectors:hover {
 transform: scale(1.15);
 }
+.volumeHiddenDiv{
+    display: none;
+    width: 135px;
+    background-color: #454545;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 7px 0;
+    position: absolute;
+    z-index: 9;
+    top: 6.2em;
+    left: 67px;
+    margin-left: -111px;
+    display: none;
+    transition: opacity 0.3s;
+    transform: rotate(-90deg);
+}
 	</style>
+
 
 
 
@@ -737,8 +760,13 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
     <button data-skip="10" onclick="mediaPlayer.currentTime = mediaPlayer.currentTime + Number(this.getAttribute('data-skip'));updateProgressBar()" class="player-btn"><img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODUiIHZpZXdCb3g9IjAgMCA4MCA4NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+MTBzIGZvcndhcmQ8L3RpdGxlPjxwYXRoIGQ9Ik02NC4yNCAxNC40NzhsLTMuMjcgMS43NTNjOC45NzMgNi41NiAxNC44MDUgMTcuMTU3IDE0LjgwNSAyOS4xMjIgMCAxOS45MTMtMTYuMTQzIDM2LjA1Ni0zNi4wNTcgMzYuMDU2LTE5LjkxMyAwLTM2LjA1Ni0xNi4xNDMtMzYuMDU2LTM2LjA1NiAwLTE4LjI0IDEzLjU0Ny0zMy4zMDggMzEuMTI3LTM1LjcxM3Y0Ljg2N3MtLjAxLjk2OC4zMDQgMS4xMDNjLjQyNS4xODMgMS4wNC0uMjI0IDEuMDQtLjIyNEw0OC4wMSA5LjA1cy44MTctLjM4Ny44MTctLjc0YzAtLjQyMy0uODE3LS43OTgtLjgxNy0uNzk4TDM1LjgzNy44OThzLS4zNy0uMjY0LS43NzItLjA0OGMtLjI5LjE1NC0uMjc2LjgyMy0uMjc2LjgyM1Y2LjI0QzE1LjMzNiA4LjY2NS4yOCAyNS4yNDIuMjggNDUuMzVjMCAyMS43OCAxNy42NTYgMzkuNDM3IDM5LjQzNiAzOS40MzdTNzkuMTU1IDY3LjEzIDc5LjE1NSA0NS4zNWMwLTEyLjUxLTUuODMtMjMuNjUtMTQuOTE1LTMwLjg3NCIgZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+" alt=""><div class="seekTime">10</div></button>
 
             	       	</div>
-            	       	<div class="topRightControls">	<div class="volume">
-         		    <input type="range" oninput="mediaPlayer.volume = this.value" name="volume" orient="vertical" class="player-slider range  round" min="0" max="1" step="0.05" value="1">
+            	       	<div class="topRightControls">	
+            	       		<div id="volumeButton" onclick="openVolumeSelector()" style="cursor:pointer;margin-right: 17px; width: 35px;display: inline-block;"><div class=" optionSelectors"><img style="padding: 4px;" class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAzNCAyNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+dm9sdW1lXzNiYXJzPC90aXRsZT48ZyBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik02Ljg0OCA2LjMwNkgxLjcyQy4yMSA2LjMwNiAwIDYuNTEgMCA3Ljk3NnY5LjA0NmMwIDEuNDY2LjIxIDEuNjcyIDEuNzIgMS42NzJoNS4xM0wxNS41NSAyNC43Yy44LjU5MiAxLjQ0OC4yOCAxLjQ0OC0uNjk3Vi45OTdjMC0uOTc3LS42NS0xLjI5LTEuNDUtLjY5N0w2Ljg1IDYuMzA2ek0zMS42MjcgMTIuNGMwIDMuOTQtMS43MTggNy40NzctNC40NDYgOS45NTNsMS4wOTYuODQ2QzMxLjE3OCAyMC40ODQgMzMgMTYuNjU2IDMzIDEyLjRjMC00LjI1Ny0xLjgyMi04LjA4NS00LjcyNS0xMC44bC0xLjA5NS44NDhjMi43MjggMi40NzUgNC40NDcgNi4wMSA0LjQ0NyA5Ljk1MnpNMjMuMzg4IDEyLjRhOC4wMSA4LjAxIDAgMCAxLTIuMDg4IDUuMzlsMS4wOC44MzdhOS4zNTUgOS4zNTUgMCAwIDAgMi4zOC02LjIyOCA5LjM1IDkuMzUgMCAwIDAtMi4zOC02LjIzbC0xLjA4LjgzOGE4LjAyIDguMDIgMCAwIDEgMi4wODggNS4zOXoiLz48cGF0aCBkPSJNMjcuNTA4IDEyLjRjMCAzLjAwNC0xLjI0NCA1LjcyMy0zLjI1IDcuNjg1bDEuMDg0Ljg0YzIuMTg2LTIuMTk2IDMuNTM4LTUuMjA0IDMuNTM4LTguNTI1IDAtMy4zMi0xLjM1Mi02LjMzLTMuNTM4LTguNTI2bC0xLjA4My44NDJhMTAuNzE0IDEwLjcxNCAwIDAgMSAzLjI0OCA3LjY4NHoiLz48L2c+PC9zdmc+" alt=""></div></div>
+            	       	
+            	       		<div class="volumeHiddenDiv">
+         		    <input type="range"
+         		     oninput="mediaPlayer.volume = this.value" name="volume" orient="vertical" 
+         		     class="player-slider range  round" min="0" max="1" step="0.01" value="1">
 
          	</div>
 
@@ -820,7 +848,8 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
     cursor: pointer;
     z-index: 5;
 "></div>
-<div id="safeBox" style="    height: 100%;z-index: 10000;width: 100%;    padding: 24px;"></div>
+<div id="safeBox" style="    height: 100%;z-index: 10000;width: 100%;     padding: 24px 0 24px 0px;
+"></div>
          		</div>
       
          	</div>
@@ -1313,7 +1342,15 @@ document.querySelector('.qualitySection').style.display = 'block'
 document.querySelector('.qualitySection').style.display = 'none'
 	}
 }
+function openVolumeSelector(){
+		if(document.querySelector('.volumeHiddenDiv').style.display == 'none'){
 
+	document.querySelector('.volumeHiddenDiv').style.display = 'block'
+}else{
+		document.querySelector('.volumeHiddenDiv').style.display = 'none'
+
+}
+}
 
 
       var hls;
@@ -1513,7 +1550,7 @@ data.title = splittedName.join(': ')
  document.querySelector('.showName').innerHTML = data.show
 	data.episodeNumber
 	data.seasonNumber
-	            document.title = `S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`;
+	            document.title = data.show+` - S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`;
 
 	 document.querySelector('.EpisodeName').innerHTML = `S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`
 }
