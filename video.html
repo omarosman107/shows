@@ -434,8 +434,8 @@ padding-bottom: 1.5vh;
     z-index: 9;
     top: 3em;
     left: 108px;
-    margin-left: -60px;
-    display: none;
+    margin-left: -128px;
+        display: none;
     transition: opacity 0.3s;
 }
 .qualitySection::after {
@@ -695,6 +695,20 @@ transform: scale(1.15);
     transition: opacity 0.3s;
     transform: rotate(-90deg);
 }
+.volumeHiddenDiv::after{
+   content: "";
+    position: absolute;
+    top: 12px;
+    /* left: 50%; */
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #454545 transparent transparent transparent;
+    transform: rotate(270deg);
+    right: -9px;
+}
+
+
 	</style>
 
 
@@ -1185,6 +1199,8 @@ if(tn.length != 0)
 
 document.querySelector('.videoOverlay').addEventListener('click',function(e){
 	//console.log(e); 
+		          document.querySelector('.volumeHiddenDiv').style.display = 'none'
+
 	          document.querySelector('.qualitySection').style.display = 'none'
 console.log(e)
 	if(e.toElement.class == 'svgBackground'){
@@ -1336,6 +1352,8 @@ buffering()
 }
 }
 function openQualitySelector(){
+			document.querySelector('.volumeHiddenDiv').style.display = 'none'
+
 	if(document.querySelector('.qualitySection').style.display == 'none'){
 document.querySelector('.qualitySection').style.display = 'block'
 	}else{
@@ -1343,6 +1361,8 @@ document.querySelector('.qualitySection').style.display = 'none'
 	}
 }
 function openVolumeSelector(){
+	document.querySelector('.qualitySection').style.display = 'none'
+
 		if(document.querySelector('.volumeHiddenDiv').style.display == 'none'){
 
 	document.querySelector('.volumeHiddenDiv').style.display = 'block'
