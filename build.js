@@ -98,7 +98,55 @@ window.addEventListener('scroll', function() {
 */
 
   var hovering;
-        var hls = new Hls();
+        var hls = new Hls({
+ 		 autoStartLoad: true,
+  	  startPosition : 400,
+      capLevelToPlayerSize: true,
+      debug: false,
+      defaultAudioCodec: undefined,
+      initialLiveManifestSize: 1,
+      maxBufferLength: 30,
+      maxMaxBufferLength: 600,
+      maxBufferSize: 60*1000*1000,
+      maxBufferHole: 0.5,
+      lowBufferWatchdogPeriod: 0.5,
+      highBufferWatchdogPeriod: 3,
+      nudgeOffset: 0.1,
+      nudgeMaxRetry : 3,
+      maxFragLookUpTolerance: .2,
+      liveSyncDurationCount: 3,
+      liveMaxLatencyDurationCount: 10,
+      enableWorker: true,
+      enableSoftwareAES: true,
+      manifestLoadingTimeOut: 10000,
+      manifestLoadingMaxRetry: 1,
+      manifestLoadingRetryDelay: 500,
+      manifestLoadingMaxRetryTimeout : 64000,
+      startLevel: undefined,
+      levelLoadingTimeOut: 10000,
+      levelLoadingMaxRetry: 4,
+      levelLoadingRetryDelay: 500,
+      levelLoadingMaxRetryTimeout: 64000,
+      fragLoadingTimeOut: 20000,
+      fragLoadingMaxRetry: 6,
+      fragLoadingRetryDelay: 500,
+      fragLoadingMaxRetryTimeout: 64000,
+      startFragPrefetch: false,
+      appendErrorMaxRetry: 3,
+      enableWebVTT: false,
+      enableCEA708Captions: false,
+      stretchShortVideoTrack: false,
+      maxAudioFramesDrift : 1,
+      forceKeyFrameOnDiscontinuity: true,
+      abrEwmaFastLive: 5.0,
+      abrEwmaSlowLive: 9.0,
+      abrEwmaFastVoD: 4.0,
+      abrEwmaSlowVoD: 15.0,
+      abrEwmaDefaultEstimate: 5000,
+      abrBandWidthFactor: 0.95,
+      abrBandWidthUpFactor: 0.7,
+      minAutoBitrate: 0
+  });
 
 function playHover(element){
 	if (isMobile) {
@@ -112,55 +160,24 @@ video.muted = 'true';
 video.loop = '';
 video.style.width = '100%';
 video.style.height = '100%';
+video.style.opacity = 0;
+video.style.transform = 'scale(1.01)'
+//console.log(element.querySelector('.fallback_showImg'))
+if(element.querySelector('video')){}else{
 
-element.querySelector('a').insertBefore(video,element.querySelector('img'))
-
-
-  hovering = setTimeout(function(){
-
- 
-
-    var video = element.querySelector('video')
-video.addEventListener("timeupdate", function(e){
-if(video.currentTime >= 30)
-{
-  hls.detachMedia();
-
+element.insertBefore(video,element.querySelector('.fallback_showImg'))
 }
-});
-    element.querySelector('.playbutton').style.visibility = 'hidden'
-    var url = element.getAttribute('url')
-    console.log(url)
 
-      if(Hls.isSupported()) {
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED,function() {
-      video.play();
 
-  });
-              element.querySelector('.cover').style.display = 'none';
+    //element.querySelector('.playbutton').style.visibility = 'hidden'
+    console.log(element,firstObject(upnextshows[element.getAttribute('show')].seasons)[0])
+    var url = firstObject(upnextshows[element.getAttribute('show')].seasons)[0].link
 
- }
 if (url.includes('cwtv.com') | url.includes('cwseed.com')) {
 var stripped = url.split('?')[1].split('=')[1]
-   // HLS = 154 | 206
-   // MP4 = 213
+
    hls.loadSource('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
-   /*
-   var url = "http://metaframe.digitalsmiths.tv/v2/CWtv/assets/" + stripped + "/partner/217?format=json"
-   fetch(url, {
-      method: 'get'
-   }).then(function(response) { 
-      return response.json();
-   }).then(function(data) {
-        finalurl = data.videos.variantplaylist_dai.uri;
-        var parser = document.createElement('a');
-    parser.href = finalurl
-    hls.loadSource(parser.href);
-
-
-   })
-   */
+ 
 }
 if (url.includes('api.fox.com')) {
       var finalurl = element.getAttribute('autoplay')
@@ -168,13 +185,46 @@ if (url.includes('api.fox.com')) {
       hls.loadSource(finalurl);
 
 }  
+if(url.includes('nbc.com')){
+
+  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect').then(function(res){
+ hls.loadSource(res.url.replace('3104027',url.split('/')[url.split('/').length-1]))
+})
 
 
+}
+
+video.style.opacity = 0;
+
+  hovering = setTimeout(function(){
+element.style.transform = 'scale(1.06)'
+
+ 
+
+    var video = element.querySelector('video')
+    video.play()
+video.addEventListener("timeupdate", function(e){
+if(video.currentTime >= 425)
+{
+  hls.detachMedia();
+
+}
+});
+
+      if(Hls.isSupported()) {
+    hls.attachMedia(video);
+          video.play();
+    hls.on(Hls.Events.BUFFER_APPENDED ,function() {
+      video.play();
+      video.style.opacity = 1;
 
 
+  });
+         //     element.querySelector('.cover').style.display = 'none';
 
+ }
 
-  },5000)
+  },1100)
 
 
 }
@@ -183,14 +233,13 @@ function stopHover(element){
 		return;
 	}
   clearTimeout(hovering);
+  element.style.transform = 'scale(1)'
     var video = element.querySelector('video')
+video.style.opacity = 0;
 
   hls.detachMedia()
 video.currentTime = 0;
 
-    element.querySelector('.playbutton').style.visibility = 'visible'
-
-    element.querySelector('.cover').style.display = 'block';
 
 
   }
@@ -1208,6 +1257,10 @@ refreshContinueWatching()
     }
     lastFired = now;
 }, 500);
+
+function firstObject(obj){
+	return obj[Object.keys(obj)[0]]
+}
 var localconfig = {curWT:0}
 function loadMedia(episodes,arg) {
 	var ids = []
@@ -1344,7 +1397,7 @@ if('align' in showDetail[i]){
 	bgstyle = showDetail[i].align
 	 gradient = 'linear-gradient(270deg, transparent 35%, black 68%),'
 }
- showHTML += `<div show="${i}" onclick="showQuery(null,this)"  class="showDiv">
+ showHTML += `<div show="${i}"onmouseover="playHover(this)" onmouseout="stopHover(this)" onclick="showQuery(null,this)"  class="showDiv">
   <div style="${showlogodiv}" class="showLogo">
 ${logo}
   </div>
