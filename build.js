@@ -98,7 +98,7 @@ window.addEventListener('scroll', function() {
 */
 
   var hovering;
-        var hls = new Hls({
+  var hlsConf = {
  		 autoStartLoad: true,
   	  startPosition : 400,
       capLevelToPlayerSize: true,
@@ -131,7 +131,7 @@ window.addEventListener('scroll', function() {
       fragLoadingMaxRetry: 6,
       fragLoadingRetryDelay: 500,
       fragLoadingMaxRetryTimeout: 64000,
-      startFragPrefetch: false,
+      startFragPrefetch: true,
       appendErrorMaxRetry: 3,
       enableWebVTT: false,
       enableCEA708Captions: false,
@@ -146,12 +146,21 @@ window.addEventListener('scroll', function() {
       abrBandWidthFactor: 0.95,
       abrBandWidthUpFactor: 0.7,
       minAutoBitrate: 0
-  });
+  }
+
+        var hls
+var controller = new AbortController()
+ var signal = controller.signal
+
+
 
 function playHover(element){
 	if (isMobile) {
 		return;
 	}
+         hls = new Hls(hlsConf);
+
+
 	var video = document.createElement('video')
 video.className = 'sixteen-nine';
 video.style.top = '0px';
@@ -177,19 +186,24 @@ if (url.includes('cwtv.com') | url.includes('cwseed.com')) {
 var stripped = url.split('?')[1].split('=')[1]
 
    hls.loadSource('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
- 
+ hls.startLoad()
+
 }
 if (url.includes('api.fox.com')) {
       var finalurl = element.getAttribute('autoplay')
 
       hls.loadSource(finalurl);
+ hls.startLoad()
 
 }  
 if(url.includes('nbc.com')){
 
-  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect').then(function(res){
- hls.loadSource(res.url.replace('3104027',url.split('/')[url.split('/').length-1]))
-})
+  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect',
+  	{signal}).then(function(res){
+ hls.loadSource(res.url.replace('3104027',url.split('/')[url.split('/').length-1])) 
+  hls.startLoad()
+
+}).catch(function(e){console.log(e)})
 
 
 }
@@ -233,6 +247,10 @@ function stopHover(element){
 		return;
 	}
   clearTimeout(hovering);
+  controller.abort();
+controller = new AbortController()
+ signal = controller.signal
+
   element.style.transform = 'scale(1)'
     var video = element.querySelector('video')
 video.style.opacity = 0;
@@ -1401,7 +1419,7 @@ if('align' in showDetail[i]){
   <div style="${showlogodiv}" class="showLogo">
 ${logo}
   </div>
-  <img width="100%" class="fallback_showImg" src="${showswithimages[i]}" style="
+  <img width="100%" class="fallback_showImg cover lazy" style="transform:unset;" src="${showswithimages[i]}" style="
     border-radius: 10px;
 ">
   <div style="  ${bgstyle}  background-repeat: no-repeat;
