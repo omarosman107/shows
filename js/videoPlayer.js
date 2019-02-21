@@ -197,7 +197,7 @@ function sendPlaybackInfo(){
     lastSentTimeAPI = mediaPlayer.currentTime;
        localStorage[window.location.search] = mediaPlayer.currentTime;
        var d = mediaPlayer.duration
-       if('end' in currentVideo){
+       if('end' in currentVideo && Number.isInteger(currentVideo['end'])){
         d = currentVideo.end
        }
             localStorage[window.location.search+'_duration'] = d;
@@ -702,6 +702,7 @@ if(play['fwivi$advertisingData'].network == 'fox'){
    // return;
 }
 */
+currentVideo['end'] = play['fox$creditCuePoint']
 if ('uplynk$testPlayerUrl' in play) {
 fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedcba&ray=&exp='+(new Date().getTime() + 10000000 ) / 1000
 ).then(function(res){if(res.status != 200){ backupWay(url)
@@ -976,7 +977,10 @@ function handle(data){
          data.name = data.headline;
       }
       metaData({show:data.seriesName,episodeNumber:data.episodeNumber,seasonNumber:data.seasonNumber,title:data.name})
+ if(Number.isInteger(data.creditCuePoint)){
   currentVideo.end = (data.creditCuePoint - 10)
+
+ }
 
             if (!data.materialIDs) {
                data['materialIDs'] = []
