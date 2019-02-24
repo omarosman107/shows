@@ -1375,7 +1375,7 @@ function openVolumeSelector(){
 
       var hls;
  	var startTime = -1
-
+var  percBuff = ''
 function playVideo(url){
 	        var videoURL = url
 
@@ -1445,11 +1445,11 @@ if (hlsSupported) {
  		if(Math.floor((event.loaded / event.total)*100) == 100){
  				   document.querySelector('.loadingSpinner').style.display = 'none'
 	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
-document.getElementById('dwnProg').innerHTML = 100 + '%'
+percBuff = 99 + '%'
 
 
  		}else{
-document.getElementById('dwnProg').innerHTML = Math.floor((event.loaded / event.total)*100)  +'%';
+percBuff = Math.floor((event.loaded / event.total)*100)  +'%';
     }
   //  console.log(event.currentTarget.responseURL,Math.floor((event.loaded / event.total)*100) + '%');
 },
@@ -1459,6 +1459,16 @@ false);
 
     }
  	}
+ 	setInterval(function(){
+ 		if( 				   document.querySelector('.loadingSpinner').style.display == 'block'){
+ 		if(percBuff == 'NaN%'){
+ 			percBuff = '99%'
+ 		}
+ 		console.log(percBuff)
+
+ 		document.getElementById('dwnProg').innerHTML = percBuff
+}
+ 	},250)
        hls = new Hls(config);
       hls.attachMedia(mediaPlayer);
       hls.on(Hls.Events.MEDIA_ATTACHED, function () {
