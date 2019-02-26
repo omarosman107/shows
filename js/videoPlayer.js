@@ -703,6 +703,17 @@ if(play['fwivi$advertisingData'].network == 'fox'){
 }
 */
 currentVideo['end'] = play['fox$creditCuePoint']
+currentVideo['title'] = play['title']
+if('debug$ingestXml' in play){
+var ingest = parser.parseFromString(play['debug$ingestXml'],"text/xml")
+currentVideo['episodeNumber'] = ingest.querySelector('episodeNumber').textContent
+currentVideo['seasonNumber'] = ingest.querySelector('seasonNumber').textContent
+
+console.log(ingest.querySelector('episodeNumber')) 
+console.log(ingest.querySelector('seasonNumber')) 
+
+metaData('',true)
+}
 if ('uplynk$testPlayerUrl' in play) {
 fetch(play.uplynk$testPlayerUrl.replace('http://','https://') + '?rays=gkjihfedcba&ray=&exp='+(new Date().getTime() + 10000000 ) / 1000
 ).then(function(res){if(res.status != 200){ backupWay(url)

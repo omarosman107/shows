@@ -1442,7 +1442,7 @@ if (hlsSupported) {
       xhrSetup: function(xhr, url) {
       	if(url.includes('.ts')){
  	xhr.addEventListener('progress', function(event) {
- 		if(Math.floor((event.loaded / event.total)*100) == 100){
+ 		if(Math.floor((event.loaded / event.total)*100) > 95){
  				   document.querySelector('.loadingSpinner').style.display = 'none'
 	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
 percBuff = 99 + '%'
@@ -1468,7 +1468,7 @@ false);
 
  		document.getElementById('dwnProg').innerHTML = percBuff
 }
- 	},250)
+ 	},150)
        hls = new Hls(config);
       hls.attachMedia(mediaPlayer);
       hls.on(Hls.Events.MEDIA_ATTACHED, function () {
@@ -1568,9 +1568,14 @@ for(i in mediaPlayer.textTracks){
 
 
 }
-function metaData(data){
+function metaData(data,u){
+	if(u){
+
+	}else{
 	currentVideo = data
 	console.log(data)
+	}
+	data = currentVideo
 	if(!data.title.toLowerCase().includes('part') && data.title.includes(': ') && data.show != 'The Blacklist'){
 	var splittedName = data.title.split(': ')
 	splittedName.shift()
