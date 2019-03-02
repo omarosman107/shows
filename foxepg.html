@@ -566,7 +566,7 @@ var date = new Date(data.panels.member["0"].items.member[i].startDate);
 var a = moment(data.panels.member[0].items.member[i].originalAirDate);
 var b = moment( Date.now());
 a.diff(b, 'days')   // =1
-console.log(a.diff(b, 'days') > -2)
+console.log(a.diff(b, 'days') > -5)
 if (a.diff(b, 'days') < -3) {
   continue;
 }

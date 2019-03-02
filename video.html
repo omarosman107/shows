@@ -1588,7 +1588,7 @@ data.title = splittedName.join(': ')
 	data.seasonNumber
 	            document.title = data.show+` - S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`;
 
-	 document.querySelector('.EpisodeName').innerHTML = `S${Number(data.seasonNumber)} E${Number(data.episodeNumber)}, ${data.title}`
+	 document.querySelector('.EpisodeName').innerHTML = `<span style="opacity:.7;">S${Number(data.seasonNumber)} E${Number(data.episodeNumber)},</span> ${data.title}`
 }
 var tn = []
 var progressControl = document.querySelector('#media-controls')
