@@ -329,6 +329,7 @@ color: white;
 	    font-size: 26px;
     font-family: AMZN;
     padding-top: 11px;
+    position: relative;
 }
 .hdIndicator {
     display: inline-block;
@@ -1059,10 +1060,42 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    	quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNi44NTkiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgLTMgMzYuODU5IDIwIj48ZyBmaWxsPSIjRkZGIj48cGF0aCBkPSJNMTYgMTdWLTNoLTR2OEg0di04SDB2MjBoNFY5aDh2OGg0ek0yNy42MjUgMTdjMi45MzggMCA1LjIwMy0uODc1IDYuODI4LTIuNjI1IDEuNjEtMS43NSAyLjQyMi00LjIyIDIuNDIyLTcuNDM4cy0uODEyLTUuNjEtMi40MjItNy4zNDRDMzIuODI4LTIuMTI1IDMwLjUzLTMgMjcuNTQ3LTNIMjB2MjBoNy42MjV6bS0uODktMTdDMzAuMjM0IDAgMzMgMi4zOSAzMyA2LjY0di45NTRDMzMgMTEuODc0IDMwLjI1IDE0IDI2Ljc1IDE0SDI0VjBoMi43MzR6Ii8+PC9nPjwvc3ZnPg==" alt=""></div></div>'+ res
    }
  //  console.log(res,quality)
-   	document.querySelector('.time').innerHTML = (mediaPlayer.currentTime).toHHMMSS()+'<span style="opacity:.4;"> / '+ mediaPlayer.duration.toHHMMSS()+'</span>'+quality
+
+   	document.querySelector('.time').innerHTML = (mediaPlayer.currentTime).toHHMMSS()+'<span style="opacity:.4;"> / '+ mediaPlayer.duration.toHHMMSS()+'</span>'+quality + '<span style="position:absolute;right:0;opacity:.8;">'+endTime()+'</span>'
 
  //  console.log(quality)
 }
+var b = ''
+
+function endTime() {
+   var t = new Date();
+   t.setSeconds(t.getSeconds() + (mediaPlayer.duration   - mediaPlayer.currentTime));
+
+   var h = t.getHours();
+   var ap = 'AM';
+   if (h > 12) {
+      h = h - 12;
+      ap = 'PM';
+   }
+   var m = pad(t.getMinutes());
+   if(h == 12){
+      ap = 'PM'      
+   }
+   if (h == 0) {
+      h = 12
+      ap = 'AM'
+   }
+
+x =  'End: '+ h + ':' + m + '' + ap;
+console.log(x)
+return x;
+
+if (b != x) {
+   b=x
+return b;
+}
+}
+
 mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
 
 mediaPlayer.onwaiting = function() {

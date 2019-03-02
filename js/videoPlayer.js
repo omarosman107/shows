@@ -126,33 +126,7 @@ break;
 function pad(n) {
    return n < 10 ? "0" + n : n;
 }
-var b = ''
-function endTime() {
-  return;
-   var t = new Date();
-   t.setSeconds(t.getSeconds() + mediaPlayer.duration) - mediaPlayer.currentTime;
 
-   var h = t.getHours();
-   var ap = 'AM';
-   if (h > 12) {
-      h = h - 12;
-      ap = 'PM';
-   }
-   var m = pad(t.getMinutes());
-   if(h == 12){
-      ap = 'PM'      
-   }
-   if (h == 0) {
-      h = 12
-      ap = 'AM'
-   }
-
-x =  'Ends at: ' + h + ':' + m + ' ' + ap;
-if (b != x) {
-   document.querySelector('.endTime').innerHTML = x;
-   b=x
-}
-}
 function fmtMSS(s) {
    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + s;
 }
