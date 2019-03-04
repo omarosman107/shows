@@ -16584,6 +16584,7 @@ function newCue(track, startTime, endTime, captionScreen) {
                 endTime += 0.0001;
             }
             cue = new VTTCue(startTime, endTime, vttparser_1.fixLineBreaks(text.trim()));
+
             if (indent >= 16) {
                 indent--;
             }
@@ -16596,9 +16597,9 @@ function newCue(track, startTime, endTime, captionScreen) {
                 cue.line = r + 1;
             }
             else {
-                cue.line = (r > 7 ? r - 2 : r + 1);
+                 cue.line = (r > 7 ? r - 2 : r + 1);
             }
-            cue.align = 'left';
+              cue.align = 'left';
             // Clamp the position between 0 and 100 - if out of these bounds, Firefox throws an exception and captions break
             cue.position = Math.max(0, Math.min(100, 100 * (indent / 32) + (navigator.userAgent.match(/Firefox\//) ? 50 : 0)));
             track.addCue(cue);

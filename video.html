@@ -30,6 +30,8 @@ src: url(font/AmazonEmber_Lt.woff);
 font-family: AMZN;
 src: url(font/AmazonEmber_Rg.woff);
 }
+
+
 video::cue {
   	color:#ffffff;
 	text-shadow:#000000 0px 0px 7px;
@@ -42,13 +44,10 @@ video::cue {
         -ms-user-select: none; 
             user-select: none; 
 
-margin: 0 !important;
-padding: 0 !important;
     color: #ffffff;
-    font-size: .9em;
-    line-height: 0 !important;
     text-shadow: #000000 0px 0px 7px;
     font-weight: bolder !important;
+
 
 
 }
@@ -67,6 +66,20 @@ video::-webkit-media-text-track-region {
 
 
 }
+
+video::-webkit-media-text-track-display{
+	    position: absolute;
+    unicode-bidi: -webkit-plaintext;
+    direction: ltr;
+    -webkit-writing-mode: horizontal-tb;
+    top: 0%;
+    /* left: 28.125%; */
+    width: 100%;
+    height: auto;
+    text-align: center !important;
+}
+
+
         body {
 padding: 0;
             max-width: 100%;
@@ -654,17 +667,6 @@ height: 6px;
 */
 }
 
-video::-webkit-media-text-track-display{
-	    position: absolute;
-    unicode-bidi: -webkit-plaintext;
-    direction: ltr;
-    -webkit-writing-mode: horizontal-tb;
-    top: 0%;
-    /* left: 28.125%; */
-    width: 100%;
-    height: auto;
-    /* text-align: left; */
-}
 .optionSelectors{
     transition: transform .112s linear;
     -webkit-transition: opacity .25s,-webkit-transform .25s cubic-bezier(.5,0,.1,1);
@@ -877,7 +879,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
     </div>
 </div>
 
-<script type="text/javascript" src="js/hls.min.js"></script>
+<script type="text/javascript" src="js/hls.js"></script>
     <script>
     function error(e){
 	console.log(e)
