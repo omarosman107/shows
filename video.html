@@ -143,7 +143,7 @@ video {
     z-index: 11;
     padding: 0 4.16667vw 2.08333vw;
     transform: scale(1) translate(0px, 0%);
-    transition: transform .2s;
+    transition: opacity .3s , transform .2s;
 }
 .centerControls {
      margin: auto;
@@ -933,10 +933,13 @@ function leaveVideo(){
 function startTimeoutControls(){
   timeout = setTimeout(function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,-100%)";
+	document.getElementsByClassName('topVideoDetails')[0].style.opacity = 0
+
 document.querySelector('.centerControls').style.opacity = 0
 document.querySelector('.centerControls').style.cursor = 'none'
 
 document.querySelector('#media-controls').style.transform = "scale(1) translate(0px, 133%)"
+document.querySelector('#media-controls').style.opacity = 0
 document.querySelector('.videoOverlay').style.cursor = 'none'
 document.querySelector('.topRightControls').style.display = 'none'
 
@@ -946,9 +949,12 @@ document.querySelector('.topRightControls').style.display = 'none'
 startTimeoutControls()
 document.onmousemove = function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
+		document.getElementsByClassName('topVideoDetails')[0].style.opacity = 1
+
 document.querySelector('.centerControls').style.opacity = 1
 document.querySelector('.centerControls').style.cursor = 'pointer'
 document.querySelector('#media-controls').style.transform = "scale(1) translate(0px,0%)";
+document.querySelector('#media-controls').style.opacity = 1
 document.querySelector('.videoOverlay').style.cursor = 'pointer'
 document.querySelector('.topRightControls').style.display = 'block'
 
