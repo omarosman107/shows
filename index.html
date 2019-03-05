@@ -192,7 +192,7 @@ font-family: 'Graphik-SemiBold';
 src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Browsers */
 }
 .episode_img img,.episode,.episode_overlay{
-  border-radius: 4px;
+ /* border-radius: 4px; */
 }
 .horizontal-episodes .single-episode {
       margin-right: 10px;
@@ -268,16 +268,18 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     margin-bottom: 20px;
     top: 0;
         transition: all .12s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.07);
  /*   box-shadow: 0px 2px 9px 4px #13131378;*/
 
 
 }
 .episode:hover{
-      box-shadow: 0px 5px 10px 4px #13131378;
+   /*   box-shadow: 0px 5px 10px 4px #13131378;
           -webkit-box-shadow: 0 4px 14px 0 rgba(0,0,0,.4);
     box-shadow: 0 4px 14px 0 rgba(0,0,0,.4);
-
-}
+*/
+border: 1px solid rgba(255, 255, 255, 0.43);
+    }
 .episode:hover .episode_title{
 color: white;
 }
@@ -294,6 +296,7 @@ color: white;
     position: absolute;
     z-index: 8;
     bottom: 0;
+    max-width: 100%;
   
 }
 .episode_img {
