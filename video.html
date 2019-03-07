@@ -641,10 +641,16 @@ height: 6px;
 #scrobble {
 	    position: absolute;
     height: 100%;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(197, 197, 197, 0.55);
     cursor: pointer;
     z-index: 5;
   display: none;
+}
+#buffered{
+	  transition: transform .2s ease-out;
+	      transform: scaleX(0);
+
+transition-delay:1.5s;
 }
 .progress_bar::after{
          content: '';
@@ -1095,7 +1101,7 @@ function endTime() {
    }
 
 x =  'Ends at '+ h + ':' + m + '' + ap;
-console.log(x)
+//console.log(x)
 return x;
 
 if (b != x) {
