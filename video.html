@@ -1075,7 +1075,7 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    }
  //  console.log(res,quality)
 
-   	document.querySelector('.time').innerHTML = (mediaPlayer.currentTime).toHHMMSS()+'<span style="opacity:.4;"> / '+ mediaPlayer.duration.toHHMMSS()+'</span>'+quality + '<span style="position:absolute;right:0;opacity:.8;">'+endTime()+'</span>'
+   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + '<span style="position:absolute;right:0;opacity:.8;">'+endTime()+'</span>'
 
  //  console.log(quality)
 }
@@ -1432,6 +1432,45 @@ function playVideo(url){
 	        var videoURL = url
 
         var quality = []
+
+        	if(hlsSupported && !isMobile){
+var css = document.createElement("style");
+css.type = "text/css";
+css.innerHTML = ` 
+video::cue {
+   color:#ffffff;
+   text-shadow:none;
+   font-family:Typewriter,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+   font-weight:normal !important;
+   background: none;
+   font-size:.75em;
+   padding:0px !important;
+
+}
+
+video::-webkit-media-text-track-display-backdrop {
+  overflow: visible !important;
+  padding:0px !important;
+  padding-top:0px !important;
+}
+
+ video::-webkit-media-text-track-display {
+     overflow: visible !important;
+     -webkit-box-sizing: border-box;
+   }
+
+   video::-webkit-media-text-track-container {
+     overflow: visible !important;
+     position: absolute;
+   }
+  
+
+
+`;
+document.body.appendChild(css);
+
+	}
+
 if (hlsSupported && isMobile) {
         mediaPlayer.src = videoURL
 
