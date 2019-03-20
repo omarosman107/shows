@@ -94,15 +94,6 @@ if(localStorage['localConfig']){
 var tracks = mediaPlayer.textTracks
 for(i = 0; i < tracks.length; i++){
 if(tracks[i].kind == "metadata"){continue;}
-
-for(z in tracks[i].cues){
-  var region = new window.VTTRegion(0, 200, "I'm a region.");
-  region.width = 80
-  region.lines = 10
-  region.viewportAnchorY = 60
-  console.log(region)
-
-}
 tracks[i].addEventListener("cuechange", function(c){
 //  console.log(c.currentTarget)
 for(i = 0; i < c.currentTarget.cues.length; i++){
@@ -218,6 +209,8 @@ function resume() {
 
 
 
+
+
  if('end' in currentVideo){
         finishDur = mediaPlayer.duration - currentVideo.end
        }else{
@@ -234,6 +227,11 @@ clearInterval(trackData)
 
    vid.addEventListener('loadeddata', function (e) {
     console.log(mediaPlayer.readyState)
+    if(!Hls.isSupported() && !isMobile){
+    console.log(isMobile)
+  resumeVideo();
+    }
+
 if(isMobile){
 if(loadedCount > 0){
   // video loaded multiple times
