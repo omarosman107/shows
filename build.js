@@ -1718,7 +1718,7 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 	if(dateDiffInDays(date2,date1) < 7|| date1.getDate() - date2.getDate() < 7){
 		console.log('new')
 		   template.push( `<a href="video.html?${json.href}">
-    	<div data-query="${query}" class=" episode  ${con} ${json.type} ${json.href}">
+    	<div data-query="${query}" class="new episode  ${con} ${json.type} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class="new_release cover hoverEpisode lazy" width="100%" 
 
 data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';"  data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${json.show}"
