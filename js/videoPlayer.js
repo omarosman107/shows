@@ -190,7 +190,7 @@ if('end' in currentVideo){
 finishDur = 35
   }
  if (localStorage[window.location.search] > 10 && mediaPlayer.duration - localStorage[window.location.search] < mediaPlayer.duration - finishDur){
-  mediaPlayer.currentTime = (localStorage[window.location.search] - 5);
+  mediaPlayer.currentTime = (localStorage[window.location.search] - 2);
 }
 
               document.querySelector('.playMobile').style.display = 'none'
