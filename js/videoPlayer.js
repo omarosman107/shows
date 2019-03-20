@@ -268,7 +268,6 @@ interval = setInterval(function(){
 
  trackData = setInterval(function () {
   var difference = lastSentTimeAPI
-  console.log()
   if(difference < 0){
     difference = difference*-1;
   }
