@@ -666,7 +666,7 @@ console.timeEnd('download_data')
 finalObj =  finalObj.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
 
 
-if (!isMobile || !window.location.search == '' || window.location.search == '?') {
+if (true || !isMobile || !window.location.search == '' || window.location.search == '?') {
 
 console.time()
 var l = []
@@ -2581,6 +2581,10 @@ if (hlsSupported) {
 }
     }
 
+setTimeout(function(){
+	document.querySelector('.lScreen').classList = 'lScreen expand'
+	// document.querySelector('.lScreen').style.display = 'none'
+},750)
 
 console.timeEnd('parse');
  
