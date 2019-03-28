@@ -2585,6 +2585,6 @@ setTimeout(function(){
 	document.querySelector('.lScreen').classList = 'lScreen expand'
 	// document.querySelector('.lScreen').style.display = 'none'
 },750)
-
+localStorage.removeItem('like')
 console.timeEnd('parse');
  
