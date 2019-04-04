@@ -681,7 +681,10 @@ loadMedia(l)
 
 everythingfinished()
 document.querySelector('.lScreen span').setAttribute('class','logotextdone')
+	document.querySelector('.lScreen').classList = 'lScreen expand'
+
 setTimeout(function(){
+
 document.body.setAttribute('class','finished');
   	document.getElementsByClassName('contain')[0].style.display = 'block'
 document.querySelector('.lScreen span').setAttribute('class','')
