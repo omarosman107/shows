@@ -647,7 +647,7 @@ height: 6px;
   display: none;
 }
 #buffered{
-	  transition: transform .2s ease-out;
+	  transition: transform 0s ease-out;
 	      transform: scaleX(0);
 
 transition-delay:1.5s;
@@ -1077,7 +1077,7 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    }
  //  console.log(res,quality)
 
-   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + '<span style="position:absolute;right:0;opacity:.8;">'+endTime()+'</span>'
+   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + '<span style="position:absolute;right:0;opacity:.8;">'+endTime()+'</span>'
 
  //  console.log(quality)
 }

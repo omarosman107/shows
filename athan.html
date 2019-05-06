@@ -525,15 +525,17 @@
                 loc.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var data = JSON.parse(this.responseText).results[0]
-                        document.getElementById('until').innerHTML = (data.formatted_address) + ' - left until iftar'
+                        document.getElementById('until').innerHTML =
+                       //  (data.formatted_address) + 
+                         ' - left until iftar'
 
                     }
                 }
-                loc.open("GET", '//maps.googleapis.com/maps/api/geocode/json?latlng=' + place.latitude + ',' + place.longitude, true);
+                loc.open("GET", 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyC5rQaFbnCg0eI-7BavdI_CGHPPuQFhuis&latlng=' + place.latitude + ',' + place.longitude, true);
                 loc.send();
 
 
-
+console.log(place)
                 var url = '//api.aladhan.com/timings?latitude=' + place.latitude + '&longitude=' + place.longitude + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone
                 xhttp.open("GET", url, true);
                 xhttp.send();
@@ -543,9 +545,13 @@
                 loc.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         var data = JSON.parse(this.responseText).results[0]
-                        document.getElementById('until').innerHTML = (data.formatted_address) + ' - left until iftar'
-                        console.log(data.geometry.location.lat, data.geometry.location.lng)
-                        var url = 'http://api.aladhan.com/timings?latitude=' + data.geometry.location.lat + '&longitude=' + data.geometry.location.lng + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone +
+                        document.getElementById('until').innerHTML =
+                        // (data.formatted_address) +
+                          ' - left until iftar'
+                    //    console.log(data.geometry.location.lat, data.geometry.location.lng)
+                    lat = 42.7325
+                    lon = -84.5555
+                        var url = 'http://api.aladhan.com/timings?latitude=' + lat + '&longitude=' + lon + '&timezonestring=' + Intl.DateTimeFormat().resolvedOptions().timeZone +
                             '&method=2'
                         xhttp.open("GET", url, true);
                         xhttp.send();
@@ -564,7 +570,7 @@
 
                     }
                 }
-                loc.open("GET", 'https://maps.googleapis.com/maps/api/geocode/json?address=' + place, true);
+                loc.open("GET", 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyC5rQaFbnCg0eI-7BavdI_CGHPPuQFhuis&address=' + place, true);
                 loc.send();
 
             }
