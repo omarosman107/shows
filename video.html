@@ -348,7 +348,6 @@ color: white;
 .time {
 	    font-size: 2.01vw;
     font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
-    padding-top: 11px;
     position: relative;
 }
 .hdIndicator {
@@ -1111,7 +1110,7 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    }
  //  console.log(res,quality)
 
-   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="opacity:.7;"><span>S${currentVideo.seasonNumber}:E${currentVideo.episodeNumber} </span>${currentVideo.title}</span></div><span style="position:absolute;right:0;opacity:.8;">`+endTime()+'</span>'
+   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="opacity:.7;"><span>S${currentVideo.seasonNumber}:E${currentVideo.episodeNumber} </span>${currentVideo.title}</span></div><span style="position:absolute;right:0;bottom:0;opacity:.8;">`+endTime()+'</span>'
 
  //  console.log(quality)
 }
