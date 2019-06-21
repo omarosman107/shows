@@ -404,7 +404,7 @@ color: white;
 }
 .hdIndicator {
     display: inline-block;
-    padding-left: 16px;
+    padding-left: 13px;
         width: 1.58vw;
 }
 
@@ -752,9 +752,38 @@ transform: scale(1.15);
  .topVideoDetails {
  	display: none;
  }
+.loader{
+	position: fixed;
+	z-index: 12;
+	left: 0;
+	right: 0;
+	top:0;
+	bottom:0;
+	background-color: black;
+background-size:cover;
+    padding: 3vw;
+}
+.loader span {
+    font-size: 37px;
+    display: block;
+    font-weight: 800;
+}
+.fade{
+z-index: -1;
+    opacity: 0;
+    transition-delay: .6s;
+    /* transition-duration: .5s; */
+    transition: z-index .6s ease, opacity .6s ease;
+}
+.showinit{
+}
+.ep {
 
+}
 
 	</style>
+
+
 
 
 
@@ -777,6 +806,8 @@ transform: scale(1.15);
 
     
 <div class="media-container">
+	    <div class="loader"></div>
+
 	<div class="topVideoDetails">
 		<div class="show-episode-title"><span class="showName"></span> <span class="EpisodeName"></span></div>
 	</div>
@@ -1155,6 +1186,7 @@ mediaPlayer.onwaiting = function() {
 };
 mediaPlayer.oncanplay = function(){
 	   document.querySelector('.loadingSpinner').style.display = 'none'
+	   document.querySelector('.loader').className += ' fade'
 	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
 
 }
@@ -1496,6 +1528,7 @@ function playVideo(url){
         var quality = []
 
         	if(hlsSupported && !isMobile){
+        		document.querySelector('.loader').style.display = 'none'
 var css = document.createElement("style");
 css.type = "text/css";
 css.innerHTML = ` 
@@ -1720,6 +1753,24 @@ for(i in mediaPlayer.textTracks){
 
 
 }
+function initiate(data){
+console.log(data)
+var initDiv = document.querySelector('.loader')
+if(data.image){
+initDiv.style.backgroundImage = 'url('+data.image+')'
+}
+initDiv.innerHTML = 
+`
+<div class="" style="background-size: 100% 100%;position: absolute;top: 50%;left: 50%;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position: 0px 0px;width: 80px !important;/* display: none; */"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">  
+</div>
+
+
+<span class="showInit">${data.show}</span>
+<span class="ep">S${data.seasonNumber}:E${data.episodeNumber} ${data.title}</span>
+
+
+`
+}
 function metaData(data,u){
 	if(u){
 
@@ -1733,7 +1784,7 @@ function metaData(data,u){
 	splittedName.shift()
 data.title = splittedName.join(': ')
 }
-
+initiate(data)
  document.querySelector('.showName').innerHTML = data.show
 	data.episodeNumber
 	data.seasonNumber

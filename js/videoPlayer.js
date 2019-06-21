@@ -54,6 +54,7 @@ var secondsToTimeCode = function secondsToTimeCode(timeInSeconds) {
 //jwplayer.defaults.preload = "auto"
 //jwplayer.defaults.autostart = "true"
 function bg(url) {
+  console.log(url)
   return;
    document.getElementById('blockLoader').style.background = 'linear-gradient(rgba(0, 0, 0, 0.34),  rgba(0, 0, 0, 0.7)),url(' + url + ")";
    document.getElementById('blockLoader').src = url
@@ -406,7 +407,7 @@ function fetchcwjson(value) {
       return;
      }
 
-     metaData({show:metadata['cw$seriesTitle'],episodeNumber:metadata['cw$episodeNumber'],seasonNumber:metadata['cw$seasonNumber'],title:metadata.title})
+     metaData({image:'http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg',show:metadata['cw$seriesTitle'],episodeNumber:metadata['cw$episodeNumber'],seasonNumber:metadata['cw$seasonNumber'],title:metadata.title})
  //    currentEpisode = {show:metadata['cw$seriesTitle'],episode:metadata.title,season:metadata['cw$seasonNumber']}
       //document.getElementById('epname').innerHTML = metadata.title;
 
