@@ -100,7 +100,6 @@ padding: 0;
         left:0;
         }
         .show-episode-title {
-            font-size: 2.5em;
             display: inline-block;
         }
         .timeEnd {
@@ -339,17 +338,15 @@ color: white;
 
 .show-episode-title{
 	font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
-		font-size: 24px;
 		font-weight: 800;
 }
 .EpisodeName {
 	font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
-	font-size: 21px;
 	padding-top: 3px;
 	    font-weight: 100;
 }
 .time {
-	    font-size: 26px;
+	    font-size: 2.01vw;
     font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
     padding-top: 11px;
     position: relative;
@@ -357,13 +354,29 @@ color: white;
 .hdIndicator {
     display: inline-block;
     padding-left: 30px;
-        width: 36px;
+        width: 2.6vw;
 }
 .hdIcon img{
     width: 100%;
     height: 100%;
     }
-@media (min-width: 1200px){
+    .EpisodeName {
+    	font-size: 23px;
+	font-size: 1.9vw;
+
+    }
+    @media (max-width: 750px){
+.time{
+	font-size: 15px;
+    }
+    .EpisodeName{
+    	font-size: 13px;
+    }
+    .hdIndicator{
+    	width: 19px;
+    }
+}
+@media (min-width: 1100px){
 .show-episode-title {
     font-size: 2vw;
 }
@@ -383,16 +396,24 @@ color: white;
 
     font-size: 1.26vw;
 }
+.show-episode-title .showName{
+	margin-left: 10px;
+	font-size: 1.26vw;
+}
+.show-episode-title .EpisodeName{
+	font-size: 1.2vw;
+}
 .hdIndicator {
     display: inline-block;
     padding-left: 16px;
-        width: 1.56vw;
+        width: 1.58vw;
 }
+
 }
 .show-episode-title .showName{
 }
 .show-episode-title .showName,.show-episode-title .EpisodeName{
-display: block;
+	margin-left: 10px;
 }
 
 .spinner {
@@ -729,7 +750,9 @@ transform: scale(1.15);
     right: -9px;
 }
 
- 
+ .topVideoDetails {
+ 	display: none;
+ }
 
 
 	</style>
@@ -1088,7 +1111,7 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    }
  //  console.log(res,quality)
 
-   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + '<span style="position:absolute;right:0;opacity:.8;">'+endTime()+'</span>'
+   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="opacity:.7;"><span>S${currentVideo.seasonNumber}:E${currentVideo.episodeNumber} </span>${currentVideo.title}</span></div><span style="position:absolute;right:0;opacity:.8;">`+endTime()+'</span>'
 
  //  console.log(quality)
 }
