@@ -84,7 +84,7 @@ video::-webkit-media-text-track-display{
 padding: 0;
             max-width: 100%;
             margin: 0;
-            font-family: AMZN
+            font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
         }
         .media-container {
             width: 100%;
@@ -195,10 +195,19 @@ video {
     display: -webkit-inline-box;
     -webkit-box-pack: center;
     -webkit-box-align: center;
+        transition: transform .112s linear;
+    -webkit-transition: opacity .25s,-webkit-transform .25s cubic-bezier(.5,0,.1,1);
+    transition: opacity .25s,-webkit-transform .25s cubic-bezier(.5,0,.1,1);
+    -o-transition: opacity .25s,-o-transform .25s cubic-bezier(.5,0,.1,1);
+    -moz-transition: transform .25s cubic-bezier(.5,0,.1,1),opacity .25s,-moz-transform .25s cubic-bezier(.5,0,.1,1);
+    transition: transform .25s cubic-bezier(.5,0,.1,1),opacity .25s;
+    transition: transform .25s cubic-bezier(.5,0,.1,1),opacity .25s,-webkit-transform .25s cubic-bezier(.5,0,.1,1),-moz-transform .25s cubic-bezier(.5,0,.1,1),-o-transform .25s cubic-bezier(.5,0,.1,1);
 
 }
 .centerControls .buttons button:hover {
 opacity: 0.85;
+
+    transform: scale(1.1);
 }
 button:focus {outline:0;}
 .seekTime {
@@ -221,7 +230,7 @@ button:focus {outline:0;}
     display: -webkit-box;
     -webkit-box-pack: center;
     -webkit-box-align: center;
-    font-family: AMZN,Helvetica;
+    font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important
 }
 .svgBackground {
 width: 100%;
@@ -329,17 +338,19 @@ color: white;
 }
 
 .show-episode-title{
-	font-family: AMZN,Ariel;
-	font-size: 24px;
+	font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+		font-size: 24px;
+		font-weight: 800;
 }
 .EpisodeName {
-	font-family: AMZN-LT;
+	font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
 	font-size: 21px;
 	padding-top: 3px;
+	    font-weight: 100;
 }
 .time {
 	    font-size: 26px;
-    font-family: AMZN;
+    font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
     padding-top: 11px;
     position: relative;
 }
@@ -406,7 +417,7 @@ display: block;
     visibility: hidden;
     padding: 7px 11px 7px 11px;
     background: #505050;
-    font-family: AMZN,Helvetica;
+    font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important
     z-index: 2;
 
 }
@@ -534,23 +545,24 @@ color:white;
     background: radial-gradient(farthest-corner at 50% 50%,rgba(50,50,50,.5) 50%,#323232 100%);
 }
 .notification{
-	      width: 100%;
-padding: 31px 0 0 0;
+    width: 100%;
+    padding: 31px 0 0 0;
     position: absolute;
     margin: auto;
     z-index: 10;
     -webkit-transition: -webkit-transform .2s;
-transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
-        transform: translateY(-111%);
+    transition: transform 0.3s cubic-bezier(0.42, 0.05, 1, 1);
+     transform: translateY(-111%); 
+    font-weight: 800;
 
 }
 .notification div{
-    width: 263px;
-    background: #272727b0;
-    border-radius: 0px;
+width: 225px;
+    background: #393737;
+    border-radius: 47px;
     margin: auto;
     text-align: center;
-    height: 57px;
+    height: 54px;
     color: white;
     position: relative;
     display: -webkit-box;
@@ -758,7 +770,7 @@ transform: scale(1.15);
 	<div class="videoContainer">
             <div id='media-player'>
             		<div class="spinnerContainer">
-            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" style="    font-size: 1.23em;font-family: AMZN-LT,Helvetica;opacity: .85;" id="dwnProg"></div>
+            	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" style="    font-size: 1.23em;font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;opacity: .85;" id="dwnProg"></div>
 </div>
             	       	            	</div>
             	       <div class="centerControls">
@@ -1244,9 +1256,34 @@ if(tn.length != 0)
 	document.querySelector('.thumbnail-holder').style.visibility = 'hidden'
 
 });
+var pendingClick = 0;
 
+function xorClick(e) {
+    // kill any pending single clicks
+    if (pendingClick) {
+        clearTimeout(pendingClick);
+        pendingClick = 0;
+    }
 
-document.querySelector('.videoOverlay').addEventListener('click',function(e){
+    switch (e.detail) {
+        case 1:
+            pendingClick = setTimeout(function() {
+            			togglePlayPause()
+
+                console.log('single click action here');
+            }, 200);// should match OS multi-click speed
+            break;
+        case 2:
+        fullscreen()
+            console.log('double click action here');
+            break;
+        default:
+            console.log('higher multi-click actions can be added as needed');
+            break;
+    }
+}
+
+document.querySelector('.videoOverlay').addEventListener('click', function(e){
 	console.log(e); 
 		          document.querySelector('.volumeHiddenDiv').style.display = 'none'
 
@@ -1255,9 +1292,11 @@ document.querySelector('.videoOverlay').addEventListener('click',function(e){
 	if(e.toElement.class == 'svgBackground'){
 
 	}else{
-		togglePlayPause()
-	}
-});
+xorClick(e)	}
+
+}, false);
+
+
 
 function toggleSubtitles(){
 	var tracks = mediaPlayer.textTracks
