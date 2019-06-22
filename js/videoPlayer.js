@@ -424,7 +424,9 @@ xmlDoc = parser.parseFromString(smil,"text/xml");
     })
     fetch('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect').then(function(res){
 if(res.ok){
-          playVideo('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
+  console.log(res.url)
+  playVideo(res.url)
+          //playVideo('https://link.theplatform.com/s/cwtv/media/guid/2703454149/'+stripped+'?formats=m3u&format=redirect')
 resume();
 }
       return res.text();}).then(function(t){

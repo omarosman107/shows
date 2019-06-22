@@ -1192,6 +1192,10 @@ mediaPlayer.onwaiting = function() {
 };
 mediaPlayer.oncanplay = function(){
 	   document.querySelector('.loadingSpinner').style.display = 'none'
+	   if(isMobile){
+		   document.querySelector('.loader').style.display = 'none'
+
+}
 	   document.querySelector('.loader').className += ' fade'
 	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
 
@@ -1199,6 +1203,10 @@ mediaPlayer.oncanplay = function(){
 mediaPlayer.onloadstart = function() {
     mediaPlayer.play();
 };
+if(isMobile){
+		   document.querySelector('.loader').style.display = 'none'
+
+}
 	   document.querySelector('.loadingSpinner').style.display = 'block'
 	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
 
@@ -1534,7 +1542,8 @@ function playVideo(url){
         var quality = []
 
         	if(hlsSupported && !isMobile){
-        		document.querySelector('.loader').style.display = 'none'
+        		document.querySelector('.loader').
+        		style.display = 'none'
 var css = document.createElement("style");
 css.type = "text/css";
 css.innerHTML = ` 
@@ -1573,6 +1582,8 @@ document.body.appendChild(css);
 	}
 
 if (hlsSupported && isMobile) {
+	//alert(mediaPlayer.canPlayType('application/x-mpegurl'))
+	mediaPlayer.setAttribute('type','application/x-mpegurl')
         mediaPlayer.src = videoURL
 
 }else{
@@ -1761,6 +1772,7 @@ for(i in mediaPlayer.textTracks){
 }
 function initiate(data){
 console.log(data)
+if(!isMobile){
 var initDiv = document.querySelector('.loader')
 if(data.image){
 initDiv.style.backgroundImage = 'url('+data.image+')'
@@ -1776,6 +1788,9 @@ initDiv.innerHTML =
 
 
 `
+}else{
+	 document.querySelector('.loader').style.display = 'none'
+}
 }
 function metaData(data,u){
 	if(u){
