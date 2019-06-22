@@ -361,7 +361,7 @@ color: white;
     }
     .EpisodeName {
     	font-size: 23px;
-	font-size: 1.9vw;
+	font-size: 1.6vw;
 
     }
     @media (max-width: 750px){
@@ -397,10 +397,10 @@ color: white;
 }
 .show-episode-title .showName{
 	margin-left: 10px;
-	font-size: 1.26vw;
+	font-size: 1.24vw;
 }
 .show-episode-title .EpisodeName{
-	font-size: 1.2vw;
+	font-size: 1.14vw;
 }
 .hdIndicator {
     display: inline-block;
@@ -764,7 +764,7 @@ background-size:cover;
     padding: 3vw;
 }
 .loader span {
-    font-size: 37px;
+    font-size: 31px;
     display: block;
     font-weight: 800;
 }
@@ -778,6 +778,11 @@ z-index: -1;
 .showinit{
 }
 .ep {
+
+}
+.showName{
+
+    font-weight: bold;
 
 }
 
@@ -1141,7 +1146,8 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    }
  //  console.log(res,quality)
 
-   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="opacity:.7;"><span>S${currentVideo.seasonNumber}:E${currentVideo.episodeNumber} </span>${currentVideo.title}</span></div><span style="position:absolute;right:0;bottom:0;opacity:.8;">`+endTime()+'</span>'
+   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="color: #ADADAC;
+    font-weight: 100;"><span>S${currentVideo.seasonNumber}:E${currentVideo.episodeNumber} </span>${currentVideo.title}</span></div><span style="position:absolute;right:0;bottom:0;opacity:.8;">`+endTime()+'</span>'
 
  //  console.log(quality)
 }
