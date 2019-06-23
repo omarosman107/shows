@@ -111,7 +111,7 @@ display: inline-block;
         .topVideoDetails {
     padding: 2.5em 0 0px 0px;
     position: absolute;
-    z-index: 1;
+    z-index: 21 !important;
     width: 100%;
     transition-timing-function: ease-out;
     transform: translate(0px,0%);
@@ -1444,7 +1444,8 @@ video::-webkit-media-text-track-display-backdrop {
      position: absolute;
    }
    .topVideoDetails {
-   	z-index:unset;
+   	z-index:21 !important;
+   	display:block;
    }
    video::-webkit-media-text-track-container {
     padding-bottom: : 40px !important;
