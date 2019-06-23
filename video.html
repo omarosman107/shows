@@ -751,6 +751,7 @@ transform: scale(1.15);
 
  .topVideoDetails {
  	display: none;
+ 	
  }
 .loader{
 	position: fixed;
@@ -1196,7 +1197,9 @@ mediaPlayer.oncanplay = function(){
 		   document.querySelector('.loader').style.display = 'none'
 
 }
-	   document.querySelector('.loader').className += ' fade'
+if(!document.querySelector('.loader').className.includes('fade')){
+   document.querySelector('.loader').className += ' fade'
+	}
 	   	   document.querySelector('#play-pause-button').style.visibility = 'visible'
 
 }
@@ -1204,6 +1207,7 @@ mediaPlayer.onloadstart = function() {
     mediaPlayer.play();
 };
 if(isMobile){
+	document.querySelector('.topVideoDetails').style.display = 'block'
 		   document.querySelector('.loader').style.display = 'none'
 
 }

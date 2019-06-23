@@ -1251,7 +1251,7 @@ extraStyles += `       transform: translate(8%,-29%);
          <a onclick="loadPlayer(this)" href="video.html?${showSeason[Number(a)+1].link}">
             <img class="cover loaded  sixteen-nine" sizes="(max-width: 600px) 30vw, 40vw" alt="${showSeason[Number(a)+1].episode}" src="${showSeason[Number(a)+1].img}" srcset="${showSeason[Number(a)+1].srcset}">
          </a>
-                  <span class="continShow">${topShow}</span>
+                  <span  onclick="showQuery(null,this,'')" show="${episodeDIV.getAttribute('show')}" class="continShow">${topShow}</span>
 
          <span class="timeRemaining
              "></span>
@@ -1571,7 +1571,7 @@ episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.s
          <a onclick="loadPlayer(this)" href="video.html?${json.href}">
             <img class=" currentlyWatching cover  sixteen-nine lazy" sizes="(max-width: 600px) 30vw, 40vw" alt="${json.episode}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';" data-original="${json.img}" data-original-set="${json.imgdyn }">
          </a>
-         <span class="continShow">${topShow}</span>
+         <span onclick="showQuery(null,this,'')"  show="${json.show}" class="continShow">${topShow}</span>
          <span class="timeRemaining
              ">${Timeleft}</span>
              <span class="episodes_left">${episodes_left}</span>
