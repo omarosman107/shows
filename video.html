@@ -935,9 +935,10 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 	</div>
 	<div class="nextEpisodeMetadata"></div>
 </div>
-         	         	     <span class="currenttime"></span>
 
          	<div class="seekBar">
+         		         	         	     <span class="currenttime"></span>
+
          		<div class="progress_container">
          			<div class="progress_bar" id='progress-bar' style=""></div>
 <div id="scrobble" style=""></div>
@@ -1261,7 +1262,7 @@ updateProgressBar()
 progress.addEventListener('mousemove',function(e){
 
 document.querySelector('.currenttime').style.visibility = 'visible'
-document.querySelector('.currenttime').style.bottom = '-5px'
+document.querySelector('.currenttime').style.bottom = '9px'
 
 document.querySelector('.currenttime').style.opacity = '1'
 
