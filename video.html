@@ -431,16 +431,19 @@ color: white;
 }
 
 .currenttime {
-       bottom: 0px;
+       bottom: -9px;
     position: relative;
     left: 0%;
     visibility: hidden;
     padding: 7px 11px 7px 11px;
-    background: #505050;
-    font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important
+   /* background: #505050;
+    */ font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important
     z-index: 2;
 
+    transition: opacity .5s ease, bottom .5s ease;
+
 }
+/*
 .currenttime:after {
  content: "";
         content: "";
@@ -456,7 +459,7 @@ color: white;
     top: 28px;
     z-index: 3;
 }
-
+*/
 .subswitch{
 	        transition: opacity .2s;
 }
@@ -1258,6 +1261,10 @@ updateProgressBar()
 progress.addEventListener('mousemove',function(e){
 
 document.querySelector('.currenttime').style.visibility = 'visible'
+document.querySelector('.currenttime').style.bottom = '-5px'
+
+document.querySelector('.currenttime').style.opacity = '1'
+
 if(tn.length != 0 ){
 	document.querySelector('.thumbnail-holder').style.visibility = 'visible'
 }
@@ -1324,6 +1331,10 @@ document.querySelector('.currenttime').style.left = ((e.offsetX / progress.offse
 progress.addEventListener('mouseleave',function(e){
 	document.getElementById('scrobble').style.display = 'none'
 document.querySelector('.currenttime').style.visibility = 'hidden'
+document.querySelector('.currenttime').style.opacity = '0'
+document.querySelector('.currenttime').style.bottom = '-9px'
+
+
 if(tn.length != 0)
 	document.querySelector('.thumbnail-holder').style.visibility = 'hidden'
 
@@ -1407,6 +1418,27 @@ togglePlayPause()
     	fullscreen()
     }
 }
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+    if (e.keyCode == '38') {
+        // up arrow
+    }
+    else if (e.keyCode == '37') {
+mediaPlayer.currentTime = mediaPlayer.currentTime - 10 
+// left
+   }
+
+    else if (e.keyCode == '39') {
+mediaPlayer.currentTime = mediaPlayer.currentTime + 10  
+//right  
+}
+
+}
+
 //loadVideo('http://cwtv-mrss-akamai.cwtv.com/2018/03/09/LegendsOfTomorrow-314-AmazingGrace-T1320614_a77ec1f6c_5128kbps.mp4')
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
             if(isMobile){
