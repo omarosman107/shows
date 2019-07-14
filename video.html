@@ -1813,6 +1813,7 @@ console.log(data)
 if(!isMobile){
 var initDiv = document.querySelector('.loader')
 if(data.image){
+	mediaPlayer.poster = data.image
 initDiv.style.backgroundImage = 'url('+data.image+')'
 }
 initDiv.innerHTML = 

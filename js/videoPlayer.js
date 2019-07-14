@@ -590,7 +590,7 @@ xmlDoc = parser.parseFromString(smil,"text/xml");
  resume();
 })
    }
-        metaData({show:meta['nbcu$seriesShortTitle'],episodeNumber:meta['nbcu$airOrder'],seasonNumber:meta['nbcu$seasonNumber'],title:meta['title']})
+        metaData({image:meta.defaultThumbnailUrl,show:meta['nbcu$seriesShortTitle'],episodeNumber:meta['nbcu$airOrder'],seasonNumber:meta['nbcu$seasonNumber'],title:meta['title']})
 fetch('https://friendship.nbc.co/v1/end-cards/episode/-6031016734070054488/'+value.split('/')[value.split('/').length-1]+'?_platform=all&_version=v1').then(function(res){return res.json();}).then(function(metad){
   currentVideo.end = (metad.data.episodeEndCard.currentVideoCreditCuePoint)
 })
