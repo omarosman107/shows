@@ -1151,7 +1151,7 @@ quality = '<div class="hdIndicator"><div class="hdIcon"><img src="data:image/svg
    }
  //  console.log(res,quality)
 
-   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'+quality + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="color: #ADADAC;
+   	document.querySelector('.time').innerHTML =  (mediaPlayer.duration - mediaPlayer.currentTime).toHHMMSS()+'<span style="display:none;opacity:.4;"> / '+ (mediaPlayer.duration ).toHHMMSS()+'</span>'/*quality*/ + `<div class="show-episode-title"><span class="showName">${currentVideo.show}</span><span class="EpisodeName" style="color: #ADADAC;
     font-weight: 100;"><span>S${currentVideo.seasonNumber}:E${currentVideo.episodeNumber} </span>${currentVideo.title}</span></div><span style="position:absolute;right:0;bottom:0;opacity:.8;">`+endTime()+'</span>'
 
  //  console.log(quality)
@@ -1208,7 +1208,9 @@ if(!document.querySelector('.loader').className.includes('fade')){
 
 }
 mediaPlayer.onloadstart = function() {
+    if(hlsSupported){}else{
     mediaPlayer.play();
+}
 };
 if(isMobile){
 	document.querySelector('.topVideoDetails').style.display = 'block'
@@ -1623,9 +1625,9 @@ if (hlsSupported && isMobile) {
 	//alert(mediaPlayer.canPlayType('application/x-mpegurl'))
 	mediaPlayer.setAttribute('type','application/x-mpegurl')
         mediaPlayer.src = videoURL
-
+changeButtonType(btn, play);
 }else{
-
+//mediaPlayer.controls = true;
  if (Hls.isSupported()) {
  	if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 35) {
       startTime = Number(localStorage[window.location.search]);
@@ -1813,7 +1815,9 @@ console.log(data)
 if(!isMobile){
 var initDiv = document.querySelector('.loader')
 if(data.image){
+	if(isMobile){
 	mediaPlayer.poster = data.image
+}
 initDiv.style.backgroundImage = 'url('+data.image+')'
 }
 initDiv.innerHTML = 
