@@ -659,7 +659,9 @@ console.timeEnd();
  
 }
 console.log('started downloading data')
-console.time('download_data')
+console.time('download_data') 
+var dupes = []
+
 function loaders(atr) {
   if (atr == 'remove') {
   num--
@@ -669,13 +671,31 @@ console.log('finished downloading data')
 console.timeEnd('download_data')
 
 finalObj =  finalObj.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
-
+function removeDups(names) {
+  let unique = {};
+  names.forEach(function(i) {
+  	if(dupes[`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`]){
+  		console.log('duplicated episode')
+  	}
+  	if(!dupes[i.show]){
+  		dupes[i.show] = []
+  	}
+  dupes[i.show].push({name:`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`,file:i,title:i.episode})
+  	//console.log(i)
+    if(!unique[i]) {
+      unique[i] = true;
+    }
+  });
+  return names;
+}
+console.log(removeDups(finalObj))
+var remDups = removeDups(finalObj);
 
 if (true || !isMobile || !window.location.search == '' || window.location.search == '?') {
 
 console.time()
 var l = []
-finalObj.sort(function(x, y) {
+remDups.sort(function(x, y) {
    var date1 = (x.time);
    var date2 = (y.time);
     return date1 < date2 ? 1 : -1;
@@ -2114,7 +2134,7 @@ continue;
 				//&& showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  
 				console.log(shows.data[i].attributes.name)
 
-		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '2dad10ef-8a32-4591-80df-fab41a6cb8b3') { // the blacklist && heroes
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '2dad10ef-8a32-4591-80df-fab41a6cb8b3' && showId != '407db87c-575c-40da-a382-ff3c222b2655') { // the blacklist && heroes
 				 continue;
 			}
 		}
@@ -2157,7 +2177,7 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			nbcshows[showId] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=10',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
+			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=20',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
 				console.log(episode)
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
@@ -2167,8 +2187,12 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 					 loaders('remove');
 					return;
 					 }
+
 				for (var z = episode.data.length - 1; z >= 0; z--) {
 					if (episode.data[z].attributes.type != 'Full Episode') {
+						continue;
+					}
+					if(Number(episode.data[z].attributes.episodeNumber) == 99){
 						continue;
 					}
 					function nbcimg(res){
@@ -2229,7 +2253,10 @@ loaders('remove')
 		 loaders('remove')
 	})
 	}
+	//filter[shortTitle]=The%20Blacklist,The Good Place
 	nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
+
+	nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Good%20Place&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 
 //nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist:%20Redemption&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 //nbcLoadShow('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
