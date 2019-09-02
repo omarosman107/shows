@@ -609,7 +609,7 @@ everythingfinished(checkedShows)
 
 }
         document.getElementById('upNextDivider').style.display = 'block'
-             document.getElementById('upNextDivider').style.margin = " 0px 7px 28px 7px";
+             document.getElementById('upNextDivider').style.margin = " 0px 7px 0px 7px";
 
 
 function everythingfinished(exclude){
@@ -636,7 +636,7 @@ BackgroundLazyLoader();
        if (document.getElementById('watching').children.length === 0) {
         document.getElementById('wtcTxt').style.display = 'none'
         document.getElementById('upNextDivider').style.display = 'block'
-             document.getElementById('upNextDivider').style.margin = " 0px 7px 28px 7px";
+             document.getElementById('upNextDivider').style.margin = " 0px 7px 0px 7px";
 // no currently watching episodes
 
         
