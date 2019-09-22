@@ -912,6 +912,31 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 <a href="video.html?${upnextshows[q].seasons[i][z].link}">
     	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
     	<div class="episode_img"><div class="episode_overlay"></div>
+    	<div style="
+    width: 100%;
+    height: 1;
+    /* background: linear-gradient(0deg,rgba(48, 48, 48, 0) 0,#85858500); */
+    /* z-index: 20; */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+"><img width="100%" src="${showLogos[q]}" style="
+    filter: blur(9px);
+    /* vertical-align: sub; */
+    position: absolute;
+    /* margin: auto; */
+    /* position: absolute; */
+    top: 26%;
+    left: 22%;
+    width: 58%;
+    height: 49%;
+    /* margin-top: -250px; */ /* Half the height */
+    /* margin-left: -250px; */ /* Half the width */
+    "></div>
+
+
     	<img class="hoverEpisode cover  lazy" width="100%" 
 
 data-original="${upnextshows[q].seasons[i][z].img}" onerror="if (this.src != '${showDetail[q].bg}') this.src = '${showDetail[q].bg}';this.srcset = '';"  data-original-set="${upnextshows[q].seasons[i][z].srcset}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${q}"
