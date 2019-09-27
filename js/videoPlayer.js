@@ -225,13 +225,15 @@ clearInterval(interval)
 clearInterval(trackData)
    var vid = mediaPlayer;
 
-
-   vid.addEventListener('loadeddata', function (e) {
+// iOS 13.1 resuming problem... (fix eventListener)
+//loadedmetadata
+   vid.addEventListener('loadedmetadata', function (e) {
     console.log(mediaPlayer.readyState)
     if(!Hls.isSupported() && !isMobile){
     console.log(isMobile)
   resumeVideo();
     }
+  //    alert('loaded')
 
 if(isMobile){
 if(loadedCount > 0){

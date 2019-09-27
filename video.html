@@ -1583,8 +1583,7 @@ function playVideo(url){
         var quality = []
 
         	if(hlsSupported && !isMobile){
-        		document.querySelector('.loader').
-        		style.display = 'none'
+        		document.querySelector('.loader').style.display = 'none'
 var css = document.createElement("style");
 css.type = "text/css";
 css.innerHTML = ` 
@@ -1624,7 +1623,8 @@ document.body.appendChild(css);
 
 if (hlsSupported && isMobile) {
 	//alert(mediaPlayer.canPlayType('application/x-mpegurl'))
-	mediaPlayer.setAttribute('type','application/x-mpegurl')
+
+	mediaPlayer.setAttribute('type','application/vnd.apple.mpegurl')
         mediaPlayer.src = videoURL
 changeButtonType(btn, play);
 }else{
