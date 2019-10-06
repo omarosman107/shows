@@ -515,7 +515,7 @@ element.target.classList.add('loaded');
 
 io.observe(Lazyelements[i])
 }
-console.timeEnd('initImg')
+//console.timeEnd('initImg')
 
 }
  
@@ -725,7 +725,7 @@ var remDups = removeDups(finalObj);
 
 if (true || !isMobile || !window.location.search == '' || window.location.search == '?') {
 
-console.time()
+//console.time()
 var l = []
 remDups.sort(function(x, y) {
    var date1 = (x.time);
@@ -745,7 +745,7 @@ setTimeout(function(){
 document.body.setAttribute('class','finished');
   	document.getElementsByClassName('contain')[0].style.display = 'block'
 document.querySelector('.lScreen span').setAttribute('class','')
-console.timeEnd()
+//console.timeEnd()
 
 },400)
 
@@ -1422,6 +1422,9 @@ var continueW_DIVS = document.getElementsByClassName('card')
 for(i = 0; i <  continueW_DIVS.length; i++){
 //	console.log(continueW_DIVS[i])
 	var episodeDIV = continueW_DIVS[i]
+	if(episodeDIV.getAttribute('show') == null){
+		continue;
+	}
 var showSeason = upnextshows[episodeDIV.getAttribute('show')].seasons[episodeDIV.getAttribute('seasonNumber')]
 for(a in showSeason){
 if(showSeason[a].episode_number == episodeDIV.getAttribute('episodeNumber') && showSeason[a].season_number == episodeDIV.getAttribute('seasonNumber')){
