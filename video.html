@@ -1623,16 +1623,23 @@ document.body.appendChild(css);
 
 if (hlsSupported && isMobile) {
 	//alert(mediaPlayer.canPlayType('application/x-mpegurl'))
-
+try{
 	mediaPlayer.setAttribute('type','application/vnd.apple.mpegurl')
         mediaPlayer.src = videoURL
-changeButtonType(btn, play);
+//changeButtonType(btn, play);
+}catch(e){
+
+}
+
+
+
 }else{
 //mediaPlayer.controls = true;
  if (Hls.isSupported()) {
  	if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 35) {
       startTime = Number(localStorage[window.location.search]);
       }
+
  	var config = {
 
  		 autoStartLoad: true,

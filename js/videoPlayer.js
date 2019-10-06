@@ -225,7 +225,7 @@ clearInterval(interval)
 clearInterval(trackData)
    var vid = mediaPlayer;
 
-// iOS 13.1 resuming problem... (fix eventListener)
+
 //loadedmetadata
    vid.addEventListener('loadedmetadata', function (e) {
     console.log(mediaPlayer.readyState)
@@ -303,7 +303,8 @@ localStorage['localConfig'] = JSON.stringify({volume:mediaPlayer.volume,captions
 
   
    }, false);
-   
+   vid.play()
+
 
 
 
@@ -588,7 +589,9 @@ playVideo(xmlDoc.querySelector('video').getAttribute('src'))
 fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=smil').then(function(res){return res.text();}).then(function(smil){
       parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml");
+
    playVideo(xmlDoc.querySelector('ref').getAttribute('src').replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://'))
+
  resume();
 })
    }
