@@ -590,7 +590,7 @@ fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&
       parser = new DOMParser();
 xmlDoc = parser.parseFromString(smil,"text/xml");
 
-   playVideo(xmlDoc.querySelector('ref').getAttribute('src').replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','http://'))
+   playVideo(xmlDoc.querySelector('ref').getAttribute('src').replace('3104027',value.split('/')[value.split('/').length-1]).replace('http://','https://'))
 
  resume();
 })

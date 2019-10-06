@@ -200,7 +200,8 @@ if(url.includes('nbc.com')){
 
   fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect',
   	{signal}).then(function(res){
- hls.loadSource(res.url.replace('3104027',url.split('/')[url.split('/').length-1])) 
+ hls.loadSource(res.url.replace('3104027',url.split('/')[url.split('/').length-1]).replace('http://','https://')) 
+ console.log(res.url.replace('3104027',url.split('/')[url.split('/').length-1]))
   hls.startLoad()
 
 }).catch(function(e){console.log(e)})
@@ -2126,7 +2127,7 @@ showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-
       }
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
       var dyn = data.videos[i].large_thumbnail + ' 1920w, '+ data.videos[i].large_thumbnail + '?w=1280 1280w,  ' + data.videos[i].thumbnail + ' 720w, ' + data.videos[i].large_thumbnail + '?w=341 341w'
-      showswithimages[data.videos[i].series_name] = '//images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_800.jpg'
+      showswithimages[data.videos[i].series_name] = 'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_800.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
       tvlist(data.videos[i].series_name,'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
 showDetail[data.videos[i].series_name] = {
