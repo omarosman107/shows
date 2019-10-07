@@ -214,8 +214,9 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
     font-size: 3em;
     padding: 3px 6px 3px 6px;
     opacity: 1;
-    color: #fffffff5;
+color: #e5e5e5;
     text-shadow: 0px 0px 20px #2323238f;
+    font-family: Netflix;
 }
 .episode_naming {
      position: absolute;
@@ -1249,10 +1250,22 @@ button#showConfig {
   display: none;
 }
  .expand{
-  transition: transform .4s ease-in , opacity .5s ease-in ;
+  transition: transform .9s ease-in , opacity .5s ease-in ;
   transform: scale(40);
   opacity: 0;
  }
+ @font-face {
+font-family: Netflix Sans R;
+src: url(font/NetflixSans-Regular-Opt.woff2);
+}
+@font-face {
+font-family: Netflix;
+src: url(font/NetflixSans-Regular-Opt.woff2);
+}
+@font-face {
+font-family: Netflix Sans M;
+src: url(font/NetflixSans-Medium-Opt.woff2);
+}
   </style>
   <link rel="stylesheet" type="text/css" href="css/feed.css">
   <title>ToStream - Quality video</title>
