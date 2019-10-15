@@ -410,7 +410,7 @@ function fetchcwjson(value) {
       return;
      }
 
-     metaData({image:'http://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg',show:metadata['cw$seriesTitle'],episodeNumber:metadata['cw$episodeNumber'],seasonNumber:metadata['cw$seasonNumber'],title:metadata.title})
+     metaData({image:'https://images.cwtv.com/thecw/img/w_1920.s_mobile.i_video_thumbnail.guid_'+stripped+'.jpg',show:metadata['cw$seriesTitle'],episodeNumber:metadata['cw$episodeNumber'],seasonNumber:metadata['cw$seasonNumber'],title:metadata.title})
  //    currentEpisode = {show:metadata['cw$seriesTitle'],episode:metadata.title,season:metadata['cw$seasonNumber']}
       //document.getElementById('epname').innerHTML = metadata.title;
 
@@ -576,7 +576,8 @@ function fetchnbcjson(value) {
   
 
 fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=script').then(function(res){return res.json()}).then(function(meta){
-   if(window.location.protocol == 'https:' && !isMobile){
+   //window.location.protocol == 'https:' && !isMobile
+   if(false){
  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+value.split('/')[value.split('/').length-1]+'?format=smil&manifest=m3u').then(function(res){return res.text();}).then(function(smil){
 
          parser = new DOMParser();

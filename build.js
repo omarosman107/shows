@@ -198,12 +198,20 @@ if (url.includes('api.fox.com')) {
 }  
 if(url.includes('nbc.com')){
 
-  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=redirect',
+  fetch('https://link.theplatform.com/s/NnzsPC/media/guid/2410887629/'+3104027+'?&fallbackSiteSectionId=1676939&manifest=m3u&switch=HLSOriginSecure&sdk=PDK%205.7.16&&formats=m3u,mpeg4&format=smil',
   	{signal}).then(function(res){
- hls.loadSource(res.url.replace('3104027',url.split('/')[url.split('/').length-1]).replace('http://','https://')) 
- console.log(res.url.replace('3104027',url.split('/')[url.split('/').length-1]))
-  hls.startLoad()
+console.log(res)
+return res.text();
+}).then(function(d){
+	console.log(d)
 
+         parser = new DOMParser();
+var xmlDoc = parser.parseFromString(d,"text/xml");
+	 hls.loadSource(xmlDoc.querySelector('video').getAttribute('src')
+	 	.replace('3104027',url.split('/')[url.split('/').length-1]).replace('http://','https://')) 
+ console.log(xmlDoc.querySelector('video').getAttribute('src')
+	 	.replace('3104027',url.split('/')[url.split('/').length-1]).replace('http://','https://'))
+  hls.startLoad()
 }).catch(function(e){console.log(e)})
 
 
