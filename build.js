@@ -1492,6 +1492,14 @@ refreshContinueWatching()
     lastFired = now;
 }, 500);
 
+function showLLoad(sDiv){
+	if(sDiv.parentElement.querySelector('span').innerHTML == 'The Blacklist'){
+sDiv.style.margin = '-26% 0% 0% 0%'		
+	}
+	sDiv.parentElement.querySelector('span').style.display = 'none'
+
+	sDiv.style.display = 'inline-block'
+}
 function firstObject(obj){
 	return obj[Object.keys(obj)[0]]
 }
@@ -1613,11 +1621,11 @@ showContButton = `  <a href="video.html?${(upnextshows[showDetail[i].name].upNex
 " fill="white" class="contShowBTN"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 18v-12l10 6-10 6z"></path></svg></a>`
 }
 // console.log(showDetail[i].genre)
-var logo = `<img width="100%" src="${showDetail[i].logo}">
+var logo = `<img onload="showLLoad(this)" style="display:none;" width="100%" src="${showDetail[i].logo}">
 `
 var showlogodiv = ''
 if(i == 'The Blacklist'){
-	logo = `<img width="100%" style="margin-top: -25%;" src="${showDetail[i].logo}">`
+	logo = `<img onload="showLLoad(this)" style="display:none;" width="100%" style="margin-top: -25%;" src="${showDetail[i].logo}">`
 }
 // i == 'Heroes' ||
 if( showDetail[i].logo == ''){
@@ -1634,6 +1642,12 @@ if('align' in showDetail[i]){
  showHTML += `<div show="${i}"onmouseover="playHover(this)" onmouseout="stopHover(this)" onclick="showQuery(null,this)"  class="showDiv">
   <div style="${showlogodiv}" class="showLogo">
 ${logo}
+<span style="    font-size: 6vw;
+    font-family: Graphik-Medium;
+    padding: 17px;
+    width: 250px;
+    left: 0;
+    position: ;">${showDetail[i].name}</span>
   </div>
   <img width="100%" class="fallback_showImg cover lazy" style="transform:unset;" src="${showswithimages[i]}" style="
     border-radius: 10px;

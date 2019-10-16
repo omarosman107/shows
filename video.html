@@ -775,9 +775,14 @@ background-size:cover;
 .fade{
 z-index: -1;
     opacity: 0;
-    transition-delay: .6s;
-    /* transition-duration: .5s; */
-    transition: z-index .6s ease, opacity .6s ease;
+   /* transition-delay: .6s;
+   */
+     transition-duration: .5s; 
+    transition: z-index .4s ease, opacity .4s ease;
+
+}
+#media-player{
+	opacity: 0;
 }
 .showinit{
 }
@@ -829,8 +834,8 @@ z-index: -1;
 </button>
 
 </div>
-	<div class="videoContainer">
-            <div id='media-player'>
+	<div class="videoContainer" style="background:black;">
+            <div id='media-player' style="transition: opacity .995s ease;">
             		<div class="spinnerContainer">
             	       	            		<div class="loadingSpinner whiteSpinner" style=" display: none; background-size: 100% 100%;position: absolute;top: 50%;left: 50%;width: 80px!important;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position-x: 0;background-position-y: 0;"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">    <div class="seekTime" style="    font-size: 1.23em;font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;opacity: .85;" id="dwnProg"></div>
 </div>
@@ -1197,6 +1202,8 @@ mediaPlayer.onwaiting = function() {
 };
 mediaPlayer.oncanplay = function(){
 	   document.querySelector('.loadingSpinner').style.display = 'none'
+	   document.getElementById('media-player').style.opacity = 1;
+
 	   if(isMobile){
 		   document.querySelector('.loader').style.display = 'none'
 
@@ -1219,7 +1226,6 @@ if(isMobile){
 }
 	   document.querySelector('.loadingSpinner').style.display = 'block'
 	   document.querySelector('#play-pause-button').style.visibility = 'hidden'
-
 mediaPlayer.addEventListener('play', function() {
    var btn = document.getElementById('play-pause-button');
    changeButtonType(btn, '<img class="svgBackground" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSI5NSIgdmlld0JveD0iMCAwIDc1IDk1Ij48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMCAwaDI1djk1SDB6TTUwIDBoMjV2OTVINTB6Ii8+PC9zdmc+" alt="">');
