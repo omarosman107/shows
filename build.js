@@ -825,7 +825,7 @@ allshowdata += '</ul>'
   if (num > maxnum) {
 maxnum = num
   }
-console.log(num/maxnum)
+//console.log(num/maxnum)
   document.getElementById('topprogress').style.transform = 'scaleX(' + ((100 - (num/maxnum *100)) / 100) + ')'
 }
 
@@ -1535,6 +1535,9 @@ return Object.keys(this.seasons).length;
 	}
 	upnextshows[episodes[i].show].totalEpisodes += 1
 var isLatest = false
+if(episodes[i].show == 'Riverdale'){
+console.log('rd',episodes[i],episodes[i].length - tempLS["?" + episodes[i].href] < endTime)
+}
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < endTime) {
 		done = true;
 		episodes[i]['done'] = done
@@ -1793,6 +1796,9 @@ episodes_left = '+' + (upnextshows[json.show].totalEpisodes - upnextshows[json.s
 
 	}
 }
+console.log(json.show,
+ upnextshows[json.show],Number(json.epiformat.split('S')[1].split('E')[0]
+   ))
         watching += `<li show="${json.show}"  seasonNumber="${json.seasonNumber}" episodeNumber="${json.episodeNumber}" data-type="${json.type}"  class=" card forceVisible ${json.href}">
       <div class="image-crop sixteen-nine">
          <a onclick="loadPlayer(this)" href="video.html?${json.href}">
@@ -1913,19 +1919,29 @@ if (json.hidden) {
 
 
 var date2 = new Date(json.time)
+// date1 = new Date('10/14/2019')
     var month2 = formatter.format(date2);
     var FDate = '' //month2 + ' ' + date2.getUTCDate() + ' ' + date2.getUTCFullYear()
     FDate = month2
    // console.log(date1.getDate(),date1.getMonth(),date1.getFullYear(),date2.getDate(),date2.getMonth(),date2.getFullYear())
 if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear() && date1.getMonth() == date2.getMonth()){
 	//console.log('close airdate')
+	if(dateDiffInDays(date2,date1) < -1){
+		console.log('in a later date')
+		FDate = `in ${Number(i) +1} days`
+	}
+
+	if(dateDiffInDays(date2,date1) == -1){
+	//	console.log('today')
+		FDate = 'tomorrow'
+	}
 	if(dateDiffInDays(date2,date1) == 0){
-		console.log('today')
-		FDate = 'today'
+	//	console.log('today')
+		FDate = 'tonight'
 	}
 	if(dateDiffInDays(date2,date1) == 1){
-		console.log('yesterday')
-		FDate = 'yesterday'
+	//	console.log('yesterday')
+		FDate = 'last night'
 	}
 	for (i = 0; i < 14; i++) { 
    // console.log(i + 1)
@@ -1946,7 +1962,7 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 	*/
 // console.log(dateDiffInDays(date2,date1))
 	if(dateDiffInDays(date2,date1) < 7|| date1.getDate() - date2.getDate() < 7){
-		console.log('new')
+		// console.log('new')
 		   template.push( `<a href="video.html?${json.href}">
     	<div data-query="${query}" class="new episode  ${con} ${json.type} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img class="new_release cover hoverEpisode lazy" width="100%" 

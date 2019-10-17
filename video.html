@@ -1359,11 +1359,17 @@ function xorClick(e) {
 
     switch (e.detail) {
         case 1:
-            pendingClick = setTimeout(function() {
+        if(e.target.className.includes('loader')){
+
+        }else{
+    pendingClick = setTimeout(function() {
             			togglePlayPause()
 
                 console.log('single click action here');
             }, 170);// should match OS multi-click speed
+        	}
+        
+        
             break;
         case 2:
         fullscreen()
@@ -1388,6 +1394,11 @@ document.querySelector('.videoOverlay').addEventListener('click', function(e){
 xorClick(e)	}
 
 }, false);
+
+document.querySelector('.loader').addEventListener('click',function(e){
+	console.log(e)
+	xorClick(e);
+})
 
 
 
