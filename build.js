@@ -641,11 +641,12 @@ return;
   document.getElementById('carasoul').innerHTML = ''
   document.getElementById('watching').innerHTML = ''
   	document.getElementById('showsLike').style.display = 'none'
-  	document.body.setAttribute('class','finished');
+ 	document.body.setAttribute('class','finished');
   	document.getElementsByClassName('contain')[0].style.display = 'block'
 
-loadMedia(q)
 everythingfinished(checkedShows)
+loadMedia(q)
+ 
 
 }
         document.getElementById('upNextDivider').style.display = 'block'
@@ -653,6 +654,8 @@ everythingfinished(checkedShows)
 
 
 function everythingfinished(exclude){
+
+
 
  cards = document.querySelectorAll('li')
  images = document.querySelectorAll('.lazy')
@@ -693,6 +696,17 @@ for(var i = document.querySelectorAll('.shows').length - 1; i >= 0; i--){
 	// document.querySelectorAll('.shows')[i].style.overflowY = 'initial'
 }
 }
+ if(JSON.stringify(upnextshows) == '{}'){
+  	console.log('no episodes')
+  	setTimeout(function(e){
+  	document.getElementsByClassName('error')[0].style.display = 'inline-block'
+  	document.body.className = ''
+document.querySelector('.lScreen').className = 'lScreen'
+ document.querySelector('.lScreen').style.opacity ='1!important'
+ document.querySelector('.lScreen').zIndex = '10000 !important'
+  	},200)
+
+  }
 console.timeEnd();
        
 
@@ -743,19 +757,24 @@ remDups.sort(function(x, y) {
     l.push(x)
   });
 loadMedia(l)
-
-everythingfinished()
+  	everythingfinished()
+if(JSON.stringify(upnextshows) == '{}'){}else{
 document.querySelector('.lScreen span').setAttribute('class','logotextdone')
 	document.querySelector('.lScreen').classList = 'lScreen expand'
 
 setTimeout(function(){
-
 document.body.setAttribute('class','finished');
   	document.getElementsByClassName('contain')[0].style.display = 'block'
 document.querySelector('.lScreen span').setAttribute('class','')
 //console.timeEnd()
 
 },400)
+
+
+}
+
+
+  
 
 
 }else{
@@ -1505,6 +1524,7 @@ function firstObject(obj){
 }
 var localconfig = {curWT:0}
 function loadMedia(episodes,arg) {
+
 	var ids = []
 	var thisTime = date1.getTime()
 
@@ -2029,6 +2049,7 @@ sortTV()
 
 
   console.log(upnextshows)
+
 
 localStorage['showData'] = JSON.stringify(upnextshows)
 
