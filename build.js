@@ -2387,6 +2387,9 @@ if('logo' in shows.data[i].relationships && !nbcIncludes[shows.data[i].relations
 if(shows.data[i].attributes.shortTitle == 'Heroes'){
 	logo = 'showMetadata/heroes/Heroes.logo.png'
 }
+if(shows.data[i].attributes.shortTitle == 'The Good Place'){
+	logo = 'showMetadata/the_good_place/the-good-place.logo.png'
+}
 showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes.shortTitle,
 					logo:logo,
 					genre:[shows.data[i].attributes.genre],

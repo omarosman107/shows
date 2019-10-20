@@ -205,7 +205,7 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
       margin-right: 10px;
     }
 .episode_img img {
-  border-radius: 10px;
+  border-radius: 9px;
 }
 .episode_number {
     position: absolute;
@@ -217,6 +217,7 @@ src: url('font/Graphik-SemiBold-Cy-Gr-Web.woff2') format('woff2'); /* Modern Bro
 color: #e5e5e5;
     text-shadow: 0px 0px 20px #2323238f;
     font-family: Netflix;
+        color: hsla(0,0%,100%,.79);
 }
 .episode_naming {
      position: absolute;
@@ -233,19 +234,19 @@ color: #e5e5e5;
       text-rendering: optimizeLegibility;
 }
 .episode_naming .episode_title {
-    font-weight: normal;
-    font-size: 2em;
-        text-rendering: optimizeLegibility;
+font-weight: normal;
+    font-size: 2.98rem;
+    text-rendering: optimizeLegibility;
     display: block;
-        z-index: 21;
-        font-family: Graphik-Bold;
+    z-index: 21;
+    font-family: Graphik-Bold;
     text-overflow: ellipsis;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     transition: all .12s ease-out;
-
+    line-height: 1.4;
 }
 
 .episode_show {
@@ -320,7 +321,7 @@ color: white;
     padding-bottom: 56.25%;
     overflow: hidden;
     position: inherit;
-            border-radius:10px;
+            border-radius:7px;
                 overflow: hidden;
                 position: relative;
 
@@ -340,19 +341,20 @@ box-shadow: inset 0px 0px 20px 2px #0000002b;
   z-index: 0;
 }
 .episode_title {
-  color: #dbdbdb
+  color: #dbdbdb;
+  color: hsla(0,0%,100%,.93);
 }
 .episode_details {
-  /*  position: absolute;*/
     bottom: 0%;
     right: .3em;
-        font-size: 1em;
+    font-size: 1.46rem;
     padding: 1px 6px 3px 0px;
-        opacity: .9;
-        color: #ffffffc9;
+    opacity: .9;
+    color: #ffffffc9;
     text-shadow: 2px 2px 4px #232323c4;
     border-radius: 10px;
-    z-index: 21
+    z-index: 21;
+    color: hsla(0,0%,100%,.7);
 }
 .continShow {
          position: absolute;
@@ -997,6 +999,7 @@ span.timeRemaining {
     left: 0px;
     padding: 10px;
     color: #ffffffc4;
+    color: hsla(0,0%,100%,.67);
 }
 .logotextdone {
   -webkit-transform: scale(2);
