@@ -974,6 +974,7 @@ document.body.setAttribute('class',' error')
 document.querySelector('.maw').style.display = 'block'
 }
 	// https://github.com/filamentgroup/loadCSS
+	var external = !(window===window.parent)
 
 
 
@@ -1015,6 +1016,9 @@ document.querySelector('.fullscreenButton').innerHTML = `<svg id="nfplayerWindow
 }
 function leaveVideo(){
 	closeFullscreen();
+	if(external){
+		window.parent.exitPlayer();
+	}
 	window.location.href = document.referrer
 }
 function startTimeoutControls(){

@@ -1137,6 +1137,16 @@ width:100%;
     margin: 0;
   }
 }
+
+.playing{
+  overflow: hidden;
+} 
+.playing .contain{
+  margin: 0 !important;
+}
+.playing iframe{
+z-index: 1000
+}
 @media(max-width: 600px){
   .showDiv{
         box-sizing: border-box;
@@ -1324,7 +1334,7 @@ src: url(font/NetflixSans-Medium-Opt.woff2);
 </div>
 <!-->
 </div>
-
+<div class="playHolder"></div>
   <div class="contain" style="display: block;">
 
 
