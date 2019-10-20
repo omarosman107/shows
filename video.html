@@ -975,7 +975,18 @@ document.querySelector('.maw').style.display = 'block'
 }
 	// https://github.com/filamentgroup/loadCSS
 	var external = !(window===window.parent)
+	var preloadVID = false
+	var VIDURL = ''
+window.onmessage = function(e){
+    if (e.data == 'hello') {
+    	preloadVID = true
+    	VIDURL = e.data
 
+    	 playVideo(VIDURL,'pre')
+       alert('It works!');
+
+    }
+};
 
 
 var timeout;
@@ -1598,7 +1609,15 @@ function openVolumeSelector(){
       var hls;
  	var startTime = -1
 var  percBuff = ''
-function playVideo(url){
+var l= 0
+function playVideo(url,type){
+	if(l ==1){
+		return;
+	}
+	if(type == 'pre'){
+		alert('prebufferd')
+l = 1
+	}
 	        var videoURL = url
 
         var quality = []

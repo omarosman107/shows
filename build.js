@@ -904,9 +904,13 @@ function showAll(q){
 
 }
 
-
-
-
+/*var tempv = document.createElement('video')
+         preloadPlayer = new Hls();
+         preloadPlayer.loadSource('https://3aa37dc0e8bb47e08042e0ebb25acb34.dlvr1.net/nosec/The_CW/240/316/71117893506/TheFlash-602-AFlashOfLightning-T2714002-CW.m3u8')
+preloadPlayer.attachMedia('tempv')
+preloadPlayer.startLoad()
+console.log(preloadPlayer)
+*/
 function initPlayer(e){
 	if(isMobile){
 		document.location.href = e
@@ -915,13 +919,13 @@ function initPlayer(e){
 document.querySelector('.contain').style.display ='none'
 document.body.className = 'finished playing';
 document.body.querySelector('.playHolder').innerHTML = `<iframe
+ onload="document.querySelector('.playHolder iframe').contentWindow.postMessage(tempv.src, '*')"
 	src="${e}" style="
     margin: 0 !important;
     position: fixed;
     overflow: hidden;
 "
 width="100%" height="100%" frameborder="0">`
-
 
 }
 
