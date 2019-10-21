@@ -762,7 +762,7 @@ loadMedia(l)
   	for(i = 0; i < clickable.length; i++){
   //		console.log(clickable[i])
   		clickable[i].addEventListener('click', function(event){
-    event.preventDefault();
+//    event.preventDefault();
     console.log(this.getAttribute("href"));
 initPlayer(this)
 });
@@ -1234,7 +1234,7 @@ lazyLoadNew()
   	for(i = 0; i < clickable.length; i++){
   //		console.log(clickable[i])
   		clickable[i].addEventListener('click', function(event){
-    event.preventDefault();
+ //   event.preventDefault();
     console.log(this.getAttribute("href"));
 initPlayer(this)
 });
