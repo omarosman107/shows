@@ -1920,7 +1920,12 @@ document.querySelector('.nextImageDIV img').src = next.img
        
 })
 var shold ='' 
+	if(isMobile){
+document.querySelector('.captionHold').style.display='none'
+
+	}
 function subs(){
+
 	mediaPlayer.controls =false
 	setInterval(function(){
 		shold = ''
