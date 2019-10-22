@@ -78,8 +78,49 @@ video::-webkit-media-text-track-display{
     height: auto;
     text-align: center !important;
 }
+.captionHold{
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    text-align: center;
+    /* bottom: 0; */
+    color: #ffffff;
+    text-shadow: #000000 0px 0px 7px;
+    font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;
+    background: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* user-select: none; */
+    color: #ffffff;
+    text-shadow: #000000 0px 0px 7px;
+    font-weight: bolder !important;
+    /* vertical-align: unset; */
+    font-size: 30px;
+    /* margin: 23px; */
+    height: 100%;
+    //: ;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.captions {
 
 
+    position: absolute;
+    width: 100%;
+    vertical-align: sub;
+    bottom: 48px;
+    transition: bottom .2s ease;
+}
+.controlsOn {
+	    bottom: calc(4.8333vw + 48px);
+
+}
         body {
 padding: 0;
             max-width: 100%;
@@ -924,6 +965,7 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 
 
 </div>
+<div class="captionHold"><span class="captions"></span></div>
          <video id='media-video' preload="auto" autoplay="" controls>
       
          </video>
@@ -1042,6 +1084,7 @@ document.querySelector('.centerControls').style.cursor = 'none'
 
 document.querySelector('#media-controls').style.transform = "scale(1) translate(0px, 133%)"
 document.querySelector('#media-controls').style.opacity = 0
+document.querySelector('.captions').className = 'captions'
 document.querySelector('.videoOverlay').style.cursor = 'none'
 document.querySelector('.topRightControls').style.display = 'none'
 
@@ -1052,6 +1095,7 @@ startTimeoutControls()
 document.onmousemove = function(){
 	document.getElementsByClassName('topVideoDetails')[0].style.transform = "scale(1) translate(0px,0%)";
 		document.getElementsByClassName('topVideoDetails')[0].style.opacity = 1
+document.querySelector('.captions').className = 'captions controlsOn'
 
 document.querySelector('.centerControls').style.opacity = 1
 document.querySelector('.centerControls').style.cursor = 'pointer'
@@ -1419,6 +1463,18 @@ document.querySelector('.loader').addEventListener('click',function(e){
 
 function toggleSubtitles(){
 	var tracks = mediaPlayer.textTracks
+	if(subtitlesON){
+		document.querySelector('.captions').style.display = 'none' 
+						document.getElementById('subswitch').style.opacity = '.4'
+						subtitlesON = 0;
+
+	}else{
+		document.querySelector('.captions').style.display = 'inline-block' 
+		document.getElementById('subswitch').style.opacity = '1'
+		subtitlesON = 1
+
+	}
+	return;
 for(i = 0; i < tracks.length; i++){
 if(tracks[i].kind == "metadata"){continue;}
 console.log(tracks[i])
@@ -1436,6 +1492,7 @@ break;
 
 
 }
+var subtitlesON = 1
 var isMobile = false; //initiate as false
 // device detection
 if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
@@ -1523,6 +1580,24 @@ video::-webkit-media-text-track-display-backdrop {
 document.body.appendChild(css);
         	mediaPlayer.controls = true
         }
+
+if(!isMobile){
+	var css = document.createElement("style");
+css.type = "text/css";
+css.innerHTML = ` 
+video::cue {
+       display: none !important;
+    content: '';
+    color: #ffffff00;
+    text-shadow: #00000000 0px 0px 7px;
+}
+`;
+document.body.appendChild(css);
+        	mediaPlayer.controls = true
+
+
+        }
+
 
 
 
@@ -1676,6 +1751,7 @@ try{
 }else{
 //mediaPlayer.controls = true;
  if (Hls.isSupported()) {
+ 	subs()
  	if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 35) {
       startTime = Number(localStorage[window.location.search]);
       }
@@ -1843,6 +1919,20 @@ document.querySelector('.nextImageDIV img').src = next.img
          }
        
 })
+var shold ='' 
+function subs(){
+	mediaPlayer.controls =false
+	setInterval(function(){
+		shold = ''
+for(var i = 0; i<mediaPlayer.textTracks[0].activeCues.length; i++){
+shold += `
+`+mediaPlayer.textTracks[0].activeCues[i].text
+}
+document.querySelector('.captions').innerText = shold
+			console.log(shold)
+
+	},500)
+}
 function nextEpisode(){
 console.log(nextEpisodeJSON)
 mediaPlayer.pause()
