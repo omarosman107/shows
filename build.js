@@ -725,6 +725,7 @@ console.log('finished downloading data')
 console.timeEnd('download_data')
 
 finalObj =  finalObj.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+
 function removeDups(names) {
   let unique = {};
   names.forEach(function(i) {
@@ -934,16 +935,6 @@ function exitPlayer(){
 document.body.className = 'finished';
 document.body.querySelector('.playHolder').innerHTML = ''
 }
-/* 
-<iframe
-	src="http://127.0.0.1/shows/video.html?http://cwtv.com/shows/the-flash/a-flash-of-the-lightning/?play=6f705ca7-a8c2-44dc-befb-526e6bcbd069" style="
-    margin: 0 !important;
-    position: fixed;
-    overflow: hidden;
-"
-width="100%" height="100%" frameborder="0">
-
-*/
 
 
 

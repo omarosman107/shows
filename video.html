@@ -871,7 +871,8 @@ z-index: -1;
 	  <button id="playButton" 
 >
 
-<div class="" style="display: block; background-size: 100% 100%; position: absolute; top: 50%; left: 50%; height: 80px; margin-top: -40px; margin-left: -40px; animation: spinner 1s linear 0s infinite normal none running; background-image: none; background-position: 0px 0px; width: 80px !important;"><img class="svgBackground spinner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt=""></div>
+<div class="" style="display: block; background-size: 100% 100%; position: absolute; top: 50%; left: 50%; height: 80px; margin-top: -40px; margin-left: -40px; animation: spinner 1s linear 0s infinite normal none running; background-image: none; background-position: 0px 0px; width: 80px !important;"><img class="svgBackground spinner" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">
+</div>
 </button>
 
 </div>
@@ -1082,7 +1083,7 @@ function startTimeoutControls(){
 document.querySelector('.centerControls').style.opacity = 0
 document.querySelector('.centerControls').style.cursor = 'none'
 
-document.querySelector('#media-controls').style.transform = "scale(1) translate(0px, 133%)"
+//document.querySelector('#media-controls').style.transform = "scale(1) translate(0px, 133%)"
 document.querySelector('#media-controls').style.opacity = 0
 document.querySelector('.captions').className = 'captions'
 document.querySelector('.videoOverlay').style.cursor = 'none'
@@ -1099,7 +1100,7 @@ document.querySelector('.captions').className = 'captions controlsOn'
 
 document.querySelector('.centerControls').style.opacity = 1
 document.querySelector('.centerControls').style.cursor = 'pointer'
-document.querySelector('#media-controls').style.transform = "scale(1) translate(0px,0%)";
+//document.querySelector('#media-controls').style.transform = "scale(1) translate(0px,0%)";
 document.querySelector('#media-controls').style.opacity = 1
 document.querySelector('.videoOverlay').style.cursor = 'pointer'
 document.querySelector('.topRightControls').style.display = 'block'
@@ -1817,6 +1818,7 @@ percBuff = 99 + '%'
  		}else{
 percBuff = Math.floor((event.loaded / event.total)*100)  +'%';
     }
+
   //  console.log(event.currentTarget.responseURL,Math.floor((event.loaded / event.total)*100) + '%');
 },
 false);
@@ -1831,8 +1833,11 @@ false);
  			percBuff = '99%'
  		}
  		console.log(percBuff)
+     		document.getElementById('dwnProg').innerHTML = percBuff
 
- 		document.getElementById('dwnProg').innerHTML = percBuff
+ 		 		document.getElementById('prgStart').innerHTML = percBuff
+
+ 		
 }
  	},150)
        hls = new Hls(config);
@@ -1929,12 +1934,15 @@ function subs(){
 	mediaPlayer.controls =false
 	setInterval(function(){
 		shold = ''
+		if(mediaPlayer.textTracks.length == 0){
+			return;
+		}
 for(var i = 0; i<mediaPlayer.textTracks[0].activeCues.length; i++){
 shold += `
 `+mediaPlayer.textTracks[0].activeCues[i].text
 }
 document.querySelector('.captions').innerText = shold
-			console.log(shold)
+	//		console.log(shold)
 
 	},500)
 }
@@ -1970,6 +1978,7 @@ initDiv.style.backgroundImage = 'url('+data.image+')'
 initDiv.innerHTML = 
 `
 <div class="" style="background-size: 100% 100%;position: absolute;top: 50%;left: 50%;height: 80px;margin-top: -40px;margin-left: -40px;background-image: none;background-position: 0px 0px;width: 80px !important;/* display: none; */"><img class="svgBackground spinner" style="-webkit-animation: spinner 1s infinite linear;animation: spinner 1s infinite linear;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgMTMwIDEzMCI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTY1IDEyN0MzMC43NTggMTI3IDMgOTkuMjQgMyA2NVMzMC43NTggMyA2NSAzVjBDMjkuMTAyIDAgMCAyOS4xMDIgMCA2NXMyOS4xMDIgNjUgNjUgNjV2LTN6Ii8+PGxpbmVhckdyYWRpZW50IGlkPSJhIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9Ijk3LjUiIHkxPSIxMzAiIHgyPSI5Ny41Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkYiLz48c3RvcCBvZmZzZXQ9Ii44NDEiIHN0b3AtY29sb3I9IiNGRkYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PHBhdGggZmlsbD0idXJsKCNhKSIgZD0iTTY1IDEyN2MzNC4yNDIgMCA2Mi0yNy43NiA2Mi02MlM5OS4yNDIgMyA2NSAzVjBjMzUuODk4IDAgNjUgMjkuMTAyIDY1IDY1cy0yOS4xMDIgNjUtNjUgNjV2LTN6Ii8+PGNpcmNsZSBmaWxsPSIjRkZGIiBjeD0iNjUiIGN5PSIxLjUiIHI9IjEuNSIvPjwvc3ZnPg==" alt="">  
+   <div class="seekTime" style="    font-size: 1.23em;font-family: Netflix Sans R,Consolas,Lucida Console,Menlo,Monaco,Arial,Helvetica !important;opacity: .85;" id="prgStart"></div>
 </div>
 
 
