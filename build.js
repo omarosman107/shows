@@ -1078,14 +1078,7 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
     bottom: 0;
     left: 0;
     right: 0;
-"><img width="100%" src="${showDetail[q].bg}" style="
-filter: blur(18px) brightness(121%);
-    position: absolute;
-
-    width: 100%;
-  
-    transform: scale(2.5);
-    "></div>
+"></div>
 
 
     	<img class="hoverEpisode cover  lazy" width="100%" 
@@ -2032,7 +2025,7 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 		   template.push( `<a   class="clickablePlayer" href="video.html?${json.href}">
     	<div data-query="${query}" class="new episode  ${con} ${json.type} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img width="100%" src="${showDetail[json.show].bg}" style="
-filter: blur(18px) brightness(121%);
+filter:blur(18px) brightness(121%) contrast(1.2);
     position: absolute;
 
     width: 100%;
