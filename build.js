@@ -1067,7 +1067,7 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 
 <a  class=" showSelect clickablePlayer" href="video.html?${upnextshows[q].seasons[i][z].link}">
     	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
-    	<div class="episode_img"><div class="episode_overlay"></div>
+    	<div class="episode_img"><div  class="episode_overlay"></div>
     	<div style="
     width: 100%;
     height: 1;
@@ -1078,18 +1078,13 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
     bottom: 0;
     left: 0;
     right: 0;
-"><img width="100%" src="${showLogos[q]}" style="
-    filter: blur(9px);
-    /* vertical-align: sub; */
+"><img width="100%" src="${showDetail[q].bg}" style="
+filter: blur(18px) brightness(121%);
     position: absolute;
-    /* margin: auto; */
-    /* position: absolute; */
-    top: 26%;
-    left: 22%;
-    width: 58%;
-    height: 49%;
-    /* margin-top: -250px; */ /* Half the height */
-    /* margin-left: -250px; */ /* Half the width */
+
+    width: 100%;
+  
+    transform: scale(2.5);
     "></div>
 
 
@@ -2036,7 +2031,14 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 		// console.log('new')
 		   template.push( `<a   class="clickablePlayer" href="video.html?${json.href}">
     	<div data-query="${query}" class="new episode  ${con} ${json.type} ${json.href}">
-    	<div class="episode_img"><div class="episode_overlay"></div><img class="new_release cover hoverEpisode lazy" width="100%" 
+    	<div class="episode_img"><div class="episode_overlay"></div><img width="100%" src="${showDetail[json.show].bg}" style="
+filter: blur(18px) brightness(121%);
+    position: absolute;
+
+    width: 100%;
+  
+    transform: scale(2.5);
+    "><img class="new_release cover hoverEpisode lazy" width="100%" 
 
 data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg}') this.src = '${showDetail[json.show].bg}';this.srcset = '';"  data-original-set="${json.imgdyn}" 	sizes="(max-width: 600px) 75vw, 40vw" alt="${json.show}"
 
