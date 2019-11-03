@@ -257,6 +257,17 @@ if(isMobile){
 	var css = document.createElement("style");
 css.type = "text/css";
 css.innerHTML = ` 
+#swipezone{
+
+    background: #131416;
+}
+@media (prefers-color-scheme: dark) {
+#swipezone{
+
+    background: #090909;
+}
+
+}
 .show_container {
     width: 100%;
     position: fixed;
@@ -677,7 +688,7 @@ BackgroundLazyLoader();
         query(document.getElementById('search').value)
       }
        if (document.getElementById('watching').children.length === 0) {
-        document.getElementById('wtcTxt').style.display = 'none'
+        document.getElementById('upnsect').style.display = 'none'
         document.getElementById('upNextDivider').style.display = 'block'
              document.getElementById('upNextDivider').style.margin = " 0px 7px 0px 7px";
 // no currently watching episodes
@@ -1057,9 +1068,21 @@ for(z in upnextshows[q].seasons[i]){
 upnextshows[q].seasons[i][z].episode = splittedName.join(': ')
 }
 var donecol = ''
+var isDoneCheck = ''
 if( (upnextshows[q].seasons[i][z].length - localStorage['?'+ upnextshows[q].seasons[i][z].link]) < 35){
 
-donecol = "prog_done"; }
+donecol = "prog_done"; 
+isDoneCheck = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="
+    position: absolute;
+    z-index: 100;
+    fill: white;
+    width: 35px;
+    height: 35px;
+    right: 0;
+    bottom: 0;
+    margin: 12px;
+"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>`
+}
 var date = new Date(upnextshows[q].seasons[i][z].airdate)
 console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear())
 	episodes += `<div class="single-episode">
@@ -1067,6 +1090,7 @@ console.log((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYe
 
 <a  class=" showSelect clickablePlayer" href="video.html?${upnextshows[q].seasons[i][z].link}">
     	<div id="${upnextshows[q].seasons[i][z].link}_showEpisode" class="episode   ${upnextshows[q].seasons[i][z].link}">
+    	${isDoneCheck}
     	<div class="episode_img"><div  class="episode_overlay"></div>
     	<div style="
     width: 100%;
