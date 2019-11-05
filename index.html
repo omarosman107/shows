@@ -308,20 +308,34 @@ color: white;
   }
 
 .episode-progressbar{
-  margin:0px 0 -8px 0;
+
     background-color: #e5dc11;
     line-height: inherit;
     height: .35rem;
-    position: absolute;
+    position: relative;
     z-index: 8;
-    bottom: 0;
+    /* bottom: 0; */
     max-width: 100%;
+    /* padding: 0 0 0px 0px; */
+    border-radius: 12px;
   
 }
-.new .episode-progressbar{
-    background-color: #cc2323;
-
+.HaventSTR {
+  display: none;
 }
+.progHold {
+      position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    /* padding: 0px 10px 7px 10px; */
+    margin: 9px 18px 0px 18px;
+    background-color: #3937379e;
+    border-radius: 73px;
+}
+.new .episode-progressbar{
+
+    background-color: #1a6bdfe3;}
 .episode_img {
           display: block;
     height: 0;
@@ -742,7 +756,7 @@ body{
   background-color: black;
 }
 .fanarts-list>li {
-      background-color: #131313    !important;
+      background-color: #191818    !important;
       
           border: 2px solid rgba(13, 13, 13, 0.79);
 

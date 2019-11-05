@@ -1069,7 +1069,18 @@ upnextshows[q].seasons[i][z].episode = splittedName.join(': ')
 }
 var donecol = ''
 var isDoneCheck = ''
+var hstr = ''
+
+/*if(perc == '0' || perc == NaN){
+	hstr = 'HaventSTR'
+}
+*/
+console.log(upnextshows[q].seasons[i][z].percentageDone)
+if(upnextshows[q].seasons[i][z].percentageDone < 0){
+	hstr = 'HaventSTR'
+}
 if( (upnextshows[q].seasons[i][z].length - localStorage['?'+ upnextshows[q].seasons[i][z].link]) < 35){
+	hstr = 'HaventSTR'
 
 donecol = "prog_done"; 
 isDoneCheck = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="
@@ -1119,7 +1130,10 @@ data-original="${upnextshows[q].seasons[i][z].img}" onerror="if (this.src != '${
 	</div>
 	<a classS="episode_show" onclick="showQuery(null,this)"  show="${q}" href="javascript:">${''}</a>
 	</div>
+	<div class=" ${hstr} progHold">
 <div class="episode-progressbar ${donecol}" id="progress" length="${upnextshows[q].seasons[i][z].length}" style="width: ${upnextshows[q].seasons[i][z].percentageDone}%;"></div>
+
+	</div>
 </div>
 </a>
 </div>`
@@ -2045,11 +2059,16 @@ if(dateDiffInDays(date2,date1) < 14 || date2.getFullYear() == date1.getFullYear(
 	}
 	*/
 // console.log(dateDiffInDays(date2,date1))
+var hstr = ''
+if(perc == '0' || perc == NaN){
+	hstr = 'HaventSTR'
+}
 	if(dateDiffInDays(date2,date1) < 8|| date1.getDate() - date2.getDate() < 8){
 		// console.log('new')
 		   template.push( `<a   class="clickablePlayer" href="video.html?${json.href}">
     	<div data-query="${query}" class="new episode  ${con} ${json.type} ${json.href}">
     	<div class="episode_img"><div class="episode_overlay"></div><img width="100%" src="${showDetail[json.show].bg}" style="
+
 filter:blur(18px) brightness(121%) contrast(1.2);
     position: absolute;
 
@@ -2071,7 +2090,11 @@ data-original="${json.img}" onerror="if (this.src != '${showDetail[json.show].bg
 
 	<a class="episode_show" onclick="showQuery(null,this,'${json.type}')"  show="${json.show}" href="javascript:">${topShow}</a>
 	</div>
+		<div class="progHold ${hstr}">
+
 <div class="episode-progressbar" id="progress" length="${json.length}" style="width: ${perc}%;"></div>
+
+</div>
 </div>
 </a>
 
