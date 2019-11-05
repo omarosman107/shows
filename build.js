@@ -1076,8 +1076,9 @@ var hstr = ''
 }
 */
 console.log(upnextshows[q].seasons[i][z].percentageDone)
-if(upnextshows[q].seasons[i][z].percentageDone < 0){
+if(upnextshows[q].seasons[i][z].percentageDone < 0 || isNaN(upnextshows[q].seasons[i][z].percentageDone)){
 	hstr = 'HaventSTR'
+	console.log('not started')
 }
 if( (upnextshows[q].seasons[i][z].length - localStorage['?'+ upnextshows[q].seasons[i][z].link]) < 35){
 	hstr = 'HaventSTR'
