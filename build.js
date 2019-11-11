@@ -13,7 +13,14 @@ var lite = false;
 function liteactivate(){
 	lite = true;
 }
-
+const fetch_retry = async (url, options, n) => {
+    try {
+        return await fetch(url, options)
+    } catch(err) {
+        if (n === 1) throw err;
+       // return await fetch_retry(url, options, n - 1);
+    }
+};
 
 	function BackgroundNode({node, loadedClassName}) {
 	let src = node.getAttribute('data-background-image-url');
@@ -2195,11 +2202,11 @@ var cwTimes = {}
 function cw(show){
 	var skipTheseShows = ['Elseworlds','Penn & Teller: Fool Us','Masters of Illusion','Masters of Illusion: Christmas Magic']
 	loaders()
-	fetch('https://www.cwtv.com/images/c/headers/cacheversions.json?cb=8045022').then(function(res){return res.json();
+	fetch_retry('https://www.cwtv.com/images/c/headers/cacheversions.json?cb=8045022').then(function(res){return res.json();
 	}).then(function(config){
 		// 'https://images.cwtv.com/feed/mobileapp/shows/channel_cwtv/apiversion_9/channel_cwtv/device_ios/pagesize_10000'
 loaders()
-fetch('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios').then(function(res){return res.json()}).then(function(cwshows){
+fetch_retry('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios').then(function(res){return res.json()}).then(function(cwshows){
 // console.log(cwshows.items.show_groups[0].shows)
 // .concat(cwshows.items.show_groups[2].shows)
 //cwshows['items'] = (cwshows.items.show_groups[0].shows)
@@ -2249,7 +2256,7 @@ cwTimes[cwshows.items[i].title] = airtime
 
 
 
-fetch('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_8',{cache:'no-store'} )
+fetch_retry('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_8',{cache:'no-store'} )
 .then(function(res){
 return res.json()
 }).then(function(data){
@@ -2388,7 +2395,7 @@ function nbcloadnext(url){
 
 //console.log(url)
 loaders()
-fetch(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,vChipRating,description,airdate,images,categories&fields[images]=path,internalId',{cache:'no-store'}).then(function(res){return res.json();}).then(function(episode){
+fetch_retry(url+'&fields[videos]=guid,runTime,permalink,seasonNumber,episodeNumber,type,title,vChipRating,description,airdate,images,categories&fields[images]=path,internalId',{cache:'no-store'}).then(function(res){return res.json();}).then(function(episode){
 		if('next' in episode.links){
 				//	console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
@@ -2516,7 +2523,7 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			nbcshows[showId] = 'https://img.nbc.com/'+'sites/'+shows.included[i].attributes.path.split('sites/')[1] +'?impolicy=nbc_com&imwidth='+480;
 
 			loaders()
-			fetch('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=20',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
+			fetch_retry('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=20',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
 				console.log(episode)
 				if('next' in episode.links){
 			//		console.log(episode.links.next)
@@ -2580,7 +2587,7 @@ showswithimages[episode.data[z].attributes.categories[0].split('/')[1]] = nbcsho
 
 	function nbcLoadShow(url){
 		loaders()
-fetch(url ,{cache:'no-store'}).then(function(res){return res.json();}).then(function(shows){
+fetch_retry(url ,{cache:'no-store'}).then(function(res){return res.json();}).then(function(shows){
 		nbcShowHandle(shows)
 
 if('next' in shows.links){
@@ -2648,7 +2655,7 @@ var apikey = ''
 
 
 loaders()
-fetch('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
+fetch_retry('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(function(res){return res.json()}).then(function(config){
 	apikey = (config.apis.content.apiKey)
 
 //	apiver = (config.apis.content.endpoints.find.split('content/')[1].split('/')[0])
@@ -2663,7 +2670,7 @@ fetch('//config.foxneodigital.com/foxnow/ios/3.11/ios_info_prod.json').then(func
 // https://api.fox.com/fbc-content/v1_4/screenpanels/5805048e7fdd600001a349c0/?itemsPerPage=150
 var foxshowNames = {'snowfall':'Snowfall','atlanta':'Atlanta'}
 if(show != undefined && show != ''){
-fetch('https://api2.fox.com/fbc-content/v2.0/series?_fields=name,showCode&q='+show,{headers:foxheaders}).then(function(res){return res.json();}).then(function(q){
+fetch_retry('https://api2.fox.com/fbc-content/v2.0/series?_fields=name,showCode&q='+show,{headers:foxheaders}).then(function(res){return res.json();}).then(function(q){
 	console.log(q.member[0].showCode,q.member[0].name,foxshowNames)
 	foxshowNames[q.member[0].showCode] = q.member[0].name
 	foxshowlist.push(q.member[0].showCode)
@@ -2671,7 +2678,7 @@ fetch('https://api2.fox.com/fbc-content/v2.0/series?_fields=name,showCode&q='+sh
 }
 var showEpisodeCount = {}
 // config.apis.content.baseUrl
-fetch('https://api2.fox.com' + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
+fetch_retry('https://api2.fox.com' + '/fbc-content/'+apiver+'/series?_fields=showCode,network,fullEpisodeCount,showCode,name&itemsPerPage=300&seriesType=series&network=fox,fx',{cache:"no-store",headers:foxheaders,mode: 'cors'}).then(function(res){return res.json()}).then(function(foxshows){
 var allEpisodeCount = 0
 	var skipTheseShows = ['Love Connection','Showtime at the Apollo','New Girl']
 
@@ -2790,7 +2797,7 @@ loaders('remove')
 */
 
 
-	fetch(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=contentRating,id,name,rating,genres,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,originalAirDate,hideVideo,releaseYear&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
+	fetch_retry(config.apis.content.baseUrl + '/fbc-content/'+apiver+'/video/?seriesType=series&_fields=contentRating,id,name,rating,genres,images,expires,@id,seriesName,seasonNumber,showCode,episodeNumber,durationInSeconds,originalAirDate,hideVideo,releaseYear&id=&itemsPerPage=1000&videoType=fullEpisode&showCode=' + foxshowlist.join(),{headers:foxheaders}).then(function(res){if(res.status == 200){return res.json();}else{}}).then(function(fullEpisodes){
 if ('member' in fullEpisodes) {
 	fullEpisodes.member.reverse()
 for(i in fullEpisodes.member){
