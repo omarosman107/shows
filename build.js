@@ -2525,9 +2525,9 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			loaders()
 			fetch_retry('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=20',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
 				console.log(episode)
-				if('next' in episode.links){
+				if('next' in episode.links && episode.links.self.includes('407db87c-575c-40da-a382-ff3c222b2655')){
 			//		console.log(episode.links.next)
-			//		nbcloadnext(episode.links.next)
+					nbcloadnext(episode.links.next)
 				}
 				if (episode.data.length == 0) {
 					 loaders('remove');
@@ -2958,7 +2958,7 @@ imgdyn:""
       // setEpisodes()
           var vtag = document.createElement("video"); var hlsSupported = !!vtag.canPlayType && !!vtag.canPlayType("application/x-mpegurl");
 if (hlsSupported) {
- // aswim()
+  //aswim()
 }
     }
 
