@@ -1937,11 +1937,22 @@ function subs(){
 		if(mediaPlayer.textTracks.length == 0){
 			return;
 		}
+		if(mediaPlayer.textTracks[0].cues.length == 0){
+for(var i = 0; i<mediaPlayer.textTracks[2].activeCues.length; i++){
+shold += `
+`+mediaPlayer.textTracks[2].activeCues[i].text
+}
+document.querySelector('.captions').innerText = shold
+
+
+		}else{
 for(var i = 0; i<mediaPlayer.textTracks[0].activeCues.length; i++){
 shold += `
 `+mediaPlayer.textTracks[0].activeCues[i].text
 }
 document.querySelector('.captions').innerText = shold
+		}
+
 	//		console.log(shold)
 
 	},500)
