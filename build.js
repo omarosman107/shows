@@ -2206,7 +2206,7 @@ function cw(show){
 	}).then(function(config){
 		// 'https://images.cwtv.com/feed/mobileapp/shows/channel_cwtv/apiversion_9/channel_cwtv/device_ios/pagesize_10000'
 loaders()
-fetch_retry('https://images.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios').then(function(res){return res.json()}).then(function(cwshows){
+fetch_retry('https://www.cwtv.com/feed/mobileapp/shows-grouped/channel_cwtv/apiversion_9/device_ios').then(function(res){return res.json()}).then(function(cwshows){
 // console.log(cwshows.items.show_groups[0].shows)
 // .concat(cwshows.items.show_groups[2].shows)
 //cwshows['items'] = (cwshows.items.show_groups[0].shows)
@@ -2256,13 +2256,13 @@ cwTimes[cwshows.items[i].title] = airtime
 
 
 
-fetch_retry('https://images.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_8',{cache:'no-store'} )
+fetch_retry('https://www.cwtv.com/feed/mobileapp/videos/channel_cwtv/show_'+cwshows.items[i].slug + '/apiversion_8',{cache:'no-store'} )
 .then(function(res){
 return res.json()
 }).then(function(data){
     for (i in data.videos) {
     if (data.videos[i].fullep == 1) {
-showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-logo-stacked/'+data.videos[i].show_slug+'.png'
+showLogos[data.videos[i].series_name] = 'https://www.cwtv.com/images/cw/show-logo-stacked/'+data.videos[i].show_slug+'.png'
 
       function millisToMinutesAndSeconds(millis) {
         var minutes = Math.floor(millis / 60000 * 60);
@@ -2287,20 +2287,24 @@ showLogos[data.videos[i].series_name] = 'https://images.cwtv.com/images/cw/show-
       	if (webpcompatible == true) {
 // return 'https://res.cloudinary.com/david-wash-blog/image/fetch/f_webp/http://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
 }
-      	 return 'https://images.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
+      	 return 'https://www.cwtv.com/thecw/img/w_'+resulution+'.s_mobile.i_video_thumbnail.guid_'+data.videos[i].guid+'.jpg'
       }
+      data.videos[i].large_thumbnail = data.videos[i].large_thumbnail.replace('images.cwtv.com','www.cwtv.com')
+      data.videos[i].thumbnail = data.videos[i].thumbnail.replace('images.cwtv.com','www.cwtv.com')
+      console.log(data.videos[i].large_thumbnail)
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
+
       var dyn = data.videos[i].large_thumbnail + ' 1920w, '+ data.videos[i].large_thumbnail + '?w=1280 1280w,  ' + data.videos[i].thumbnail + ' 720w, ' + data.videos[i].large_thumbnail + '?w=341 341w'
-      showswithimages[data.videos[i].series_name] = 'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_800.jpg'
+      showswithimages[data.videos[i].series_name] = 'https://www.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_800.jpg'
     //  tvlist(data.videos[i].series_name,'http://images.cwtv.com/images/ios/cw/shows/'+data.videos[i].show_slug+'/large_featured.png')
     tvlist(data.videos[i].series_name,
-    	'https://images.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
+    	'https://www.cwtv.com/thecw/img/s_mobile.i_show_thumbnail.show_'+data.videos[i].show_slug+'.v_7.w_585.jpg','cw')
 
 	showDetail[data.videos[i].series_name] = {
 	name:data.videos[i].series_name,
 	rating:data.videos[i].rating,
-	logo:"https://images.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",
-	bg:"https://images.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:[data.videos[i].comscore_genre],
+	logo:"https://www.cwtv.com/images/cw/show-logo-horz/"+data.videos[i].show_slug+".png",
+	bg:"https://www.cwtv.com/images/cw/show-hub/"+data.videos[i].show_slug+".png",genre:[data.videos[i].comscore_genre],
 	year:moment(airdate).year(),
 	align:'background-position: right;    background-size: contain;'
 }
