@@ -1,0 +1,501 @@
+ <!DOCTYPE html> 
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <meta name="keywords" content="lansingschools,lansing,schools,synergy,gpa,grades,gradebook,GPA,youngYT,youngyt synergy,YoungYT synergy,edupoint,better,css,js">
+<title>Synergy - better than the actual one!!</title>
+<meta name="description" content="YoungYT's Synergy is much better looking,faster,and also shows you your GPA. This website is meant to show how Synergy's Data can be shown in a easy and  understandable manner.">
+  <link async rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+
+<style type="text/css">
+body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .input-field input[type=date]:focus + label,
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field input[type=password]:focus + label {
+      color: #e91e63;
+    }
+
+    .input-field input[type=date]:focus,
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field input[type=password]:focus {
+      box-shadow: none;
+    }
+
+
+
+.mdl-layout__container {
+    position: static !important;
+    width: 100%;
+    height: 100%;
+}
+
+
+	body{
+		background-color: #F2F2F5;
+	}
+  #logincard{
+        top: 190px;
+  }
+
+  .mdl-color--grey-100 {
+    background-color: #F2F2F5 !important;
+}
+.mdl-layout {
+	align-items: center;
+  justify-content: center;
+}
+.mdl-layout__content {
+	padding: 24px;
+	flex: none;
+}
+.content {
+	margin: auto;
+	    text-align: center;
+}
+
+.mdl-data-table {
+    white-space: inherit;
+    margin: auto;
+
+}
+.logout {
+        right: 1%;
+    position: absolute;
+    color: white;
+}
+
+#content {
+  width: 100%;
+}
+#error{
+  color: red;
+}
+#SynContent{
+  width: 100%;
+}
+table {
+  width: 50% !important;
+box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 3px;
+}
+td {
+          padding: 32px 0px 10px 40px;
+        }
+
+th {
+  text-align: center !important;
+}
+  /* label color */
+   .input-field label {
+     color: #000;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #000;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #000;
+   }
+        
+</style>
+</head> 
+
+<body>
+
+
+
+  <div class="section"></div>
+  <main id="logincard">
+    <center>
+    <div id="spinner" >
+      
+
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+      <div class="responsive-img" style="
+         background: url(logo.png) no-repeat center;
+
+         background: url(logo.svg) no-repeat center;
+    background-size: contain;
+    -webkit-background-size: contain;
+height: 70px;">  </div> <h1 style="display: inline-block;"> Synergy</h1>
+
+      <div class="section"></div>
+
+      <h5 class="indigo-text">Please, login into your account</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+<form method="post" onsubmit="event.preventDefault(); validate();">
+
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
+                                                    <span>Note: when you leave or refresh this page you will be automaticaly logged out :) </span>
+
+
+            <div class='row'>
+            <span id="error"></span>
+              <div class='input-field col s12'>
+              <span>Enter your Student ID</span>
+                <input onkeyup="checkuser(this)" class='validate'  autocomplete="off" id="username" type="text" name="email"  />
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+
+                            <span>Enter your Password</span>
+                <input class='validate' autocomplete="off" type='password' name='password' id="userpass" />
+              </div>
+                                        <span>*Example: Tom Smith January 1 = ts0101</span>
+
+
+            </div>
+            <br />
+            <center>
+              <div class='row'>
+                <button   id="loginbutton" class='col s12 btn btn-large waves-effect indigo'>Login</button>
+              </div>
+            </center>
+            </form>
+
+        </div>
+      </div>
+    </center>
+    </main>
+
+
+
+
+
+<div style="display:none;margin: auto;text-align: center;" id="SynContent">
+
+<!-- Simple header with fixed tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+<div class="mdl-layout-title">Synergy</div>
+
+<button onclick="window.location.reload();" class="logout mdl-button mdl-js-button mdl-js-ripple-effect">
+   <div>logout</div>
+
+</button>
+
+      </div>
+    <!-- Tabs -->
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect" >
+     <ul class="tabs" id="tabs">
+     <div id="holder" style="display: none;">        <li class="tab col s3"><a href="#fixed-tab-2">Test 4</a></li>
+</div>
+      </ul>
+
+  </header>
+
+  <main class="mdl-layout__content" id="tabContent">
+
+
+    <div id="infos">
+      
+
+    </div>
+
+  </main>
+</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<script async type="text/javascript" src="../js/xml2json.js"></script>
+   <script  src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js" type="text/javascript">
+</script>
+<script>
+function checkuser(item){
+
+  if(isNumeric(item.value)){
+  item.className += ("valid")
+                }else{
+item.className += ("invalid")
+};
+
+}
+var pmge 
+var pname
+document.getElementById('spinner').style.display = 'none'
+
+$(document).ready(function(){$("input").attr("autocomplete","off");});
+  document.getElementById('username').click();
+
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+function validate() {
+	document.getElementById('spinner').style.display = ''
+
+if (document.getElementById("userpass").value == '') {
+		document.getElementById('error').innerHTML = 'the password is blank'
+}
+if (document.getElementById("username").value == '') {
+		document.getElementById('error').innerHTML = 'the username is blank'
+}
+if (isNumeric(document.getElementById("username").value) == false) {
+    document.getElementById('error').innerHTML = 'the username has letters'
+}
+if (document.getElementById("username").value == '' && document.getElementById("userpass").value == '' && isNumeric(document.getElementById("username").value) == true) {
+	document.getElementById('error').innerHTML = 'the fields are blank'
+		document.getElementById('spinner').style.display = 'none'
+}else{
+synergy((document.getElementById("username").value),(document.getElementById("userpass").value))
+}
+}
+
+var tableStore = ''
+var gpa = 0;
+
+     function displayContent(num) {
+
+
+             //document.write("" + nameData[i] + " ," + gradeData[i] + "<br>");
+
+               if (num >= 90) {
+
+                    return ( "A");
+                }
+                else if (num>= 80) {
+
+                    return ( "B");
+                }
+                else if (num>= 70) {
+                    return ("C");
+                }
+                else if (num>= 60) {
+                    return ("D");
+                }
+                else {
+                    return ("F");
+                }
+
+         
+
+            }
+   function calculateGpa (form) {
+form = Number(form);
+if (form != 0) {
+return (form / 20 - 1).toFixed(2);
+
+}else{
+  return "0.00";
+}
+        
+            }
+
+function synergy(user,pass){
+  var x2js = new X2JS();
+
+var myHeaders = new Headers({
+  "Content-Type": "text/xml; charset=utf-8",
+  "accept":'application/json'
+});
+
+
+var Person = { method: 'POST',
+               headers: myHeaders,
+               body: '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ProcessWebServiceRequest xmlns="http://edupoint.com/webservices/"><userID>'+user+'</userID><password>'+pass+'</password><skipLoginLog>0</skipLoginLog><parent>0</parent><webServiceHandleName>PXPWebServices</webServiceHandleName><methodName>ChildList</methodName><paramStr></paramStr></ProcessWebServiceRequest></soap:Body></soap:Envelope>'};
+
+
+
+                              var headers = { method: 'POST',
+               headers: myHeaders,
+               body: '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ProcessWebServiceRequest xmlns="http://edupoint.com/webservices/"><userID>'+user+'</userID><password>'+pass+'</password><skipLoginLog>1</skipLoginLog><parent>0</parent><webServiceHandleName>PXPWebServices</webServiceHandleName><methodName>Gradebook</methodName><paramStr>&lt;Parms&gt;&lt;ChildIntID&gt;0&lt;/ChildIntID&gt;&lt;ReportPeriod&gt;&lt;/ReportPeriod&gt;&lt;/Parms&gt;</paramStr></ProcessWebServiceRequest></soap:Body></soap:Envelope>'}
+
+function dynamGrd(){
+  document.getElementById('holder').innerHTML = ''
+
+ fetch('https://pvue.lansingschools.net/pvue/Service/PXPCommunication.asmx', headers).then(function(response) {
+  return response.text()
+ }).then(function(body) {
+  var data = (x2js.xml_str2json(x2js.xml_str2json(body).Envelope.Body.ProcessWebServiceRequestResponse.ProcessWebServiceRequestResult))
+  console.log(data.Gradebook.ReportingPeriods.ReportPeriod)
+  for (var i = data.Gradebook.ReportingPeriods.ReportPeriod.length - 1; i >= 0; i--) {
+    console.log(data.Gradebook.ReportingPeriods.ReportPeriod[i]._GradePeriod, data.Gradebook.ReportingPeriods.ReportPeriod[i]._Index)
+    var container = document.createElement('li')
+    console.log(container)
+    container.className = "tab col s3"
+    var button = document.createElement('a');
+    var textNode = document.createTextNode(data.Gradebook.ReportingPeriods.ReportPeriod[i]._GradePeriod);
+    button.appendChild(textNode);
+    button.href = "#" + data.Gradebook.ReportingPeriods.ReportPeriod[i]._GradePeriod.replace(/ /g, "_").split("/").join('-');
+    container.appendChild(button)
+    document.getElementById('tabs').appendChild(container)
+    $('ul.tabs').tabs();
+
+    var cacheHeader = {
+      method: 'POST',
+      headers: myHeaders,
+      body: '<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ProcessWebServiceRequest xmlns="http://edupoint.com/webservices/"><userID>' + user + '</userID><password>' + pass + '</password><skipLoginLog>1</skipLoginLog><parent>0</parent><webServiceHandleName>PXPWebServices</webServiceHandleName><methodName>Gradebook</methodName><paramStr>&lt;Parms&gt;&lt;ChildIntID&gt;0&lt;/ChildIntID&gt;&lt;ReportPeriod&gt;' + data.Gradebook.ReportingPeriods.ReportPeriod[i]._Index + '&lt;/ReportPeriod&gt;&lt;/Parms&gt;</paramStr></ProcessWebServiceRequest></soap:Body></soap:Envelope>'
+    }
+    fetch('https://pvue.lansingschools.net/pvue/Service/PXPCommunication.asmx', cacheHeader).then(function(response) {
+    return response.text()
+  }).then(function(apiGrade) {
+    var periods = (x2js.xml_str2json(x2js.xml_str2json(apiGrade).Envelope.Body.ProcessWebServiceRequestResponse.ProcessWebServiceRequestResult))
+    console.log(periods)
+    for (index = 0; index < periods.Gradebook.Courses.Course.length; ++index) {
+            if(Array.isArray(periods.Gradebook.Courses.Course[index].Marks.Mark) == true){
+
+
+      gpa =  gpa + periods.Gradebook.Courses.Course[index].Marks.Mark[0]._CalculatedScoreRaw * 1 
+      tableStore = tableStore + '<tr><td>' + periods.Gradebook.Courses.Course[index]._Title + '</td><td>' + periods.Gradebook.Courses.Course[index].Marks.Mark[0]._CalculatedScoreString + " ~ " + periods.Gradebook.Courses.Course[index].Marks.Mark[0]._CalculatedScoreRaw + '</td><td>' + periods.Gradebook.Courses.Course[index]._Staff + '</td></tr>';
+
+
+
+            }else{
+
+
+      gpa =  gpa + periods.Gradebook.Courses.Course[index].Marks.Mark._CalculatedScoreRaw * 1 
+      tableStore = tableStore + '<tr><td>' + periods.Gradebook.Courses.Course[index]._Title + '</td><td>' + periods.Gradebook.Courses.Course[index].Marks.Mark._CalculatedScoreString + " - " + periods.Gradebook.Courses.Course[index].Marks.Mark._CalculatedScoreRaw + '</td><td>' + periods.Gradebook.Courses.Course[index]._Staff + '</td></tr>';
+
+
+            }
+    }
+
+console.log(gpa / periods.Gradebook.Courses.Course.length)
+gpa = gpa / periods.Gradebook.Courses.Course.length
+    var section = document.createElement('section');
+    section.className = 'mdl-layout__tab-panel'
+    section.id = periods.Gradebook.ReportingPeriod._GradePeriod.replace(/ /g, "_").split("/").join('-');
+    section.style.display = "none"
+    var div = document.createElement('div')
+    div.className = "page-content"
+    var inside = ('<img src="' + pmge + '" id="image"><h1>Hello, <span id="person">' + pname + '</span></h1><h2>GPA: <span id="gpa">' + calculateGpa(gpa) + '</span></h2><table class="mdl-data-table mdl-js-data-table"><thead><tr><th class="mdl-data-table__cell--non-numeric">Class</th><th>Grade</th><th>Teacher</th></tr></thead><tbody id="tbody">' + tableStore + '</tbody></table>');
+    div.innerHTML = (inside)
+    section.appendChild(div);
+    document.getElementById('infos').appendChild(section)
+    tableStore = ''
+ 
+    gpa = 0
+  });
+  }
+
+        Materialize.toast(' "' +data.Gradebook.ReportingPeriod._GradePeriod+ '" is this marking period', 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+           document.getElementById('SynContent').style.display = ""
+    document.getElementById('logincard').style.display = "none"
+
+
+ }).catch(function(e){
+console.log(e)
+ });
+
+}
+             
+
+
+  fetch('https://pvue.lansingschools.net/pvue/Service/PXPCommunication.asmx', Person)
+  .then(function(response) {
+    return response.text()
+  }).then(function(body) {
+      var data =(x2js.xml_str2json(x2js.xml_str2json(body).Envelope.Body.ProcessWebServiceRequestResponse.ProcessWebServiceRequestResult))
+ console.log(data)
+  try{
+  if(data.RT_ERROR){
+    document.getElementById('error').innerHTML = (data.RT_ERROR._ERROR_MESSAGE)
+    document.getElementById('spinner').style.display = 'none'
+
+
+  }else{
+    dynamGrd()
+  }
+  } catch(e) {
+    console.log(e)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+    
+
+pmge = 'data:image/png;base64,' + data.ChildList.Child.photo
+pname =data.ChildList.Child._ChildFirstName
+
+  
+  }).catch(function(e){
+console.log(e)
+ });
+
+
+}
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66082501-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+
+</html>
