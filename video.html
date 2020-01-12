@@ -1859,16 +1859,15 @@ var currentVideo = {}
 var nextEpisodeCalled = false
 var finishDur = 35
 var nextEpisodeJSON = {}
-mediaPlayer.addEventListener("timeupdate",function(e){
-	if('end' in currentVideo){
+mediaPlayer.addEventListener("timeupdate",nextEpCheck)
+
+function nextEpCheck(){
+		if('end' in currentVideo){
 		finishDur = mediaPlayer.duration -  (currentVideo.end - 2)
 	}else{
 finishDur = 35
 	}
-
-	
-//	console.log(mediaPlayer.duration - mediaPlayer.currentTime)
- if ( nextEpisodeCalled == false && (mediaPlayer.duration - mediaPlayer.currentTime) < finishDur) {
+	 if ( nextEpisodeCalled == false && (mediaPlayer.duration - mediaPlayer.currentTime) < finishDur) {
 if('showData' in localStorage){}else{
 	return;
 }
@@ -1923,7 +1922,7 @@ document.querySelector('.nextImageDIV img').src = next.img
         // nextEpisodeCalled = false
          }
        
-})
+}
 var shold ='' 
 	if(isMobile){
 document.querySelector('.captionHold').style.display='none'
@@ -1958,11 +1957,20 @@ document.querySelector('.captions').innerText = shold
 	},500)
 }
 function nextEpisode(){
+	mediaPlayer.removeEventListener("timeupdate",nextEpCheck)
 console.log(nextEpisodeJSON)
 mediaPlayer.pause()
 currentVideo = {}
 document.querySelector('.nextEpisode').style.transform = 'translate(105%)'
 window.history.replaceState('Object', 'Title', '?'+nextEpisodeJSON.link);
+if (localStorage[window.location.search] > 10 && localStorage[window.location.search+'_duration'] - localStorage[window.location.search] > 35) {
+      startTime = Number(localStorage[window.location.search]);
+      }else{
+      	startTime = -1
+      }
+      hls.config.startPosition = startTime
+      mediaPlayer.addEventListener("timeupdate",nextEpCheck)
+
 findName(nextEpisodeJSON.link)
 nextEpisodeCalled = false;
 tn = []
