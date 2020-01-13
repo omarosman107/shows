@@ -733,7 +733,68 @@ console.timeEnd();
 console.log('started downloading data')
 console.time('download_data') 
 var dupes = []
+function removeDups(names) {
+	dupes = []
+  let unique = [];
+  names.forEach(function(i) {
+  	var mod = 0
+  //	console.log(i.show)
+  	if(!dupes[i.show]){
+  		dupes[i.show] = []
+  	}
+//  	console.log(`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`)
+  	if( `${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}` in dupes[i.show]){
+  		console.log('duplicated episode',
+({name:`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`,file:i,title:i.episode}),
+  			dupes[i.show][`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`])
+  		console.log(i.episode,dupes[i.show][`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`].file.episode )
 
+
+
+  		if(i.episode == dupes[i.show][`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`].file.episode){
+console.log('not extended.')
+// do nothing
+  		}else{
+  			//console.log('prob. extended')
+  			if(i.episode.toLowerCase().includes('extended')){
+  				console.log('deff. ext - replace old one')
+  				  dupes[i.show][`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`] = ({name:`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`,file:i,title:i.episode})
+
+  			}else{
+  				console.log('ext? - cheking one inside')
+if(dupes[i.show][`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`].file.episode.toLowerCase().includes('extended')){
+  				console.log('deff. ext & the one inside already is extended - do nothing')
+mod = 1
+  			}
+  			}
+  			
+  		}
+  	}
+ if(mod == 0){
+ 	dupes[i.show][`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`] = ({name:`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`,file:i,title:i.episode})
+ }
+  
+ 
+  });
+ for (var key in dupes) {
+    if (dupes.hasOwnProperty(key)) {
+   //     console.log(key, dupes[key]);
+for (var z in dupes[key]) {
+    if (dupes[key].hasOwnProperty(z)) {
+// console.log(dupes[key][z].file)
+ unique.push(dupes[key][z].file)
+   }
+}
+
+
+
+    }
+}
+console.log(unique)
+console.log(( finalObj.length - unique.length )+ ' duplicates found and removed!')
+return unique;
+//  return names;
+}
 function loaders(atr) {
   if (atr == 'remove') {
   num--
@@ -744,23 +805,7 @@ console.timeEnd('download_data')
 
 finalObj =  finalObj.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
 
-function removeDups(names) {
-  let unique = {};
-  names.forEach(function(i) {
-  	if(dupes[`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`]){
-  		console.log('duplicated episode')
-  	}
-  	if(!dupes[i.show]){
-  		dupes[i.show] = []
-  	}
-  dupes[i.show].push({name:`${i.show +' '+ i.seasonNumber + ' '+ i.episodeNumber}`,file:i,title:i.episode})
-  	//console.log(i)
-    if(!unique[i]) {
-      unique[i] = true;
-    }
-  });
-  return names;
-}
+
 console.log(removeDups(finalObj))
 var remDups = removeDups(finalObj);
 
@@ -1642,7 +1687,7 @@ return Object.keys(this.seasons).length;
 	upnextshows[episodes[i].show].totalEpisodes += 1
 var isLatest = false
 if(episodes[i].show == 'Riverdale'){
-console.log('rd',episodes[i],episodes[i].length - tempLS["?" + episodes[i].href] < endTime)
+//console.log('rd',episodes[i],episodes[i].length - tempLS["?" + episodes[i].href] < endTime)
 }
 	if (episodes[i].length - tempLS["?" + episodes[i].href] < endTime) {
 		done = true;
@@ -2291,7 +2336,7 @@ showLogos[data.videos[i].series_name] = 'https://www.cwtv.com/images/cw/show-log
       }
       data.videos[i].large_thumbnail = data.videos[i].large_thumbnail.replace('images.cwtv.com','www.cwtv.com')
       data.videos[i].thumbnail = data.videos[i].thumbnail.replace('images.cwtv.com','www.cwtv.com')
-      console.log(data.videos[i].large_thumbnail)
+     // console.log(data.videos[i].large_thumbnail)
       var dyn =  cwdyres(1920)+' 1920w, ' +cwdyres(850) + " 850w  ,"+ cwdyres(682)+' 682w, '+cwdyres(638)+' 638w, ' +  cwdyres(341) + ' 341w '
 
       var dyn = data.videos[i].large_thumbnail + ' 1920w, '+ data.videos[i].large_thumbnail + '?w=1280 1280w,  ' + data.videos[i].thumbnail + ' 720w, ' + data.videos[i].large_thumbnail + '?w=341 341w'

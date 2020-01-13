@@ -575,14 +575,14 @@ color:white;
 
 }
 .nextEpisode {
-	position: absolute;
+    position: absolute;
     bottom: 100%;
     right: 0px;
     z-index: 10;
     transform: translate(105%);
     transition: transform .3s;
-    width: 180px;
-    padding: 0 4.16667vw 2.08333vw;
+    width: 265px;
+    padding: 0 4.16667vw 0.08333vw;
 }
 .nextOverlay{
 	    z-index: 20;
@@ -602,6 +602,7 @@ color:white;
 
 .nextImageDIV {
 	    width: 100%;
+	    display: none;
     position: relative;
     overflow: visible;
     background: linear-gradient(0deg,rgba(0,0,0,.5) 0,transparent);
@@ -836,6 +837,25 @@ z-index: -1;
 
 }
 
+.nextButton {
+    width: 37%;
+    color: white;
+    padding: 10px;
+    display: inline-block;
+    background-color: #6a6a78;
+    border-radius: 7px;
+    margin: 0 9px 0 0px;
+    text-align: center;
+    border: 2px solid rgba(0, 0, 0, 0.27);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.17), 0 0 8px 0 rgba(0,0,0,.12);
+    transition: transform .3s;
+    cursor: pointer;
+}
+.nextButton:hover {
+    transform: translateY(-10px);
+
+}
+
 	</style>
 
 
@@ -975,6 +995,9 @@ onclick='togglePlayPause();'><img class="svgBackground" src="data:image/svg+xml;
 
          <div id='media-controls'>
          	<div class="nextEpisode">
+         			<div onclick="document.querySelector('.nextEpisode').style.transform = 'translate(105%)'
+" class="nextButton"><span>Credits</span></div><div class="nextButton" onclick="nextEpisode()" style="
+"><span>Play Next</span></div>
 	<div class="nextImageDIV">
 		<img width="100%" src="">
 		<div onclick="nextEpisode()" class="nextOverlay"><div class="playbutton">
