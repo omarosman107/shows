@@ -2526,7 +2526,7 @@ continue;
 				//&& showId != '99d3a2c1-fd98-43b9-a7a4-f7872b0eb808'  
 				console.log(shows.data[i].attributes.name)
 
-		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '2dad10ef-8a32-4591-80df-fab41a6cb8b3' && showId != '407db87c-575c-40da-a382-ff3c222b2655') { // the blacklist && heroes
+		if (showId != '384bac0b-0daf-4947-8f93-0f060fe3451b' && showId != '2dad10ef-8a32-4591-80df-fab41a6cb8b3' && showId != '407db87c-575c-40da-a382-ff3c222b2655' && showId != '08d51f10-3640-4294-8c15-88bb5b4f39df') { // the blacklist && heroes
 				 continue;
 			}
 		}
@@ -2574,7 +2574,7 @@ showDetail[shows.data[i].attributes.shortTitle] = {name:shows.data[i].attributes
 			loaders()
 			fetch_retry('https://api.nbc.com/v3.14/videos?filter[type][value][0]=full episode&include=image&fields[images]=internalId,path&fields[videos]=guid,vChipRating,description,runTime,permalink,seasonNumber,episodeNumber,type,title,airdate,images,categories&filter[show]='+showId+'&sort=-airdate&page%5Bsize%5D=20',{cache:'no-store'}).then(function(res){return res.json()}).then(function(episode){
 				console.log(episode)
-				if('next' in episode.links && episode.links.self.includes('407db87c-575c-40da-a382-ff3c222b2655')){
+				if(('next' in episode.links) && (episode.links.self.includes('407db87c-575c-40da-a382-ff3c222b2655') || episode.links.self.includes('08d51f10-3640-4294-8c15-88bb5b4f39df')) ){
 			//		console.log(episode.links.next)
 					nbcloadnext(episode.links.next)
 				}
@@ -2652,6 +2652,7 @@ loaders('remove')
 	nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 
 	nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Good%20Place&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
+	nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=timeless&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 
 //nbcLoadShow('https://api.nbc.com/v3.14/shows?filter[shortTitle]=The%20Blacklist:%20Redemption&fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
 //nbcLoadShow('https://api.nbc.com/v3.14/shows?fields[images]=internalId,path&fields[shows]=genre,internalId,name,shortTitle,sortTitle&filter[active]=1&filter[frontends]=tv&include=image,iosProperties.compactImage,logo,coverImageMobile&sort=-sortTitle')
